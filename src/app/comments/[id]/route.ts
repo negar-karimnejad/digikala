@@ -41,8 +41,7 @@ export async function DELETE(
   );
 
   const deletedComment = comments[index];
-
   comments.splice(index, 1);
-  
+
   return Response.json(deletedComment);
 }

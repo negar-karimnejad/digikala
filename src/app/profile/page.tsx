@@ -1,7 +1,12 @@
-import React from "react";
+import Button from "@/components/Button";
 
 function Profile() {
-  return <h1>Profile</h1>;
+  return (
+    <div>
+      Profile
+      <Button>See Profile</Button>
+    </div>
+  );
 }
 
 export default Profile;
