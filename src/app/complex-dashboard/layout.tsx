@@ -5,13 +5,17 @@ export default function DashboardLayout({
   notifications,
   users,
   revenue,
+  signin,
 }: {
   children: React.ReactNode;
   notifications: React.ReactNode;
   users: React.ReactNode;
   revenue: React.ReactNode;
+  signin: React.ReactNode;
 }) {
-  return (
+  const isLoggedin = true;
+
+  return isLoggedin ? (
     <div>
       <div>{children}</div>
       <div className="flex gap-5">
@@ -22,5 +26,7 @@ export default function DashboardLayout({
         <div>{notifications}</div>
       </div>
     </div>
+  ) : (
+    signin
   );
 }
