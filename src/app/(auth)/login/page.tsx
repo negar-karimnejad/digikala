@@ -5,7 +5,6 @@ function Login() {
   const router = useRouter();
 
   const clickHandler = () => {
-    console.log("ddd");
     router.push("/");
   };
 
