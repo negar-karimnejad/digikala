@@ -5,6 +5,7 @@ function Home() {
     <>
       <h1>home page</h1>
       <Link href="/about">Blog</Link>
+      <Link href="/about">About</Link>
     </>
   );
 }
