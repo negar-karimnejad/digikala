@@ -1,9 +1,15 @@
 import { ShoppingCart } from "lucide-react";
 import Link from "next/link";
-import { DarkMode } from "./DarkMode";
+import { DarkMode } from "./ui/DarkMode";
 import { Button } from "./ui/button";
 import Container from "./ui/container";
+import ProfileButton from "./ui/ProfileButton";
 
+const routes = [
+  { label: "Products", href: "/" },
+  { label: "Categories", href: "/" },
+  { label: "On Sale", href: "/" },
+];
 export default function Header() {
   return (
     <header className="sm:flex sm:justify-between py-3 px-4 border-b">
@@ -12,22 +18,25 @@ export default function Header() {
           <h1 className="text-lg font-bold">
             <Link href="/">STORE NAME</Link>
           </h1>
-          <div className="max-sm:hidden">
-            <Button variant="ghost">
-              <Link href="">Products</Link>
-            </Button>
-            <Button variant="ghost">
-              <Link href="">Categories</Link>
-            </Button>
-            <Button variant="ghost">
-              <Link href="">On Sale</Link>
-            </Button>
-          </div>
+          <nav className="max-md:hidden flex mx-6 items-center space-x-4 lg:space-x-6 ">
+            {routes.map((route) => (
+              <Button key={route.label} variant="ghost" asChild>
+                <Link
+                  href={route.href}
+                  className="font-medium text-sm transition-colors"
+                >
+                  {route.label}
+                </Link>
+              </Button>
+            ))}
+          </nav>
           <div className="flex items-center gap-2">
-            <ShoppingCart />
-            <div>
-              <DarkMode />
-            </div>
+            <Button variant="ghost" size="icon" aria-label="Shopping Cart">
+              <ShoppingCart />
+              <span className="sr-only">Shopping Cart</span>
+            </Button>
+            <DarkMode />
+            <ProfileButton />
           </div>
         </div>
       </Container>
