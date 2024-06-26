@@ -1,5 +1,3 @@
-import Footer from "@/components/Footer";
-import Header from "@/components/Header";
 import "./globals.css";
 
 export const metadata = {
@@ -14,10 +12,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="flex flex-col justify-between h-screen">
-        <Header />
+      <body className="flex flex-col items-center justify-between h-screen">
+        {/* <Header /> */}
         {children}
-        <Footer />
+        {/* <Footer /> */}
       </body>
     </html>
   );
