@@ -1,15 +1,9 @@
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
+import Header from "@/components/Header";
 
 function Home() {
   return (
     <>
-      <h1>home page</h1>
-      <Link href="/about">Blog</Link>
-      <Link href="/about">About</Link>
-      <Button size="lg" variant={"destructive"}>
-        Click me
-      </Button>
+      <Header />
     </>
   );
 }
