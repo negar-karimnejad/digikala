@@ -27,12 +27,27 @@ const NavLinks = () => {
     </>
   );
 };
+
 export default function Header() {
   return (
     <header className="sm:flex sm:justify-between py-3 px-4 border-b">
       <Container>
         <div className="flex justify-between items-center">
+          <nav className="max-md:hidden flex mx-6 items-center space-x-4 lg:space-x-6 ">
+            <NavLinks />
+          </nav>
+          <div className="flex items-center gap-2">
+            <ProfileButton />
+            <DarkMode />
+            <Button variant="ghost" size="icon" aria-label="Shopping Cart">
+              <ShoppingCart />
+              <span className="sr-only">Shopping Cart</span>
+            </Button>
+          </div>
           <div className="flex gap-2">
+            <h1 className="text-lg font-bold">
+              <Link href="/">STORE NAME</Link>
+            </h1>
             <Sheet>
               <SheetTrigger>
                 <Menu className="md:hidden" />
@@ -43,20 +58,6 @@ export default function Header() {
                 </nav>
               </SheetContent>
             </Sheet>
-            <h1 className="text-lg font-bold">
-              <Link href="/">STORE NAME</Link>
-            </h1>
-          </div>
-          <nav className="max-md:hidden flex mx-6 items-center space-x-4 lg:space-x-6 ">
-            <NavLinks />
-          </nav>
-          <div className="flex items-center gap-2">
-            <Button variant="ghost" size="icon" aria-label="Shopping Cart">
-              <ShoppingCart />
-              <span className="sr-only">Shopping Cart</span>
-            </Button>
-            <DarkMode />
-            <ProfileButton />
           </div>
         </div>
       </Container>

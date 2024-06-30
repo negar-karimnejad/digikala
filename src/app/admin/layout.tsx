@@ -10,13 +10,16 @@ export default function AdminLayout({
 }) {
   return (
     <div>
-      <Nav />
       <Container>
-        <div className="grid grid-cols-12 gap-5">
+        <div className="grid grid-cols-12 gap-5 pt-5">
           <div className="col-span-3">
             <Sidebar />
           </div>
-          <div className="col-span-9">{children}</div>
+          <div className="col-span-9">
+            <Nav />
+
+            {children}
+          </div>
         </div>
       </Container>
     </div>
