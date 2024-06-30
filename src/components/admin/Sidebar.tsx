@@ -1,15 +1,26 @@
+"use client";
+
 import { Menu } from "lucide-react";
 import Link from "next/link";
+import { useState } from "react";
 import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
 import SidebarList from "./SidebarList";
 
 export default function Sidebar() {
+  const [sheet, setSheet] = useState(false);
+
+  const toggleSheet = () => setSheet((prev) => !prev);
+  const closeSheet = () => setSheet(false);
+  
   return (
     <div className="border rounded-lg">
       <div className="max-md:hidden">
         <SidebarList />
       </div>
-      <div className="md:hidden max-md:flex max-md:justify-between items-center max-md:px-5 max-md:flex-row-reverse" style={{ direction: "rtl" }}>
+      <div
+        className="md:hidden max-md:flex max-md:justify-between items-center max-md:px-5 max-md:flex-row-reverse"
+        style={{ direction: "rtl" }}
+      >
         <h1 className="font-bold py-5 text-center text-5xl">
           <Link href="/admin">
             <svg
@@ -25,12 +36,12 @@ export default function Sidebar() {
             </svg>
           </Link>
         </h1>
-        <Sheet>
+        <Sheet open={sheet} onOpenChange={toggleSheet}>
           <SheetTrigger>
             <Menu className="md:hidden" />
           </SheetTrigger>
           <SheetContent side="right" className="p-0 w-[300px] sm:w-[400px]">
-            <SidebarList />
+            <SidebarList closeSheet={closeSheet} />
           </SheetContent>
         </Sheet>
       </div>

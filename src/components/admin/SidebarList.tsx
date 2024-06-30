@@ -13,19 +13,27 @@ import Link from "next/link";
 import { Button } from "../ui/button";
 
 const sidebarMenu = [
-  { label: "محصول جدید", icon: <Plus /> },
-  { label: "محصولات", icon: <PackageOpen /> },
-  { label: "سفارشات", icon: <ShoppingBasket /> },
-  { label: "دسته بندی ها", icon: <Layers3 /> },
-  { label: "مشخصات دسته بندی ها", icon: <ListChecks /> },
-  { label: "کاربران", icon: <Users2 /> },
-  { label: "دیدگاه ها", icon: <MessagesSquare /> },
+  { label: "محصول جدید", icon: <Plus />, href: "/admin/new" },
+  { label: "محصولات", icon: <PackageOpen />, href: "/admin/products" },
+  { label: "سفارشات", icon: <ShoppingBasket />, href: "/admin/orders" },
+  { label: "دسته بندی ها", icon: <Layers3 />, href: "/admin/categories" },
+  {
+    label: "مشخصات دسته بندی ها",
+    icon: <ListChecks />,
+    href: "/admin/categories-features",
+  },
+  { label: "کاربران", icon: <Users2 />, href: "/admin/users" },
+  { label: "دیدگاه ها", icon: <MessagesSquare />, href: "/admin/reviews" },
 ];
 
-export default function SidebarList() {
+export default function SidebarList({
+  closeSheet,
+}: {
+  closeSheet?: () => void;
+}) {
   return (
     <div className="flex flex-col justify-center h-full gap-10">
-      <h1 className="font-bold text-center text-5xl py-5">
+      <h1 onClick={closeSheet} className="font-bold text-center text-5xl py-5">
         <Link href="/admin">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -43,9 +51,13 @@ export default function SidebarList() {
       <div>
         <ul>
           {sidebarMenu.map((item, index: number) => (
-            <li key={index} className="px-5 hover:bg-gray-200">
+            <li
+              onClick={closeSheet}
+              key={index}
+              className="px-5 hover:bg-gray-200"
+            >
               <Link
-                href=""
+                href={item.href}
                 className="flex items-center border-t py-4 justify-between"
               >
                 <div className="flex items-center gap-4">
@@ -62,6 +74,8 @@ export default function SidebarList() {
         <Button
           asChild
           variant={"secondary"}
+          //   todo: add logout function
+          onClick={closeSheet}
           className="hover:bg-gray-200 flex justify-start w-full py-7 text-right"
         >
           <Link href="" className="flex gap-4">
