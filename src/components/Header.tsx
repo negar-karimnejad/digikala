@@ -33,9 +33,6 @@ export default function Header() {
     <header className="sm:flex sm:justify-between py-3 px-4 border-b">
       <Container>
         <div className="flex justify-between items-center">
-          <nav className="max-md:hidden flex mx-6 items-center space-x-4 lg:space-x-6 ">
-            <NavLinks />
-          </nav>
           <div className="flex items-center gap-2">
             <ProfileButton />
             <DarkMode />
@@ -44,6 +41,9 @@ export default function Header() {
               <span className="sr-only">Shopping Cart</span>
             </Button>
           </div>
+          <nav className="max-md:hidden flex mx-6 items-center space-x-4 lg:space-x-6 ">
+            <NavLinks />
+          </nav>
           <div className="flex gap-2">
             <h1 className="text-lg font-bold">
               <Link href="/">STORE NAME</Link>

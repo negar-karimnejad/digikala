@@ -10,7 +10,7 @@ import {
   Users2,
 } from "lucide-react";
 import Link from "next/link";
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 
 const sidebarMenu = [
   { label: "محصول جدید", icon: <Plus /> },
@@ -22,10 +22,10 @@ const sidebarMenu = [
   { label: "دیدگاه ها", icon: <MessagesSquare /> },
 ];
 
-export default function Sidebar() {
+export default function SidebarList() {
   return (
-    <div className="border rounded-lg">
-      <h1 className="font-bold py-5 text-center text-5xl">
+    <div className="flex flex-col justify-center h-full gap-10">
+      <h1 className="font-bold text-center text-5xl py-5">
         <Link href="/admin">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -40,36 +40,38 @@ export default function Sidebar() {
           </svg>
         </Link>
       </h1>
-      <ul className="">
-        {sidebarMenu.map((item, index: number) => (
-          <li key={index} className="px-5 hover:bg-gray-200">
-            <Link
-              href=""
-              className="flex items-center border-t py-4 justify-between"
-            >
-              <div className="flex items-center gap-4">
-                <span>{item.icon}</span>
-                <span className="text-gray-700">{item.label}</span>
-              </div>
-              <span>
-                <ChevronLeft size={14} />
-              </span>
-            </Link>
-          </li>
-        ))}
-      </ul>
-      <Button
-        asChild
-        variant={"secondary"}
-        className="hover:bg-gray-200 flex justify-start w-full py-7 text-right"
-      >
-        <Link href="" className="flex gap-4">
-          <span>
-            <LogOut />
-          </span>
-          <span className="text-gray-700">خروج از حساب کاربری</span>
-        </Link>
-      </Button>
+      <div>
+        <ul>
+          {sidebarMenu.map((item, index: number) => (
+            <li key={index} className="px-5 hover:bg-gray-200">
+              <Link
+                href=""
+                className="flex items-center border-t py-4 justify-between"
+              >
+                <div className="flex items-center gap-4">
+                  <span>{item.icon}</span>
+                  <span className="text-gray-700">{item.label}</span>
+                </div>
+                <span>
+                  <ChevronLeft size={14} />
+                </span>
+              </Link>
+            </li>
+          ))}
+        </ul>
+        <Button
+          asChild
+          variant={"secondary"}
+          className="hover:bg-gray-200 flex justify-start w-full py-7 text-right"
+        >
+          <Link href="" className="flex gap-4">
+            <span>
+              <LogOut />
+            </span>
+            <span className="text-gray-700">خروج از حساب کاربری</span>
+          </Link>
+        </Button>
+      </div>
     </div>
   );
 }
