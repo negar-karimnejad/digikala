@@ -13,11 +13,11 @@ datasource db {
 model Product {
   id          String     @id @default(uuid())
   title       String
-  price       Int
+  price       Float
   description String
-  rating      Decimal
+  rating      Int?
   thumbnail   String
-  images      String
+  images      Image[]
   discount    Int
   createdAt   DateTime   @default(now())
   updatedAt   DateTime   @updatedAt
@@ -61,3 +61,4 @@ model Review {
   productId     String?
   Product       Product? @relation(fields: [productId], references: [id])
 }
+
