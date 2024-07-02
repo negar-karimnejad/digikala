@@ -15,7 +15,7 @@ export default function AdminLayout({
           <div className="col-span-3 max-md:col-span-12">
             <Sidebar />
           </div>
-          <div className="col-span-9 max-md:col-span-12">
+          <div className="col-span-9 max-md:col-span-12 px-5">
             {/* <Nav /> */}
             {children}
           </div>
