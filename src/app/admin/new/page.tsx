@@ -1,19 +1,19 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Product } from "@prisma/client";
 import { ErrorMessage, Field, Form, Formik, FormikHelpers } from "formik";
 import { LucideUploadCloud } from "lucide-react";
 import { useFormStatus } from "react-dom";
 import { TypeOf, z } from "zod";
 import { toFormikValidationSchema } from "zod-formik-adapter";
+import { addProduct } from "../_actions/products";
 
 const initialValues: ProductFormInputs = {
   title: "",
   description: "",
   price: 0,
   discount: 0,
-  thumbnail: null as unknown as File, // Initialize thumbnail as null
+  thumbnail: null as unknown as File,
 };
 
 const fileSchema = z.instanceof(File, { message: "Required" });
@@ -35,20 +35,25 @@ const ProductSchema = z.object({
   discount: z
     .number({ required_error: "میزان تخفیف محصول را وارد کنید" })
     .refine((val) => val >= 0, { message: "تخفیف نمی تواند عدد منفی باشد" }),
-  thumbnail: imageSchema.refine(
-    (file) => file.size > 0,
-    "لطفا تصویر را وارد کنید"
-  ),
+  thumbnail: imageSchema.refine((file) => file.size > 0, "Required"),
 });
 
-type ProductFormInputs = TypeOf<typeof ProductSchema>;
+export type ProductFormInputs = TypeOf<typeof ProductSchema>;
 
 export default function ProductForm() {
   const submitHandler = async (
     values: ProductFormInputs,
     { resetForm }: FormikHelpers<ProductFormInputs>
   ) => {
-    console.log(values);
+    const formData = new FormData();
+    formData.append("title", values.title);
+    formData.append("description", values.description);
+    formData.append("price", values.price.toString());
+    formData.append("discount", values.discount.toString());
+    formData.append("thumbnail", values.thumbnail);
+
+    await addProduct(formData);
+    resetForm();
   };
 
   return (
