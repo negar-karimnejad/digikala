@@ -45,6 +45,8 @@ export default function ProductForm() {
     values: ProductFormInputs,
     { resetForm }: FormikHelpers<ProductFormInputs>
   ) => {
+    console.log("values🎂", values);
+
     const formData = new FormData();
     formData.append("title", values.title);
     formData.append("description", values.description);
@@ -171,7 +173,12 @@ export default function ProductForm() {
                   id="thumbnail"
                   name="thumbnail"
                   // required={product == null}
-
+                  onChange={(event) => {
+                    const files = event.currentTarget.files;
+                    if (files && files[0]) {
+                      FormikState.setFieldValue("thumbnail", files[0]);
+                    }
+                  }}
                   className={`opacity-0 h-full w-full bg-transparent border-0 ${
                     errors.thumbnail
                       ? "error-input border-b-2 border-red-500"
