@@ -1,3 +1,4 @@
+import { DeleteDropdownItem } from "@/components/admin/DeleteDropdownItem";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -54,9 +55,15 @@ async function ProductTable() {
               <p>{product.title}</p>
             </TableCell>
             <TableCell>
-              <p>{product.price}</p>
+              <p className="font-iransans whitespace-nowrap">
+                {product.price?.toLocaleString()} تومان
+              </p>
             </TableCell>
-            <TableCell>{product.discount}</TableCell>
+            <TableCell>
+              <div className="bg-red-500 text-white rounded-full text-center px-0.5">
+                {product.discount}%
+              </div>
+            </TableCell>
             <TableCell>
               <DropdownMenu>
                 <DropdownMenuTrigger>
@@ -65,24 +72,12 @@ async function ProductTable() {
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
                   <DropdownMenuItem asChild>
-                    <a download href={`/admin/products/${product.id}/download`}>
-                      Download
-                    </a>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem asChild>
                     <Link href={`/admin/products/${product.id}/edit`}>
-                      Edit
+                      ویرایش
                     </Link>
                   </DropdownMenuItem>
-                  {/* <ActiveToggleDropdownItem
-                    id={product.id}
-                    isAvailableForPurchase={product.isAvailableForPurchase}
-                  />
                   <DropdownMenuSeparator />
-                  <DeleteDropdownItem
-                    id={product.id}
-                    disabled={product._count.orders > 0}
-                  /> */}
+                  <DeleteDropdownItem id={product.id} />
                 </DropdownMenuContent>
               </DropdownMenu>
             </TableCell>
