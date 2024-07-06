@@ -14,7 +14,7 @@ import { Button } from "../ui/button";
 import { DarkMode } from "../ui/DarkMode";
 
 const sidebarMenu = [
-  { label: "محصول جدید", icon: <Plus />, href: "/admin/new" },
+  { label: "محصول جدید", icon: <Plus />, href: "/admin/products/new" },
   { label: "محصولات", icon: <PackageOpen />, href: "/admin/products" },
   { label: "سفارشات", icon: <ShoppingBasket />, href: "/admin/orders" },
   { label: "دسته بندی ها", icon: <Layers3 />, href: "/admin/categories" },
