@@ -1,12 +1,20 @@
 import PageHeader from "@/components/admin/PageHeader";
 import ProductForm from "@/components/admin/ProductForm";
-import React from "react";
+import db from "@/db/db";
 
-export default function EditProductPage() {
+export default async function EditProductPage({
+  params: { id },
+}: {
+  params: { id: string };
+}) {
+  const product = await db.product.findUnique({ where: { id } });
+
+  console.log(product);
+
   return (
     <>
       <PageHeader>ویرایش محصول</PageHeader>
-      <ProductForm />
+      <ProductForm product={product} />
     </>
   );
 }

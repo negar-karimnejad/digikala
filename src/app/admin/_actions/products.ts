@@ -3,7 +3,7 @@
 import db from "@/db/db";
 import fs from "fs/promises";
 import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { TypeOf, z } from "zod";
 
 const fileSchema = z.instanceof(File, { message: "Required" });
@@ -50,6 +50,54 @@ export async function addProduct(prevState: unknown, formData: FormData) {
   );
 
   await db.product.create({
+    data: {
+      title: data.title,
+      description: data.description,
+      price: data.price,
+      discount: data.discount,
+      thumbnail: imagePath,
+    },
+  });
+
+  revalidatePath("/");
+  revalidatePath("/products");
+
+  redirect("/admin/products");
+}
+
+const editSchema = ProductSchema.extend({
+  thumbnail: imageSchema.optional(),
+});
+
+export async function updateProduct(
+  id: string,
+  prevState: unknown,
+  formData: FormData
+) {
+  const result = editSchema.safeParse(Object.fromEntries(formData.entries()));
+
+  if (result.success === false) {
+    return result.error.formErrors.fieldErrors;
+  }
+
+  const data = result.data;
+  const product = await db.product.findUnique({ where: { id } });
+
+  if (product == null) return notFound();
+
+  let imagePath = product.thumbnail;
+
+  if (data.thumbnail != null && data.thumbnail.size > 0) {
+    await fs.unlink(`public${product.thumbnail}`);
+    imagePath = `/products/${crypto.randomUUID()}-${data.thumbnail.name}`;
+    await fs.writeFile(
+      `public${imagePath}`,
+      Buffer.from(await data.thumbnail.arrayBuffer())
+    );
+  }
+
+  await db.product.update({
+    where: { id },
     data: {
       title: data.title,
       description: data.description,
