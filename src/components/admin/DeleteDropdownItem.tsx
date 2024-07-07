@@ -1,10 +1,11 @@
 "use client";
+import { deleteProduct } from "@/app/admin/_actions/products";
+import { Trash2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useTransition } from "react";
 import toast from "react-hot-toast";
-import { DropdownMenuItem } from "../ui/dropdown-menu";
 import { Button } from "../ui/button";
-import { deleteProduct } from "@/app/admin/_actions/products";
+import { DropdownMenuItem } from "../ui/dropdown-menu";
 
 export function DeleteDropdownItem({ id }: { id: string }) {
   const [isPending, startTransition] = useTransition();
@@ -25,8 +26,10 @@ export function DeleteDropdownItem({ id }: { id: string }) {
           variant={"destructive"}
           onClick={() => {
             startTransition(async () => {
+              toast.dismiss(t.id);
               await deleteProduct(id);
               router.refresh();
+              toast.success("محصول با موفقیت حذف شد!");
             });
           }}
         >
@@ -41,8 +44,12 @@ export function DeleteDropdownItem({ id }: { id: string }) {
       variant="destructive"
       disabled={isPending}
       onClick={deleteHandler}
+      asChild
     >
-      حذف
+      <div className="flex w-full justify-end">
+        حذف
+        <Trash2 size={15} className="mx-4" />
+      </div>
     </DropdownMenuItem>
   );
 }

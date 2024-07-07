@@ -15,7 +15,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import db from "@/db/db";
-import { MoreVertical } from "lucide-react";
+import { Edit2, Eye, MoreVertical } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -72,8 +72,21 @@ async function ProductTable() {
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
                   <DropdownMenuItem asChild>
-                    <Link href={`/admin/products/${product.id}/edit`}>
+                    <Link
+                      className="flex w-full justify-end"
+                      href={`/admin/products/${product.id}`}
+                    >
+                      مشاهده
+                      <Eye size={15} className="text-gray-400 mx-4" />
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link
+                      className="flex w-full justify-end"
+                      href={`/admin/products/${product.id}/edit`}
+                    >
                       ویرایش
+                      <Edit2 size={15} className="text-gray-400 mx-4" />
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
