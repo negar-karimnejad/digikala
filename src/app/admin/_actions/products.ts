@@ -112,3 +112,14 @@ export async function updateProduct(
 
   redirect("/admin/products");
 }
+
+export async function deleteProduct(id: string) {
+  const product = await db.product.delete({ where: { id } });
+
+  if (product == null) return notFound();
+
+  await fs.unlink(`public${product.thumbnail}`);
+
+  revalidatePath("/");
+  revalidatePath("/products");
+}

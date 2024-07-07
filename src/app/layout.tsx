@@ -1,6 +1,7 @@
 import { ThemeProvider } from "@/components/ui/theme-provider";
 import { cn } from "@/lib/utils";
 import localFont from "next/font/local";
+import { Toaster } from "react-hot-toast";
 import "./globals.css";
 
 const iranSans = localFont({ src: "../fonts/IranianSans.ttf" });
@@ -30,6 +31,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           {children}
+          <Toaster position="top-center" reverseOrder={false} />
         </ThemeProvider>
       </body>
     </html>

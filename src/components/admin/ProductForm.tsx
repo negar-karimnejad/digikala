@@ -2,6 +2,7 @@
 
 import { addProduct, updateProduct } from "@/app/admin/_actions/products";
 import { Button } from "@/components/ui/button";
+import toast, { Toaster } from "react-hot-toast";
 import { Product } from "@prisma/client";
 import { LucideUploadCloud } from "lucide-react";
 import Image from "next/image";
@@ -14,7 +15,15 @@ export default function ProductForm({ product }: { product?: Product | null }) {
   );
 
   return (
-    <form action={action}>
+    <form
+      action={async (formData) => {
+        await action(formData);
+        if (product == null) {
+          return toast.success("محصول با موفقیت اضافه شد.");
+        }
+        return toast.success("محصول با موفقیت ویرایش شد.");
+      }}
+    >
       <div className="h-20 relative">
         <input
           type="text"
