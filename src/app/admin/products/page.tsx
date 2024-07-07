@@ -1,4 +1,13 @@
 import { DeleteDropdownItem } from "@/components/admin/DeleteDropdownItem";
+import ProductDetails from "@/components/admin/ProductDetails";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -24,16 +33,7 @@ export default function AdminProductsPage() {
 }
 
 async function ProductTable() {
-  const products = await db.product.findMany({
-    select: {
-      id: true,
-      title: true,
-      price: true,
-      discount: true,
-      thumbnail: true,
-    },
-    orderBy: { title: "asc" },
-  });
+  const products = await db.product.findMany({ orderBy: { title: "asc" } });
 
   return (
     <Table>
@@ -43,6 +43,7 @@ async function ProductTable() {
           <TableHead>عنوان</TableHead>
           <TableHead>قیمت</TableHead>
           <TableHead>تخفیف</TableHead>
+          <TableHead></TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
@@ -65,34 +66,43 @@ async function ProductTable() {
               </div>
             </TableCell>
             <TableCell>
-              <DropdownMenu>
-                <DropdownMenuTrigger>
-                  <MoreVertical />
-                  <span className="sr-only">Actions</span>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent>
-                  <DropdownMenuItem asChild>
-                    <Link
-                      className="flex w-full justify-end"
-                      href={`/admin/products/${product.id}`}
-                    >
-                      مشاهده
-                      <Eye size={15} className="text-gray-400 mx-4" />
-                    </Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem asChild>
-                    <Link
-                      className="flex w-full justify-end"
-                      href={`/admin/products/${product.id}/edit`}
-                    >
-                      ویرایش
-                      <Edit2 size={15} className="text-gray-400 mx-4" />
-                    </Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuSeparator />
-                  <DeleteDropdownItem id={product.id} />
-                </DropdownMenuContent>
-              </DropdownMenu>
+              <Dialog>
+                <DropdownMenu>
+                  <DropdownMenuTrigger>
+                    <MoreVertical />
+                    <span className="sr-only">Actions</span>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent>
+                    <DropdownMenuItem>
+                      <DialogTrigger className="flex w-full justify-end items-center">
+                        مشاهده
+                        <Eye size={15} className="text-gray-400 mx-4" />
+                      </DialogTrigger>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem asChild>
+                      <Link
+                        className="flex w-full justify-end items-center"
+                        href={`/admin/products/${product.id}/edit`}
+                      >
+                        ویرایش
+                        <Edit2 size={15} className="text-gray-400 mx-4" />
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuSeparator />
+                    <DeleteDropdownItem id={product.id} />
+                  </DropdownMenuContent>
+                </DropdownMenu>
+                <DialogContent>
+                  <DialogHeader>
+                    <DialogTitle className="w-4/6 mx-auto text-center text-red-500 mb-5 mt-10 leading-8">
+                      {product.title}
+                    </DialogTitle>
+                    <DialogDescription>
+                      <ProductDetails product={product} />
+                    </DialogDescription>
+                  </DialogHeader>
+                </DialogContent>
+              </Dialog>
             </TableCell>
           </TableRow>
         ))}

@@ -58,7 +58,7 @@ export default function SidebarList({
             <li
               onClick={closeSheet}
               key={index}
-              className="px-5 hover:bg-gray-200"
+              className="px-5 dark:hover:bg-neutral-900 hover:bg-neutral-100"
             >
               <Link
                 href={item.href}
@@ -66,7 +66,7 @@ export default function SidebarList({
               >
                 <div className="flex items-center gap-4">
                   <span>{item.icon}</span>
-                  <span className="text-gray-700">{item.label}</span>
+                  <span className="">{item.label}</span>
                 </div>
                 <span>
                   <ChevronLeft size={14} />
@@ -80,14 +80,14 @@ export default function SidebarList({
           variant={"secondary"}
           //   todo: add logout function
           onClick={closeSheet}
-          className="hover:bg-gray-200 flex justify-start w-full py-7 text-right"
+          className="dark:hover:bg-neutral-700 hover:bg-neutral-200 cursor-pointer flex justify-start w-full py-7 text-right"
         >
-          <Link href="" className="flex gap-4">
+          <div className="flex gap-4">
             <span>
               <LogOut />
             </span>
-            <span className="text-gray-700">خروج از حساب کاربری</span>
-          </Link>
+            <span className="">خروج از حساب کاربری</span>
+          </div>
         </Button>
       </div>
     </div>

@@ -119,7 +119,7 @@ export default function ProductForm({ product }: { product?: Product | null }) {
           />
         </div>
       ) : (
-        <div className="h-40 bg-rose-50 dark:border-gray-700 dark:bg-gray-900 rounded-lg border-dashed border-2 border-gray-300">
+        <div className="h-40 bg-red-50 dark:border-gray-700 dark:bg-gray-900 rounded-lg border-dashed border-2 border-gray-300">
           <input
             type="file"
             id="thumbnail"
@@ -128,7 +128,7 @@ export default function ProductForm({ product }: { product?: Product | null }) {
             className="opacity-0 h-full w-full bg-transparent border-0"
           />
           <div className="flex -mt-32 items-center justify-center flex-col gap-2">
-            <LucideUploadCloud size={35} className="text-rose-600" />
+            <LucideUploadCloud size={35} className="text-red-600" />
             <p className="font-medium text-gray-400">
               تصویر محصول را آپلود کنید
             </p>
@@ -159,6 +159,7 @@ const SubmitButton = ({ title }: { title: string }) => {
   return (
     <Button
       type="submit"
+      variant="destructive"
       className="my-5 w-full text-lg font-medium"
       disabled={pending}
     >
