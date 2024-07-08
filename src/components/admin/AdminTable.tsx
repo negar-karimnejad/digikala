@@ -124,6 +124,68 @@ export default function AdminTable({
               </TableCell>
             </TableRow>
           ))}
+        {users &&
+          users.map((user) => (
+            <TableRow key={user.id}>
+              <TableCell className="w-24">
+                {/* <Image
+                  alt={user.name}
+                  height={200}
+                  width={200}
+                  src={product.thumbnail}
+                  className=""
+                /> */}
+              </TableCell>
+              <TableCell>
+                <p>{user.name}</p>
+              </TableCell>
+              <TableCell>
+                <p>{user.email}</p>
+              </TableCell>
+              <TableCell className="max-sm:hidden">
+                <p>{user.role === "USER" ? "کاربر" : "ادمین"}</p>
+              </TableCell>
+              <TableCell>
+                <Dialog>
+                  <DropdownMenu>
+                    <DropdownMenuTrigger>
+                      <MoreVertical />
+                      <span className="sr-only">Actions</span>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent>
+                      <DropdownMenuItem>
+                        <DialogTrigger className="flex w-full justify-end items-center">
+                          مشاهده
+                          <Eye size={15} className="text-gray-400 mx-4" />
+                        </DialogTrigger>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem asChild>
+                        <Link
+                          className="flex w-full justify-end items-center"
+                          href={`/admin/products/${user.id}/edit`}
+                        >
+                          ویرایش
+                          <Edit2 size={15} className="text-gray-400 mx-4" />
+                        </Link>
+                      </DropdownMenuItem>
+                      <DropdownMenuSeparator />
+                      <DeleteDropdownItem id={user.id} />
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                  <DialogContent>
+                    <DialogHeader>
+                      <DialogTitle className="w-4/6 mx-auto text-center text-red-500 mb-5 mt-10 leading-8">
+                        {user.name}
+                      </DialogTitle>
+                      <DialogDescription>
+                        {/* <ProductDetails user={user} /> */}
+                      </DialogDescription>
+                    </DialogHeader>
+                  </DialogContent>
+                </Dialog>
+              </TableCell>
+            </TableRow>
+          ))}
       </TableBody>
     </Table>
   );
