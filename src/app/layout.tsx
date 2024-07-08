@@ -1,10 +1,10 @@
 import { ThemeProvider } from "@/components/ui/theme-provider";
 import { cn } from "@/lib/utils";
 
+import { AuthProvider } from "@/lib/AuthProvider";
 import localFont from "next/font/local";
 import { Toaster } from "react-hot-toast";
 import "./globals.css";
-import { getServerSession } from "next-auth";
 
 const iranSans = localFont({ src: "../fonts/IranianSans.ttf" });
 
@@ -26,7 +26,7 @@ export default async function RootLayout({
           iranSans.className
         )}
       >
-        {/* <SessionProvider session={session}> */}
+        <AuthProvider>
           <ThemeProvider
             attribute="class"
             defaultTheme="system"
@@ -36,7 +36,7 @@ export default async function RootLayout({
             {children}
             <Toaster position="top-center" reverseOrder={false} />
           </ThemeProvider>
-        {/* </SessionProvider> */}
+        </AuthProvider>
       </body>
     </html>
   );
