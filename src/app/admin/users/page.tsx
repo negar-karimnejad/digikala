@@ -5,6 +5,8 @@ import React from "react";
 
 export default async function AdminUsersPage() {
   const users = await db.user.findMany({ orderBy: { createdAt: "asc" } });
+  console.log(users);
+  
   return (
     <>
       <PageHeader>کاربران</PageHeader>
