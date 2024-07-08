@@ -1,9 +1,10 @@
 "use server";
 
 import db from "@/db/db";
+import { Prisma } from "@prisma/client";
+import bcrypt from "bcryptjs";
 import { redirect } from "next/navigation";
 import { z } from "zod";
-import bcrypt from "bcryptjs";
 
 const SignupFormSchema = z.object({
   name: z
@@ -31,14 +32,31 @@ export async function signup(prevState: unknown, formData: FormData) {
   }
   const data = result.data;
   const dashPassword = await bcrypt.hashSync(data.password, 10);
+  try {
+    await db.user.create({
+      data: {
+        name: data.name,
+        email: data.email,
+        password: dashPassword,
+      },
+    });
+    redirect("/login");
+  } catch (error) {
+    console.error("Error creating user:", error);
 
-  await db.user.create({
-    data: {
-      name: data.name,
-      email: data.email,
-      password: dashPassword,
-    },
-  });
-  
-  redirect("/");
+    // Check if the error is a Prisma unique constraint violation
+    if (
+      error instanceof Prisma.PrismaClientKnownRequestError &&
+      error.code === "P2002" &&
+      (error.meta?.target as string[]).includes("email")
+    ) {
+      return {
+        email:
+          "این ایمیل قبلاً ثبت شده است. لطفاً از ایمیل دیگری استفاده کنید.",
+      };
+    }
+
+    // Return a generic error message to the client
+    return { error: "مشکلی در ایجاد کاربر وجود داشت. لطفا دوباره تلاش کنید." };
+  }
 }

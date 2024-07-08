@@ -1,3 +1,5 @@
+"use client";
+
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -9,8 +11,11 @@ import {
 import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "./avatar";
 import { Button } from "./button";
+import { useSession } from "next-auth/react";
 
 export default function ProfileButton() {
+  const session = useSession();
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
