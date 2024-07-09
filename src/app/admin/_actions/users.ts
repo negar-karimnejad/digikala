@@ -2,23 +2,31 @@
 
 import db from "@/db/db";
 import bcrypt from "bcryptjs";
+import { signIn } from "next-auth/react";
 import { redirect } from "next/navigation";
+import toast from "react-hot-toast";
 import { z } from "zod";
 
 const SignupFormSchema = z.object({
-  name: z
-    .string({ required_error: "لطفا نام و نام خانوادگی را وارد کنید" })
-    .min(5, { message: "نام و نام خانوادگی باید حداقل 5 کاراکتر باشد" }),
+  name: z.coerce
+    .string({ required_error: "لطفا نام و نام خانوادگی را وارد کنید." })
+    .min(5, { message: "نام و نام خانوادگی باید حداقل 5 کاراکتر باشد." }),
   email: z
     .string()
-    .min(1, { message: "لطفا ایمیل را وارد کنید" })
-    .email("این ایمیل معتبر نیست"),
+    .min(1, { message: "لطفا ایمیل را وارد کنید." })
+    .email("ایمیل معتبر نیست."),
   password: z
-    .string({ required_error: "لطفا رمز کاربری را وارد کنید" })
-    .min(5, { message: "رمز کاربری باید حداقل 5 کاراکتر باشد" }),
+    .string({ required_error: "لطفا رمز کاربری را وارد کنید." })
+    .min(5, { message: "رمز کاربری باید حداقل 5 کاراکتر باشد." }),
 
   // thumbnail: imageSchema.refine((file) => file.size > 0, "Required"),
 });
+
+type SignupErrors = {
+  name?: string;
+  email?: string;
+  password?: string;
+};
 
 export async function signup(prevState: unknown, formData: FormData) {
   const result = SignupFormSchema.safeParse(
@@ -26,11 +34,11 @@ export async function signup(prevState: unknown, formData: FormData) {
   );
 
   if (result.success === false) {
-    return result.error.formErrors.fieldErrors;
+    return result.error.formErrors.fieldErrors as SignupErrors;
   }
 
   const data = result.data;
-  const dashPassword = await bcrypt.hashSync(data.password, 10);
+  const dashPassword = bcrypt.hashSync(data.password, 10);
 
   try {
     await db.user.create({
@@ -42,22 +50,17 @@ export async function signup(prevState: unknown, formData: FormData) {
     });
 
     redirect("/login");
-  } catch (error) {
-    console.error("Error creating user:", error);
-
-    // Check if the error is a Prisma unique constraint violation
+  } catch (error: any) {
     if (
-      error instanceof Prisma.PrismaClientKnownRequestError &&
       error.code === "P2002" &&
-      (error.meta?.target as string[]).includes("email")
+      error.meta &&
+      error.meta.target.includes("email")
     ) {
       return {
         email:
           "این ایمیل قبلاً ثبت شده است. لطفاً از ایمیل دیگری استفاده کنید.",
       };
     }
-
-    // Return a generic error message to the client
-    return { error: "مشکلی در ایجاد کاربر وجود داشت. لطفا دوباره تلاش کنید." };
+    throw error; // Re-throw the error if it's not a unique constraint violation
   }
 }

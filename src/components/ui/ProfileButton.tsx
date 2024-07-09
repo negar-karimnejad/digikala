@@ -14,7 +14,7 @@ import { Button } from "./button";
 import { useSession } from "next-auth/react";
 
 export default function ProfileButton() {
-  const session = useSession();
+  const { data, status } = useSession();
 
   return (
     <DropdownMenu>
@@ -26,7 +26,7 @@ export default function ProfileButton() {
         </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56">
-        <DropdownMenuLabel>{session.data?.user?.name}</DropdownMenuLabel>
+        <DropdownMenuLabel>{data?.user?.name}</DropdownMenuLabel>
         <DropdownMenuSeparator />
 
         <DropdownMenuItem>

@@ -3,11 +3,16 @@
 import { signup } from "@/app/admin/_actions/users";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import { useFormState, useFormStatus } from "react-dom";
 
 export default function Register() {
   const [error, action] = useFormState(signup, {});
+
+  const session = useSession();
+  if (session) redirect("/");
 
   return (
     <div className="flex items-center justify-center">
@@ -42,9 +47,10 @@ export default function Register() {
             type="name"
             id="name"
             name="name"
-            required
             autoFocus
-            className="bg-transparent py-5 border rounded-lg"
+            className={`bg-transparent py-5 border rounded-lg ${
+              error.name ? "border-red-500" : ""
+            }`}
           />
           {error.name && (
             <div className="text-destructive text-[12px]">{error.name}</div>
@@ -53,11 +59,12 @@ export default function Register() {
             لطفا ایمیل خود را وارد کنید
           </label>
           <Input
-            type="email"
+            type="text"
             id="email"
             name="email"
-            required
-            className="bg-transparent py-5 border rounded-lg"
+            className={`bg-transparent py-5 border rounded-lg ${
+              error.email ? "border-red-500" : ""
+            }`}
           />
           {error.email && (
             <div className="text-destructive text-[12px]">{error.email}</div>
@@ -67,10 +74,11 @@ export default function Register() {
           </label>
           <Input
             type="password"
-            required
             id="password"
             name="password"
-            className="bg-transparent py-5 border rounded-lg"
+            className={`bg-transparent py-5 border rounded-lg ${
+              error.password ? "border-red-500" : ""
+            }`}
           />
           {error.password && (
             <div className="text-destructive text-[12px]">{error.password}</div>

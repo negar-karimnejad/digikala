@@ -155,19 +155,11 @@ export default function AdminTable({
                     <DropdownMenuContent>
                       <DropdownMenuItem>
                         <DialogTrigger className="flex w-full justify-end items-center">
-                          مشاهده
-                          <Eye size={15} className="text-gray-400 mx-4" />
-                        </DialogTrigger>
-                      </DropdownMenuItem>
-                      <DropdownMenuItem asChild>
-                        <Link
-                          className="flex w-full justify-end items-center"
-                          href={`/admin/products/${user.id}/edit`}
-                        >
                           ویرایش
                           <Edit2 size={15} className="text-gray-400 mx-4" />
-                        </Link>
+                        </DialogTrigger>
                       </DropdownMenuItem>
+
                       <DropdownMenuSeparator />
                       <DeleteDropdownItem id={user.id} />
                     </DropdownMenuContent>
@@ -178,7 +170,7 @@ export default function AdminTable({
                         {user.name}
                       </DialogTitle>
                       <DialogDescription>
-                        {/* <ProductDetails user={user} /> */}
+                        <UserUpdateForm user={user} />
                       </DialogDescription>
                     </DialogHeader>
                   </DialogContent>
@@ -190,3 +182,4 @@ export default function AdminTable({
     </Table>
   );
 }
+

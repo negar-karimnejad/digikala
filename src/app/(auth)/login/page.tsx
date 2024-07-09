@@ -2,11 +2,62 @@
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import Link from "next/link";
+import { redirect, useRouter } from "next/navigation";
+import { useState } from "react";
 import { useFormStatus } from "react-dom";
+import toast from "react-hot-toast";
+import { z } from "zod";
+
+const loginSchema = z.object({
+  email: z.string().email("ایمیل نامعتبر است."),
+  password: z.string().min(6, "رمز عبور باید حداقل 5 کاراکتر باشد."),
+});
+
+type LoginForm = z.infer<typeof loginSchema>;
 
 export default function Login() {
+  const router = useRouter();
+  const [errors, setErrors] = useState<{ email?: string; password?: string }>(
+    {}
+  );
+
+  const onSubmitHandler = async (formData: FormData) => {
+    const result = loginSchema.safeParse(
+      Object.fromEntries(formData.entries())
+    );
+
+    if (!result.success) {
+      const errorMessages: { email?: string; password?: string } = {};
+      result.error.errors.forEach((error) => {
+        errorMessages[error.path[0] as keyof LoginForm] = error.message;
+      });
+      setErrors(errorMessages);
+      return;
+    }
+
+    setErrors({});
+
+    const data = result.data;
+
+    await signIn("credentials", {
+      email: data.email,
+      password: data.password,
+      redirect: false,
+    }).then(({ error }: any) => {
+      if (error) {
+        toast.error("ایمیل یا رمز کاربری نادرست است.");
+      } else {
+        toast.success("از دیدنت خوشحالیم!");
+        router.push("/");
+      }
+    });
+  };
+
+  const session = useSession();
+
+  if (session) redirect("/");
   return (
     <div className="flex items-center justify-center">
       <div className="md:w-[410px] w-full mt-16 flex flex-col gap-3 md:border rounded-lg p-8">
@@ -32,17 +83,7 @@ export default function Login() {
           </Link>
         </p>
         <p className="text-[12px] text-right mt-5">سلام!</p>
-        <form
-          action={async (formData: FormData) => {
-            const { email, password } = Object.fromEntries(formData.entries());
-            await signIn("credentials", {
-              email,
-              password,
-              callbackUrl: "/",
-            });
-          }}
-          className="flex flex-col gap-2 w-full"
-        >
+        <form action={onSubmitHandler} className="flex flex-col gap-2 w-full">
           <label htmlFor="name" className="text-[12px]">
             لطفا ایمیل خود را وارد کنید
           </label>
@@ -50,25 +91,25 @@ export default function Login() {
             type="email"
             id="email"
             name="email"
-            required
             className="bg-transparent py-5 border rounded-lg"
           />
-          {/* {error.email && (
-            <div className="text-destructive text-[12px]">{error.email}</div>
-          )} */}
+          {errors.email && (
+            <div className="text-destructive text-[12px]">{errors.email}</div>
+          )}
           <label htmlFor="password" className="text-[12px]">
             لطفا پسورد خود را وارد کنید
           </label>
           <Input
             type="password"
-            required
             id="password"
             name="password"
             className="bg-transparent py-5 border rounded-lg"
           />
-          {/* {error.password && (
-            <div className="text-destructive text-[12px]">{error.password}</div>
-          )} */}
+          {errors.password && (
+            <div className="text-destructive text-[12px]">
+              {errors.password}
+            </div>
+          )}
           <SubmitButton />
         </form>
         <small className="text-gray-600 dark:text-gray-300 mx-auto text-[10px] sm:text-[12px] mt-1">
