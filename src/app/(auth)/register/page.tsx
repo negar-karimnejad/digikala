@@ -27,7 +27,12 @@ export default function Register() {
             </svg>
           </Link>
         </h1>
-        <p className="text-xl font-medium text-right">ورود | ثبت نام</p>
+        <p className="text-xl font-medium text-right">
+          <Link className="hover:text-red-500" href="/login">
+            ورود{" "}
+          </Link>
+          | ثبت نام
+        </p>
         <p className="text-[12px] text-right mt-5">سلام!</p>
         <form action={action} className="flex flex-col gap-2 w-full">
           <label htmlFor="name" className="text-[12px]">
@@ -92,7 +97,7 @@ const SubmitButton = () => {
   const { pending } = useFormStatus();
   return (
     <Button disabled={pending} type="submit" className="rounded-lg mt-8">
-      {pending ? "در حال انتظار..." : "ورود"}
+      {pending ? "در حال انتظار..." : "ثبت نام"}
     </Button>
   );
 };

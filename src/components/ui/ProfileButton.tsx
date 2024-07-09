@@ -26,7 +26,7 @@ export default function ProfileButton() {
         </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56">
-        <DropdownMenuLabel>My Account</DropdownMenuLabel>
+        <DropdownMenuLabel>{session.data?.user?.name}</DropdownMenuLabel>
         <DropdownMenuSeparator />
 
         <DropdownMenuItem>

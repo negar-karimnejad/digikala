@@ -1,7 +1,6 @@
 "use server";
 
 import db from "@/db/db";
-import { Prisma } from "@prisma/client";
 import bcrypt from "bcryptjs";
 import { redirect } from "next/navigation";
 import { z } from "zod";
@@ -14,7 +13,6 @@ const SignupFormSchema = z.object({
     .string()
     .min(1, { message: "لطفا ایمیل را وارد کنید" })
     .email("این ایمیل معتبر نیست"),
-  // .refine((e) => e === "abcd@fg.com", "این ایمیل موجود نیست"),
   password: z
     .string({ required_error: "لطفا رمز کاربری را وارد کنید" })
     .min(5, { message: "رمز کاربری باید حداقل 5 کاراکتر باشد" }),
@@ -30,8 +28,10 @@ export async function signup(prevState: unknown, formData: FormData) {
   if (result.success === false) {
     return result.error.formErrors.fieldErrors;
   }
+
   const data = result.data;
   const dashPassword = await bcrypt.hashSync(data.password, 10);
+
   try {
     await db.user.create({
       data: {
@@ -40,6 +40,7 @@ export async function signup(prevState: unknown, formData: FormData) {
         password: dashPassword,
       },
     });
+
     redirect("/login");
   } catch (error) {
     console.error("Error creating user:", error);
