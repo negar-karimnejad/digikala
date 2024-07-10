@@ -57,7 +57,7 @@ export default function Login() {
 
   const session = useSession();
 
-  if (session) redirect("/");
+  if (session.status === "authenticated") redirect("/");
   return (
     <div className="flex items-center justify-center">
       <div className="md:w-[410px] w-full mt-16 flex flex-col gap-3 md:border rounded-lg p-8">

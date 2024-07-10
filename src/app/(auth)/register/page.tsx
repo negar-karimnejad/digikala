@@ -12,7 +12,8 @@ export default function Register() {
   const [error, action] = useFormState(signup, {});
 
   const session = useSession();
-  if (session) redirect("/");
+
+  if (session.status === "authenticated") redirect("/");
 
   return (
     <div className="flex items-center justify-center">

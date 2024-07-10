@@ -11,7 +11,7 @@ import {
 import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "./avatar";
 import { Button } from "./button";
-import { useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 
 export default function ProfileButton() {
   const { data, status } = useSession();
@@ -45,7 +45,11 @@ export default function ProfileButton() {
           </Link>
         </DropdownMenuItem>
         <DropdownMenuItem asChild>
-          <Button variant="secondary" className="block w-full text-left">
+          <Button
+            onClick={() => signOut()}
+            variant="secondary"
+            className="block w-full text-left"
+          >
             Logout
           </Button>
         </DropdownMenuItem>
