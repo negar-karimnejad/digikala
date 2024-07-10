@@ -5,18 +5,29 @@ import { Button } from "@/components/ui/button";
 import { Product } from "@prisma/client";
 import { LucideUploadCloud } from "lucide-react";
 import Image from "next/image";
+import { useState } from "react";
 import { useFormState, useFormStatus } from "react-dom";
 import toast from "react-hot-toast";
 
 export default function ProductForm({ product }: { product?: Product | null }) {
+  const [file, setFile] = useState<File | null>(null);
   const [error, action] = useFormState(
     product == null ? addProduct : updateProduct.bind(null, product.id),
     {}
   );
 
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      setFile(e.target.files[0]);
+    }
+  };
+
   return (
     <form
       action={async (formData) => {
+        if (file) {
+          formData.append("thumbnail", file);
+        }
         await action(formData);
         if (product == null) {
           return toast.success("محصول با موفقیت اضافه شد.");
@@ -116,6 +127,7 @@ export default function ProductForm({ product }: { product?: Product | null }) {
             name="thumbnail"
             required={product == null}
             className="h-full w-full"
+            onChange={handleFileChange}
           />
         </div>
       ) : (
@@ -126,11 +138,20 @@ export default function ProductForm({ product }: { product?: Product | null }) {
             name="thumbnail"
             required={product == null}
             className="opacity-0 h-full w-full bg-transparent border-0"
+            onChange={handleFileChange}
           />
           <div className="flex -mt-32 items-center justify-center flex-col gap-2">
             <LucideUploadCloud size={35} className="text-red-600" />
             <p className="font-medium text-gray-400">
-              تصویر محصول را آپلود کنید
+              {file != null ? (
+                <span className="text-center flex flex-col items-center justify-center">
+                  تصویر آپلود شد
+                  <br />
+                  {file?.name}
+                </span>
+              ) : (
+                "تصویر محصول را آپلود کنید"
+              )}
             </p>
           </div>
           {error.thumbnail && (
