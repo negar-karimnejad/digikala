@@ -1,5 +1,7 @@
 "use client";
+
 import { deleteProduct } from "@/app/admin/_actions/products";
+import { deleteUser } from "@/app/admin/_actions/users";
 import { Trash2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useTransition } from "react";
@@ -7,14 +9,20 @@ import toast from "react-hot-toast";
 import { Button } from "../ui/button";
 import { DropdownMenuItem } from "../ui/dropdown-menu";
 
-export function DeleteDropdownItem({ id }: { id: string }) {
+export function DeleteDropdownItem({
+  productId,
+  userId,
+}: {
+  productId?: string;
+  userId?: string;
+}) {
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
 
   const deleteHandler = () => {
     toast((t) => (
       <div>
-        حذف محصول:
+        حذف {`${productId ? "محصول" : "کاربر"}`}:
         <Button
           className="ml-1 mr-5"
           variant={"secondary"}
@@ -27,9 +35,19 @@ export function DeleteDropdownItem({ id }: { id: string }) {
           onClick={() => {
             startTransition(async () => {
               toast.dismiss(t.id);
-              await deleteProduct(id);
+              if (userId) {
+                await deleteUser(userId);
+              } else if (productId) {
+                await deleteProduct(productId);
+              }
               router.refresh();
-              toast.success("محصول با موفقیت حذف شد!");
+              toast.success(
+                `${
+                  productId
+                    ? "محصول با موفقیت حذف شد!"
+                    : "کاربر با موفقیت حذف شد!"
+                }`
+              );
             });
           }}
         >

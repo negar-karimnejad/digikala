@@ -2,12 +2,16 @@
 
 import db from "@/db/db";
 import bcrypt from "bcryptjs";
-import { signIn } from "next-auth/react";
-import { redirect } from "next/navigation";
-import toast from "react-hot-toast";
+import { revalidatePath } from "next/cache";
+import { notFound, redirect } from "next/navigation";
 import { z } from "zod";
+import fs from "fs/promises";
 
-const SignupFormSchema = z.object({
+const avatarSchema = z
+  .instanceof(File, { message: "Required" })
+  .refine((file) => file.size === 0 || file.type.startsWith("image/"));
+
+const UserSchema = z.object({
   name: z.coerce
     .string({ required_error: "لطفا نام و نام خانوادگی را وارد کنید." })
     .min(5, { message: "نام و نام خانوادگی باید حداقل 5 کاراکتر باشد." }),
@@ -19,7 +23,7 @@ const SignupFormSchema = z.object({
     .string({ required_error: "لطفا رمز کاربری را وارد کنید." })
     .min(5, { message: "رمز کاربری باید حداقل 5 کاراکتر باشد." }),
 
-  // thumbnail: imageSchema.refine((file) => file.size > 0, "Required"),
+  avatar: avatarSchema.refine((file) => file.size > 0, "Required"),
 });
 
 type SignupErrors = {
@@ -29,9 +33,7 @@ type SignupErrors = {
 };
 
 export async function signup(prevState: unknown, formData: FormData) {
-  const result = SignupFormSchema.safeParse(
-    Object.fromEntries(formData.entries())
-  );
+  const result = UserSchema.safeParse(Object.fromEntries(formData.entries()));
 
   if (result.success === false) {
     return result.error.formErrors.fieldErrors as SignupErrors;
@@ -46,6 +48,7 @@ export async function signup(prevState: unknown, formData: FormData) {
         name: data.name,
         email: data.email,
         password: dashPassword,
+        avatar: "",
       },
     });
 
@@ -63,4 +66,61 @@ export async function signup(prevState: unknown, formData: FormData) {
     }
     throw error; // Re-throw the error if it's not a unique constraint violation
   }
+}
+
+const updateSchema = UserSchema.extend({
+  role: z.string(),
+  avatar: avatarSchema.optional(),
+});
+
+export async function updateUser(
+  id: string,
+  prevState: unknown,
+  formData: FormData
+) {
+  const result = updateSchema.safeParse(Object.fromEntries(formData.entries()));
+  if (result.success === false) {
+    return result.error.formErrors.fieldErrors;
+  }
+  const data = result.data;
+
+  const user = await db.user.findUnique({ where: { id } });
+  if (user == null) return notFound();
+
+  let avatarPath = user.avatar;
+
+  if (data.avatar != null && data.avatar.size > 0) {
+    await fs.unlink(`public${user.avatar}`);
+    avatarPath = `/users/${crypto.randomUUID()}-${data.avatar.name}`;
+    await fs.writeFile(
+      `public${avatarPath}`,
+      Buffer.from(await data.avatar.arrayBuffer())
+    );
+  }
+  await db.user.update({
+    where: { id },
+    data: {
+      name: data.name,
+      password: data.password,
+      role: data.role,
+      avatar: avatarPath,
+    },
+  });
+  revalidatePath("/");
+  revalidatePath("/users");
+
+  redirect("/admin/users");
+}
+
+export async function deleteUser(id: string) {
+  const user = await db.user.delete({ where: { id } });
+
+  if (user == null) return notFound();
+
+  await fs.unlink(`public${user.avatar}`);
+
+  revalidatePath("/");
+  revalidatePath("/users");
+
+  redirect("/admin/users");
 }

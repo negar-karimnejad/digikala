@@ -2,11 +2,11 @@
 
 import { addProduct, updateProduct } from "@/app/admin/_actions/products";
 import { Button } from "@/components/ui/button";
-import toast, { Toaster } from "react-hot-toast";
 import { Product } from "@prisma/client";
 import { LucideUploadCloud } from "lucide-react";
 import Image from "next/image";
 import { useFormState, useFormStatus } from "react-dom";
+import toast from "react-hot-toast";
 
 export default function ProductForm({ product }: { product?: Product | null }) {
   const [error, action] = useFormState(
