@@ -37,6 +37,7 @@ export default function AdminTable({
   products?: Product[] | null;
   users?: User[] | null;
 }) {
+
   return (
     <div>
       <Table className="max-sm:overflow-x-auto">
@@ -135,7 +136,7 @@ export default function AdminTable({
                     alt={user.name ? user.name : "user image"}
                     height={250}
                     width={250}
-                    src={avatar}
+                    src={user.avatar ? user.avatar : avatar}
                     className="rounded-full"
                   />
                 </TableCell>
@@ -157,32 +158,19 @@ export default function AdminTable({
                         <span className="sr-only">Actions</span>
                       </DropdownMenuTrigger>
                       <DropdownMenuContent>
-                        <DropdownMenuItem>
-                          <DialogTrigger className="flex w-full justify-end items-center">
+                        <DropdownMenuItem asChild>
+                          <Link
+                            className="flex w-full justify-end items-center"
+                            href={`/admin/users/${user.id}/edit`}
+                          >
                             ویرایش
                             <Edit2 size={15} className="text-gray-400 mx-4" />
-                          </DialogTrigger>
+                          </Link>
                         </DropdownMenuItem>
                         <DropdownMenuSeparator />
                         <DeleteDropdownItem userId={user.id} />
                       </DropdownMenuContent>
                     </DropdownMenu>
-                    <DialogContent>
-                      <DialogHeader>
-                        <DialogTitle className="text-red-500 mb-5 mt-10">
-                          <Image
-                            src={user?.avatar ? user?.avatar : avatar}
-                            height={80}
-                            width={80}
-                            alt="user Image"
-                            className="object-cover border rounded-full mx-auto"
-                          />
-                        </DialogTitle>
-                        <DialogDescription>
-                          <UserUpdateForm user={user} />
-                        </DialogDescription>
-                      </DialogHeader>
-                    </DialogContent>
                   </Dialog>
                 </TableCell>
               </TableRow>

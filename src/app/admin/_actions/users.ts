@@ -22,8 +22,6 @@ const UserSchema = z.object({
   password: z
     .string({ required_error: "لطفا رمز کاربری را وارد کنید." })
     .min(5, { message: "رمز کاربری باید حداقل 5 کاراکتر باشد." }),
-
-  // avatar: avatarSchema.refine((file) => file.size > 0, "Required"),
 });
 
 type SignupErrors = {
@@ -35,7 +33,7 @@ type SignupErrors = {
 
 export async function signup(prevState: unknown, formData: FormData) {
   const result = UserSchema.safeParse(Object.fromEntries(formData.entries()));
-  console.log("✔✔",result.data);
+  console.log("✔✔", result.data);
 
   if (result.success === false) {
     return result.error.formErrors.fieldErrors as SignupErrors;
@@ -71,8 +69,11 @@ export async function signup(prevState: unknown, formData: FormData) {
 }
 
 const updateSchema = UserSchema.extend({
-  role: z.string(),
-  avatar: avatarSchema.optional(),
+  // role: z.string(),
+  avatar: avatarSchema.refine((file) => file.size > 0, "Required").optional(),
+}).refine((data) => (data.password ? data.password.length >= 5 : true), {
+  message: "رمز کاربری باید حداقل 5 کاراکتر باشد.",
+  path: ["password"],
 });
 
 export async function updateUser(
@@ -81,6 +82,7 @@ export async function updateUser(
   formData: FormData
 ) {
   const result = updateSchema.safeParse(Object.fromEntries(formData.entries()));
+
   if (result.success === false) {
     return result.error.formErrors.fieldErrors;
   }
@@ -99,15 +101,18 @@ export async function updateUser(
       Buffer.from(await data.avatar.arrayBuffer())
     );
   }
+
   await db.user.update({
     where: { id },
     data: {
       name: data.name,
       password: data.password,
-      role: data.role,
+      // role: data.role,
       avatar: avatarPath,
+      email: data.email,
     },
   });
+
   revalidatePath("/");
   revalidatePath("/users");
 

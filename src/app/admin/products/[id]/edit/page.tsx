@@ -9,8 +9,6 @@ export default async function EditProductPage({
 }) {
   const product = await db.product.findUnique({ where: { id } });
 
-  console.log(product);
-
   return (
     <>
       <PageHeader>ویرایش محصول</PageHeader>
