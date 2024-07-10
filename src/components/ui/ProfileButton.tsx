@@ -46,7 +46,7 @@ export default function ProfileButton() {
         </DropdownMenuItem>
         <DropdownMenuItem asChild>
           <Button
-            // onClick={() => signOut()}
+            onClick={() => signOut()}
             variant="secondary"
             className="block w-full text-left"
           >

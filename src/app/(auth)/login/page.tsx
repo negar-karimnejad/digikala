@@ -50,7 +50,6 @@ export default function Login() {
         toast.error("ایمیل یا رمز کاربری نادرست است.");
       } else {
         toast.success("از دیدنت خوشحالیم!");
-        router.push("/");
       }
     });
   };

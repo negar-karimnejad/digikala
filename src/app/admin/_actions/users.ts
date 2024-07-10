@@ -23,23 +23,26 @@ const UserSchema = z.object({
     .string({ required_error: "لطفا رمز کاربری را وارد کنید." })
     .min(5, { message: "رمز کاربری باید حداقل 5 کاراکتر باشد." }),
 
-  avatar: avatarSchema.refine((file) => file.size > 0, "Required"),
+  // avatar: avatarSchema.refine((file) => file.size > 0, "Required"),
 });
 
 type SignupErrors = {
   name?: string;
   email?: string;
   password?: string;
+  avatar?: string;
 };
 
 export async function signup(prevState: unknown, formData: FormData) {
   const result = UserSchema.safeParse(Object.fromEntries(formData.entries()));
+  console.log("✔✔",result.data);
 
   if (result.success === false) {
     return result.error.formErrors.fieldErrors as SignupErrors;
   }
 
   const data = result.data;
+
   const dashPassword = bcrypt.hashSync(data.password, 10);
 
   try {
@@ -48,7 +51,6 @@ export async function signup(prevState: unknown, formData: FormData) {
         name: data.name,
         email: data.email,
         password: dashPassword,
-        avatar: "",
       },
     });
 
