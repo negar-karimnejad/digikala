@@ -14,11 +14,11 @@ export default function Sidebar() {
 
   return (
     <div className="border rounded-lg">
-      <div className="max-md:hidden">
+      <div className="max-lg:hidden">
         <SidebarList />
       </div>
       <div
-        className="md:hidden max-md:flex max-md:justify-between items-center max-md:px-5 max-md:flex-row-reverse"
+        className="lg:hidden max-lg:flex max-lg:justify-between items-center max-lg:px-5 max-lg:flex-row-reverse"
         style={{ direction: "rtl" }}
       >
         <h1 className="font-bold py-5 text-center text-5xl">
@@ -38,7 +38,7 @@ export default function Sidebar() {
         </h1>
         <Sheet open={sheet} onOpenChange={toggleSheet}>
           <SheetTrigger>
-            <Menu className="md:hidden" />
+            <Menu className="lg:hidden" />
           </SheetTrigger>
           <SheetContent side="right" className="p-0 w-[300px] sm:w-[400px]">
             <SidebarList closeSheet={closeSheet} />

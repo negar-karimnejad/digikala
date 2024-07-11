@@ -24,10 +24,9 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Product, User } from "@prisma/client";
-import { Edit2, Eye, MoreVertical, User2 } from "lucide-react";
+import { Edit2, Eye, MoreVertical } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import UserUpdateForm from "./UserUpdateForm";
 import avatar from "./../../../public/avatar/avatar1.png";
 
 export default function AdminTable({
@@ -64,20 +63,22 @@ export default function AdminTable({
           {products &&
             products.map((product) => (
               <TableRow key={product.id}>
-                <TableCell className="w-24">
-                  <Image
-                    alt={product.title}
-                    height={200}
-                    width={200}
-                    src={product.thumbnail}
-                    className=""
-                  />
+                <TableCell>
+                  <div className="w-20">
+                    <Image
+                      alt={product.title}
+                      height={100}
+                      width={100}
+                      className="rounded-full w-16 h-16 object-cover"
+                      src={product.thumbnail}
+                    />
+                  </div>
                 </TableCell>
                 <TableCell>
-                  <p>{product.title}</p>
+                  <p className="w-52 max-w-64">{product.title}</p>
                 </TableCell>
                 <TableCell>
-                  <p className="font-iransans text-center">
+                  <p className="font-iransans text-center whitespace-nowrap">
                     {product.price?.toLocaleString()} تومان
                   </p>
                 </TableCell>

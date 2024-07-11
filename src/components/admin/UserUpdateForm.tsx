@@ -120,8 +120,8 @@ export default function UserUpdateForm({ user }: { user: User }) {
       {user.avatar && (
         <Image
           src={user.avatar}
-          height={200}
-          width={300}
+          height={100}
+          width={100}
           alt="User Avatar"
           className="object-cover border rounded-lg mx-auto"
         />
