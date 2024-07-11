@@ -1,6 +1,15 @@
 "use client";
 
 import { updateUser } from "@/app/admin/_actions/users";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { User } from "@prisma/client";
 import { useFormState, useFormStatus } from "react-dom";
 import toast from "react-hot-toast";
@@ -40,8 +49,9 @@ export default function UserUpdateForm({ user }: { user: User }) {
             type="email"
             id="email"
             name="email"
+            disabled
             defaultValue={user?.email}
-            className="peer max-h-20 block w-full appearance-none rounded-t-lg border-0 border-b-2 border-gray-300 bg-gray-50 px-2.5 pb-2.5 pt-5 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0 dark:border-gray-600 dark:bg-gray-900 dark:text-white dark:focus:border-blue-500"
+            className="disabled:cursor-not-allowed disabled:opacity-80 peer max-h-20 block w-full appearance-none rounded-t-lg border-0 border-b-2 border-gray-300 bg-gray-50 px-2.5 pb-2.5 pt-5 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0 dark:border-gray-600 dark:bg-gray-900 dark:text-white dark:focus:border-blue-500"
           />
           {error.email && (
             <div className="text-destructive text-[12px]">{error.email}</div>
@@ -54,7 +64,8 @@ export default function UserUpdateForm({ user }: { user: User }) {
           </label>
         </div>
       </div>
-      <div className="mb-5 text-right">
+
+      <div className="mb-5 text-right flex items-center justify-between">
         <label htmlFor="avatar" className="pb-2 text-sm pr-3 text-gray-500">
           پروفایل
         </label>
@@ -65,6 +76,18 @@ export default function UserUpdateForm({ user }: { user: User }) {
           required
           className="h-full w-full dark:border-gray-700 dark:bg-gray-900 rounded-lg border border-gray-100 p-1"
         />
+        <Select>
+          <SelectTrigger className="w-[180px]">
+            <SelectValue placeholder="Select a fruit" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectGroup>
+              <SelectLabel>نقش</SelectLabel>
+              <SelectItem value="USER">USER</SelectItem>
+              <SelectItem value="ADMIN">ADMIN</SelectItem>
+            </SelectGroup>
+          </SelectContent>
+        </Select>
       </div>
       <SubmitButton />
     </form>

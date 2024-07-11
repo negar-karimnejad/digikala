@@ -37,7 +37,6 @@ export default function AdminTable({
   products?: Product[] | null;
   users?: User[] | null;
 }) {
-
   return (
     <div>
       <Table className="max-sm:overflow-x-auto">
@@ -131,17 +130,19 @@ export default function AdminTable({
           {users &&
             users.map((user) => (
               <TableRow key={user.id}>
-                <TableCell className="w-24">
-                  <Image
-                    alt={user.name ? user.name : "user image"}
-                    height={250}
-                    width={250}
-                    src={user.avatar ? user.avatar : avatar}
-                    className="rounded-full"
-                  />
+                <TableCell>
+                  <div className="w-20">
+                    <Image
+                      alt={user.name ? user.name : "user image"}
+                      height={100}
+                      width={100}
+                      src={user.avatar ? user.avatar : avatar}
+                      className="rounded-full w-16 h-16 object-cover"
+                    />
+                  </div>
                 </TableCell>
                 <TableCell>
-                  <p>{user.name}</p>
+                  <p className="whitespace-nowrap">{user.name}</p>
                 </TableCell>
                 <TableCell>
                   <p>{user.email}</p>
@@ -149,7 +150,6 @@ export default function AdminTable({
                 <TableCell>
                   <p>{user.role === "USER" ? "کاربر" : "ادمین"}</p>
                 </TableCell>
-                <TableCell></TableCell>
                 <TableCell>
                   <Dialog>
                     <DropdownMenu>

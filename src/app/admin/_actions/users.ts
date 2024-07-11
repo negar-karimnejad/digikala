@@ -68,12 +68,21 @@ export async function signup(prevState: unknown, formData: FormData) {
   }
 }
 
-const updateSchema = UserSchema.extend({
+const updateSchema = z.object({
+  name: z.coerce
+    .string({ required_error: "لطفا نام و نام خانوادگی را وارد کنید." })
+    .min(5, { message: "نام و نام خانوادگی باید حداقل 5 کاراکتر باشد." }),
+  email: z
+    .string()
+    .min(1, { message: "لطفا ایمیل را وارد کنید." })
+    .email("ایمیل معتبر نیست.")
+    .optional(),
+  password: z
+    .string({ required_error: "لطفا رمز کاربری را وارد کنید." })
+    .min(5, { message: "رمز کاربری باید حداقل 5 کاراکتر باشد." })
+    .optional(),
   // role: z.string(),
   avatar: avatarSchema.refine((file) => file.size > 0, "Required").optional(),
-}).refine((data) => (data.password ? data.password.length >= 5 : true), {
-  message: "رمز کاربری باید حداقل 5 کاراکتر باشد.",
-  path: ["password"],
 });
 
 export async function updateUser(
@@ -94,7 +103,9 @@ export async function updateUser(
   let avatarPath = user.avatar;
 
   if (data.avatar != null && data.avatar.size > 0) {
-    await fs.unlink(`public${user.avatar}`);
+    if (user.avatar) {
+      await fs.unlink(`public${user.avatar}`);
+    }
     avatarPath = `/users/${crypto.randomUUID()}-${data.avatar.name}`;
     await fs.writeFile(
       `public${avatarPath}`,
@@ -106,10 +117,7 @@ export async function updateUser(
     where: { id },
     data: {
       name: data.name,
-      password: data.password,
-      // role: data.role,
       avatar: avatarPath,
-      email: data.email,
     },
   });
 
