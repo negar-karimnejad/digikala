@@ -6,22 +6,27 @@ import {
   SelectContent,
   SelectGroup,
   SelectItem,
-  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
 import { User } from "@prisma/client";
+import { useState } from "react";
 import { useFormState, useFormStatus } from "react-dom";
 import toast from "react-hot-toast";
 import { Button } from "../ui/button";
 
 export default function UserUpdateForm({ user }: { user: User }) {
   const [error, action] = useFormState(updateUser.bind(null, user.id), {});
+  const [role, setRole] = useState(user.role || "USER");
 
   return (
     <form
       action={async (formData) => {
+        formData.append("role", role);
         await action(formData);
+        if (error) {
+          return;
+        }
         return toast.success("کاربر با موفقیت به روزرسانی شد.");
       }}
     >
@@ -65,29 +70,36 @@ export default function UserUpdateForm({ user }: { user: User }) {
         </div>
       </div>
 
-      <div className="mb-5 text-right flex items-center justify-between">
-        <label htmlFor="avatar" className="pb-2 text-sm pr-3 text-gray-500">
-          پروفایل
-        </label>
-        <input
-          type="file"
-          id="avatar"
-          name="avatar"
-          required
-          className="h-full w-full dark:border-gray-700 dark:bg-gray-900 rounded-lg border border-gray-100 p-1"
-        />
-        <Select>
-          <SelectTrigger className="w-[180px]">
-            <SelectValue placeholder="Select a fruit" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectGroup>
-              <SelectLabel>نقش</SelectLabel>
-              <SelectItem value="USER">USER</SelectItem>
-              <SelectItem value="ADMIN">ADMIN</SelectItem>
-            </SelectGroup>
-          </SelectContent>
-        </Select>
+      <div className="mb-5 text-right flex items-center gap-10 justify-between">
+        <div className="w-full">
+          <label
+            htmlFor="role"
+            className="pb-2 text-sm pr-3 text-gray-500"
+          ></label>
+          <Select dir="rtl" required onValueChange={(value) => setRole(value)}>
+            <SelectTrigger className="">
+              <SelectValue placeholder="نقش کاربر" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup>
+                <SelectItem value="USER">کاربر عادی</SelectItem>
+                <SelectItem value="ADMIN">مدیر</SelectItem>
+              </SelectGroup>
+            </SelectContent>
+          </Select>
+        </div>
+        <div className="w-full">
+          <label htmlFor="avatar" className="pb-2 text-sm pr-3 text-gray-500">
+            پروفایل
+          </label>
+          <input
+            type="file"
+            id="avatar"
+            name="avatar"
+            required={user.avatar == null}
+            className="h-full w-full dark:border-gray-700 dark:bg-gray-900 rounded-lg p-1"
+          />
+        </div>
       </div>
       <SubmitButton />
     </form>

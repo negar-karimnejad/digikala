@@ -81,7 +81,7 @@ const updateSchema = z.object({
     .string({ required_error: "لطفا رمز کاربری را وارد کنید." })
     .min(5, { message: "رمز کاربری باید حداقل 5 کاراکتر باشد." })
     .optional(),
-  // role: z.string(),
+  role: z.string(),
   avatar: avatarSchema.refine((file) => file.size > 0, "Required").optional(),
 });
 
@@ -93,6 +93,7 @@ export async function updateUser(
   const result = updateSchema.safeParse(Object.fromEntries(formData.entries()));
 
   if (result.success === false) {
+    console.log(result, "😘👌😉❤😜");
     return result.error.formErrors.fieldErrors;
   }
   const data = result.data;
@@ -117,6 +118,7 @@ export async function updateUser(
     where: { id },
     data: {
       name: data.name,
+      role: data.role,
       avatar: avatarPath,
     },
   });
