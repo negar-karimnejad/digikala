@@ -12,6 +12,7 @@ import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "./avatar";
 import { Button } from "./button";
 import { signOut, useSession } from "next-auth/react";
+import toast from "react-hot-toast";
 
 export default function ProfileButton() {
   const { data, status } = useSession();
@@ -46,7 +47,14 @@ export default function ProfileButton() {
         </DropdownMenuItem>
         <DropdownMenuItem asChild>
           <Button
-            onClick={() => signOut()}
+            onClick={() => {
+              try {
+                signOut();
+                toast.success("از حساب خود خارج شدید.");
+              } catch (error) {
+                console.log(error);
+              }
+            }}
             variant="secondary"
             className="block w-full text-left"
           >

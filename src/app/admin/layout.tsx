@@ -1,13 +1,18 @@
-import Nav from "@/components/Nav";
 import Sidebar from "@/components/admin/Sidebar";
 import Container from "@/components/ui/container";
+import { getServerSession } from "next-auth";
+import { useSession } from "next-auth/react";
+import { redirect } from "next/navigation";
 import React from "react";
 
-export default function AdminLayout({
+export default async function AdminLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const session = await getServerSession();
+  if (!session?.user) redirect("/");
+
   return (
     <div>
       <Container>

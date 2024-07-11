@@ -9,9 +9,11 @@ import {
   ShoppingBasket,
   Users2,
 } from "lucide-react";
+import { signOut } from "next-auth/react";
 import Link from "next/link";
 import { Button } from "../ui/button";
 import { DarkMode } from "../ui/DarkMode";
+import toast from "react-hot-toast";
 
 const sidebarMenu = [
   { label: "محصول جدید", icon: <Plus />, href: "/admin/products/new" },
@@ -78,8 +80,15 @@ export default function SidebarList({
         <Button
           asChild
           variant={"secondary"}
-          //   todo: add logout function
-          onClick={closeSheet}
+          onClick={() => {
+            closeSheet;
+            try {
+              signOut();
+              toast.success("از حساب خود خارج شدید.");
+            } catch (error) {
+              console.log(error);
+            }
+          }}
           className="dark:hover:bg-neutral-700 hover:bg-neutral-200 cursor-pointer flex justify-start w-full py-7 text-right"
         >
           <div className="flex gap-4">
