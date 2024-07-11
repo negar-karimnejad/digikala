@@ -59,7 +59,6 @@ export default function ProductForm({ product }: { product?: Product | null }) {
         <textarea
           id="description"
           name="description"
-          placeholder=""
           required
           rows={8}
           defaultValue={product?.description || ""}
@@ -137,8 +136,8 @@ export default function ProductForm({ product }: { product?: Product | null }) {
             id="thumbnail"
             name="thumbnail"
             required={product == null}
-            className="opacity-0 h-full w-full bg-transparent border-0"
             onChange={handleFileChange}
+            className="opacity-0 h-full w-full bg-transparent border-0"
           />
           <div className="flex -mt-32 items-center justify-center flex-col gap-2">
             <LucideUploadCloud size={35} className="text-red-600" />

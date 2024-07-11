@@ -82,7 +82,7 @@ const updateSchema = z.object({
     .min(5, { message: "رمز کاربری باید حداقل 5 کاراکتر باشد." })
     .optional(),
   role: z.string(),
-  avatar: avatarSchema.refine((file) => file.size > 0, "Required").optional(),
+  avatar: avatarSchema.optional(),
 });
 
 export async function updateUser(
@@ -93,7 +93,6 @@ export async function updateUser(
   const result = updateSchema.safeParse(Object.fromEntries(formData.entries()));
 
   if (result.success === false) {
-    console.log(result, "😘👌😉❤😜");
     return result.error.formErrors.fieldErrors;
   }
   const data = result.data;
@@ -134,10 +133,10 @@ export async function deleteUser(id: string) {
 
   if (user == null) return notFound();
 
-  await fs.unlink(`public${user.avatar}`);
+  if (user.avatar) {
+    await fs.unlink(`public${user.avatar}`);
+  }
 
   revalidatePath("/");
   revalidatePath("/users");
-
-  redirect("/admin/users");
 }

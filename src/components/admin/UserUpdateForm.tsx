@@ -10,6 +10,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { User } from "@prisma/client";
+import Image from "next/image";
 import { useState } from "react";
 import { useFormState, useFormStatus } from "react-dom";
 import toast from "react-hot-toast";
@@ -18,16 +19,28 @@ import { Button } from "../ui/button";
 export default function UserUpdateForm({ user }: { user: User }) {
   const [error, action] = useFormState(updateUser.bind(null, user.id), {});
   const [role, setRole] = useState(user.role || "USER");
+  const [file, setFile] = useState<File | null>(null);
+
+  const handleAvatarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      setFile(e.target.files[0]);
+    }
+  };
 
   return (
     <form
       action={async (formData) => {
+        if (file) {
+          formData.append("avatar", file);
+        }
         formData.append("role", role);
         await action(formData);
         if (error) {
+          console.log(error);
           return;
+        } else {
+          return toast.success("کاربر با موفقیت به روزرسانی شد.");
         }
-        return toast.success("کاربر با موفقیت به روزرسانی شد.");
       }}
     >
       <div className="h-20 relative">
@@ -70,7 +83,7 @@ export default function UserUpdateForm({ user }: { user: User }) {
         </div>
       </div>
 
-      <div className="mb-5 text-right flex items-center gap-10 justify-between">
+      <div className="mb-5 text-right">
         <div className="w-full">
           <label
             htmlFor="role"
@@ -88,6 +101,8 @@ export default function UserUpdateForm({ user }: { user: User }) {
             </SelectContent>
           </Select>
         </div>
+      </div>
+      <div className="mb-5 text-right">
         <div className="w-full">
           <label htmlFor="avatar" className="pb-2 text-sm pr-3 text-gray-500">
             پروفایل
@@ -97,10 +112,20 @@ export default function UserUpdateForm({ user }: { user: User }) {
             id="avatar"
             name="avatar"
             required={user.avatar == null}
+            onChange={handleAvatarChange}
             className="h-full w-full dark:border-gray-700 dark:bg-gray-900 rounded-lg p-1"
           />
         </div>
       </div>
+      {user.avatar && (
+        <Image
+          src={user.avatar}
+          height={200}
+          width={300}
+          alt="User Avatar"
+          className="object-cover border rounded-lg mx-auto"
+        />
+      )}
       <SubmitButton />
     </form>
   );
