@@ -69,14 +69,14 @@ export default function Header() {
             <NavLinks />
           </nav> */}
           <div className="flex items-center gap-2">
-            <DarkMode />
-            <div className="w-[0.5px] h-6 bg-gray-300 ml-2"></div>
             <ProfileButton />
             <div className="w-[0.5px] h-6 bg-gray-300 mr-2"></div>
             <Button variant="ghost" size="icon" aria-label="Shopping Cart">
               <ShoppingCart />
               <span className="sr-only">Shopping Cart</span>
             </Button>
+            <div className="w-[0.5px] h-6 bg-gray-300"></div>
+            <DarkMode />
           </div>
         </div>
       </Container>

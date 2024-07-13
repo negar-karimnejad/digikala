@@ -61,9 +61,9 @@ export default function Login() {
   const session = useSession();
 
   if (session.status === "authenticated" && redirectedLogin) {
-    redirect("/admin");
+    router.push("/admin");
   } else if (session.status === "authenticated" && !redirectedLogin) {
-    redirect("/");
+    router.push("/");
   }
 
   return (
