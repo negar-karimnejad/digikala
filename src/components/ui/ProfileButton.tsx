@@ -91,10 +91,10 @@ export default function ProfileButton() {
           </DropdownMenuContent>
         </DropdownMenu>
       ) : (
-        <Button variant={"outline"} className="hover:bg-transparent" asChild>
+        <Button variant={"outline"} className="hover:bg-transparent " asChild>
           <Link href="/register">
-            <LogIn size={15} className="ml-2"/>
-            ورود | ثبت نام
+            <LogIn size={19} className="ml-2 transform scale-x-[-1]" />
+            <span>ورود | ثبت نام</span>
           </Link>
         </Button>
       )}
