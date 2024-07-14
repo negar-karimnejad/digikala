@@ -15,6 +15,7 @@ import toast from "react-hot-toast";
 import Logo from "../Logo";
 import { Button } from "../ui/button";
 import { DarkMode } from "../ui/DarkMode";
+import { useRouter } from "next/navigation";
 
 const sidebarMenu = [
   { label: "محصول جدید", icon: <Plus />, href: "/admin/products/new" },
@@ -35,6 +36,41 @@ export default function SidebarList({
 }: {
   closeSheet?: () => void;
 }) {
+  const router = useRouter();
+
+  const signoutHandler = () => {
+    closeSheet;
+    toast(
+      (t) => (
+        <div>
+          از حساب کاربری خود خارج می شوید؟
+          <div className="flex justify-end mt-3">
+            <Button
+              className="ml-1 mr-5 "
+              variant={"secondary"}
+              onClick={() => toast.dismiss(t.id)}
+            >
+              انصراف
+            </Button>
+            <Button
+              className=""
+              variant={"destructive"}
+              onClick={async () => {
+                await signOut();
+                toast.dismiss(t.id);
+                router.refresh();
+                toast.success("از حساب خود خارج شدید.");
+              }}
+            >
+              خروج از حساب
+            </Button>
+          </div>
+        </div>
+      ),
+      { position: "top-left" }
+    );
+  };
+
   return (
     <div className="flex flex-col justify-center h-full gap-10">
       <div className="py-5 flex items-center justify-center gap-2">
@@ -69,15 +105,7 @@ export default function SidebarList({
         <Button
           asChild
           variant={"secondary"}
-          onClick={() => {
-            closeSheet;
-            try {
-              signOut();
-              toast.success("از حساب خود خارج شدید.");
-            } catch (error) {
-              console.log(error);
-            }
-          }}
+          onClick={signoutHandler}
           className="dark:hover:bg-neutral-700 hover:bg-neutral-200 cursor-pointer flex justify-start w-full py-7 text-right"
         >
           <div className="flex gap-4">

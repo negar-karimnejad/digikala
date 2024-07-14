@@ -28,7 +28,7 @@ export function DeleteDropdownItem({
           variant={"secondary"}
           onClick={() => toast.dismiss(t.id)}
         >
-          نه، بیخیال
+          انصراف
         </Button>
         <Button
           variant={"destructive"}

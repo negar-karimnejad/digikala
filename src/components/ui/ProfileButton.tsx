@@ -5,29 +5,75 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { ChevronDown, LogIn, User2 } from "lucide-react";
+import {
+  Bell,
+  ChevronDown,
+  ChevronLeft,
+  Heart,
+  LogIn,
+  LogOut,
+  MessageCircle,
+  ShoppingBag,
+  User2,
+} from "lucide-react";
 import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { Avatar, AvatarFallback, AvatarImage } from "./avatar";
 import { Button } from "./button";
 
 export default function ProfileButton() {
   const { data } = useSession();
+  const router = useRouter();
+
+  const signoutHandler = () => {
+    toast(
+      (t) => (
+        <div>
+          از حساب کاربری خود خارج می شوید؟
+          <div className="flex justify-end mt-3">
+            <Button
+              className="ml-1 mr-5 "
+              variant={"secondary"}
+              onClick={() => toast.dismiss(t.id)}
+            >
+              انصراف
+            </Button>
+            <Button
+              className=""
+              variant={"destructive"}
+              onClick={async () => {
+                await signOut();
+                toast.dismiss(t.id);
+                router.refresh();
+                toast.success("از حساب خود خارج شدید.");
+              }}
+            >
+              خروج از حساب
+            </Button>
+          </div>
+        </div>
+      ),
+      { position: "top-left" }
+    );
+  };
 
   return (
     <>
       {data?.user ? (
-        <DropdownMenu>
+        <DropdownMenu dir="rtl">
           <DropdownMenuTrigger asChild>
             {data?.user?.image ? (
               <div className="relative ml-2">
                 <Avatar className="h-9 w-9">
-                  <AvatarImage src={data.user.image} />
-                  <AvatarFallback>JP</AvatarFallback>
+                  <AvatarImage src={data.user.image} className="object-cover" />
+                  <AvatarFallback className="text-red-500 p-0.5">
+                    {data.user.name?.split(" ")[0].slice(0, 1)}{" "}
+                    {data.user.name?.split(" ")[1].slice(0, 1)}
+                  </AvatarFallback>
                   <span className="sr-only">Toggle user menu</span>
                 </Avatar>
                 <ChevronDown className="absolute bottom-2 -left-4" size={15} />
@@ -42,56 +88,79 @@ export default function ProfileButton() {
               </div>
             )}
           </DropdownMenuTrigger>
-          <DropdownMenuContent className="w-56">
-            <DropdownMenuLabel>{data?.user?.name}</DropdownMenuLabel>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>
+          <DropdownMenuContent className="w-60 p-0">
+            <DropdownMenuLabel className="border-b w-full px-4 py-5 hover:bg-gray-100 text-base font-medium text-gray-700">
               <Link
-                href="#"
-                className="block w-full text-left"
+                className="w-full text-left flex justify-between items-center transition-all duration-500"
+                href="/profile"
+              >
+                {data?.user?.name}
+                <ChevronLeft size={18} />
+              </Link>
+            </DropdownMenuLabel>
+            <DropdownMenuItem className="text-gray-600 m-0 p-0">
+              <Link
+                href="/profile/orders"
+                className="flex w-full items-center text-left gap-6 px-4 transition-all duration-500 hover:bg-gray-100 h-full"
                 prefetch={false}
               >
-                Profile
+                <ShoppingBag size={24} />
+                <span className="border-b py-4 w-full text-right text-base">
+                  سفارش‌ها
+                </span>
               </Link>
             </DropdownMenuItem>
-            <DropdownMenuItem>
+            <DropdownMenuItem className="text-gray-600 m-0 p-0">
               <Link
-                href="#"
-                className="block w-full text-left"
+                href="/profile/lists"
+                className=" flex w-full items-center text-left gap-6 px-4 transition-all duration-500 hover:bg-gray-100 h-full"
                 prefetch={false}
               >
-                Billing
+                <Heart size={24} />
+                <span className="border-b py-4 w-full text-right text-base">
+                  لیست‌ها
+                </span>
               </Link>
             </DropdownMenuItem>
-            <DropdownMenuItem>
+            <DropdownMenuItem className="text-gray-600 m-0 p-0">
               <Link
-                href="/"
-                className="block w-full text-left"
+                href="/profile/comments"
+                className=" flex w-full items-center text-left gap-6 px-4 transition-all duration-500 hover:bg-gray-100 h-full"
                 prefetch={false}
               >
-                Subscription
+                <MessageCircle size={24} />
+                <span className="border-b py-4 w-full text-right text-base">
+                  دیدگاه‌ها
+                </span>
               </Link>
             </DropdownMenuItem>
-            <DropdownMenuItem asChild>
-              <Button
-                onClick={() => {
-                  try {
-                    signOut();
-                    toast.success("از حساب خود خارج شدید.");
-                  } catch (error) {
-                    console.log(error);
-                  }
-                }}
-                variant="secondary"
-                className="block w-full text-left"
+            <DropdownMenuItem className="text-gray-600 m-0 p-0">
+              <Link
+                href="/profile/notification"
+                className="flex w-full items-center text-left gap-6 px-4 transition-all duration-500 hover:bg-gray-100 h-full"
+                prefetch={false}
               >
-                Logout
-              </Button>
+                <Bell size={24} />
+                <span className="border-b py-4 w-full text-right text-base">
+                  پیغام ها
+                </span>
+              </Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem className="text-gray-600 m-0 p-0" asChild>
+              <button
+                onClick={signoutHandler}
+                className="flex w-full items-center text-left gap-6 px-4 transition-all duration-500 hover:bg-gray-100 h-full"
+              >
+                <LogOut size={24} />
+                <span className="border-b py-4 w-full text-right text-base">
+                  خروج از حساب کاربری
+                </span>
+              </button>
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       ) : (
-        <Button variant={"outline"} className="hover:bg-transparent " asChild>
+        <Button variant={"outline"} className="hover:bg-transparent" asChild>
           <Link href="/register">
             <LogIn size={19} className="ml-2 transform scale-x-[-1]" />
             <span>ورود | ثبت نام</span>
