@@ -1,24 +1,28 @@
+"use client";
+
+import { categories } from "@/data/data";
 import {
-  Armchair,
   BadgePercent,
-  Book,
+  ChevronLeft,
   CreditCard,
   Flame,
-  GalleryHorizontalEnd,
-  Gem,
-  HeartPulse,
-  Home,
-  Laptop,
   MapPin,
   Menu,
-  PencilRuler,
-  Phone,
-  Refrigerator,
-  Shirt,
   ShoppingBasket,
-  Smartphone,
 } from "lucide-react";
 import Link from "next/link";
+import { useState } from "react";
+
+interface Category {
+  id: number;
+  title: string;
+  icon: JSX.Element;
+  href: string;
+  submenu: {
+    title: string;
+    list: string[];
+  }[];
+}
 
 const links = [
   {
@@ -32,32 +36,97 @@ const links = [
 ];
 
 export default function Navbar() {
+  const [isShowMenu, setIsShowMenu] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState<Category | null>(
+    categories.find((category) => category.id === 1) || null
+  );
+
+  const hoverHandler = (categoryId: number) => {
+    const category = categories.find(
+      (category: Category) => category.id === categoryId
+    );
+    if (category) {
+      setSelectedCategory(category);
+    }
+  };
+
   return (
     <nav className="border-b shadow-sm max-lg:hidden duration-700 px-4">
       <div className="flex items-center justify-between">
         <div className="flex items-center">
-          <div className="relative group flex items-center gap-2 py-3 cursor-pointer">
+          <div
+            onMouseEnter={() => setIsShowMenu(true)}
+            onMouseLeave={() => setIsShowMenu(false)}
+            className="relative group flex items-center gap-2 py-3 cursor-pointer"
+          >
             <Menu size={17} />
             <span className="font-medium ">دسته بندی کالاها</span>
-            <span className="absolute bottom-0 left-0 h-0.5 bg-red-500 transition-all duration-900 ease-linear group-hover:w-full w-0"></span>
-            <div className="fixed w-full h-full mt-12 bg-black/50 right-0 top-20  group-hover:opacity-100 transition-all">
-              <div className="mr-4 grid grid-cols-12 top-12 border bg-white right-0 max-w-4xl shadow-sm">
-                <div className="bg-gray-100 max-h-[25.5rem] overflow-y-auto col-span-3">
-                  <ul>
-                    {categories.map((category) => (
-                      <li key={category.id}>
-                        <Link
-                          href={category.href}
-                          className="transition-all px-3 py-4 border border-gray-100 hover:border-gray-200 hover:font-bold hover:text-red-500 hover:bg-white text-gray-600 flex items-center gap-2 text-sm"
-                        >
-                          {category.icon}
-                          {category.title}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
+            <span
+              className={`absolute bottom-0 left-0 h-0.5 bg-red-500 transition-all duration-900 ease-linear ${
+                isShowMenu ? "w-full" : "w-0"
+              }`}
+            ></span>
+            <div
+              onMouseMove={() => setIsShowMenu(false)}
+              className={`fixed w-full h-full mt-12 bg-black/50 right-0 top-20 transition-all ${
+                isShowMenu ? "block" : "hidden"
+              }`}
+            >
+              <div
+                onMouseMove={(e) => e.stopPropagation()}
+                className="mr-4 grid grid-cols-12 top-12 border bg-white right-0 max-w-6xl shadow-sm"
+              >
+                <div className="bg-gray-100 max-h-[25.5rem] overflow-y-auto col-span-2">
+                  {categories.map((category) => (
+                    <div
+                      onMouseEnter={() => hoverHandler(category.id)}
+                      key={category.id}
+                    >
+                      <Link
+                        href={category.href}
+                        className={`transition-all px-3 py-5 border border-gray-100 hover:border-gray-200 hover:font-bold hover:text-red-500 hover:bg-white text-gray-600 flex items-center gap-2 text-[12px] font-bold ${
+                          selectedCategory?.id === category.id
+                            ? "border-gray-200 font-bold text-red-500 bg-white"
+                            : ""
+                        }`}
+                      >
+                        {category.icon}
+                        {category.title}
+                      </Link>
+                    </div>
+                  ))}
                 </div>
-                <div className="col-span-9">j</div>
+                <div className="col-span-10 p-4 max-h-[25.5rem] overflow-y-auto">
+                  <h2 className="text-sky-500 text-sm flex items-center gap-1">
+                    <Link href="" className="flex items-center">
+                      همه محصولات {selectedCategory?.title}
+                      <ChevronLeft size={15} />
+                    </Link>
+                  </h2>
+                  <div className="mt-5 grid grid-cols-12 gap-y-7">
+                    {selectedCategory?.submenu.map((menu) => (
+                      <div key={menu.title} className="col-span-3">
+                        <h3 className="text-sm text-gray-700 font-bold flex items-center hover:text-red-500 transition-all">
+                          <span className="text-red-500 font-bold ml-2">|</span>
+                          <Link href="" className="flex items-center">
+                            {menu.title}
+                            <ChevronLeft size={15} />
+                          </Link>
+                        </h3>
+                        <div className="space-y-4 mt-5">
+                          {menu.list.map((item) => (
+                            <div
+                              className="text-gray-500 text-sm hover:text-red-500 transition-all"
+                              key={item}
+                            >
+                              <Link href="">{item}</Link>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -107,29 +176,3 @@ const NavLinks = () => {
     </>
   );
 };
-
-const categories = [
-  { id: 1, title: "موبایل", icon: <Smartphone size={16} />, href: "/" },
-  {
-    id: 2,
-    title: "کتاب، لوازم التحریر",
-    icon: <PencilRuler size={16} />,
-    href: "/",
-  },
-  { id: 3, title: "کالای دیجیتال", icon: <Laptop size={16} />, href: "/" },
-  { id: 4, title: "مد و پوشاک", icon: <Shirt size={16} />, href: "/" },
-  { id: 5, title: "آرایشی بهداشتی", icon: <HeartPulse size={16} />, href: "/" },
-  {
-    id: 6,
-    title: "لوازم خانگی برقی",
-    icon: <Refrigerator size={16} />,
-    href: "/",
-  },
-  { id: 7, title: "خانه و آشپزخانه", icon: <Armchair size={16} />, href: "/" },
-  {
-    id: 8,
-    title: "طلا و نقره",
-    icon: <Gem size={16} />,
-    href: "/",
-  },
-];
