@@ -20,7 +20,11 @@ interface Category {
   href: string;
   submenu: {
     title: string;
-    list: string[];
+    href: string;
+    list: {
+      title: string;
+      href: string;
+    }[];
   }[];
 }
 
@@ -98,7 +102,10 @@ export default function Navbar() {
                 </div>
                 <div className="col-span-10 p-4 max-h-[25.5rem] overflow-y-auto">
                   <h2 className="text-sky-500 text-sm flex items-center gap-1">
-                    <Link href="" className="flex items-center">
+                    <Link
+                      href={selectedCategory?.href || "/"}
+                      className="flex items-center"
+                    >
                       همه محصولات {selectedCategory?.title}
                       <ChevronLeft size={15} />
                     </Link>
@@ -108,7 +115,7 @@ export default function Navbar() {
                       <div key={menu.title} className="col-span-3">
                         <h3 className="text-sm text-gray-700 font-bold flex items-center hover:text-red-500 transition-all">
                           <span className="text-red-500 font-bold ml-2">|</span>
-                          <Link href="" className="flex items-center">
+                          <Link href={menu.href} className="flex items-center">
                             {menu.title}
                             <ChevronLeft size={15} />
                           </Link>
@@ -117,9 +124,9 @@ export default function Navbar() {
                           {menu.list.map((item) => (
                             <div
                               className="text-gray-500 text-sm hover:text-red-500 transition-all"
-                              key={item}
+                              key={item.title}
                             >
-                              <Link href="">{item}</Link>
+                              <Link href={item.href}>{item.title}</Link>
                             </div>
                           ))}
                         </div>

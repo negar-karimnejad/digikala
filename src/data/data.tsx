@@ -14,40 +14,106 @@ export const categories = [
     id: 1,
     title: "موبایل",
     icon: <Smartphone size={16} />,
-    href: "/",
+    href: "/category/mobile",
     submenu: [
       {
         title: "برندهای مختلف گوشی موبایل",
-        list: ["گوشی آیفون", "گوشی سامسونگ", "گوشی شیائومی", "گوشی نوکیا"],
+        href: "/search/mobile-brands",
+        list: [
+          {
+            title: "گوشی آیفون",
+            href: "/search/mobile-brands/apple",
+          },
+          {
+            title: "گوشی سامسونگ",
+            href: "/search/mobile-brands/samsung",
+          },
+          {
+            title: "گوشی شیائومی",
+            href: "/search/mobile-brands/xiaomi",
+          },
+          {
+            title: "گوشی نوکیا",
+            href: "/search/mobile-brands/nokia",
+          },
+        ],
       },
       {
         title: "گوشی براساس قیمت",
+        href: "/search/mobile-prices",
         list: [
-          "گوشی موبایل ارزان",
-          "گوشی موبایل قسطی",
-          "گوشی تا 2 میلیون",
-          "گوشی تا 5 میلیون",
+          {
+            title: "گوشی موبایل ارزان",
+            href: "/search/mobile-prices/cheap",
+          },
+          {
+            title: "گوشی موبایل قسطی",
+            href: "/search/mobile-prices/credit",
+          },
+          {
+            title: "گوشی تا 2 میلیون",
+            href: "/search/mobile-prices/below-2million",
+          },
+          {
+            title: "گوشی تا 5 میلیون",
+            href: "/search/mobile-prices/below-5million",
+          },
         ],
       },
       {
         title: "لوازم جانبی موبایل",
+        href: "/search/mobile-accessories",
         list: [
-          "شارژر گوشی",
-          "قاب و کاور گوشی",
-          "گلس گوشی",
-          "هولدر گوشی موبایل",
-          "کابل شارژ و مبدل",
-          "پاوربانک (شارژر همراه)",
+          {
+            title: "شارژر گوشی",
+            href: "/search/mobile-accessories/charger",
+          },
+          {
+            title: "قاب و کاور گوشی",
+            href: "/search/mobile-accessories/cover",
+          },
+          {
+            title: "گلس گوشی",
+            href: "/search/mobile-accessories/screen-guard",
+          },
+          {
+            title: "هولدر گوشی موبایل",
+            href: "/search/mobile-accessories/holder",
+          },
+          {
+            title: "کابل شارژ و مبدل",
+            href: "/search/mobile-accessories/data-cable",
+          },
+          {
+            title: "پاوربانک (شارژر همراه)",
+            href: "/search/mobile-accessories/power-bank",
+          },
         ],
       },
       {
         title: "داغ ترین ها",
+        href: "/search/mobile-trend",
         list: [
-          "گلکسی S23 Ultra",
-          "گلکسی A54",
-          "گلکسی A34",
-          "گلکسی A24",
-          "گلکسی A14",
+          {
+            title: "گلکسی S23 Ultra",
+            href: "/search/mobile-trend/galaxy-s23-ultra",
+          },
+          {
+            title: "گلکسی A54",
+            href: "/search/mobile-trend/galaxy-a54",
+          },
+          {
+            title: "گلکسی A34",
+            href: "/search/mobile-trend/galaxy-a34",
+          },
+          {
+            title: "گلکسی A24",
+            href: "/search/mobile-trend/galaxy-a24",
+          },
+          {
+            title: "گلکسی A14",
+            href: "/search/mobile-trend/galaxy-a14",
+          },
         ],
       },
     ],
@@ -56,97 +122,220 @@ export const categories = [
     id: 2,
     title: "کتاب، لوازم التحریر و هنر",
     icon: <PencilRuler size={16} />,
-    href: "/",
+    href: "/category/book-and-media",
     submenu: [
-      { title: "کتاب و مجله", list: ["کتاب چاپی", "مجلات خارجی و داخلی"] },
       {
-        title: "محتوای آموزشی",
+        title: "کتاب و مجله",
+        href: "/category/book-and-magazine",
         list: [
-          "آموزش موسیقی",
-          "آموزش ورزش و سرگرمی",
-          "آموزش زبان",
-          "آموزش نرم افزار و کامپیوتر",
+          {
+            title: "کتاب چاپی",
+            href: "/search/book-and-magazine/book",
+          },
+          {
+            title: "مجلات خارجی و داخلی",
+            href: "/search/book-and-magazine/magazines",
+          },
         ],
       },
       {
         title: "لوازم التحریر",
+        href: "/category/stationery",
         list: [
-          "لوازم اداری و اقلام مصرفی",
-          "کیف، کوله پشتی و جامدادی",
-          "چراغ مطالعه",
-          "کاغذ کادو، پاکت و کارت هدیه",
+          {
+            title: "لوازم اداری و اقلام مصرفی",
+            href: "/search/category/stationery/office-supplies",
+          },
+          {
+            title: "کیف، کوله پشتی و جامدادی",
+            href: "/search/category/stationery/bags-backpacks",
+          },
+          {
+            title: "چراغ مطالعه",
+            href: "/search/category/stationery/light",
+          },
+          {
+            title: "کاغذ کادو، پاکت و کارت هدیه",
+            href: "/search/category/stationery/gift-tools",
+          },
         ],
       },
       {
         title: "آلات موسیقی",
+        href: "/category/musicalinstruments",
         list: [
-          "لوازم جانبی آلات موسیقی",
-          "گیتار",
-          "کیبورد و ارگ",
-          "ویولن",
-          "پیانو دیجیتال",
+          {
+            title: "لوازم جانبی آلات موسیقی",
+            href: "/category/musicalinstruments/musicinstrumentsaccessories",
+          },
+          {
+            title: "گیتار",
+            href: "/category/musicalinstruments/guitar",
+          },
+          {
+            title: "کیبورد و ارگ",
+            href: "/category/musicalinstruments/keybord-organ",
+          },
+          {
+            title: "ویولن",
+            href: "/category/musicalinstruments/violin",
+          },
+          {
+            title: "پیانو دیجیتال",
+            href: "/category/musicalinstruments/pianos",
+          },
         ],
       },
-      { title: "کتاب صوتی", list: [""] },
+      { title: "کتاب صوتی", href: "/category/audio-book", list: [] },
     ],
   },
   {
     id: 3,
     title: "کالای دیجیتال",
     icon: <Laptop size={16} />,
-    href: "/",
+    href: "/category/digital",
     submenu: [
       {
         title: "لپ تاپ",
+        href: "/category/laptop",
         list: [
-          "لپ تاپ ایسوس",
-          "لپ تاپ لنوو",
-          "مک بوک",
-          "لپ تاپ HP",
-          "لپ تاپ دل",
-          "لپ تاپ ایسر",
-          "لپ تاپ ام ای آی",
-          "لپ تاپ کاستوم",
+          {
+            title: "لپ تاپ ایسوس",
+            href: "/category/laptop/asus",
+          },
+          {
+            title: "لپ تاپ لنوو",
+            href: "/category/laptop/lenovo",
+          },
+          {
+            title: "مک بوک",
+            href: "/category/laptop/apple",
+          },
+          {
+            title: "لپ تاپ HP",
+            href: "/category/laptop/hp",
+          },
+          {
+            title: "لپ تاپ دل",
+            href: "/category/laptop/dell",
+          },
+          {
+            title: "لپ تاپ ایسر",
+            href: "/category/laptop/acer",
+          },
+          {
+            title: "لپ تاپ ام اس آی",
+            href: "/category/laptop/msi",
+          },
+          {
+            title: "لپ تاپ کاستوم",
+            href: "/category/laptop/custom",
+          },
         ],
       },
       {
         title: "هدفون",
+        href: "/category/headphone",
         list: [
-          "هدفون بی سیم",
-          "هدفون اپل (ایرپاد)",
-          "هدفون بیتس",
-          "هدفون سونی",
-          "هدفون سامسونگ",
-          "هدفون شیائومی",
-          "هدفون جی بی ال",
-          "هدفون ریزر",
+          {
+            title: "هدفون بی سیم",
+            href: "/category/headphone/wireless",
+          },
+          {
+            title: "هدفون اپل (ایرپاد)",
+            href: "/category/headphone/apple",
+          },
+          {
+            title: "هدفون بیتس",
+            href: "/category/headphone/beats",
+          },
+          {
+            title: "هدفون سونی",
+            href: "/category/headphone/sony",
+          },
+          {
+            title: "هدفون سامسونگ",
+            href: "/category/headphone/samsung",
+          },
+          {
+            title: "هدفون شیائومی",
+            href: "/category/headphone/xiaomi",
+          },
+          {
+            title: "هدفون جی بی ال",
+            href: "/category/headphone/jbl",
+          },
+          {
+            title: "هدفون ریزر",
+            href: "/category/headphone/razer",
+          },
         ],
       },
       {
         title: "پرینتر",
+        href: "/category/printer",
         list: [
-          "پرینتر سه بعدی",
-          "پرینتر حرارتی",
-          "پرینتر رنگی",
-          "پرینتر لیبل زن",
-          "پرینتر اچ پی",
+          {
+            title: "پرینتر سه بعدی",
+            href: "/category/printer/3d",
+          },
+          {
+            title: "پرینتر حرارتی",
+            href: "/category/printer/thermal ",
+          },
+          {
+            title: "پرینتر رنگی",
+            href: "/category/printer/color",
+          },
+          {
+            title: "پرینتر لیبل زن",
+            href: "/category/printer/label",
+          },
+          {
+            title: "پرینتر اچ پی",
+            href: "/category/printer/hp",
+          },
         ],
       },
       {
         title: "ماشین های اداری",
-        list: ["کابل پرینتر", "کارتریج"],
+        href: "/category/office-machines",
+        list: [
+          {
+            title: "کابل پرینتر",
+            href: "/category/office-machines/cartridge",
+          },
+          {
+            title: "کارتریج",
+            href: "/category/office-machines/cable",
+          },
+        ],
       },
       {
         title: "تبلت",
-        list: [""],
+        href: "/category/tablet",
+        list: [],
       },
       {
         title: "خانه هوشمند",
+        href: "/category/smart-home",
         list: [
-          "نور و روشنایی هوشمند",
-          "کلید و پریز هوشمند",
-          "سنسور هوشمند",
-          "جارو هوشمند (رباتیک)",
+          {
+            title: "نور و روشنایی هوشمند",
+            href: "/category/smart-home/lighting",
+          },
+          {
+            title: "کلید و پریز هوشمند",
+            href: "/category/smart-home/plugs-outlets",
+          },
+          {
+            title: "سنسور هوشمند",
+            href: "/category/smart-home/sensors",
+          },
+          {
+            title: "جارو هوشمند (رباتیک)",
+            href: "/category/smart-home/roomba",
+          },
         ],
       },
     ],
@@ -155,43 +344,98 @@ export const categories = [
     id: 4,
     title: "مد و پوشاک",
     icon: <Shirt size={16} />,
-    href: "/",
+    href: "/category/apparel",
     submenu: [
       {
         title: "لباس مردانه",
+        href: "/category/men-clothing",
         list: [
-          "تی شرت مردانه",
-          "پیراهن مردانه",
-          "سویشرت مردانه",
-          "ژاکت و پلیور مردانه",
-          "هودی مردانه",
+          {
+            title: "تی شرت مردانه",
+            href: "/category/men-clothing/t-shirt",
+          },
+          {
+            title: "پیراهن مردانه",
+            href: "/category/men-clothing/shirt",
+          },
+          {
+            title: "سویشرت مردانه",
+            href: "/category/men-clothing/sweatshirts",
+          },
+          {
+            title: "ژاکت و پلیور مردانه",
+            href: "/category/men-clothing/knitwear",
+          },
+          {
+            title: "هودی مردانه",
+            href: "/category/men-clothing/hoodie",
+          },
         ],
       },
       {
         title: "لباس زنانه",
+        href: "/category/women-clothing",
         list: [
-          "پیراهن و لباس مجلسی زنانه",
-          "دامن زنانه",
-          "سویشرت زنانه",
-          "شلوار جین زنانه",
-          "لگ زنانه",
-          "هودی زنانه",
+          {
+            title: "پیراهن و لباس مجلسی زنانه",
+            href: "/category/women-clothing/dress",
+          },
+          {
+            title: "دامن زنانه",
+            href: "/category/women-clothing/skirt",
+          },
+          {
+            title: "سویشرت زنانه",
+            href: "/category/women-clothing/sweatshirts",
+          },
+          {
+            title: "شلوار جین زنانه",
+            href: "/category/women-clothing/jean",
+          },
+          {
+            title: "لگ زنانه",
+            href: "/category/women-clothing/legging",
+          },
+          {
+            title: "هودی زنانه",
+            href: "/category/women-clothing/",
+          },
         ],
       },
       {
         title: "لباس دخترانه",
+        href: "/category/girls-clothing",
         list: [
-          "کاپشن دخترانه",
-          "پالتو دخترانه",
-          "سویشرت و هودی دخترانه",
-          "کت، جلیقه و ست رسمی دخترانه",
-          "جوراب و ساق دخترانه",
-          "لباس راحتی دخترانه",
+          {
+            title: "کاپشن دخترانه",
+            href: "/category/girl-clothing/warm-jacket",
+          },
+          {
+            title: "پالتو دخترانه",
+            href: "/category/girl-clothing/coat",
+          },
+          {
+            title: "سویشرت و هودی دخترانه",
+            href: "/category/girl-clothing/hoodie",
+          },
+          {
+            title: "کت، جلیقه و ست رسمی دخترانه",
+            href: "/category/girl-clothing/suits",
+          },
+          {
+            title: "جوراب و ساق دخترانه",
+            href: "/category/girl-clothing/socks",
+          },
+          {
+            title: "لباس راحتی دخترانه",
+            href: "/category/girl-clothing/homewear",
+          },
         ],
       },
       {
         title: "پوشاک بچگانه",
-        list: [""],
+        href: "/category/kids-clothing",
+        list: [],
       },
     ],
   },
@@ -199,52 +443,139 @@ export const categories = [
     id: 5,
     title: "آرایشی بهداشتی",
     icon: <HeartPulse size={16} />,
-    href: "/",
+    href: "/category/personal-appliance",
     submenu: [
       {
         title: "لوازم آرایشی",
+        href: "/category/beauty",
         list: [
-          "آرایش صورت",
-          "آرایش ابرو",
-          "آرایش چشم",
-          "آرایش لب",
-          "بهداشت و زیبایی ناخن",
-          "ابزار آرایشی",
+          {
+            title: "آرایش صورت",
+            href: "/category/beauty/face",
+          },
+          {
+            title: "آرایش ابرو",
+            href: "/category/beauty/eyebrow",
+          },
+          {
+            title: "آرایش چشم",
+            href: "/category/beauty/eye",
+          },
+          {
+            title: "آرایش لب",
+            href: "/category/beauty/lip",
+          },
+          {
+            title: "بهداشت و زیبایی ناخن",
+            href: "/category/beauty/nails-care",
+          },
+          {
+            title: "ابزار آرایشی",
+            href: "/category/beauty/tools",
+          },
         ],
       },
       {
         title: "مراقبت و زیبایی مو",
-        list: ["شامپو و مراقبت مو", "آرایش مو"],
+        href: "/category/hair-care",
+
+        list: [
+          {
+            title: "شامپو و مراقبت مو",
+            href: "/category/hair-care/shampoo",
+          },
+          {
+            title: "آرایش مو",
+            href: "/category/hair-care/beauty",
+          },
+        ],
       },
       {
         title: "مراقبت پوست",
-        list: ["تونر", "کرم مرطوب کننده وآبرسان", "پاک کننده", "ضدآفتاب"],
+        href: "/category/skin-care",
+        list: [
+          {
+            title: "تونر",
+            href: "/category/skin-care/face-toner",
+          },
+          {
+            title: "کرم مرطوب کننده وآبرسان",
+            href: "/category/skin-care/moisturizing-cream",
+          },
+          {
+            title: "پاک کننده",
+            href: "/category/skin-care/makeup-remover",
+          },
+          {
+            title: "ضدآفتاب",
+            href: "/category/skin-care/sunscreen-cream",
+          },
+        ],
       },
       {
         title: "لوازم بهداشتی",
+        href: "/category/personal-care",
         list: [
-          "مراقبت دهان و دندان",
-          "مسواک",
-          "خمیردندان",
-          "دئودورانت و ضدتعریق",
+          {
+            title: "مراقبت دهان و دندان",
+            href: "/category/personal-care/dental-hygienist",
+          },
+          {
+            title: "مسواک",
+            href: "/category/personal-care/tooth-brush",
+          },
+          {
+            title: "خمیردندان",
+            href: "/category/personal-care/toothpaste",
+          },
+          {
+            title: "دئودورانت و ضدتعریق",
+            href: "/category/personal-care/anti-sweat",
+          },
         ],
       },
       {
         title: "عطر و ادکلن",
+        href: "/category/perfume",
         list: [
-          "عطر و ادکلن زنانه",
-          "عطر و ادکلن مردانه",
-          "عطر جیبی",
-          "بادی اسپلش",
+          {
+            title: "عطر و ادکلن زنانه",
+            href: "/category/perfume/women-perfume",
+          },
+          {
+            title: "عطر و ادکلن مردانه",
+            href: "/category/perfume/men-perfume",
+          },
+          {
+            title: "عطر جیبی",
+            href: "/category/perfume/pocket-perfume",
+          },
+          {
+            title: "بادی اسپلش",
+            href: "/category/perfume/body-splash",
+          },
         ],
       },
       {
         title: "لوازم شخصی برقی",
+        href: "/category/electrical-personal-care",
         list: [
-          "سشوار",
-          "اتو و حالت دهنده ی مو",
-          "اصلاح موی صورت",
-          "اصلاح موی سر",
+          {
+            title: "سشوار",
+            href: "/category/electrical-personal-care/hair-drier",
+          },
+          {
+            title: "اتو و حالت دهنده ی مو",
+            href: "/category/electrical-personal-care/hair-iron",
+          },
+          {
+            title: "اصلاح موی صورت",
+            href: "/category/electrical-personal-care/hair-trimmer",
+          },
+          {
+            title: "اصلاح موی سر",
+            href: "/category/electrical-personal-care/shaver",
+          },
         ],
       },
     ],
@@ -253,7 +584,7 @@ export const categories = [
     id: 6,
     title: "لوازم خانگی برقی",
     icon: <Refrigerator size={16} />,
-    href: "/",
+    href: "/category/home-appliance",
     submenu: [
       {
         title: "صوتی و تصویری",
@@ -298,7 +629,7 @@ export const categories = [
     id: 7,
     title: "خانه و آشپزخانه",
     icon: <Armchair size={16} />,
-    href: "/",
+    href: "/category/home-and-kitchen",
     submenu: [
       {
         title: "ظروف پخت و پز",
@@ -333,7 +664,7 @@ export const categories = [
     id: 8,
     title: "طلا و نقره",
     icon: <Gem size={16} />,
-    href: "/",
+    href: "/category/jewelry",
     submenu: [
       {
         title: "زیورآلات طلا زنانه",
