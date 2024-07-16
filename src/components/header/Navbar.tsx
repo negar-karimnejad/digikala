@@ -61,10 +61,12 @@ export default function Navbar() {
           <div
             onMouseEnter={() => setIsShowMenu(true)}
             onMouseLeave={() => setIsShowMenu(false)}
-            className="relative group flex items-center gap-2 py-3 cursor-pointer"
+            className="relative group flex items- gap-2 py-3 cursor-pointer"
           >
             <Menu size={17} />
-            <span className="font-medium ">دسته بندی کالاها</span>
+            <span className="font-irsansb text-sm dark:text-white text-neutral-600">
+              دسته‌بندی کالاها
+            </span>
             <span
               className={`absolute bottom-0 left-0 h-0.5 bg-red-500 transition-all duration-900 ease-linear ${
                 isShowMenu ? "w-full" : "w-0"
@@ -72,8 +74,8 @@ export default function Navbar() {
             ></span>
             <div
               onMouseMove={() => setIsShowMenu(false)}
-              className={`fixed w-full h-full mt-12 bg-black/50 right-0 top-20 transition-all ${
-                isShowMenu ? "block" : ""
+              className={`fixed w-full h-full mt-11 bg-black/50 right-0 top-20 transition-all ${
+                isShowMenu ? "block" : "hidden"
               }`}
             >
               <div
@@ -88,9 +90,9 @@ export default function Navbar() {
                     >
                       <Link
                         href={category.href}
-                        className={`transition-all px-3 py-5 border dark:border-neutral-900 border-gray-100 hover:border-gray-200 hover:font-bold hover:text-red-500 hover:bg-white text-gray-600 dark:text-gray-100 flex items-center gap-2 text-[11px] lg:text-[12px] font-bold ${
+                        className={`transition-all px-2 py-5 border dark:border-neutral-900 border-gray-100 hover:border-gray-200 hover:font-irsansb hover:text-red-500 hover:bg-white text-gray-600 dark:text-gray-100 flex items-center gap-2 text-xs font-irsansb ${
                           selectedCategory?.id === category.id
-                            ? "border-gray-200 font-bold text-red-500 dark:text-red-500 bg-white dark:bg-neutral-900"
+                            ? "border-gray-200 font-irsansb text-red-500 dark:text-red-500 bg-white dark:bg-neutral-900"
                             : ""
                         }`}
                       >
@@ -137,16 +139,16 @@ export default function Navbar() {
               </div>
             </div>
           </div>
-          <div className="w-[0.5px] h-4 bg-gray-200 mr-4"></div>
+          <div className="w-[0.5px] h-4 bg-gray-200 dark:bg-gray-500 mr-4"></div>
           <NavLinks />
-          <div className="w-[0.5px] h-4 bg-gray-200"></div>
-          <button className="relative flex mx-3 py-3 items-center gap-1 text-gray-500 text-[13px] group">
+          <div className="w-[0.5px] h-4 bg-gray-200 dark:bg-gray-500"></div>
+          <button className="relative flex mx-3 py-3 items-center gap-1 text-gray-500 dark:text-gray-300 text-[13px] group">
             <Link href="" className="font-medium transition-colors">
               سوالی دارید؟
             </Link>
             <span className="absolute bottom-0 left-0 h-0.5 bg-red-500 transition-all duration-900 ease-linear group-hover:w-full w-0"></span>
           </button>
-          <button className="relative flex mx-3 py-3 items-center gap-1 text-gray-500 text-[13px] group">
+          <button className="relative flex mx-3 py-3 items-center gap-1 text-gray-500 dark:text-gray-300 text-[13px] group">
             <Link href="" className="font-medium transition-colors">
               در دیجی کالا بفروشید!
             </Link>
@@ -155,10 +157,10 @@ export default function Navbar() {
         </div>
         <div
           title="لطفا شهر خود را انتخاب کنید"
-          className="flex items-center gap-2 text-gray-500 cursor-pointer"
+          className="flex items-center gap-2 text-gray-500 dark:text-gray-200 cursor-pointer"
         >
           <MapPin size={18} />
-          <span className="text-[12px]">لطفا شهر خود را انتخاب کنید</span>
+          <span className="text-xs">لطفا شهر خود را انتخاب کنید</span>
         </div>
       </div>
     </nav>
@@ -171,7 +173,7 @@ const NavLinks = () => {
       {links.map((link) => (
         <button
           key={link.label}
-          className="relative flex mx-2.5 py-3 items-center gap-1 text-gray-500 text-[13px] group"
+          className="relative flex mx-2.5 py-3 items-center gap-1 text-gray-500 dark:text-gray-300 text-[13px] group"
         >
           <span>{link.icon}</span>
           <Link href={link.href} className="font-medium transition-colors">

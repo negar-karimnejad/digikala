@@ -52,7 +52,7 @@ export default function UserUpdateForm({ user }: { user: User }) {
           className="peer block w-full appearance-none rounded-t-lg border-0 border-b-2 border-gray-300 bg-gray-50 px-2.5 pb-2.5 pt-5 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0 dark:border-gray-600 dark:bg-gray-900 dark:text-white dark:focus:border-blue-500"
         />
         {error.name && (
-          <div className="text-destructive text-[12px]">{error.name}</div>
+          <div className="text-destructive text-xs">{error.name}</div>
         )}
         <label
           htmlFor="name"
@@ -72,7 +72,7 @@ export default function UserUpdateForm({ user }: { user: User }) {
             className="disabled:cursor-not-allowed disabled:opacity-80 peer max-h-20 block w-full appearance-none rounded-t-lg border-0 border-b-2 border-gray-300 bg-gray-50 px-2.5 pb-2.5 pt-5 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0 dark:border-gray-600 dark:bg-gray-900 dark:text-white dark:focus:border-blue-500"
           />
           {error.email && (
-            <div className="text-destructive text-[12px]">{error.email}</div>
+            <div className="text-destructive text-xs">{error.email}</div>
           )}
           <label
             htmlFor="email"

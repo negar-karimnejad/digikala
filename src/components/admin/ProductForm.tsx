@@ -46,7 +46,7 @@ export default function ProductForm({ product }: { product?: Product | null }) {
           className="peer block w-full appearance-none rounded-t-lg border-0 border-b-2 border-gray-300 bg-gray-50 px-2.5 pb-2.5 pt-5 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0 dark:border-gray-600 dark:bg-gray-900 dark:text-white dark:focus:border-blue-500"
         />
         {error.title && (
-          <div className="text-destructive text-[12px]">{error.title}</div>
+          <div className="text-destructive text-xs">{error.title}</div>
         )}
         <label
           htmlFor="title"
@@ -65,9 +65,7 @@ export default function ProductForm({ product }: { product?: Product | null }) {
           className="peer max-h-48 block w-full appearance-none rounded-t-lg border-0 border-b-2 border-gray-300 bg-gray-50 px-2.5 pb-2.5 pt-5 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0 dark:border-gray-600 dark:bg-gray-900 dark:text-white dark:focus:border-blue-500"
         />
         {error.description && (
-          <div className="text-destructive text-[12px]">
-            {error.description}
-          </div>
+          <div className="text-destructive text-xs">{error.description}</div>
         )}
         <label
           htmlFor="description"
@@ -88,7 +86,7 @@ export default function ProductForm({ product }: { product?: Product | null }) {
             className="peer max-h-20 block w-full appearance-none rounded-t-lg border-0 border-b-2 border-gray-300 bg-gray-50 px-2.5 pb-2.5 pt-5 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0 dark:border-gray-600 dark:bg-gray-900 dark:text-white dark:focus:border-blue-500"
           />
           {error.price && (
-            <div className="text-destructive text-[12px]">{error.price}</div>
+            <div className="text-destructive text-xs">{error.price}</div>
           )}
           <label
             htmlFor="price"
@@ -108,7 +106,7 @@ export default function ProductForm({ product }: { product?: Product | null }) {
             className="peer max-h-20 block w-full appearance-none rounded-t-lg border-0 border-b-2 border-gray-300 bg-gray-50 px-2.5 pb-2.5 pt-5 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0 dark:border-gray-600 dark:bg-gray-900 dark:text-white dark:focus:border-blue-500"
           />
           {error.discount && (
-            <div className="text-destructive text-[12px]">{error.discount}</div>
+            <div className="text-destructive text-xs">{error.discount}</div>
           )}
           <label
             htmlFor="discount"
@@ -154,9 +152,7 @@ export default function ProductForm({ product }: { product?: Product | null }) {
             </p>
           </div>
           {error.thumbnail && (
-            <div className="text-destructive text-[12px]">
-              {error.thumbnail}
-            </div>
+            <div className="text-destructive text-xs">{error.thumbnail}</div>
           )}
         </div>
       )}

@@ -120,7 +120,7 @@ export const categories = [
   },
   {
     id: 2,
-    title: "کتاب، لوازم التحریر و هنر",
+    title: "کتاب، لوازم تحریر و هنر",
     icon: <PencilRuler size={16} />,
     href: "/category/book-and-media",
     submenu: [
@@ -139,7 +139,7 @@ export const categories = [
         ],
       },
       {
-        title: "لوازم التحریر",
+        title: "لوازم تحریر",
         href: "/category/stationery",
         list: [
           {

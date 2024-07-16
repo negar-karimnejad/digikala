@@ -20,7 +20,7 @@ export default function Register() {
     <div className="flex items-center justify-center">
       <div className="md:w-[410px] w-full mt-16 flex flex-col gap-3 md:border rounded-lg p-8">
         <h1 className="font-bold pb-5 text-center text-5xl">
-        <Logo />
+          <Logo />
         </h1>
         <p className="text-xl font-medium text-right">
           <Link className="hover:text-red-500" href="/login">
@@ -28,9 +28,9 @@ export default function Register() {
           </Link>
           | ثبت نام
         </p>
-        <p className="text-[12px] text-right mt-5">سلام!</p>
+        <p className="text-xs text-right mt-5">سلام!</p>
         <form action={action} className="flex flex-col gap-2 w-full">
-          <label htmlFor="name" className="text-[12px]">
+          <label htmlFor="name" className="text-xs">
             لطفا نام و نام خانوادگی خود را وارد کنید
           </label>
           <Input
@@ -43,9 +43,9 @@ export default function Register() {
             }`}
           />
           {error.name && (
-            <div className="text-destructive text-[12px]">{error.name}</div>
+            <div className="text-destructive text-xs">{error.name}</div>
           )}
-          <label htmlFor="name" className="text-[12px]">
+          <label htmlFor="name" className="text-xs">
             لطفا ایمیل خود را وارد کنید
           </label>
           <Input
@@ -57,9 +57,9 @@ export default function Register() {
             }`}
           />
           {error.email && (
-            <div className="text-destructive text-[12px]">{error.email}</div>
+            <div className="text-destructive text-xs">{error.email}</div>
           )}
-          <label htmlFor="password" className="text-[12px]">
+          <label htmlFor="password" className="text-xs">
             لطفا پسورد خود را وارد کنید
           </label>
           <Input
@@ -71,11 +71,11 @@ export default function Register() {
             }`}
           />
           {error.password && (
-            <div className="text-destructive text-[12px]">{error.password}</div>
+            <div className="text-destructive text-xs">{error.password}</div>
           )}
           <SubmitButton />
         </form>
-        <small className="text-gray-600 dark:text-gray-300 mx-auto text-[10px] sm:text-[12px] mt-1">
+        <small className="text-gray-600 dark:text-gray-300 mx-auto text-[10px] sm:text-xs mt-1">
           ورود شما به معنای پذیرش{" "}
           <Link href="" className="text-blue-500">
             شرایط دیجی‌کالا

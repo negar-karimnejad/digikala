@@ -95,9 +95,9 @@ export default function Login() {
               ثبت نام
             </Link>
           </p>
-          <p className="text-[12px] text-right mt-5">سلام!</p>
+          <p className="text-xs text-right mt-5">سلام!</p>
           <form action={onSubmitHandler} className="flex flex-col gap-2 w-full">
-            <label htmlFor="name" className="text-[12px]">
+            <label htmlFor="name" className="text-xs">
               لطفا ایمیل خود را وارد کنید
             </label>
             <Input
@@ -107,9 +107,9 @@ export default function Login() {
               className="bg-transparent py-5 border rounded-lg"
             />
             {errors.email && (
-              <div className="text-destructive text-[12px]">{errors.email}</div>
+              <div className="text-destructive text-xs">{errors.email}</div>
             )}
-            <label htmlFor="password" className="text-[12px]">
+            <label htmlFor="password" className="text-xs">
               لطفا پسورد خود را وارد کنید
             </label>
             <Input
@@ -119,13 +119,11 @@ export default function Login() {
               className="bg-transparent py-5 border rounded-lg"
             />
             {errors.password && (
-              <div className="text-destructive text-[12px]">
-                {errors.password}
-              </div>
+              <div className="text-destructive text-xs">{errors.password}</div>
             )}
             <SubmitButton />
           </form>
-          <small className="text-gray-600 dark:text-gray-300 mx-auto text-[10px] sm:text-[12px] mt-1">
+          <small className="text-gray-600 dark:text-gray-300 mx-auto text-[10px] sm:text-xs mt-1">
             ورود شما به معنای پذیرش{" "}
             <Link href="" className="text-blue-500">
               شرایط دیجی‌کالا
