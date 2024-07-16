@@ -144,19 +144,19 @@ export const categories = [
         list: [
           {
             title: "لوازم اداری و اقلام مصرفی",
-            href: "/search/category/stationery/office-supplies",
+            href: "/search/stationery/office-supplies",
           },
           {
             title: "کیف، کوله پشتی و جامدادی",
-            href: "/search/category/stationery/bags-backpacks",
+            href: "/search/stationery/bags-backpacks",
           },
           {
             title: "چراغ مطالعه",
-            href: "/search/category/stationery/light",
+            href: "/search/stationery/light",
           },
           {
             title: "کاغذ کادو، پاکت و کارت هدیه",
-            href: "/search/category/stationery/gift-tools",
+            href: "/search/stationery/gift-tools",
           },
         ],
       },
@@ -166,23 +166,23 @@ export const categories = [
         list: [
           {
             title: "لوازم جانبی آلات موسیقی",
-            href: "/category/musicalinstruments/musicinstrumentsaccessories",
+            href: "/search/musicalinstruments/musicinstrumentsaccessories",
           },
           {
             title: "گیتار",
-            href: "/category/musicalinstruments/guitar",
+            href: "/search/musicalinstruments/guitar",
           },
           {
             title: "کیبورد و ارگ",
-            href: "/category/musicalinstruments/keybord-organ",
+            href: "/search/musicalinstruments/keybord-organ",
           },
           {
             title: "ویولن",
-            href: "/category/musicalinstruments/violin",
+            href: "/search/musicalinstruments/violin",
           },
           {
             title: "پیانو دیجیتال",
-            href: "/category/musicalinstruments/pianos",
+            href: "/search/musicalinstruments/pianos",
           },
         ],
       },
@@ -201,35 +201,35 @@ export const categories = [
         list: [
           {
             title: "لپ تاپ ایسوس",
-            href: "/category/laptop/asus",
+            href: "/search/laptop/asus",
           },
           {
             title: "لپ تاپ لنوو",
-            href: "/category/laptop/lenovo",
+            href: "/search/laptop/lenovo",
           },
           {
             title: "مک بوک",
-            href: "/category/laptop/apple",
+            href: "/search/laptop/apple",
           },
           {
             title: "لپ تاپ HP",
-            href: "/category/laptop/hp",
+            href: "/search/laptop/hp",
           },
           {
             title: "لپ تاپ دل",
-            href: "/category/laptop/dell",
+            href: "/search/laptop/dell",
           },
           {
             title: "لپ تاپ ایسر",
-            href: "/category/laptop/acer",
+            href: "/search/laptop/acer",
           },
           {
             title: "لپ تاپ ام اس آی",
-            href: "/category/laptop/msi",
+            href: "/search/laptop/msi",
           },
           {
             title: "لپ تاپ کاستوم",
-            href: "/category/laptop/custom",
+            href: "/search/laptop/custom",
           },
         ],
       },
@@ -239,35 +239,35 @@ export const categories = [
         list: [
           {
             title: "هدفون بی سیم",
-            href: "/category/headphone/wireless",
+            href: "/search/headphone/wireless",
           },
           {
             title: "هدفون اپل (ایرپاد)",
-            href: "/category/headphone/apple",
+            href: "/search/headphone/apple",
           },
           {
             title: "هدفون بیتس",
-            href: "/category/headphone/beats",
+            href: "/search/headphone/beats",
           },
           {
             title: "هدفون سونی",
-            href: "/category/headphone/sony",
+            href: "/search/headphone/sony",
           },
           {
             title: "هدفون سامسونگ",
-            href: "/category/headphone/samsung",
+            href: "/search/headphone/samsung",
           },
           {
             title: "هدفون شیائومی",
-            href: "/category/headphone/xiaomi",
+            href: "/search/headphone/xiaomi",
           },
           {
             title: "هدفون جی بی ال",
-            href: "/category/headphone/jbl",
+            href: "/search/headphone/jbl",
           },
           {
             title: "هدفون ریزر",
-            href: "/category/headphone/razer",
+            href: "/search/headphone/razer",
           },
         ],
       },
@@ -277,23 +277,23 @@ export const categories = [
         list: [
           {
             title: "پرینتر سه بعدی",
-            href: "/category/printer/3d",
+            href: "/search/printer/3d",
           },
           {
             title: "پرینتر حرارتی",
-            href: "/category/printer/thermal ",
+            href: "/search/printer/thermal ",
           },
           {
             title: "پرینتر رنگی",
-            href: "/category/printer/color",
+            href: "/search/printer/color",
           },
           {
             title: "پرینتر لیبل زن",
-            href: "/category/printer/label",
+            href: "/search/printer/label",
           },
           {
             title: "پرینتر اچ پی",
-            href: "/category/printer/hp",
+            href: "/search/printer/hp",
           },
         ],
       },
@@ -303,11 +303,11 @@ export const categories = [
         list: [
           {
             title: "کابل پرینتر",
-            href: "/category/office-machines/cartridge",
+            href: "/search/office-machines/cartridge",
           },
           {
             title: "کارتریج",
-            href: "/category/office-machines/cable",
+            href: "/search/office-machines/cable",
           },
         ],
       },
@@ -322,19 +322,19 @@ export const categories = [
         list: [
           {
             title: "نور و روشنایی هوشمند",
-            href: "/category/smart-home/lighting",
+            href: "/search/smart-home/lighting",
           },
           {
             title: "کلید و پریز هوشمند",
-            href: "/category/smart-home/plugs-outlets",
+            href: "/search/smart-home/plugs-outlets",
           },
           {
             title: "سنسور هوشمند",
-            href: "/category/smart-home/sensors",
+            href: "/search/smart-home/sensors",
           },
           {
             title: "جارو هوشمند (رباتیک)",
-            href: "/category/smart-home/roomba",
+            href: "/search/smart-home/roomba",
           },
         ],
       },
@@ -352,23 +352,23 @@ export const categories = [
         list: [
           {
             title: "تی شرت مردانه",
-            href: "/category/men-clothing/t-shirt",
+            href: "/search/men-clothing/t-shirt",
           },
           {
             title: "پیراهن مردانه",
-            href: "/category/men-clothing/shirt",
+            href: "/search/men-clothing/shirt",
           },
           {
             title: "سویشرت مردانه",
-            href: "/category/men-clothing/sweatshirts",
+            href: "/search/men-clothing/sweatshirts",
           },
           {
             title: "ژاکت و پلیور مردانه",
-            href: "/category/men-clothing/knitwear",
+            href: "/search/men-clothing/knitwear",
           },
           {
             title: "هودی مردانه",
-            href: "/category/men-clothing/hoodie",
+            href: "/search/men-clothing/hoodie",
           },
         ],
       },
@@ -378,27 +378,27 @@ export const categories = [
         list: [
           {
             title: "پیراهن و لباس مجلسی زنانه",
-            href: "/category/women-clothing/dress",
+            href: "/search/women-clothing/dress",
           },
           {
             title: "دامن زنانه",
-            href: "/category/women-clothing/skirt",
+            href: "/search/women-clothing/skirt",
           },
           {
             title: "سویشرت زنانه",
-            href: "/category/women-clothing/sweatshirts",
+            href: "/search/women-clothing/sweatshirts",
           },
           {
             title: "شلوار جین زنانه",
-            href: "/category/women-clothing/jean",
+            href: "/search/women-clothing/jean",
           },
           {
             title: "لگ زنانه",
-            href: "/category/women-clothing/legging",
+            href: "/search/women-clothing/legging",
           },
           {
             title: "هودی زنانه",
-            href: "/category/women-clothing/",
+            href: "/search/women-clothing/",
           },
         ],
       },
@@ -408,27 +408,27 @@ export const categories = [
         list: [
           {
             title: "کاپشن دخترانه",
-            href: "/category/girl-clothing/warm-jacket",
+            href: "/search/girl-clothing/warm-jacket",
           },
           {
             title: "پالتو دخترانه",
-            href: "/category/girl-clothing/coat",
+            href: "/search/girl-clothing/coat",
           },
           {
             title: "سویشرت و هودی دخترانه",
-            href: "/category/girl-clothing/hoodie",
+            href: "/search/girl-clothing/hoodie",
           },
           {
             title: "کت، جلیقه و ست رسمی دخترانه",
-            href: "/category/girl-clothing/suits",
+            href: "/search/girl-clothing/suits",
           },
           {
             title: "جوراب و ساق دخترانه",
-            href: "/category/girl-clothing/socks",
+            href: "/search/girl-clothing/socks",
           },
           {
             title: "لباس راحتی دخترانه",
-            href: "/category/girl-clothing/homewear",
+            href: "/search/girl-clothing/homewear",
           },
         ],
       },
@@ -451,27 +451,27 @@ export const categories = [
         list: [
           {
             title: "آرایش صورت",
-            href: "/category/beauty/face",
+            href: "/search/beauty/face",
           },
           {
             title: "آرایش ابرو",
-            href: "/category/beauty/eyebrow",
+            href: "/search/beauty/eyebrow",
           },
           {
             title: "آرایش چشم",
-            href: "/category/beauty/eye",
+            href: "/search/beauty/eye",
           },
           {
             title: "آرایش لب",
-            href: "/category/beauty/lip",
+            href: "/search/beauty/lip",
           },
           {
             title: "بهداشت و زیبایی ناخن",
-            href: "/category/beauty/nails-care",
+            href: "/search/beauty/nails-care",
           },
           {
             title: "ابزار آرایشی",
-            href: "/category/beauty/tools",
+            href: "/search/beauty/tools",
           },
         ],
       },
@@ -482,11 +482,11 @@ export const categories = [
         list: [
           {
             title: "شامپو و مراقبت مو",
-            href: "/category/hair-care/shampoo",
+            href: "/search/hair-care/shampoo",
           },
           {
             title: "آرایش مو",
-            href: "/category/hair-care/beauty",
+            href: "/search/hair-care/beauty",
           },
         ],
       },
@@ -496,19 +496,19 @@ export const categories = [
         list: [
           {
             title: "تونر",
-            href: "/category/skin-care/face-toner",
+            href: "/search/skin-care/face-toner",
           },
           {
             title: "کرم مرطوب کننده وآبرسان",
-            href: "/category/skin-care/moisturizing-cream",
+            href: "/search/skin-care/moisturizing-cream",
           },
           {
             title: "پاک کننده",
-            href: "/category/skin-care/makeup-remover",
+            href: "/search/skin-care/makeup-remover",
           },
           {
             title: "ضدآفتاب",
-            href: "/category/skin-care/sunscreen-cream",
+            href: "/search/skin-care/sunscreen-cream",
           },
         ],
       },
@@ -518,19 +518,19 @@ export const categories = [
         list: [
           {
             title: "مراقبت دهان و دندان",
-            href: "/category/personal-care/dental-hygienist",
+            href: "/search/personal-care/dental-hygienist",
           },
           {
             title: "مسواک",
-            href: "/category/personal-care/tooth-brush",
+            href: "/search/personal-care/tooth-brush",
           },
           {
             title: "خمیردندان",
-            href: "/category/personal-care/toothpaste",
+            href: "/search/personal-care/toothpaste",
           },
           {
             title: "دئودورانت و ضدتعریق",
-            href: "/category/personal-care/anti-sweat",
+            href: "/search/personal-care/anti-sweat",
           },
         ],
       },
@@ -540,19 +540,19 @@ export const categories = [
         list: [
           {
             title: "عطر و ادکلن زنانه",
-            href: "/category/perfume/women-perfume",
+            href: "/search/perfume/women-perfume",
           },
           {
             title: "عطر و ادکلن مردانه",
-            href: "/category/perfume/men-perfume",
+            href: "/search/perfume/men-perfume",
           },
           {
             title: "عطر جیبی",
-            href: "/category/perfume/pocket-perfume",
+            href: "/search/perfume/pocket-perfume",
           },
           {
             title: "بادی اسپلش",
-            href: "/category/perfume/body-splash",
+            href: "/search/perfume/body-splash",
           },
         ],
       },
@@ -562,19 +562,19 @@ export const categories = [
         list: [
           {
             title: "سشوار",
-            href: "/category/electrical-personal-care/hair-drier",
+            href: "/search/electrical-personal-care/hair-drier",
           },
           {
             title: "اتو و حالت دهنده ی مو",
-            href: "/category/electrical-personal-care/hair-iron",
+            href: "/search/electrical-personal-care/hair-iron",
           },
           {
             title: "اصلاح موی صورت",
-            href: "/category/electrical-personal-care/hair-trimmer",
+            href: "/search/electrical-personal-care/hair-trimmer",
           },
           {
             title: "اصلاح موی سر",
-            href: "/category/electrical-personal-care/shaver",
+            href: "/search/electrical-personal-care/shaver",
           },
         ],
       },
@@ -588,39 +588,106 @@ export const categories = [
     submenu: [
       {
         title: "صوتی و تصویری",
+        href: "/category/video-audio-entertainment",
         list: [
-          "تلویزیون",
-          "ساندبار",
-          "ویدیو پروژکتور",
-          "پخش کننده خانگی",
-          "ریموت کنترل",
-          "میز تلویزیون",
+          {
+            title: "تلویزیون",
+            href: "/search/video-audio-entertainment/tv",
+          },
+          {
+            title: "ساندبار",
+            href: "/search/video-audio-entertainment/soundbar",
+          },
+          {
+            title: "ویدیو پروژکتور",
+            href: "/search/video-audio-entertainment/video-projector",
+          },
+          {
+            title: "پخش کننده خانگی",
+            href: "/search/video-audio-entertainment/multimedia-player",
+          },
+          {
+            title: "ریموت کنترل",
+            href: "/search/video-audio-entertainment/remote-control",
+          },
+          {
+            title: "میز تلویزیون",
+            href: "/search/video-audio-entertainment/tv-tables",
+          },
         ],
       },
       {
         title: "یخچال فریزر",
+        href: "/category/refrigerator",
         list: [
-          "یخچال فریزر ساید بای ساید",
-          "یخچال فریزر دوقولو",
-          "یخچال فریزر هتلی",
-          "یخچال فریزر کمبی",
+          {
+            title: "یخچال فریزر ساید بای ساید",
+            href: "/search/refrigerator/side-by-side",
+          },
+          {
+            title: "یخچال فریزر دوقلو",
+            href: "/search/refrigerator/twin",
+          },
+          {
+            title: "یخچال فریزر هتلی",
+            href: "/search/refrigerator/hotel ",
+          },
+          {
+            title: "یخچال فریزر کمبی",
+            href: "/search/refrigerator/combi ",
+          },
         ],
       },
       {
         title: "جاروبرقی",
-        list: ["جارو شارژی", "لوازم جانبی جاروبرقی و بخارشو"],
+        href: "/category/vacuum ",
+        list: [
+          {
+            title: "جارو شارژی",
+            href: "/search/vacuum/rechargeable",
+          },
+          {
+            title: "لوازم جانبی جاروبرقی و بخارشو",
+            href: "/search/vacuum/consumption",
+          },
+        ],
       },
       {
         title: "لوازم پخت و پز",
+        href: "/category/cooking",
         list: [
-          "سرخ کن بدون روغن (airfrier)",
-          "مایکروویو، مایکروفر",
-          "اجاق گاز",
-          "پلوپز",
-          "گریل و باربیکیو",
-          "آون توستر",
-          "توستر",
-          "ساندویچ ساز و وافل ساز",
+          {
+            title: "سرخ کن بدون روغن (airfrier)",
+            href: "/search/cooking/airfrier",
+          },
+          {
+            title: "مایکروویو، مایکروفر",
+            href: "/search/cooking/microwave",
+          },
+          {
+            title: "اجاق گاز",
+            href: "/search/cooking/oven",
+          },
+          {
+            title: "پلوپز",
+            href: "/search/cooking/electric-rice-cooker",
+          },
+          {
+            title: "گریل و باربیکیو",
+            href: "/search/cooking/grill-barbecue",
+          },
+          {
+            title: "آون توستر",
+            href: "/search/cooking/oven-toaster",
+          },
+          {
+            title: "توستر",
+            href: "/search/cooking/toaster",
+          },
+          {
+            title: "ساندویچ ساز و وافل ساز",
+            href: "/search/cooking/sandwich-makers",
+          },
         ],
       },
     ],
@@ -633,30 +700,119 @@ export const categories = [
     submenu: [
       {
         title: "ظروف پخت و پز",
-        list: ["قابلمه و تابه", "زودپز", "سرویس پخت و پز"],
+        href: "/category/cooking-dishes",
+        list: [
+          {
+            title: "قابلمه و تابه",
+            href: "/search/cooking-dishes/pots-pans",
+          },
+          {
+            title: "زودپز",
+            href: "/search/cooking-dishes/pressurecooker",
+          },
+          {
+            title: "سرویس پخت و پز",
+            href: "/search/cooking-dishes/cookwareset",
+          },
+        ],
       },
       {
         title: "ابزار آشپزی",
-        list: ["ست کفگیر و ملاقه", "چاقو", "تخته گوشت", "ظرف و قالب یخ", "قیف"],
+        href: "/category/cooking-tools",
+
+        list: [
+          {
+            title: "ست کفگیر و ملاقه",
+            href: "/search/cooking-tools/spatulaladleset",
+          },
+          {
+            title: "چاقو",
+            href: "/search/cooking-tools/knife",
+          },
+          {
+            title: "تخته گوشت",
+            href: "/search/cooking-tools/meat-board",
+          },
+          {
+            title: "ظرف و قالب یخ",
+            href: "/search/cooking-tools/icetray",
+          },
+          {
+            title: "قیف",
+            href: "/search/cooking-tools/funnel",
+          },
+        ],
       },
       {
         title: "مبلمان و دکوراسین داخلی",
+        href: "/category/household-furniture",
+
         list: [
-          "مبل",
-          "کتابخانه",
-          "شلف و طبقه",
-          "کنسول",
-          "صندلی",
-          "میز ناهارخوری",
+          {
+            title: "مبل",
+            href: "/search/household-furniture/sofa",
+          },
+          {
+            title: "کتابخانه",
+            href: "/search/household-furniture/library",
+          },
+          {
+            title: "شلف و طبقه",
+            href: "/search/household-furniture/shelf",
+          },
+          {
+            title: "کنسول",
+            href: "/search/household-furniture/console",
+          },
+          {
+            title: "صندلی",
+            href: "/search/household-furniture/chair",
+          },
+          {
+            title: "میز ناهارخوری",
+            href: "/search/household-furniture/dining-table",
+          },
         ],
       },
       {
         title: "حمام",
-        list: ["حوله", "دمپایی", "لیف", "پرده حمام", "وان و جکوزی"],
+        href: "/category/bathroom",
+        list: [
+          {
+            title: "حوله",
+            href: "/search/bathroom/towel",
+          },
+          {
+            title: "دمپایی",
+            href: "/search/bathroom/slippers",
+          },
+          {
+            title: "لیف",
+            href: "/search/bathroom/washingmitt",
+          },
+          {
+            title: "پرده حمام",
+            href: "/search/bathroom/showercurtains",
+          },
+          {
+            title: "وان و جکوزی",
+            href: "/search/bathroom/bathtub-and-jacuzzi",
+          },
+        ],
       },
       {
         title: "سرویس بهداشتی",
-        list: ["توالت فرنگی", "ست سرویس بهداشتی"],
+        href: "/category/watercloset",
+        list: [
+          {
+            title: "توالت فرنگی",
+            href: "/search/watercloset/toilet",
+          },
+          {
+            title: "ست سرویس بهداشتی",
+            href: "/search/watercloset/toiletset",
+          },
+        ],
       },
     ],
   },
@@ -668,36 +824,85 @@ export const categories = [
     submenu: [
       {
         title: "زیورآلات طلا زنانه",
+        href: "/category/women-gold-jewelry",
         list: [
-          "زنجیر طلا زنانه",
-          "انگشتر طلا زنانه",
-          "دستبند طلا زنانه",
-          "النگو طلا زنانه",
-          "گردنبد طلا زنانه",
-          "گوشواره طلا",
+          {
+            title: "زنجیر طلا زنانه",
+            href: "/search/women-gold-jewelry/chain",
+          },
+          {
+            title: "انگشتر طلا زنانه",
+            href: "/search/women-gold-jewelry/ring",
+          },
+          {
+            title: "دستبند طلا زنانه",
+            href: "/search/women-gold-jewelry/bracelet",
+          },
+          {
+            title: "النگو طلا زنانه",
+            href: "/search/women-gold-jewelry/bangle",
+          },
+          {
+            title: "گردنبد طلا زنانه",
+            href: "/search/women-gold-jewelry/necklace",
+          },
+          {
+            title: "گوشواره طلا",
+            href: "/search/women-gold-jewelry/earrings",
+          },
         ],
       },
       {
         title: "زیورآلات نقره زنانه",
+        href: "/category/women-silver-jewelry",
         list: [
-          "زنجیر نقره زنانه",
-          "انگشتر نقره زنانه",
-          "دستبند نقره زنانه",
-          "پیرسینگ نقره زنانه",
-          "آویز ساعت نقره زنانه",
-          "گردنبد نقره زنانه",
-          "گوشواره نقره زنانه",
-          "پابند نقره زنانه",
-          "آویز نقره زنانه",
+          {
+            title: "زنجیر نقره زنانه",
+            href: "/search/women-silver-jewelry/chain",
+          },
+          {
+            title: "انگشتر نقره زنانه",
+            href: "/search/women-silver-jewelry/ring",
+          },
+          {
+            title: "دستبند نقره زنانه",
+            href: "/search/women-silver-jewelry/bracelet",
+          },
+          {
+            title: "پیرسینگ نقره زنانه",
+            href: "/search/women-silver-jewelry/piercing",
+          },
+          {
+            title: "آویز ساعت نقره زنانه",
+            href: "/search/women-silver-jewelry/watch-pendant",
+          },
+          {
+            title: "گردنبد نقره زنانه",
+            href: "/search/women-silver-jewelry/necklace",
+          },
+          {
+            title: "گوشواره نقره زنانه",
+            href: "/search/women-silver-jewelry/earrings",
+          },
+          {
+            title: "پابند نقره زنانه",
+            href: "/search/women-silver-jewelry/anklet",
+          },
+          {
+            title: "آویز نقره زنانه",
+            href: "/search/women-silver-jewelry/pendants",
+          },
         ],
       },
       {
         title: "طلای آب شده",
-        list: [""],
+        href: "/category/melt-gold",
+        list: [],
       },
       {
         title: "سکه طلا",
-        list: [""],
+        href: "/category/gold-coin",
+        list: [],
       },
     ],
   },

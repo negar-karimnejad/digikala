@@ -73,14 +73,14 @@ export default function Navbar() {
             <div
               onMouseMove={() => setIsShowMenu(false)}
               className={`fixed w-full h-full mt-12 bg-black/50 right-0 top-20 transition-all ${
-                isShowMenu ? "block" : "hidden"
+                isShowMenu ? "block" : ""
               }`}
             >
               <div
                 onMouseMove={(e) => e.stopPropagation()}
-                className="mr-4 grid grid-cols-12 top-12 border bg-white right-0 max-w-6xl shadow-sm"
+                className="mr-4 grid grid-cols-12 top-12 border bg-white dark:bg-neutral-700 right-0 max-w-6xl shadow-sm"
               >
-                <div className="bg-gray-100 max-h-[25.5rem] overflow-y-auto col-span-2">
+                <div className="bg-neutral-100 dark:bg-neutral-800 max-h-[25.5rem] overflow-y-auto col-span-2">
                   {categories.map((category) => (
                     <div
                       onMouseEnter={() => hoverHandler(category.id)}
@@ -88,9 +88,9 @@ export default function Navbar() {
                     >
                       <Link
                         href={category.href}
-                        className={`transition-all px-3 py-5 border border-gray-100 hover:border-gray-200 hover:font-bold hover:text-red-500 hover:bg-white text-gray-600 flex items-center gap-2 text-[12px] font-bold ${
+                        className={`transition-all px-3 py-5 border dark:border-neutral-900 border-gray-100 hover:border-gray-200 hover:font-bold hover:text-red-500 hover:bg-white text-gray-600 dark:text-gray-100 flex items-center gap-2 text-[11px] lg:text-[12px] font-bold ${
                           selectedCategory?.id === category.id
-                            ? "border-gray-200 font-bold text-red-500 bg-white"
+                            ? "border-gray-200 font-bold text-red-500 dark:text-red-500 bg-white dark:bg-neutral-900"
                             : ""
                         }`}
                       >
@@ -113,7 +113,7 @@ export default function Navbar() {
                   <div className="mt-5 grid grid-cols-12 gap-y-7">
                     {selectedCategory?.submenu.map((menu) => (
                       <div key={menu.title} className="col-span-3">
-                        <h3 className="text-sm text-gray-700 font-bold flex items-center hover:text-red-500 transition-all">
+                        <h3 className="text-sm text-gray-700 dark:hover:text-red-500 dark:text-neutral-100 font-bold flex items-center hover:text-red-500 transition-all">
                           <span className="text-red-500 font-bold ml-2">|</span>
                           <Link href={menu.href} className="flex items-center">
                             {menu.title}
@@ -123,7 +123,7 @@ export default function Navbar() {
                         <div className="space-y-4 mt-5">
                           {menu.list.map((item) => (
                             <div
-                              className="text-gray-500 text-sm hover:text-red-500 transition-all"
+                              className="text-gray-500 dark:text-gray-400 text-sm hover:text-red-500 dark:hover:text-red-500 transition-all"
                               key={item.title}
                             >
                               <Link href={item.href}>{item.title}</Link>
