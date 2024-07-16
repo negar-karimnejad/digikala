@@ -113,7 +113,7 @@ export default function Navbar() {
                   <div className="mt-5 grid grid-cols-12 gap-y-7">
                     {selectedCategory?.submenu.map((menu) => (
                       <div key={menu.title} className="col-span-3">
-                        <h3 className="text-sm text-gray-700 dark:hover:text-red-500 dark:text-neutral-100 font-bold flex items-center hover:text-red-500 transition-all">
+                        <h3 className="text-sm text-gray-700 dark:hover:text-red-500 dark:text-white font-bold flex items-center hover:text-red-500 transition-all">
                           <span className="text-red-500 font-bold ml-2">|</span>
                           <Link href={menu.href} className="flex items-center">
                             {menu.title}
@@ -123,7 +123,7 @@ export default function Navbar() {
                         <div className="space-y-4 mt-5">
                           {menu.list.map((item) => (
                             <div
-                              className="text-gray-500 dark:text-gray-400 text-sm hover:text-red-500 dark:hover:text-red-500 transition-all"
+                              className="text-gray-500 dark:text-gray-300 text-sm hover:text-red-500 dark:hover:text-red-500 transition-all"
                               key={item.title}
                             >
                               <Link href={item.href}>{item.title}</Link>
