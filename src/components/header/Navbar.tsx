@@ -113,8 +113,8 @@ export default function Navbar() {
                   <div className="mt-5 grid grid-cols-12 gap-y-7">
                     {selectedCategory?.submenu.map((menu) => (
                       <div key={menu.title} className="col-span-3">
-                        <h3 className="text-sm text-gray-700 dark:hover:text-red-500 dark:text-white font-bold flex items-center hover:text-red-500 transition-all">
-                          <span className="text-red-500 font-bold ml-2">|</span>
+                        <h3 className="text-sm text-gray-700 font-irsansb dark:hover:text-red-500 dark:text-white flex items-center hover:text-red-500 transition-all">
+                          <span className="text-red-500 ml-2">|</span>
                           <Link href={menu.href} className="flex items-center">
                             {menu.title}
                             <ChevronLeft size={15} />

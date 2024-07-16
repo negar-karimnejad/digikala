@@ -7,7 +7,7 @@ import localFont from "next/font/local";
 import { Toaster } from "react-hot-toast";
 import "./globals.css";
 
-const iranSans = localFont({ src: "../fonts/IranianSans.ttf" });
+const iranSans = localFont({ src: "../fonts/irsans.ttf" });
 
 export const metadata = {
   title: "فروشگاه اینترنتی دیجی‌کالا",
