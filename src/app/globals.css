@@ -79,3 +79,30 @@
 ::-webkit-scrollbar-thumb:hover {
   background-color: #c9c9c9 !important; /* Darker color on hover */
 }
+
+/* Dots Loader */
+
+.loader {
+  width: 8px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  animation: l5 1.5s infinite linear alternate;
+}
+@keyframes l5 {
+  0% {
+    box-shadow: 10px 0 #000000a8, -10px 0 #0002;
+    background: #000000a8;
+  }
+  33% {
+    box-shadow: 10px 0 #000000a8, -10px 0 #0002;
+    background: #0002;
+  }
+  66% {
+    box-shadow: 10px 0 #0002, -10px 0 #000000a8;
+    background: #0002;
+  }
+  100% {
+    box-shadow: 10px 0 #0002, -10px 0 #000000a8;
+    background: #000000a8;
+  }
+}
