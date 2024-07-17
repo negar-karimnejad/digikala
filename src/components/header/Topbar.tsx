@@ -8,7 +8,6 @@ import persianLogo from "../../../public/digi.svg";
 import { DarkMode } from "../ui/DarkMode";
 import ProfileButton from "../ui/ProfileButton";
 import { Button } from "../ui/button";
-import Container from "../ui/container";
 import Searchbar from "./Searchbar";
 
 export default function Topbar() {

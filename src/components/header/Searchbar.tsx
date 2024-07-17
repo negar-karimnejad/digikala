@@ -7,10 +7,18 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { ChevronLeft, Flame, SearchIcon } from "lucide-react";
+import { Product } from "@prisma/client";
+import {
+  ChevronLeft,
+  Flame,
+  MoveUpRight,
+  Search,
+  SearchIcon,
+} from "lucide-react";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { ChangeEvent, useEffect, useRef, useState } from "react";
 import { Card, CardContent } from "../ui/card";
+import SearchSkeleton from "./SearchSkeleton";
 
 const popularSearches = [
   "گوشی سامسونگ s22",
@@ -23,6 +31,22 @@ const popularSearches = [
 export default function Searchbar({ placeholder }: { placeholder?: string }) {
   const [isShowSearchMenu, setIsShowSearchMenu] = useState(false);
   const searchRef = useRef<HTMLLabelElement>(null);
+  const [products, setProducts] = useState<Product[]>([]);
+  const [search, setSearch] = useState("");
+  const [searchResult, setSearchResult] = useState<Product[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    fetch("/api/products")
+      .then((response) => response.json())
+      .then((data) => setProducts(data))
+      .catch((error) => console.error("Error fetching products:", error));
+  }, []);
+
+  useEffect(() => {
+    if (!isShowSearchMenu) setSearch("");
+    if (!search) setSearchResult([]);
+  }, [isShowSearchMenu, search]);
 
   useEffect(() => {
     const handleClick = (event: MouseEvent) => {
@@ -40,6 +64,23 @@ export default function Searchbar({ placeholder }: { placeholder?: string }) {
     };
   }, []);
 
+  const changeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    const searchValue = e.target.value;
+    setSearch(searchValue);
+    setIsLoading(true);
+
+    if (searchValue.length > 1) {
+      const filteredProducts = products.filter((product) =>
+        product.title.toLowerCase().includes(searchValue.toLowerCase())
+      );
+      setSearchResult(filteredProducts);
+      setIsLoading(false);
+    } else {
+      setIsLoading(false);
+      setSearchResult([]);
+    }
+  };
+
   return (
     <label
       ref={searchRef}
@@ -52,6 +93,8 @@ export default function Searchbar({ placeholder }: { placeholder?: string }) {
         type="text"
         id="search"
         autoComplete="false"
+        value={search}
+        onChange={changeHandler}
         placeholder={placeholder ? placeholder : "جستجو "}
         className="placeholder:text-sm z-10 border-0 h-full bg-transparent px-3 w-full outline-none"
       />
@@ -63,6 +106,32 @@ export default function Searchbar({ placeholder }: { placeholder?: string }) {
         }`}
       >
         <div className="w-full bg-sky-500 h-[1px] mt-8"></div>
+        {searchResult.map((product) => (
+          <div
+            className="my-8 text-gray-700 flex justify-between items-center"
+            key={product.id}
+          >
+            <Link
+              href={`/products/${product.title.replaceAll(" ", "-")}`}
+              onClick={() => setIsShowSearchMenu(false)}
+              className="flex gap-5"
+            >
+              <Search size={20} className="text-gray-400" />
+              {product.title.slice(0, 50)}...
+            </Link>
+            <MoveUpRight size={20} className="text-gray-400" />
+          </div>
+        ))}
+        {isLoading && (
+          <>
+            <SearchSkeleton />
+            <SearchSkeleton />
+            <SearchSkeleton />
+          </>
+        )}
+        {searchResult.length > 0 && (
+          <div className="my-5 w-full shadow bg-gray-100 h-[1px]"></div>
+        )}
         <h2 className="flex items-center gap-4 my-4">
           <Flame className="text-gray-400" />
           <span className="text-[15px] font-irsansb text-gray-600">
