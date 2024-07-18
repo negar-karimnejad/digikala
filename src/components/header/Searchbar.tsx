@@ -149,7 +149,7 @@ export default function Searchbar({ placeholder }: { placeholder?: string }) {
             {popularSearches.map((search) => (
               <CarouselItem
                 key={search}
-                className="cursor-pointer basis-1/3 p-0"
+                className="cursor-pointer basis-auto p-0"
               >
                 <div className="p-1">
                   <Card className="!rounded-full">

@@ -144,7 +144,7 @@ export default function Navbar() {
               ></span>
               <div
                 onMouseMove={() => setIsShowMenu(false)}
-                className={`fixed w-full h-full mt-11 bg-black/50 right-0 top-20 transition-all ${
+                className={`fixed w-full z-10 h-full mt-11 bg-black/50 right-0 top-20 transition-all ${
                   isShowMenu ? "block" : "hidden"
                 }`}
               >

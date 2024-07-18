@@ -1,4 +1,5 @@
 import Header from "@/components/header/Header";
+import Hero from "@/components/home/Hero";
 import StorySlider from "@/components/home/StorySlider";
 
 function Home() {
@@ -6,6 +7,7 @@ function Home() {
     <>
       <Header />
       <StorySlider />
+      <Hero />
     </>
   );
 }

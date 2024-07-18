@@ -17,6 +17,7 @@ interface Story {
   id: number;
   title: string;
   cover: string | StaticImageData;
+  post: string | StaticImageData;
 }
 
 export default function StorySlider() {
@@ -59,7 +60,7 @@ export default function StorySlider() {
             {stories.map((story) => (
               <CarouselItem
                 key={story.id}
-                className="cursor-pointer basis-1/12 p-0"
+                className="cursor-pointer basis-auto p-0 mx-2"
                 onClick={() => {
                   setSelectedStory(story);
                   setIsShowStory(true);
@@ -75,7 +76,9 @@ export default function StorySlider() {
                       className="object-cover h-full w-full rounded-full"
                     />
                   </div>
-                  <div className="text-xs pt-3 text-center">{story.title}</div>
+                  <div className="text-xs w-20 pt-3 text-center">
+                    {story.title}
+                  </div>
                 </div>
               </CarouselItem>
             ))}
@@ -92,24 +95,27 @@ export default function StorySlider() {
         >
           {selectedStory != null && (
             <div className="relative">
-              <div className="w-full h-full p-2 pt-0">
+              <div className="w-full h-[29rem] pt-5">
                 <Image
-                  src={selectedStory?.cover}
+                  src={selectedStory?.post}
                   width={700}
                   height={700}
-                  alt="Story Image"
-                  className="object-cover h-full w-full"
+                  alt={selectedStory.title}
+                  className="h-full w-full object-cover"
                 />
+                <div className="text-lg text-white font-irsansb pt-5 text-center">
+                  {selectedStory.title}
+                </div>
               </div>
               <button
                 onClick={nextStoryHandler}
-                className="absolute w-10 h-10 -right-32 top-64 bg-white p-2 rounded-full"
+                className="absolute w-10 h-10 sm:-right-32 max-sm:-right-3 top-64 bg-white p-2 rounded-full"
               >
                 <ChevronRight />
               </button>
               <button
                 onClick={prevStoryHandler}
-                className="absolute w-10 h-10 -left-32 top-64 bg-white p-2 rounded-full"
+                className="absolute w-10 h-10 sm:-left-32 max-sm:-left-3 top-64 bg-white p-2 rounded-full"
               >
                 <ChevronLeft />
               </button>

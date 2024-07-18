@@ -36,9 +36,11 @@ function Modal({
            centered
              ? "dark:bg-neutral-700 min-[600px]:w-[500px] h-[30rem]"
              : "dark:bg-neutral-800 min-[600px]:w-[750px]"
-         } ${isStory ? "!overflow-visible !bg-black/50 min-[600px]:w-[400px] !h-[35rem]" : ""} ${
-          isOpen ? "opacity-100" : "opacity-0"
-        }`}
+         } ${
+          isStory
+            ? "!overflow-visible !bg-black/50 min-[600px]:w-[400px] !h-[35rem] !max-sm:h-screen"
+            : ""
+        } ${isOpen ? "opacity-100" : "opacity-0"}`}
       >
         {children}
       </div>

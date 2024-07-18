@@ -1,3 +1,4 @@
+// Story Images Source
 import water from "@/../public/stories/114085322.jpg";
 import bag from "@/../public/stories/121770049.jpg";
 import game from "@/../public/stories/5731e97ed9d3b90c3742076c104f83fe5b3a15fe_1696924676.jpg";
@@ -13,6 +14,33 @@ import handsfree from "@/../public/stories/0522c3b5af6b7200a673513f1142f028d6935
 import brush from "@/../public/stories/52a7c2d9a63b18916e42547325256a518dccfc5c_1714564300.jpg";
 import trend from "@/../public/stories/92a7527335232d34e8b305caf625e83c104e6e9b_1716364617.jpg";
 import umbrella from "@/../public/stories/afe2c3040d0a40ba1d99826a9721a5c63388d31b_1713949315.jpg";
+import umbrella2 from "@/../public/stories/umbrella2.webp";
+import headphone2 from "@/../public/stories/videoframe_4702.png";
+import handsfree2 from "@/../public/stories/handsfree2.jpg";
+import skirt from "@/../public/stories/skirt.webp";
+import fan2 from "@/../public/stories/fan2.webp";
+import brush2 from "@/../public/stories/brush2.webp";
+import tea2 from "@/../public/stories/tea2.jpg";
+import laptop2 from "@/../public/stories/laptop2.webp";
+import water2 from "@/../public/stories/water2.jpg";
+import product2 from "@/../public/stories/product2.webp";
+import game2 from "@/../public/stories/game2.webp";
+import bird2 from "@/../public/stories/bird2.webp";
+import sugar2 from "@/../public/stories/sugar2.webp";
+import bag2 from "@/../public/stories/bag2.webp";
+import yoga2 from "@/../public/stories/yoga2.webp";
+
+// Hero Images Source
+import image1 from "@/../public/hero/223182406f6b2b94af6e227293071c82552e3f04_1720613062.webp";
+import image2 from "@/../public/hero/4663d35c9f9e75c051d24b070df6673aa0ab57ba_1721201981.webp";
+import image3 from "@/../public/hero/5e019f7eb15ca21899dea8d986bc9a0c3ba4f3da_1720423339.webp";
+import image4 from "@/../public/hero/86cd652dcca75bc161612940ad0c23d375b45e75_1720969903.webp";
+import image5 from "@/../public/hero/8db73b25bd311928c27f64d04eb58f9836666d7a_1715008589.webp";
+import image6 from "@/../public/hero/a0e32b8fd59bbfa40b4c8a5b7d43149d84e29846_1721248372.webp";
+import image7 from "@/../public/hero/aafb21566813f2ab151d259f45ad95640affd557_1720939653.webp";
+import image8 from "@/../public/hero/dd85e4685cbd6565e27af70daea6141a06933743_1699359521.webp";
+import image9 from "@/../public/hero/e1272decb672540df5818e3200f843b5a2596b99_1720633023.webp";
+
 import {
   Armchair,
   Gem,
@@ -921,7 +949,6 @@ export const categories = [
     ],
   },
 ];
-
 export const province = [
   {
     id: 4,
@@ -4044,23 +4071,36 @@ export const stories = [
     id: 1,
     title: "قوری چایسازت شکسته؟",
     cover: tea,
+    post: tea2,
   },
   {
     id: 2,
     title: "برای گوشیت چتر میخری؟",
     cover: umbrella,
+    post: umbrella2,
   },
-  { id: 3, title: "ترندی و ایرانی", cover: trend },
-  { id: 4, title: "مسواک برقی اورال", cover: brush },
-  { id: 5, title: "خرید هندزفری", cover: handsfree },
-  { id: 6, title: "لپ تاپ اپل", cover: laptop },
-  { id: 7, title: "قمقمه بچگیاته", cover: water },
-  { id: 8, title: "هدفون سونی", cover: headphone },
-  { id: 9, title: "پنکه شارژی", cover: fan },
-  { id: 10, title: "یه محصول متفاوت", cover: product },
-  { id: 11, title: "کاپوچین", cover: game },
-  { id: 12, title: "خوراک پرنده", cover: bird },
-  { id: 13, title: "قندون چوبی جذاب", cover: sugar },
-  { id: 14, title: "کیف ابزار", cover: bag },
-  { id: 15, title: "تجهیزات یوگا", cover: yoga },
+  { id: 3, title: "ترندی و ایرانی", cover: trend, post: skirt },
+  { id: 4, title: "مسواک برقی اورال", cover: brush, post: brush2 },
+  { id: 5, title: "خرید هندزفری", cover: handsfree, post: handsfree2 },
+  { id: 6, title: "لپ تاپ اپل", cover: laptop, post: laptop2 },
+  { id: 7, title: "قمقمه بچگیاته", cover: water, post: water2 },
+  { id: 8, title: "هدفون سونی", cover: headphone, post: headphone2 },
+  { id: 9, title: "پنکه شارژی", cover: fan, post: fan2 },
+  { id: 10, title: "یه محصول متفاوت", cover: product, post: product2 },
+  { id: 11, title: "کاپوچین", cover: game, post: game2 },
+  { id: 12, title: "خوراک پرنده", cover: bird, post: bird2 },
+  { id: 13, title: "قندون چوبی جذاب", cover: sugar, post: sugar2 },
+  { id: 14, title: "کیف ابزار", cover: bag, post: bag2 },
+  { id: 15, title: "تجهیزات یوگا", cover: yoga, post: yoga2 },
+];
+export const hero = [
+  image1,
+  image2,
+  image3,
+  image4,
+  image5,
+  image6,
+  image7,
+  image8,
+  image9,
 ];
