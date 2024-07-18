@@ -83,8 +83,8 @@ export default function StorySlider() {
               </CarouselItem>
             ))}
           </CarouselContent>
-          <CarouselNext className="right-3 bottom-0 !opacity-100 !bg-white w-10 h-10" />
-          <CarouselPrevious className="left-3 bottom-0 !opacity-100 !bg-white w-10 h-10" />
+          <CarouselNext className="z-20 right-3 bottom-0 !opacity-100 !bg-white w-10 h-10" />
+          <CarouselPrevious className="z-20 left-3 bottom-0 !opacity-100 !bg-white w-10 h-10" />
         </Carousel>
       </div>
       <div>

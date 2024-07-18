@@ -4094,13 +4094,13 @@ export const stories = [
   { id: 15, title: "تجهیزات یوگا", cover: yoga, post: yoga2 },
 ];
 export const hero = [
-  image1,
-  image2,
-  image3,
-  image4,
-  image5,
-  image6,
-  image7,
-  image8,
-  image9,
+  { title: "تن ماهی با بیشترین تخفیف", cover: image1 },
+  { title: "محبوب ترین", cover: image2 },
+  { title: "مراقبت پوستی", cover: image3 },
+  { title: "پارتنرشیپ-هادرون", cover: image4 },
+  { title: "خرید سوپرمارکتی پر تخفیف تر از همیشه", cover: image5 },
+  { title: "خرید آخر ماه از فروشگاه های اطراف", cover: image6 },
+  { title: "برندهای کفش", cover: image7 },
+  { title: "کمپین - HE - Outlet - آبان 1402", cover: image8 },
+  { title: "سامسونگ", cover: image9 },
 ];
