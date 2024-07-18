@@ -1,65 +1,122 @@
+"use client";
+
 import {
-    Carousel,
-    CarouselContent,
-    CarouselItem,
-    CarouselNext,
-    CarouselPrevious,
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
 } from "@/components/ui/carousel";
-import Image from "next/image";
-import cover from "../../../public/chart.webp";
-const stories = [
-  { id: 1, title: "تجهیزات یوگا", cover: cover, posts: [cover] },
-  { id: 2, title: "تجهیزات یوگا", cover: cover, posts: [cover] },
-  { id: 3, title: "تجهیزات یوگا", cover: cover, posts: [cover] },
-  { id: 4, title: "تجهیزات یوگا", cover: cover, posts: [cover] },
-  { id: 5, title: "تجهیزات یوگا", cover: cover, posts: [cover] },
-  { id: 6, title: "تجهیزات یوگا", cover: cover, posts: [cover] },
-  { id: 7, title: "تجهیزات یوگا", cover: cover, posts: [cover] },
-  { id: 8, title: "تجهیزات یوگا", cover: cover, posts: [cover] },
-  { id: 9, title: "تجهیزات یوگا", cover: cover, posts: [cover] },
-  { id: 10, title: "تجهیزات یوگا", cover: cover, posts: [cover] },
-  { id: 11, title: "تجهیزات یوگا", cover: cover, posts: [cover] },
-  { id: 12, title: "تجهیزات یوگا", cover: cover, posts: [cover] },
-  { id: 13, title: "تجهیزات یوگا", cover: cover, posts: [cover] },
-  { id: 14, title: "تجهیزات یوگا", cover: cover, posts: [cover] },
-  { id: 15, title: "تجهیزات یوگا", cover: cover, posts: [cover] },
-];
+import { stories } from "@/data/data";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import Image, { StaticImageData } from "next/image";
+import { useState } from "react";
+import Modal from "../ui/Modal";
+
+interface Story {
+  id: number;
+  title: string;
+  cover: string | StaticImageData;
+}
 
 export default function StorySlider() {
-  return (
-    <div className="mt-5">
-      <Carousel
-        opts={{
-          align: "start",
-          direction: "rtl",
-        }}
-        className="w-full"
-      >
-        <CarouselContent>
-          {stories.map((story) => (
-            <CarouselItem
-              key={story.id}
-              className="cursor-pointer basis-1/12 p-0"
-            >
-              <div className="p-1">
-                <div className="relative border w-20 h-20 border-rose-800 rounded-full">
-                  <Image
-                    src={story.cover}
-                    width={300}
-                    height={300}
-                    alt={story.title}
-                    className="absolute top-2 left-2 right-2 bottom-2 object-cover rounded-full"
-                  />
-                </div>
+  const [isShowStory, setIsShowStory] = useState(false);
+  const [selectedStory, setSelectedStory] = useState<Story>();
 
-                <span className="text-sm">{story.title}</span>
+  const closeModalHandler = () => setIsShowStory(false);
+
+  const nextStoryHandler = () => {
+    if (selectedStory) {
+      const currentIndex = stories.findIndex(
+        (story) => story.id === selectedStory.id
+      );
+      const nextIndex = (currentIndex + 1) % stories.length;
+      setSelectedStory(stories[nextIndex]);
+    }
+  };
+
+  const prevStoryHandler = () => {
+    if (selectedStory) {
+      const currentIndex = stories.findIndex(
+        (story) => story.id === selectedStory.id
+      );
+      const prevIndex = (currentIndex - 1 + stories.length) % stories.length;
+      setSelectedStory(stories[prevIndex]);
+    }
+  };
+
+  return (
+    <>
+      <div className="mt-5">
+        <Carousel
+          opts={{
+            align: "start",
+            direction: "rtl",
+          }}
+          className="w-full"
+        >
+          <CarouselContent>
+            {stories.map((story) => (
+              <CarouselItem
+                key={story.id}
+                className="cursor-pointer basis-1/12 p-0"
+                onClick={() => {
+                  setSelectedStory(story);
+                  setIsShowStory(true);
+                }}
+              >
+                <div className="p-2">
+                  <div className="w-20 h-20 rounded-full ring-2 ring-fuchsia-700 ring-offset-4">
+                    <Image
+                      src={story.cover}
+                      width={300}
+                      height={300}
+                      alt={story.title}
+                      className="object-cover h-full w-full rounded-full"
+                    />
+                  </div>
+                  <div className="text-xs pt-3 text-center">{story.title}</div>
+                </div>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+          <CarouselNext className="right-3 bottom-0 !opacity-100 !bg-white w-10 h-10" />
+          <CarouselPrevious className="left-3 bottom-0 !opacity-100 !bg-white w-10 h-10" />
+        </Carousel>
+      </div>
+      <div>
+        <Modal
+          isStory={true}
+          isOpen={isShowStory}
+          closeModalHandler={closeModalHandler}
+        >
+          {selectedStory != null && (
+            <div className="relative">
+              <div className="w-full h-full p-2 pt-0">
+                <Image
+                  src={selectedStory?.cover}
+                  width={700}
+                  height={700}
+                  alt="Story Image"
+                  className="object-cover h-full w-full"
+                />
               </div>
-            </CarouselItem>
-          ))}
-        </CarouselContent>
-        <CarouselNext className="right-3 bottom-0 !opacity-100 !bg-white w-10 h-10" />
-        <CarouselPrevious className="left-3 bottom-0 !opacity-100 !bg-white w-10 h-10" />
-      </Carousel>
-    </div>
+              <button
+                onClick={nextStoryHandler}
+                className="absolute w-10 h-10 -right-32 top-64 bg-white p-2 rounded-full"
+              >
+                <ChevronRight />
+              </button>
+              <button
+                onClick={prevStoryHandler}
+                className="absolute w-10 h-10 -left-32 top-64 bg-white p-2 rounded-full"
+              >
+                <ChevronLeft />
+              </button>
+            </div>
+          )}
+        </Modal>
+      </div>
+    </>
   );
 }

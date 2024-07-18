@@ -1,3 +1,18 @@
+import water from "@/../public/stories/114085322.jpg";
+import bag from "@/../public/stories/121770049.jpg";
+import game from "@/../public/stories/5731e97ed9d3b90c3742076c104f83fe5b3a15fe_1696924676.jpg";
+import bird from "@/../public/stories/7f9bc07da7fadef4ff47d736af9756407c60b5f1_1628475897.jpg";
+import product from "@/../public/stories/9c1116f57381aff1e143f0cf1b11fcf76c23aef2_1660401902.jpg";
+import yoga from "@/../public/stories/9fb51e64d9d9036ef746dc851b039e5d68b908ab_1667840291.jpg";
+import sugar from "@/../public/stories/ed86895b16923c064f563039053d043acd45bc56_1641552917.jpg";
+import tea from "@/../public/stories/da2f620f186b837f106fccf1eeb8f779847fbd24_1665154598.jpg";
+import fan from "@/../public/stories/5250665c235dcee56c87643e607c8038f10dbaf5_1635078485.jpg";
+import headphone from "@/../public/stories/a5078d3ed60f9e655dbe0cd53d97e55742485a4f_1704809564.jpg";
+import laptop from "@/../public/stories/a0d157d46805b4088a34652c667d6fbb2757f5b4_1702127081.jpg";
+import handsfree from "@/../public/stories/0522c3b5af6b7200a673513f1142f028d693515b_1709192564.jpg";
+import brush from "@/../public/stories/52a7c2d9a63b18916e42547325256a518dccfc5c_1714564300.jpg";
+import trend from "@/../public/stories/92a7527335232d34e8b305caf625e83c104e6e9b_1716364617.jpg";
+import umbrella from "@/../public/stories/afe2c3040d0a40ba1d99826a9721a5c63388d31b_1713949315.jpg";
 import {
   Armchair,
   Gem,
@@ -8,7 +23,6 @@ import {
   Shirt,
   Smartphone,
 } from "lucide-react";
-
 export const categories = [
   {
     id: 1,
@@ -4024,4 +4038,29 @@ export const cities = [
     latitude: 36.645556,
     longitude: 59.121111,
   },
+];
+export const stories = [
+  {
+    id: 1,
+    title: "قوری چایسازت شکسته؟",
+    cover: tea,
+  },
+  {
+    id: 2,
+    title: "برای گوشیت چتر میخری؟",
+    cover: umbrella,
+  },
+  { id: 3, title: "ترندی و ایرانی", cover: trend },
+  { id: 4, title: "مسواک برقی اورال", cover: brush },
+  { id: 5, title: "خرید هندزفری", cover: handsfree },
+  { id: 6, title: "لپ تاپ اپل", cover: laptop },
+  { id: 7, title: "قمقمه بچگیاته", cover: water },
+  { id: 8, title: "هدفون سونی", cover: headphone },
+  { id: 9, title: "پنکه شارژی", cover: fan },
+  { id: 10, title: "یه محصول متفاوت", cover: product },
+  { id: 11, title: "کاپوچین", cover: game },
+  { id: 12, title: "خوراک پرنده", cover: bird },
+  { id: 13, title: "قندون چوبی جذاب", cover: sugar },
+  { id: 14, title: "کیف ابزار", cover: bag },
+  { id: 15, title: "تجهیزات یوگا", cover: yoga },
 ];
