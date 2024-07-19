@@ -1,11 +1,11 @@
 import db from "@/db/db";
 import { User } from "@prisma/client";
 import bcrypt from "bcryptjs";
-import { AuthOptions, Session } from "next-auth";
+import { Session } from "next-auth";
 import { JWT } from "next-auth/jwt";
 import CredentialsProvider from "next-auth/providers/credentials";
 
-export const authOptions = {
+export const authOptionsz = {
   providers: [
     CredentialsProvider({
       name: "Credentials",
