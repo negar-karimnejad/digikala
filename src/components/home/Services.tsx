@@ -4,7 +4,7 @@ import React from "react";
 
 export default function Services() {
   return (
-    <div className="flex gap-5 justify-between my-10">
+    <div className="flex gap-5 justify-between items-center my-10">
       {services.map((service) => (
         <div
           key={service.title}
