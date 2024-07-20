@@ -8,4 +8,4 @@ function OfferSkeleton() {
   );
 }
 
-export default RoomCardSkeleton;
+export default OfferSkeleton;
