@@ -19,6 +19,7 @@ import Link from "next/link";
 import { ChangeEvent, useEffect, useRef, useState } from "react";
 import { Card, CardContent } from "../ui/card";
 import SearchSkeleton from "./SearchSkeleton";
+import axios, { AxiosResponse } from "axios";
 
 const popularSearches = [
   "گوشی سامسونگ s22",
@@ -36,11 +37,17 @@ export default function Searchbar({ placeholder }: { placeholder?: string }) {
   const [searchResult, setSearchResult] = useState<Product[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
+  async function getProducts() {
+    try {
+      const response: AxiosResponse = await axios.get("/api/products");
+      setProducts(response.data);
+    } catch (error) {
+      console.error("Error fetching products:", error);
+    }
+  }
+
   useEffect(() => {
-    fetch("/api/products")
-      .then((response) => response.json())
-      .then((data) => setProducts(data))
-      .catch((error) => console.error("Error fetching products:", error));
+    getProducts();
   }, []);
 
   useEffect(() => {
