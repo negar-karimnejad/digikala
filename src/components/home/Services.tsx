@@ -1,5 +1,6 @@
 import { services } from "@/data/data";
 import Image from "next/image";
+import { Carousel, CarouselContent, CarouselItem } from "../ui/carousel";
 
 export default function Services() {
   return (
@@ -7,7 +8,7 @@ export default function Services() {
       {services.map((service) => (
         <div
           key={service.title}
-          className="flex flex-col w-full gap-2 justify-center items-center"
+          className="max-lg:hidden flex flex-col w-full gap-2 justify-center items-center"
         >
           <Image
             alt={service.title}
@@ -18,6 +19,37 @@ export default function Services() {
           <p className="text-center text-xs w-14 leading-6">{service.title}</p>
         </div>
       ))}
+      <Carousel
+        opts={{
+          align: "start",
+          direction: "rtl",
+        }}
+        className="w-full lg:hidden"
+      >
+        <CarouselContent>
+          {services.map((service) => (
+            <CarouselItem
+              key={service.title}
+              className="cursor-pointer basis-28 p-0 mx-2"
+            >
+              <div
+                key={service.title}
+                className="flex flex-col w-full gap-2 justify-center items-center"
+              >
+                <Image
+                  alt={service.title}
+                  width={55}
+                  height={55}
+                  src={service.image}
+                />
+                <p className="text-center text-xs w-14 leading-6">
+                  {service.title}
+                </p>
+              </div>
+            </CarouselItem>
+          ))}
+        </CarouselContent>
+      </Carousel>
     </div>
   );
 }

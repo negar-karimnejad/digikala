@@ -1,6 +1,7 @@
 "use client";
 import Header from "@/components/header/Header";
 import Hero from "@/components/home/Hero";
+import MarketOffers from "@/components/home/MarketOffers";
 import Offers from "@/components/home/Offers";
 import Services from "@/components/home/Services";
 import StorySlider from "@/components/home/StorySlider";
@@ -17,7 +18,8 @@ function Home() {
     },
   });
   return (
-    <>
+    //mb-96 حذف کن بعدن
+    <div className="mb-96">
       <QueryClientProvider client={queryClient}>
         <ReactQueryDevtools initialIsOpen={false} />
         <Header />
@@ -25,8 +27,9 @@ function Home() {
         <Hero />
         <Services />
         <Offers />
+        <MarketOffers />
       </QueryClientProvider>
-    </>
+    </div>
   );
 }
 

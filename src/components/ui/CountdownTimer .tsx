@@ -8,7 +8,6 @@ const CountdownTimer = ({ initialTime }: { initialTime: number }) => {
       setTimeRemaining((prevTime) => {
         if (prevTime === 0) {
           clearInterval(timerInterval);
-          console.log("Countdown complete!");
           return 0;
         } else {
           return prevTime - 1;
@@ -20,10 +19,15 @@ const CountdownTimer = ({ initialTime }: { initialTime: number }) => {
     return () => clearInterval(timerInterval);
   }, []);
 
-  const days = String(Math.floor(timeRemaining / (3600 * 24))).padStart(2, '0');
-  const hours = String(Math.floor((timeRemaining % (3600 * 24)) / 3600)).padStart(2, '0');
-  const minutes = String(Math.floor((timeRemaining % 3600) / 60)).padStart(2, '0');
-  const seconds = String(timeRemaining % 60).padStart(2, '0');
+  const days = String(Math.floor(timeRemaining / (3600 * 24))).padStart(2, "0");
+  const hours = String(
+    Math.floor((timeRemaining % (3600 * 24)) / 3600)
+  ).padStart(2, "0");
+  const minutes = String(Math.floor((timeRemaining % 3600) / 60)).padStart(
+    2,
+    "0"
+  );
+  const seconds = String(timeRemaining % 60).padStart(2, "0");
 
   return (
     <div className="flex gap-[2px] items-center h-6">

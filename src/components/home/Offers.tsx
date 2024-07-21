@@ -20,7 +20,7 @@ export default function Offers() {
     .slice(0, 12);
 
   return (
-    <div className="bg-rose-600 rounded-xl py-4 lg:mx-3">
+    <div className="bg-rose-600 rounded-2xl py-4 lg:mx-3">
       <Carousel
         opts={{
           align: "start",
@@ -255,7 +255,7 @@ export default function Offers() {
               key={product.id}
               className="pl-1 cursor-pointer basis-44 max-lg:basis-36"
             >
-              <div className="">
+              <div>
                 <Card className="h-72 rounded-none border-0">
                   <CardContent className="p-0">
                     <Link
@@ -312,9 +312,11 @@ export default function Offers() {
                               />
                             </svg>
                           </div>
-                          <span className="text-gray-400 dark:text-gray-300 line-through text-sm text-right">
-                            {product.price.toLocaleString()}
-                          </span>
+                          {product.discount != 0 && (
+                            <span className="text-gray-400 dark:text-gray-300 line-through text-sm text-right">
+                              {product.price.toLocaleString()}
+                            </span>
+                          )}
                         </div>
                       </div>
                     </Link>
