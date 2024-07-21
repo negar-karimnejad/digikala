@@ -7,7 +7,9 @@ import useProducts from "@/features/useProducts";
 import { ArrowLeft, ChevronLeft } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import OfferSkeleton from "../skeleton/OfferSkeleton";
 import { Card, CardContent } from "../ui/card";
+import CountdownTimer from "../ui/CountdownTimer ";
 
 export default function Offers() {
   const { products, isLoading } = useProducts();
@@ -107,6 +109,7 @@ export default function Offers() {
               />
             </svg>
           </Link>
+          <CountdownTimer initialTime={30000000} />
           <Link
             href="incredible-offers"
             className="text-white flex items-center text-xs"
@@ -201,6 +204,7 @@ export default function Offers() {
                 fill="white"
               />
             </svg>
+            <CountdownTimer initialTime={30000000} />
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="70"
@@ -225,6 +229,7 @@ export default function Offers() {
                 fill="#FAFAFA"
               />
             </svg>
+
             <Link
               href="incredible-offers"
               className="text-white flex items-center text-xs"
@@ -233,6 +238,18 @@ export default function Offers() {
               <ChevronLeft size={18} />
             </Link>
           </Link>
+          {isLoading && (
+            <>
+              {Array.from({ length: 7 }).map((_, index) => (
+                <CarouselItem
+                  key={index}
+                  className="pl-1 cursor-pointer basis-44 max-lg:basis-36"
+                >
+                  <OfferSkeleton />
+                </CarouselItem>
+              ))}
+            </>
+          )}
           {offerProducts?.map((product) => (
             <CarouselItem
               key={product.id}
