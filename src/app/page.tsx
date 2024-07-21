@@ -1,6 +1,11 @@
 "use client";
 import Header from "@/components/header/Header";
-import { FirstBanner, LastBanner, MiddleBanner } from "@/components/home/Banner";
+import {
+  FirstBanner,
+  LastBanner,
+  MiddleBanner,
+} from "@/components/home/Banner";
+import Categories from "@/components/home/Categories";
 import Hero from "@/components/home/Hero";
 import MarketOffers from "@/components/home/MarketOffers";
 import Offers from "@/components/home/Offers";
@@ -30,9 +35,8 @@ function Home() {
         <Offers />
         <MarketOffers />
         <FirstBanner />
-
+        <Categories />
         <MiddleBanner />
-        
         <LastBanner />
       </QueryClientProvider>
     </div>

@@ -1,33 +1,33 @@
 // Story Images Source
+import handsfree from "@/../public/stories/0522c3b5af6b7200a673513f1142f028d693515b_1709192564.jpg";
 import water from "@/../public/stories/114085322.jpg";
 import bag from "@/../public/stories/121770049.jpg";
+import fan from "@/../public/stories/5250665c235dcee56c87643e607c8038f10dbaf5_1635078485.jpg";
+import brush from "@/../public/stories/52a7c2d9a63b18916e42547325256a518dccfc5c_1714564300.jpg";
 import game from "@/../public/stories/5731e97ed9d3b90c3742076c104f83fe5b3a15fe_1696924676.jpg";
 import bird from "@/../public/stories/7f9bc07da7fadef4ff47d736af9756407c60b5f1_1628475897.jpg";
+import trend from "@/../public/stories/92a7527335232d34e8b305caf625e83c104e6e9b_1716364617.jpg";
 import product from "@/../public/stories/9c1116f57381aff1e143f0cf1b11fcf76c23aef2_1660401902.jpg";
 import yoga from "@/../public/stories/9fb51e64d9d9036ef746dc851b039e5d68b908ab_1667840291.jpg";
-import sugar from "@/../public/stories/ed86895b16923c064f563039053d043acd45bc56_1641552917.jpg";
-import tea from "@/../public/stories/da2f620f186b837f106fccf1eeb8f779847fbd24_1665154598.jpg";
-import fan from "@/../public/stories/5250665c235dcee56c87643e607c8038f10dbaf5_1635078485.jpg";
-import headphone from "@/../public/stories/a5078d3ed60f9e655dbe0cd53d97e55742485a4f_1704809564.jpg";
 import laptop from "@/../public/stories/a0d157d46805b4088a34652c667d6fbb2757f5b4_1702127081.jpg";
-import handsfree from "@/../public/stories/0522c3b5af6b7200a673513f1142f028d693515b_1709192564.jpg";
-import brush from "@/../public/stories/52a7c2d9a63b18916e42547325256a518dccfc5c_1714564300.jpg";
-import trend from "@/../public/stories/92a7527335232d34e8b305caf625e83c104e6e9b_1716364617.jpg";
+import headphone from "@/../public/stories/a5078d3ed60f9e655dbe0cd53d97e55742485a4f_1704809564.jpg";
 import umbrella from "@/../public/stories/afe2c3040d0a40ba1d99826a9721a5c63388d31b_1713949315.jpg";
+import bag2 from "@/../public/stories/bag2.webp";
+import bird2 from "@/../public/stories/bird2.webp";
+import brush2 from "@/../public/stories/brush2.webp";
+import tea from "@/../public/stories/da2f620f186b837f106fccf1eeb8f779847fbd24_1665154598.jpg";
+import sugar from "@/../public/stories/ed86895b16923c064f563039053d043acd45bc56_1641552917.jpg";
+import fan2 from "@/../public/stories/fan2.webp";
+import game2 from "@/../public/stories/game2.webp";
+import handsfree2 from "@/../public/stories/handsfree2.jpg";
+import laptop2 from "@/../public/stories/laptop2.webp";
+import product2 from "@/../public/stories/product2.webp";
+import skirt from "@/../public/stories/skirt.webp";
+import sugar2 from "@/../public/stories/sugar2.webp";
+import tea2 from "@/../public/stories/tea2.jpg";
 import umbrella2 from "@/../public/stories/umbrella2.webp";
 import headphone2 from "@/../public/stories/videoframe_4702.png";
-import handsfree2 from "@/../public/stories/handsfree2.jpg";
-import skirt from "@/../public/stories/skirt.webp";
-import fan2 from "@/../public/stories/fan2.webp";
-import brush2 from "@/../public/stories/brush2.webp";
-import tea2 from "@/../public/stories/tea2.jpg";
-import laptop2 from "@/../public/stories/laptop2.webp";
 import water2 from "@/../public/stories/water2.jpg";
-import product2 from "@/../public/stories/product2.webp";
-import game2 from "@/../public/stories/game2.webp";
-import bird2 from "@/../public/stories/bird2.webp";
-import sugar2 from "@/../public/stories/sugar2.webp";
-import bag2 from "@/../public/stories/bag2.webp";
 import yoga2 from "@/../public/stories/yoga2.webp";
 
 // Hero Images Source
@@ -64,11 +64,13 @@ import {
   Smartphone,
 } from "lucide-react";
 
+// کتگوریها رو از ایدی 8 به بعد submenu هاش رو درست کن
 export const categories = [
   {
     id: 1,
     title: "موبایل",
     icon: <Smartphone size={16} />,
+    cover: "/category/mobile.png",
     href: "/category/mobile",
     submenu: [
       {
@@ -177,6 +179,7 @@ export const categories = [
     id: 2,
     title: "کتاب، لوازم تحریر و هنر",
     icon: <PencilRuler size={16} />,
+    cover: "/category/book.png",
     href: "/category/book-and-media",
     submenu: [
       {
@@ -248,6 +251,7 @@ export const categories = [
     id: 3,
     title: "کالای دیجیتال",
     icon: <Laptop size={16} />,
+    cover: "/category/digital.png",
     href: "/category/digital",
     submenu: [
       {
@@ -399,6 +403,7 @@ export const categories = [
     id: 4,
     title: "مد و پوشاک",
     icon: <Shirt size={16} />,
+    cover: "/category/mode.png",
     href: "/category/apparel",
     submenu: [
       {
@@ -498,6 +503,7 @@ export const categories = [
     id: 5,
     title: "آرایشی بهداشتی",
     icon: <HeartPulse size={16} />,
+    cover: "/category/cosmetic.png",
     href: "/category/personal-appliance",
     submenu: [
       {
@@ -639,6 +645,7 @@ export const categories = [
     id: 6,
     title: "لوازم خانگی برقی",
     icon: <Refrigerator size={16} />,
+    cover: "/category/electronic.png",
     href: "/category/home-appliance",
     submenu: [
       {
@@ -751,6 +758,7 @@ export const categories = [
     id: 7,
     title: "خانه و آشپزخانه",
     icon: <Armchair size={16} />,
+    cover: "/category/kitchen.png",
     href: "/category/home-and-kitchen",
     submenu: [
       {
@@ -875,7 +883,728 @@ export const categories = [
     id: 8,
     title: "طلا و نقره",
     icon: <Gem size={16} />,
+    cover: "/category/jewelry.png",
     href: "/category/jewelry",
+    submenu: [
+      {
+        title: "زیورآلات طلا زنانه",
+        href: "/category/women-gold-jewelry",
+        list: [
+          {
+            title: "زنجیر طلا زنانه",
+            href: "/search/women-gold-jewelry/chain",
+          },
+          {
+            title: "انگشتر طلا زنانه",
+            href: "/search/women-gold-jewelry/ring",
+          },
+          {
+            title: "دستبند طلا زنانه",
+            href: "/search/women-gold-jewelry/bracelet",
+          },
+          {
+            title: "النگو طلا زنانه",
+            href: "/search/women-gold-jewelry/bangle",
+          },
+          {
+            title: "گردنبد طلا زنانه",
+            href: "/search/women-gold-jewelry/necklace",
+          },
+          {
+            title: "گوشواره طلا",
+            href: "/search/women-gold-jewelry/earrings",
+          },
+        ],
+      },
+      {
+        title: "زیورآلات نقره زنانه",
+        href: "/category/women-silver-jewelry",
+        list: [
+          {
+            title: "زنجیر نقره زنانه",
+            href: "/search/women-silver-jewelry/chain",
+          },
+          {
+            title: "انگشتر نقره زنانه",
+            href: "/search/women-silver-jewelry/ring",
+          },
+          {
+            title: "دستبند نقره زنانه",
+            href: "/search/women-silver-jewelry/bracelet",
+          },
+          {
+            title: "پیرسینگ نقره زنانه",
+            href: "/search/women-silver-jewelry/piercing",
+          },
+          {
+            title: "آویز ساعت نقره زنانه",
+            href: "/search/women-silver-jewelry/watch-pendant",
+          },
+          {
+            title: "گردنبد نقره زنانه",
+            href: "/search/women-silver-jewelry/necklace",
+          },
+          {
+            title: "گوشواره نقره زنانه",
+            href: "/search/women-silver-jewelry/earrings",
+          },
+          {
+            title: "پابند نقره زنانه",
+            href: "/search/women-silver-jewelry/anklet",
+          },
+          {
+            title: "آویز نقره زنانه",
+            href: "/search/women-silver-jewelry/pendants",
+          },
+        ],
+      },
+      {
+        title: "طلای آب شده",
+        href: "/category/melt-gold",
+        list: [],
+      },
+      {
+        title: "سکه طلا",
+        href: "/category/gold-coin",
+        list: [],
+      },
+    ],
+  },
+  {
+    id: 9,
+    title: "خودرو و موتورسیکلت",
+    cover: "/category/car.png",
+    href: "/category/vehicles-spare-parts",
+    submenu: [
+      {
+        title: "زیورآلات طلا زنانه",
+        href: "/category/women-gold-jewelry",
+        list: [
+          {
+            title: "زنجیر طلا زنانه",
+            href: "/search/women-gold-jewelry/chain",
+          },
+          {
+            title: "انگشتر طلا زنانه",
+            href: "/search/women-gold-jewelry/ring",
+          },
+          {
+            title: "دستبند طلا زنانه",
+            href: "/search/women-gold-jewelry/bracelet",
+          },
+          {
+            title: "النگو طلا زنانه",
+            href: "/search/women-gold-jewelry/bangle",
+          },
+          {
+            title: "گردنبد طلا زنانه",
+            href: "/search/women-gold-jewelry/necklace",
+          },
+          {
+            title: "گوشواره طلا",
+            href: "/search/women-gold-jewelry/earrings",
+          },
+        ],
+      },
+      {
+        title: "زیورآلات نقره زنانه",
+        href: "/category/women-silver-jewelry",
+        list: [
+          {
+            title: "زنجیر نقره زنانه",
+            href: "/search/women-silver-jewelry/chain",
+          },
+          {
+            title: "انگشتر نقره زنانه",
+            href: "/search/women-silver-jewelry/ring",
+          },
+          {
+            title: "دستبند نقره زنانه",
+            href: "/search/women-silver-jewelry/bracelet",
+          },
+          {
+            title: "پیرسینگ نقره زنانه",
+            href: "/search/women-silver-jewelry/piercing",
+          },
+          {
+            title: "آویز ساعت نقره زنانه",
+            href: "/search/women-silver-jewelry/watch-pendant",
+          },
+          {
+            title: "گردنبد نقره زنانه",
+            href: "/search/women-silver-jewelry/necklace",
+          },
+          {
+            title: "گوشواره نقره زنانه",
+            href: "/search/women-silver-jewelry/earrings",
+          },
+          {
+            title: "پابند نقره زنانه",
+            href: "/search/women-silver-jewelry/anklet",
+          },
+          {
+            title: "آویز نقره زنانه",
+            href: "/search/women-silver-jewelry/pendants",
+          },
+        ],
+      },
+      {
+        title: "طلای آب شده",
+        href: "/category/melt-gold",
+        list: [],
+      },
+      {
+        title: "سکه طلا",
+        href: "/category/gold-coin",
+        list: [],
+      },
+    ],
+  },
+  {
+    id: 10,
+    title: "ابزار آلات و تجهیزات",
+    cover: "/category/vehicles.png",
+    href: "/category/vehicles",
+    submenu: [
+      {
+        title: "زیورآلات طلا زنانه",
+        href: "/category/women-gold-jewelry",
+        list: [
+          {
+            title: "زنجیر طلا زنانه",
+            href: "/search/women-gold-jewelry/chain",
+          },
+          {
+            title: "انگشتر طلا زنانه",
+            href: "/search/women-gold-jewelry/ring",
+          },
+          {
+            title: "دستبند طلا زنانه",
+            href: "/search/women-gold-jewelry/bracelet",
+          },
+          {
+            title: "النگو طلا زنانه",
+            href: "/search/women-gold-jewelry/bangle",
+          },
+          {
+            title: "گردنبد طلا زنانه",
+            href: "/search/women-gold-jewelry/necklace",
+          },
+          {
+            title: "گوشواره طلا",
+            href: "/search/women-gold-jewelry/earrings",
+          },
+        ],
+      },
+      {
+        title: "زیورآلات نقره زنانه",
+        href: "/category/women-silver-jewelry",
+        list: [
+          {
+            title: "زنجیر نقره زنانه",
+            href: "/search/women-silver-jewelry/chain",
+          },
+          {
+            title: "انگشتر نقره زنانه",
+            href: "/search/women-silver-jewelry/ring",
+          },
+          {
+            title: "دستبند نقره زنانه",
+            href: "/search/women-silver-jewelry/bracelet",
+          },
+          {
+            title: "پیرسینگ نقره زنانه",
+            href: "/search/women-silver-jewelry/piercing",
+          },
+          {
+            title: "آویز ساعت نقره زنانه",
+            href: "/search/women-silver-jewelry/watch-pendant",
+          },
+          {
+            title: "گردنبد نقره زنانه",
+            href: "/search/women-silver-jewelry/necklace",
+          },
+          {
+            title: "گوشواره نقره زنانه",
+            href: "/search/women-silver-jewelry/earrings",
+          },
+          {
+            title: "پابند نقره زنانه",
+            href: "/search/women-silver-jewelry/anklet",
+          },
+          {
+            title: "آویز نقره زنانه",
+            href: "/search/women-silver-jewelry/pendants",
+          },
+        ],
+      },
+      {
+        title: "طلای آب شده",
+        href: "/category/melt-gold",
+        list: [],
+      },
+      {
+        title: "سکه طلا",
+        href: "/category/gold-coin",
+        list: [],
+      },
+    ],
+  },
+  {
+    id: 11,
+    title: "تجهیزات پزشکی و سلامت",
+    cover: "/category/medical.jpg",
+    href: "/category/category-health-care",
+    submenu: [
+      {
+        title: "زیورآلات طلا زنانه",
+        href: "/category/women-gold-jewelry",
+        list: [
+          {
+            title: "زنجیر طلا زنانه",
+            href: "/search/women-gold-jewelry/chain",
+          },
+          {
+            title: "انگشتر طلا زنانه",
+            href: "/search/women-gold-jewelry/ring",
+          },
+          {
+            title: "دستبند طلا زنانه",
+            href: "/search/women-gold-jewelry/bracelet",
+          },
+          {
+            title: "النگو طلا زنانه",
+            href: "/search/women-gold-jewelry/bangle",
+          },
+          {
+            title: "گردنبد طلا زنانه",
+            href: "/search/women-gold-jewelry/necklace",
+          },
+          {
+            title: "گوشواره طلا",
+            href: "/search/women-gold-jewelry/earrings",
+          },
+        ],
+      },
+      {
+        title: "زیورآلات نقره زنانه",
+        href: "/category/women-silver-jewelry",
+        list: [
+          {
+            title: "زنجیر نقره زنانه",
+            href: "/search/women-silver-jewelry/chain",
+          },
+          {
+            title: "انگشتر نقره زنانه",
+            href: "/search/women-silver-jewelry/ring",
+          },
+          {
+            title: "دستبند نقره زنانه",
+            href: "/search/women-silver-jewelry/bracelet",
+          },
+          {
+            title: "پیرسینگ نقره زنانه",
+            href: "/search/women-silver-jewelry/piercing",
+          },
+          {
+            title: "آویز ساعت نقره زنانه",
+            href: "/search/women-silver-jewelry/watch-pendant",
+          },
+          {
+            title: "گردنبد نقره زنانه",
+            href: "/search/women-silver-jewelry/necklace",
+          },
+          {
+            title: "گوشواره نقره زنانه",
+            href: "/search/women-silver-jewelry/earrings",
+          },
+          {
+            title: "پابند نقره زنانه",
+            href: "/search/women-silver-jewelry/anklet",
+          },
+          {
+            title: "آویز نقره زنانه",
+            href: "/search/women-silver-jewelry/pendants",
+          },
+        ],
+      },
+      {
+        title: "طلای آب شده",
+        href: "/category/melt-gold",
+        list: [],
+      },
+      {
+        title: "سکه طلا",
+        href: "/category/gold-coin",
+        list: [],
+      },
+    ],
+  },
+  {
+    id: 12,
+    title: "ورزش و سفر",
+    cover: "/category/sport.png",
+    href: "/category/sport-entertainment",
+    submenu: [
+      {
+        title: "زیورآلات طلا زنانه",
+        href: "/category/women-gold-jewelry",
+        list: [
+          {
+            title: "زنجیر طلا زنانه",
+            href: "/search/women-gold-jewelry/chain",
+          },
+          {
+            title: "انگشتر طلا زنانه",
+            href: "/search/women-gold-jewelry/ring",
+          },
+          {
+            title: "دستبند طلا زنانه",
+            href: "/search/women-gold-jewelry/bracelet",
+          },
+          {
+            title: "النگو طلا زنانه",
+            href: "/search/women-gold-jewelry/bangle",
+          },
+          {
+            title: "گردنبد طلا زنانه",
+            href: "/search/women-gold-jewelry/necklace",
+          },
+          {
+            title: "گوشواره طلا",
+            href: "/search/women-gold-jewelry/earrings",
+          },
+        ],
+      },
+      {
+        title: "زیورآلات نقره زنانه",
+        href: "/category/women-silver-jewelry",
+        list: [
+          {
+            title: "زنجیر نقره زنانه",
+            href: "/search/women-silver-jewelry/chain",
+          },
+          {
+            title: "انگشتر نقره زنانه",
+            href: "/search/women-silver-jewelry/ring",
+          },
+          {
+            title: "دستبند نقره زنانه",
+            href: "/search/women-silver-jewelry/bracelet",
+          },
+          {
+            title: "پیرسینگ نقره زنانه",
+            href: "/search/women-silver-jewelry/piercing",
+          },
+          {
+            title: "آویز ساعت نقره زنانه",
+            href: "/search/women-silver-jewelry/watch-pendant",
+          },
+          {
+            title: "گردنبد نقره زنانه",
+            href: "/search/women-silver-jewelry/necklace",
+          },
+          {
+            title: "گوشواره نقره زنانه",
+            href: "/search/women-silver-jewelry/earrings",
+          },
+          {
+            title: "پابند نقره زنانه",
+            href: "/search/women-silver-jewelry/anklet",
+          },
+          {
+            title: "آویز نقره زنانه",
+            href: "/search/women-silver-jewelry/pendants",
+          },
+        ],
+      },
+      {
+        title: "طلای آب شده",
+        href: "/category/melt-gold",
+        list: [],
+      },
+      {
+        title: "سکه طلا",
+        href: "/category/gold-coin",
+        list: [],
+      },
+    ],
+  },
+  {
+    id: 13,
+    title: "کارت هدیه و گیفت کارت",
+    cover: "/category/gift.png",
+    href: "/category/dk-ds-gift-card",
+    submenu: [
+      {
+        title: "زیورآلات طلا زنانه",
+        href: "/category/women-gold-jewelry",
+        list: [
+          {
+            title: "زنجیر طلا زنانه",
+            href: "/search/women-gold-jewelry/chain",
+          },
+          {
+            title: "انگشتر طلا زنانه",
+            href: "/search/women-gold-jewelry/ring",
+          },
+          {
+            title: "دستبند طلا زنانه",
+            href: "/search/women-gold-jewelry/bracelet",
+          },
+          {
+            title: "النگو طلا زنانه",
+            href: "/search/women-gold-jewelry/bangle",
+          },
+          {
+            title: "گردنبد طلا زنانه",
+            href: "/search/women-gold-jewelry/necklace",
+          },
+          {
+            title: "گوشواره طلا",
+            href: "/search/women-gold-jewelry/earrings",
+          },
+        ],
+      },
+      {
+        title: "زیورآلات نقره زنانه",
+        href: "/category/women-silver-jewelry",
+        list: [
+          {
+            title: "زنجیر نقره زنانه",
+            href: "/search/women-silver-jewelry/chain",
+          },
+          {
+            title: "انگشتر نقره زنانه",
+            href: "/search/women-silver-jewelry/ring",
+          },
+          {
+            title: "دستبند نقره زنانه",
+            href: "/search/women-silver-jewelry/bracelet",
+          },
+          {
+            title: "پیرسینگ نقره زنانه",
+            href: "/search/women-silver-jewelry/piercing",
+          },
+          {
+            title: "آویز ساعت نقره زنانه",
+            href: "/search/women-silver-jewelry/watch-pendant",
+          },
+          {
+            title: "گردنبد نقره زنانه",
+            href: "/search/women-silver-jewelry/necklace",
+          },
+          {
+            title: "گوشواره نقره زنانه",
+            href: "/search/women-silver-jewelry/earrings",
+          },
+          {
+            title: "پابند نقره زنانه",
+            href: "/search/women-silver-jewelry/anklet",
+          },
+          {
+            title: "آویز نقره زنانه",
+            href: "/search/women-silver-jewelry/pendants",
+          },
+        ],
+      },
+      {
+        title: "طلای آب شده",
+        href: "/category/melt-gold",
+        list: [],
+      },
+      {
+        title: "سکه طلا",
+        href: "/category/gold-coin",
+        list: [],
+      },
+    ],
+  },
+  {
+    id: 14,
+    title: "کالای خوراکی و اساسی",
+    cover: "/category/food.png",
+    href: "/category/food-beverage",
+    submenu: [
+      {
+        title: "زیورآلات طلا زنانه",
+        href: "/category/women-gold-jewelry",
+        list: [
+          {
+            title: "زنجیر طلا زنانه",
+            href: "/search/women-gold-jewelry/chain",
+          },
+          {
+            title: "انگشتر طلا زنانه",
+            href: "/search/women-gold-jewelry/ring",
+          },
+          {
+            title: "دستبند طلا زنانه",
+            href: "/search/women-gold-jewelry/bracelet",
+          },
+          {
+            title: "النگو طلا زنانه",
+            href: "/search/women-gold-jewelry/bangle",
+          },
+          {
+            title: "گردنبد طلا زنانه",
+            href: "/search/women-gold-jewelry/necklace",
+          },
+          {
+            title: "گوشواره طلا",
+            href: "/search/women-gold-jewelry/earrings",
+          },
+        ],
+      },
+      {
+        title: "زیورآلات نقره زنانه",
+        href: "/category/women-silver-jewelry",
+        list: [
+          {
+            title: "زنجیر نقره زنانه",
+            href: "/search/women-silver-jewelry/chain",
+          },
+          {
+            title: "انگشتر نقره زنانه",
+            href: "/search/women-silver-jewelry/ring",
+          },
+          {
+            title: "دستبند نقره زنانه",
+            href: "/search/women-silver-jewelry/bracelet",
+          },
+          {
+            title: "پیرسینگ نقره زنانه",
+            href: "/search/women-silver-jewelry/piercing",
+          },
+          {
+            title: "آویز ساعت نقره زنانه",
+            href: "/search/women-silver-jewelry/watch-pendant",
+          },
+          {
+            title: "گردنبد نقره زنانه",
+            href: "/search/women-silver-jewelry/necklace",
+          },
+          {
+            title: "گوشواره نقره زنانه",
+            href: "/search/women-silver-jewelry/earrings",
+          },
+          {
+            title: "پابند نقره زنانه",
+            href: "/search/women-silver-jewelry/anklet",
+          },
+          {
+            title: "آویز نقره زنانه",
+            href: "/search/women-silver-jewelry/pendants",
+          },
+        ],
+      },
+      {
+        title: "طلای آب شده",
+        href: "/category/melt-gold",
+        list: [],
+      },
+      {
+        title: "سکه طلا",
+        href: "/category/gold-coin",
+        list: [],
+      },
+    ],
+  },
+  {
+    id: 15,
+    title: "اسباب بازی، کودک و نوزاد",
+    cover: "/category/toy.png",
+    href: "/category/mother-and-child",
+    submenu: [
+      {
+        title: "زیورآلات طلا زنانه",
+        href: "/category/women-gold-jewelry",
+        list: [
+          {
+            title: "زنجیر طلا زنانه",
+            href: "/search/women-gold-jewelry/chain",
+          },
+          {
+            title: "انگشتر طلا زنانه",
+            href: "/search/women-gold-jewelry/ring",
+          },
+          {
+            title: "دستبند طلا زنانه",
+            href: "/search/women-gold-jewelry/bracelet",
+          },
+          {
+            title: "النگو طلا زنانه",
+            href: "/search/women-gold-jewelry/bangle",
+          },
+          {
+            title: "گردنبد طلا زنانه",
+            href: "/search/women-gold-jewelry/necklace",
+          },
+          {
+            title: "گوشواره طلا",
+            href: "/search/women-gold-jewelry/earrings",
+          },
+        ],
+      },
+      {
+        title: "زیورآلات نقره زنانه",
+        href: "/category/women-silver-jewelry",
+        list: [
+          {
+            title: "زنجیر نقره زنانه",
+            href: "/search/women-silver-jewelry/chain",
+          },
+          {
+            title: "انگشتر نقره زنانه",
+            href: "/search/women-silver-jewelry/ring",
+          },
+          {
+            title: "دستبند نقره زنانه",
+            href: "/search/women-silver-jewelry/bracelet",
+          },
+          {
+            title: "پیرسینگ نقره زنانه",
+            href: "/search/women-silver-jewelry/piercing",
+          },
+          {
+            title: "آویز ساعت نقره زنانه",
+            href: "/search/women-silver-jewelry/watch-pendant",
+          },
+          {
+            title: "گردنبد نقره زنانه",
+            href: "/search/women-silver-jewelry/necklace",
+          },
+          {
+            title: "گوشواره نقره زنانه",
+            href: "/search/women-silver-jewelry/earrings",
+          },
+          {
+            title: "پابند نقره زنانه",
+            href: "/search/women-silver-jewelry/anklet",
+          },
+          {
+            title: "آویز نقره زنانه",
+            href: "/search/women-silver-jewelry/pendants",
+          },
+        ],
+      },
+      {
+        title: "طلای آب شده",
+        href: "/category/melt-gold",
+        list: [],
+      },
+      {
+        title: "سکه طلا",
+        href: "/category/gold-coin",
+        list: [],
+      },
+    ],
+  },
+  {
+    id: 16,
+    title: "محصولات بومی و محلی",
+    cover: "/category/local.png",
+    href: "/category/rural-products",
     submenu: [
       {
         title: "زیورآلات طلا زنانه",
