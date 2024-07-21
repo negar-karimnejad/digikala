@@ -1,5 +1,6 @@
 "use client";
 import Header from "@/components/header/Header";
+import Banner from "@/components/home/Banner";
 import Hero from "@/components/home/Hero";
 import MarketOffers from "@/components/home/MarketOffers";
 import Offers from "@/components/home/Offers";
@@ -28,6 +29,7 @@ function Home() {
         <Services />
         <Offers />
         <MarketOffers />
+        <Banner />
       </QueryClientProvider>
     </div>
   );
