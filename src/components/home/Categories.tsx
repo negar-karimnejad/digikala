@@ -6,7 +6,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 
 export default function Categories() {
   return (
-    <div className="mx-3 my-14 group relative">
+    <div className="mx-3 my-12 group relative">
       <div className="container w-full">
         <h2 className="text-center text-xl font-irsansb my-2">
           خرید بر اساس دسته‌بندی
