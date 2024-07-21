@@ -1,4 +1,5 @@
 import { ArrowLeft } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 
 export default function MarketOffers() {
@@ -10,11 +11,11 @@ export default function MarketOffers() {
           className="flex lg:items-center items-start lg:gap-5 gap-2 max-lg:flex-col"
         >
           <div className="flex items-center lg:gap-5">
-            <img
-              alt=""
+            <Image
+              alt="fresh incredible offers"
               width={50}
               height={50}
-              src={"/../../../../fresh.webp"}
+              src={"/fresh.webp"}
             />
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -116,10 +117,12 @@ export default function MarketOffers() {
               >
                 {/* TODO: تایتل محصول رو بنویس */}
                 <Link href={`/products/${"تایتل محصول رو بنویس"}`}>
-                  <img
+                  <Image
+                    width={50}
+                    height={50}
                     alt="digikala"
                     className="rounded-full w-14 h-14 object-contain"
-                    src="../../../../rice.webp"
+                    src="/rice.webp"
                   />
                 </Link>
                 <div className="absolute right-0 bottom-0 z-10 bg-red-600 text-white rounded-full px-1 py-0.5 text-xs">
