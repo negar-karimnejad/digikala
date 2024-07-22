@@ -109,7 +109,7 @@ export default function Offers() {
               />
             </svg>
           </Link>
-          <CountdownTimer initialTime={30000000} />
+          <CountdownTimer initialTime={3000000} />
           <Link
             href="incredible-offers"
             className="text-white flex items-center text-xs"
@@ -204,7 +204,7 @@ export default function Offers() {
                 fill="white"
               />
             </svg>
-            <CountdownTimer initialTime={30000000} />
+            <CountdownTimer initialTime={3000000} />
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="70"

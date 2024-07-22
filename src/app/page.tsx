@@ -7,6 +7,7 @@ import {
 } from "@/components/home/Banner";
 import Brands from "@/components/home/Brands";
 import Categories from "@/components/home/Categories";
+import Digiclub from "@/components/home/Digiclub";
 import Hero from "@/components/home/Hero";
 import MarketOffers from "@/components/home/MarketOffers";
 import Offers from "@/components/home/Offers";
@@ -42,6 +43,7 @@ function Home() {
         <Brands />
         <LastBanner />
         <ProductsCard />
+        <Digiclub/>
       </QueryClientProvider>
     </div>
   );

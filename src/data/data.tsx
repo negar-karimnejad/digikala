@@ -4232,7 +4232,8 @@ export const brands = [
 export const productscard = [
   {
     id: 1,
-    image: [
+    href: "category/mobile",
+    images: [
       {
         src: "/product-card/1.jpg",
         href: "/product/گوشی-موبایل-اپل-مدل-iphone-13-ch-دو-سیم-کارت-ظرفیت-128-گیگابایت-و-رم-4-گیگابایت-نات-اکتیو",
@@ -4254,31 +4255,71 @@ export const productscard = [
   },
   {
     id: 2,
-    image: [
-      "/product-card/5.jpg",
-      "/product-card/6.jpg",
-      "/product-card/7.jpg",
-      "/product-card/8.jpg",
+    href: "search/mobile-accessories",
+    images: [
+      {
+        src: "/product-card/5.jpg",
+        href: "/product/کاور-ام-ان-اف-طرح-real-madrid-کد-p-218-مناسب-برای-گوشی-موبایل-اپل-iphone-15",
+      },
+      {
+        src: "/product-card/6.jpg",
+        href: "/product/برچسب-پوششی-ماهوت-مدل-collage-of-surreal-portrait-of-women-2-fullskin-مناسب-برای-گوشی-موبایل-شیائومی-redmi-note-8-pro",
+      },
+      {
+        src: "/product-card/7.jpg",
+        href: "/product/کاور-آکام-مدل-amcwa11-brands20-مناسب-برای-گوشی-موبایل-اپل-iphone-11",
+      },
+      {
+        src: "/product-card/8.jpg",
+        href: "/product/کاور-گالری-وبفر-طرح-بارسلونا-مناسب-برای-گوشی-موبایل-شیائومی-redmi-note-12-pro-5g",
+      },
     ],
     title: "کیف و کاور گوشی",
   },
   {
     id: 3,
-    image: [
-      "/product-card/9.jpg",
-      "/product-card/10.jpg",
-      "/product-card/11.jpg",
-      "/product-card/12.jpg",
+    href: "category/smart-watch",
+
+    images: [
+      {
+        src: "/product-card/9.jpg",
+        href: "/product/ساعت-هوشمند-هاینو-تکو-مدل-s1",
+      },
+      {
+        src: "/product-card/10.jpg",
+        href: "/product/ساعت-هوشمند-مدل-hm9-ultra-2",
+      },
+      {
+        src: "/product-card/11.jpg",
+        href: "/product/ساعت-هوشمند-فرفیت-مدل-ws22-max-amoled",
+      },
+      {
+        src: "/product-card/12.jpg",
+        href: "/product/ساعت-هوشمند-جی-اس-وای-اس-مدل-m70-max-ultra2",
+      },
     ],
     title: "ساعت هوشمند",
   },
   {
     id: 4,
-    image: [
-      "/product-card/13.jpg",
-      "/product-card/14.jpg",
-      "/product-card/15.jpg",
-      "/product-card/16.jpg",
+    href: "/category/car-parts",
+    images: [
+      {
+        src: "/product-card/13.jpg",
+        href: "/product/پنکه-خودرو-مارس-مدل-er",
+      },
+      {
+        src: "/product-card/14.jpg",
+        href: "/product/کیت-بک-فایر-خودرو-مدل-fr100/",
+      },
+      {
+        src: "/product-card/15.jpg",
+        href: "/product/پنکه-خودرو-کلاو-مدل-فندکی",
+      },
+      {
+        src: "/product-card/16.jpg",
+        href: "/product/پنکه-خودرو-مدل-دوبل-x916",
+      },
     ],
     title: "سایر لوازم خودرو",
   },
