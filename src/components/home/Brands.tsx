@@ -11,7 +11,7 @@ import {
 
 export default function Brands() {
   return (
-    <div className="mx-3 my-10 lg:border rounded-xl p-5">
+    <div className="mx-3 my-5 lg:border rounded-xl p-5">
       <div className="w-full">
         <h2 className="text-center flex items-center justify-center gap-2 text-xl font-irsansb my-2">
           <Image alt="" width={20} height={20} src={"/star.png"} />
@@ -22,7 +22,7 @@ export default function Brands() {
             align: "start",
             direction: "rtl",
           }}
-          className="w-full mt-10"
+          className="w-full mt-5"
         >
           <CarouselContent>
             {brands.map((brand) => (

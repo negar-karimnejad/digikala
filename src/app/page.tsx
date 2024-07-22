@@ -10,6 +10,7 @@ import Categories from "@/components/home/Categories";
 import Hero from "@/components/home/Hero";
 import MarketOffers from "@/components/home/MarketOffers";
 import Offers from "@/components/home/Offers";
+import ProductsCard from "@/components/home/ProductsCard";
 import Services from "@/components/home/Services";
 import StorySlider from "@/components/home/StorySlider";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -40,6 +41,7 @@ function Home() {
         <MiddleBanner />
         <Brands />
         <LastBanner />
+        <ProductsCard />
       </QueryClientProvider>
     </div>
   );

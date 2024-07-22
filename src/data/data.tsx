@@ -4229,3 +4229,57 @@ export const brands = [
   { id: 12, logo: "/brands/13.jpg", href: "/brand/mahya" },
   { id: 13, logo: "/brands/percil.png", href: "/brand/persil" },
 ];
+export const productscard = [
+  {
+    id: 1,
+    image: [
+      {
+        src: "/product-card/1.jpg",
+        href: "/product/گوشی-موبایل-اپل-مدل-iphone-13-ch-دو-سیم-کارت-ظرفیت-128-گیگابایت-و-رم-4-گیگابایت-نات-اکتیو",
+      },
+      {
+        src: "/product-card/2.jpg",
+        href: "/product/گوشی-موبایل-شیائومی-مدل-redmi-note-13-4g-دو-سیم-کارت-ظرفیت-256-گیگابایت-و-رم-8-گیگابایت",
+      },
+      {
+        src: "/product-card/3.jpg",
+        href: "/product/گوشی-موبایل-سامسونگ-مدل-galaxy-s24-ultra-دو-سیم-کارت-ظرفیت-256-گیگابایت-و-رم-12-گیگابایت-ویتنام",
+      },
+      {
+        src: "/product-card/4.jpg",
+        href: "/product/گوشی-موبایل-آنر-مدل-x8b-دو-سیمکارت-ظرفیت-512-گیگابایت-و-رم-8-گیگابایت/",
+      },
+    ],
+    title: "گوشی موبایل",
+  },
+  {
+    id: 2,
+    image: [
+      "/product-card/5.jpg",
+      "/product-card/6.jpg",
+      "/product-card/7.jpg",
+      "/product-card/8.jpg",
+    ],
+    title: "کیف و کاور گوشی",
+  },
+  {
+    id: 3,
+    image: [
+      "/product-card/9.jpg",
+      "/product-card/10.jpg",
+      "/product-card/11.jpg",
+      "/product-card/12.jpg",
+    ],
+    title: "ساعت هوشمند",
+  },
+  {
+    id: 4,
+    image: [
+      "/product-card/13.jpg",
+      "/product-card/14.jpg",
+      "/product-card/15.jpg",
+      "/product-card/16.jpg",
+    ],
+    title: "سایر لوازم خودرو",
+  },
+];
