@@ -10,6 +10,7 @@ import Brands from "@/components/home/Brands";
 import Categories from "@/components/home/Categories";
 import Digiclub from "@/components/home/Digiclub";
 import Hero from "@/components/home/Hero";
+import Mag from "@/components/home/Mag";
 import MarketOffers from "@/components/home/MarketOffers";
 import Offers from "@/components/home/Offers";
 import ProductsCard from "@/components/home/ProductsCard";
@@ -50,6 +51,7 @@ function Home() {
         <ProductsCard />
         <SelectedProducts />
         <Bestseller title="داغ ترین چند ساعت گذشته" />
+        <Mag />
       </QueryClientProvider>
     </div>
   );
