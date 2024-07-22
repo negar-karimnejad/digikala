@@ -269,7 +269,11 @@ export default function Offers() {
                           height={140}
                           src={product.thumbnail}
                         />
-                        <span className="lg:hidden px-2 py-0.5 absolute bottom-0 left-0 rounded-full text-white text-xs bg-red-600">
+                        <span
+                          className={`lg:hidden px-2 py-0.5 absolute bottom-0 left-0 rounded-full text-white text-xs bg-red-600 ${
+                            product.discount > 0 ? "visible" : "invisible"
+                          }`}
+                        >
                           %{product.discount}
                         </span>
                       </div>
@@ -282,9 +286,14 @@ export default function Offers() {
                         {product.title.length > 30 ? "..." : ""}
                       </div>
                       <div className="flex lg:justify-between max-lg:justify-end items-start w-full text-left">
-                        <span className="max-lg:hidden px-2 py-0.5 rounded-full text-white text-xs bg-red-600">
+                        <span
+                          className={`max-lg:hidden px-2 py-0.5 rounded-full text-white text-xs bg-red-600 ${
+                            product.discount > 0 ? "visible" : "invisible"
+                          }`}
+                        >
                           %{product.discount}
                         </span>
+
                         <div className="text-right">
                           <div className="text-sm font-bold dark:font-normal text-gray-800 dark:text-white flex gap-1 items-center">
                             {(

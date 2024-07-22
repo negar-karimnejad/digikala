@@ -5,6 +5,7 @@ import {
   LastBanner,
   MiddleBanner,
 } from "@/components/home/Banner";
+import Bestseller from "@/components/home/Bestseller";
 import Brands from "@/components/home/Brands";
 import Categories from "@/components/home/Categories";
 import Digiclub from "@/components/home/Digiclub";
@@ -12,6 +13,7 @@ import Hero from "@/components/home/Hero";
 import MarketOffers from "@/components/home/MarketOffers";
 import Offers from "@/components/home/Offers";
 import ProductsCard from "@/components/home/ProductsCard";
+import SelectedProducts from "@/components/home/SelectedProducts";
 import Services from "@/components/home/Services";
 import StorySlider from "@/components/home/StorySlider";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -43,7 +45,11 @@ function Home() {
         <Brands />
         <LastBanner />
         <ProductsCard />
-        <Digiclub/>
+        <Digiclub />
+        <Bestseller title="پرفروش‌ترین کالاها" />
+        <ProductsCard />
+        <SelectedProducts />
+        <Bestseller title="داغ ترین چند ساعت گذشته" />
       </QueryClientProvider>
     </div>
   );
