@@ -63,6 +63,9 @@
   }
 }
 
+html {
+  scroll-behavior: smooth;
+}
 /* Costumize Scrollbar */
 ::-webkit-scrollbar {
   height: 5px !important;

@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export default function Mag() {
   return (
-    <div className="mx-3 mt-5">
+    <div className="mx-3 my-10">
       <h3 className="mb-5 font-irsansb">خواندنی‌ها</h3>
       <div className="grid grid-cols-4 max-lg:grid-cols-1 gap-3">
         <Link href="mag/wrestling-in-olympic-iran-2024">

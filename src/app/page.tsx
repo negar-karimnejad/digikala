@@ -1,4 +1,5 @@
 "use client";
+import Footer from "@/components/footer/Footer";
 import Header from "@/components/header/Header";
 import {
   FirstBanner,
@@ -52,6 +53,7 @@ function Home() {
         <SelectedProducts />
         <Bestseller title="داغ ترین چند ساعت گذشته" />
         <Mag />
+        <Footer/>
       </QueryClientProvider>
     </div>
   );
