@@ -5,6 +5,7 @@ import {
   LastBanner,
   MiddleBanner,
 } from "@/components/home/Banner";
+import Brands from "@/components/home/Brands";
 import Categories from "@/components/home/Categories";
 import Hero from "@/components/home/Hero";
 import MarketOffers from "@/components/home/MarketOffers";
@@ -37,6 +38,7 @@ function Home() {
         <FirstBanner />
         <Categories />
         <MiddleBanner />
+        <Brands />
         <LastBanner />
       </QueryClientProvider>
     </div>
