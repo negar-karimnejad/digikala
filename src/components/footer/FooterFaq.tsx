@@ -13,6 +13,7 @@ export default function FooterFaq() {
           height="54"
           viewBox="0 0 54 54"
           fill="none"
+          className="dark:bg-white dark:rounded-full"
         >
           <path
             fill-rule="evenodd"
@@ -43,7 +44,9 @@ export default function FooterFaq() {
             fill="#424750"
           />
         </svg>
-        <p className="text-xs text-gray-600 mt-2">ضمانت اصل بودن کالا</p>
+        <p className="text-xs text-gray-600 mt-2 dark:text-gray-300">
+          ضمانت اصل بودن کالا
+        </p>
       </Link>
       <Link
         href="/return"
@@ -55,6 +58,7 @@ export default function FooterFaq() {
           height="54"
           viewBox="0 0 55 54"
           fill="none"
+          className="dark:bg-white dark:rounded-full"
         >
           <path
             fill-rule="evenodd"
@@ -91,7 +95,7 @@ export default function FooterFaq() {
             fill="#E6123D"
           />
         </svg>
-        <p className="text-xs text-gray-600 mt-2">7 روز ضمانت بازگشت کالا</p>
+        <p className="text-xs text-gray-600 mt-2 dark:text-gray-300">7 روز ضمانت بازگشت کالا</p>
       </Link>
       <Link
         href="/contact-us"
@@ -103,6 +107,7 @@ export default function FooterFaq() {
           height="54"
           viewBox="0 0 55 54"
           fill="none"
+          className="dark:bg-white dark:rounded-full"
         >
           <path
             fill-rule="evenodd"
@@ -147,7 +152,7 @@ export default function FooterFaq() {
             fill="#E6123D"
           />
         </svg>
-        <p className="text-xs text-gray-600 mt-2">7 روز هفته، 24 ساعته</p>
+        <p className="text-xs text-gray-600 mt-2 dark:text-gray-300">7 روز هفته، 24 ساعته</p>
       </Link>
       <Link
         href="/payment"
@@ -159,6 +164,7 @@ export default function FooterFaq() {
           height="54"
           viewBox="0 0 55 54"
           fill="none"
+          className="dark:bg-white dark:rounded-full"
         >
           <path
             d="M18.3774 46.3837H10.7982C9.92605 46.3837 9.21919 45.6767 9.21919 44.8047V31.9357C9.21919 31.0636 9.92613 30.3567 10.7982 30.3567H18.3775C19.2496 30.3567 19.9565 31.0636 19.9565 31.9357V44.8047C19.9565 45.6767 19.2495 46.3837 18.3774 46.3837Z"
@@ -197,7 +203,7 @@ export default function FooterFaq() {
             fill="#19BFD3"
           />
         </svg>
-        <p className="text-xs text-gray-600 mt-2">امکان پرداخت در محل</p>
+        <p className="text-xs text-gray-600 mt-2 dark:text-gray-300">امکان پرداخت در محل</p>
       </Link>
       <Link
         href="/sending"
@@ -209,6 +215,7 @@ export default function FooterFaq() {
           height="54"
           viewBox="0 0 55 54"
           fill="none"
+          className="dark:bg-white dark:rounded-full"
         >
           <path
             fill-rule="evenodd"
@@ -263,7 +270,7 @@ export default function FooterFaq() {
             fill="#424750"
           />
         </svg>
-        <p className="text-xs text-gray-600 mt-2">امکان تحویل اکسپرس</p>
+        <p className="text-xs text-gray-600 mt-2 dark:text-gray-300">امکان تحویل اکسپرس</p>
       </Link>
     </div>
   );

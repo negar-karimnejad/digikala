@@ -8,7 +8,7 @@ export default function ScrollUp() {
   return (
     <button
       onClick={scrollUp}
-      className="border rounded-md flex items-center px-5 py-3 text-gray-400 text-xs"
+      className="max-lg:text-sky-500 gap-3 max-lg:mx-auto lg:border rounded-md flex items-center px-5 py-3 text-gray-400 dark:text-gray-200 text-xs"
     >
       بازگشت به بالا
       <ChevronUp size={18} />

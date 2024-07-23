@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export default function App() {
   return (
-    <div className="bg-[#3c4b6d] rounded-lg py-4 pl-5 mx-1 mt-5">
+    <div className="max-lg:hidden bg-[#3c4b6d] rounded-lg py-4 pl-5 mx-1 mt-5">
       <div className="flex max-lg:flex-col lg:items-center items-start justify-between gap-5 w-full pr-5">
         <div className="flex items-center">
           <Image alt="" width={40} height={40} src="/footerlogo2.webp" />
