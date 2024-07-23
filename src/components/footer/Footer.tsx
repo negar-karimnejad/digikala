@@ -1,10 +1,12 @@
-import { ChevronUp } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import App from "./App";
+import Description from "./Description";
+import FooterFaq from "./FooterFaq";
+import FooterLinks from "./FooterLinks";
+import ScrollUp from "./ScrollUp";
 
 export default function Footer() {
-  const scrollUp = () => {
-    window.scrollTo(0, 0);
-  };
-
   return (
     <div className="border-t px-3 pt-10 border-gray-100">
       <div className="flex justify-between items-center">
@@ -22,13 +24,7 @@ export default function Footer() {
             fill="#EF394E"
           />
         </svg>
-        <button
-          onClick={scrollUp}
-          className="border rounded-md flex items-center px-5 py-3 text-gray-400 text-xs"
-        >
-          بازگشت به بالا
-          <ChevronUp size={18} />
-        </button>
+        <ScrollUp />
       </div>
       <div className="flex gap-5 text-xs text-gray-700 mt-5">
         <span>تلفن پشتیبانی ۶۱۹۳۰۰۰۰ - ۰۲۱</span>
@@ -36,6 +32,57 @@ export default function Footer() {
         <span>۰۲۱-۹۱۰۰۰۱۰۰</span>
         <span>|</span>
         <span>۷ روز هفته، ۲۴ ساعته پاسخگوی شما هستیم</span>
+      </div>
+
+      <FooterFaq />
+      <FooterLinks />
+      <App />
+      <div className="my-10 w-full border-b bg-gray-400"></div>
+      <div className="grid grid-cols-12 w-full gap-7">
+        <div className="col-span-9">
+          <Description />
+        </div>
+        <div className="col-span-3 flex gap-2">
+          <Link
+            target="_blank"
+            href="https://samandehi.ir/Pages/HomePage.aspx"
+            className="w-28 h-24 border rounded-lg flex items-center justify-center"
+          >
+            <Image
+              alt=""
+              className="objet-cover"
+              width={70}
+              height={70}
+              src="/nemad/rezi.webp"
+            />
+          </Link>
+          <Link
+            target="xxx"
+            href="https://www.ecunion.ir/verify/www.ecunion.ir?token=254785acf0232a3fa7"
+            className="w-28 h-24 border rounded-lg flex items-center justify-center"
+          >
+            <Image
+              alt=""
+              className="objet-cover"
+              width={50}
+              height={50}
+              src="/nemad/kasbokar.webp"
+            />
+          </Link>
+          <Link
+            target="xxx"
+            href="https://www.enamad.ir/"
+            className="w-28 h-24 border rounded-lg flex items-center justify-center"
+          >
+            <Image
+              alt=""
+              className="objet-cover"
+              width={120}
+              height={120}
+              src="/nemad/enamad.png"
+            />
+          </Link>
+        </div>
       </div>
     </div>
   );
