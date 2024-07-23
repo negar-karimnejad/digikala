@@ -31,8 +31,7 @@ function Home() {
     },
   });
   return (
-    //mb-96 حذف کن بعدن
-    <div className="mb-96">
+    <>
       <QueryClientProvider client={queryClient}>
         <ReactQueryDevtools initialIsOpen={false} />
         <Header />
@@ -55,7 +54,7 @@ function Home() {
         <Mag />
         <Footer/>
       </QueryClientProvider>
-    </div>
+    </>
   );
 }
 

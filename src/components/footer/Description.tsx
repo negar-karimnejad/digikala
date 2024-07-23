@@ -361,34 +361,11 @@ export default function Description() {
       </div>
       <button
         onClick={() => setShowMore((prev) => !prev)}
-        className="text-sky-500 flex mt-5 font-iransans text-xs items-center"
+        className="text-sky-500 flex mt-3 text-xs items-center"
       >
         {showMore ? "بستن" : "مشاهده بیشتر"}
         <ChevronLeft size={15} />
       </button>
-      <div className="simple-translate-system-theme" id="simple-translate">
-        <div>
-          <div className="simple-translate-button isShow">&nbsp;</div>
-
-          <div className="simple-translate-panel ">
-            <div className="simple-translate-result-wrapper">
-              <div className="simple-translate-move" draggable="true">
-                &nbsp;
-              </div>
-
-              <div className="simple-translate-result-contents">
-                <p className="simple-translate-result" dir="auto">
-                  &nbsp;
-                </p>
-
-                <p className="simple-translate-candidate" dir="auto">
-                  &nbsp;
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
   );
 }
