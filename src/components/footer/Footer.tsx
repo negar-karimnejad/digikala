@@ -1,3 +1,4 @@
+import { Headset } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import App from "./App";
@@ -35,8 +36,36 @@ export default function Footer() {
           <span>|</span>
           <span>۷ روز هفته، ۲۴ ساعته پاسخگوی شما هستیم</span>
         </div>
-        <div className="lg:hidden"></div>
-        <div className="lg:hidden"></div>
+        <div className="lg:hidden border-b pb-5 mt-5 flex justify-between items-center w-full">
+          <div className="flex items-center gap-4">
+            <Headset size={22} />
+            <div className="flex flex-col gap-2">
+              <span className="text-[11px] text-neutral-500">
+                ۷ روز هفته، ۲۴ ساعت
+              </span>
+              <span className="text-sm text-neutral-950">تماس با پشتیبانی</span>
+            </div>
+          </div>
+          <button className="border rounded-md text-sm py-2 px-3 border-gray-700">
+            <a href="tel:123456789">تماس</a>
+          </button>
+        </div>
+        <div className="lg:hidden border-b pb-5 mt-5 flex justify-between items-center w-full">
+          <div className="flex items-center gap-4">
+            <Image alt="" width={45} height={45} src="/footerlogo2.webp" />
+            <div className="flex flex-col gap-2">
+              <span className="text-[11px] text-neutral-500">
+                تجربه خرید بهتر در
+              </span>
+              <span className="text-sm text-neutral-950">
+                اپلیکیشن دیجی‌کالا
+              </span>
+            </div>
+          </div>
+          <button className="bg-black text-white border rounded-md text-sm py-2 px-3 border-gray-700">
+            دانلود
+          </button>
+        </div>
         <FooterFaq />
         <FooterLinks />
         <App />
