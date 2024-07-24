@@ -130,7 +130,7 @@ export default function FooterLinks() {
             </h4>
             <div className="w-full flex items-center">
               <form className="w-full flex" onSubmit={submitHandler}>
-                <label className="grow w-full">
+                <label className="w-full">
                   <div className="px-2 flex items-center bg-neutral-100 dark:bg-neutral-700 rounded-lg">
                     <div className="grow">
                       <input
@@ -145,7 +145,7 @@ export default function FooterLinks() {
                   </div>
                 </label>
                 <button
-                  className={`text-white flex items-center justify-center w-16 bg-neutral-200 dark:bg-neutral-800 rounded-lg relative text-neutral-000 mr-2 ${
+                  className={`text-white flex items-center justify-center w-16 bg-neutral-200 dark:bg-neutral-800 rounded-lg relative text-neutral-000 mr-2 ml-1 ${
                     isValidEmail
                       ? "bg-rose-500 dark:bg-rose-500 cursor-pointer"
                       : "pointer-events-none"

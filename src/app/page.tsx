@@ -18,6 +18,7 @@ import ProductsCard from "@/components/home/ProductsCard";
 import SelectedProducts from "@/components/home/SelectedProducts";
 import Services from "@/components/home/Services";
 import StorySlider from "@/components/home/StorySlider";
+import FloatingSupportButton from "@/components/ui/FloatingSupportButton";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
@@ -53,6 +54,7 @@ function Home() {
         <Bestseller title="داغ ترین چند ساعت گذشته" />
         <Mag />
         <Footer />
+        <FloatingSupportButton />
       </QueryClientProvider>
     </>
   );
