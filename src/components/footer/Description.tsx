@@ -16,7 +16,11 @@ export default function Description() {
           showMore ? "line-clamp-none" : "line-clamp-3"
         }`}
       >
-        <p className="relative after:absolute after:bg-gradient-to-t after:from-white after:to-white/50 dark:after:from-neutral-950 dark:after:to-neutral-950/50 after:w-full after:h-5 after:bottom-0 after:right-0">
+        <p
+          className={`relative after:absolute after:bg-gradient-to-t after:from-white after:to-white/50 dark:after:from-neutral-950 dark:after:to-neutral-950/50 after:w-full after:h-5 after:bottom-0 after:right-0 ${
+            showMore ? "after:hidden" : "after:absolute"
+          }`}
+        >
           یک<strong> خرید</strong> اینترنتی مطمئن، نیازمند فروشگاهی است که
           بتواند کالاهایی متنوع، باکیفیت و دارای قیمت مناسب را در مدت زمان ی
           کوتاه به دست مشتریان خود برساند و ضمانت بازگشت کالا هم داشته باشد؛

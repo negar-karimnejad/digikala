@@ -13,7 +13,7 @@ export default function FloatingSupportButton() {
 
   const closeModal = () => setIsShowSupportModal(false);
   return (
-    <div className="relative">
+    <div className="relative max-lg:hidden">
       <div className=" cursor-pointer bg-rose-500 w-12 h-12 flex items-center justify-center z-40 rounded-full fixed bottom-12 right-10">
         {isShowSupportModal ? (
           <X className="text-white" onClick={closeModal} />
