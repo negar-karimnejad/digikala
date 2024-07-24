@@ -7,7 +7,7 @@ export default function Description() {
   const [showMore, setShowMore] = useState(false);
 
   return (
-    <div className="relative overflow-hidden">
+    <div className="relative overflow-hidden max-lg:mb-10">
       <h1 className="lg:text-xl mb-5 text-neutral-600 dark:text-white">
         <strong>فروشگاه اینترنتی دیجی‌کالا، بررسی، انتخاب و خرید آنلاین</strong>
       </h1>
@@ -340,7 +340,7 @@ export default function Description() {
       </div>
       <button
         onClick={() => setShowMore((prev) => !prev)}
-        className="text-sky-500 flex mt-3 text-xs items-center"
+        className="lg:text-sky-500 flex mt-3 lg:text-xs max-lg:text-neutral-400 items-center"
       >
         {showMore ? "بستن" : "مشاهده بیشتر"}
         <ChevronLeft size={15} />

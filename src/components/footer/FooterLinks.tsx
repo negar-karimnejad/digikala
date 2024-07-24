@@ -6,12 +6,25 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { partners } from "@/data/data";
 import { Instagram, Linkedin, Twitter } from "lucide-react";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { FormEvent, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
+interface LinksProps {
+  id: number;
+  title: string;
+  links: LinkItemProps[];
+}
+[];
+
+interface LinkItemProps {
+  id: number;
+  title: string | JSX.Element;
+  href: string;
+}
 export default function FooterLinks() {
   const [email, setEmail] = useState("");
   const [isValidEmail, setIsValidEmail] = useState(false);
@@ -36,122 +49,26 @@ export default function FooterLinks() {
       setIsValidEmail(false);
     }
   }, [email]);
+
   return (
     <>
       <div className="max-lg:hidden flex w-full justify-between my-14">
-        {links.map((link) => (
+        {links.slice(0, 3).map((link) => (
           <div key={link.id} className="w-4/12 ">
             <p className="text-neutral-700 mb-5 font-irsansb block dark:text-white">
               {link.title}
             </p>
-            {link.links.map((item, index) => (
+            {link.links.map((item) => (
               <Link
-                key={index}
+                key={item.id}
                 className="text-sm text-neutral-500 mb-4 block dark:text-gray-400"
-                href="/newsroom"
+                href={item.href}
               >
-                {item}
+                {item.title}
               </Link>
             ))}
-            {/* <Link
-              className="text-sm text-neutral-500 mb-4 block dark:text-gray-400"
-              href="/seller-introduction"
-            >
-              فروش در دیجی‌کالا
-            </Link>
-            <Link
-              className="text-sm text-neutral-500 mb-4 block dark:text-gray-400"
-              href="/jobs"
-            >
-              فرصت‌های شغلی
-            </Link>
-            <Link
-              className="text-sm text-neutral-500 mb-4 block dark:text-gray-400"
-              href="/report"
-            >
-              گزارش تخلف در دیجی‌کالا
-            </Link>
-            <Link
-              className="text-sm text-neutral-500 mb-4 block dark:text-gray-400"
-              href="/contact-us"
-            >
-              تماس با دیجی‌کالا
-            </Link>
-            <Link
-              className="text-sm text-neutral-500 mb-4 block dark:text-gray-400"
-              href="/about-us"
-            >
-              درباره دیجی‌کالا
-            </Link> */}
           </div>
         ))}
-
-        {/* <div className="w-4/12">
-          <p className="text-neutral-700 mb-5 font-irsansb block dark:text-white">
-            خدمات مشتریان
-          </p>
-          <Link
-            className="text-sm text-neutral-500 mb-4 block dark:text-gray-400"
-            data-cro-id="footer-customer-service"
-            href="/faq"
-          >
-            پاسخ به پرسش‌های متداول
-          </Link>
-          <Link
-            className="text-sm text-neutral-500 mb-4 block dark:text-gray-400"
-            data-cro-id="footer-customer-service"
-            href="/return"
-          >
-            رویه‌های بازگرداندن کالا
-          </Link>
-          <Link
-            className="text-sm text-neutral-500 mb-4 block dark:text-gray-400"
-            data-cro-id="footer-customer-service"
-            href="/terms"
-          >
-            شرایط استفاده
-          </Link>
-          <Link
-            className="text-sm text-neutral-500 mb-4 block dark:text-gray-400"
-            data-cro-id="footer-customer-service"
-            href="/privacy"
-          >
-            حریم خصوصی
-          </Link>
-          <Link
-            className="text-sm text-neutral-500 mb-4 block dark:text-gray-400"
-            data-cro-id="footer-customer-service"
-            href="/bug-report"
-          >
-            گزارش باگ
-          </Link>
-        </div>
-        <div className="w-4/12">
-          <p className="text-neutral-700 mb-5 font-irsansb block dark:text-white">
-            راهنمای خرید از دیجی‌کالا
-          </p>
-          <Link
-            className="text-sm text-neutral-500 mb-4 block dark:text-gray-400"
-            data-cro-id="footer-buying-guide"
-            href="/order"
-          >
-            نحوه ثبت سفارش
-          </Link>
-          <Link
-            className="text-sm text-neutral-500 mb-4 block dark:text-gray-400"
-            data-cro-id="footer-buying-guide"
-            href="/sending"
-          >
-            رویه ارسال سفارش
-          </Link>
-          <Link
-            className="text-sm text-neutral-500 mb-4 block dark:text-gray-400"
-            data-cro-id="footer-buying-guide"
-            href="/payment"
-          >
-            شیوه‌های پرداخت
-          </Link>
-        </div> */}
 
         <div className="w-4/12 max-lg:hidden">
           <div className="w-full flex lg:block lg:flex-row justify-between items-start mt-8 sm:mt-0">
@@ -244,68 +161,78 @@ export default function FooterLinks() {
         </div>
       </div>
 
-      <Accordion type="single" collapsible className="w-full lg:hidden">
+      <Accordion type="single" collapsible className="w-full lg:hidden mb-5">
         {links.map((link, index) => (
           <AccordionItem key={link.id} value={`item-${index + 1}`}>
-            <AccordionTrigger className="hover:no-underline">
+            <AccordionTrigger className="hover:no-underline col-span-12 text-neutral-800 dark:text-neutral-100 text-xs font-irsansb">
               {link.title}
             </AccordionTrigger>
-            {link.links.map((item, index) => (
-              <AccordionContent key={index}>{item}</AccordionContent>
-            ))}
+            <div
+              className={`${
+                link.links.at(0).href === "" ? "grid grid-cols-3" : ""
+              }`}
+            >
+              {link.links.map((item, index: number) => (
+                <AccordionContent
+                  key={index}
+                  className={`text-sm text-neutral-700 dark:text-neutral-300 ${
+                    item.href === ""
+                      ? "border border-gray-100 border-r-0 border-t-0 h-20 w-full flex items-center justify-center"
+                      : ""
+                  } ${(index + 1) % 3 === 0 ? "border-l-0 " : ""}
+                  `}
+                >
+                  {typeof item.title === "string" ? (
+                    <Link href={item.href}>{item.title}</Link>
+                  ) : (
+                    <div>{item.title}</div>
+                  )}
+                </AccordionContent>
+              ))}
+            </div>
           </AccordionItem>
         ))}
-        {/* <AccordionItem value="item-2">
-          <AccordionTrigger>خدمات مشتریان</AccordionTrigger>
-          <AccordionContent>
-            Yes. It comes with default styles that matches the other
-            components&apos; aesthetic.
-          </AccordionContent>
-        </AccordionItem>
-        <AccordionItem value="item-3">
-          <AccordionTrigger>راهنمای خرید از دیجی‌کالا</AccordionTrigger>
-          <AccordionContent>
-            Yes. It animated by default, but you can disable it if you prefer.
-          </AccordionContent>
-        </AccordionItem>
-        <AccordionItem value="item-4">
-          <AccordionTrigger>شرکای تجاری</AccordionTrigger>
-          <AccordionContent>
-            Yes. It animated by default, but you can disable it if you prefer.
-          </AccordionContent>
-        </AccordionItem> */}
       </Accordion>
     </>
   );
 }
 
-const links = [
+const links: LinksProps[] = [
   {
     id: 1,
     title: "با دیجی‌کالا",
     links: [
-      "اتاق خبر دیجی‌کالا",
-      "فروش در دیجی‌کالا",
-      "فرصت‌های شغلی",
-      "گزارش تخلف در دیجی‌کالا",
-      "تماس با دیجی‌کالا",
-      "درباره دیجی‌کالا",
+      { id: 1, title: "اتاق خبر دیجی‌کالا", href: "/newsroom" },
+      { id: 2, title: "فروش در دیجی‌کالا", href: "/seller-introduction" },
+      { id: 3, title: "فرصت‌های شغلی", href: "/jobs" },
+      { id: 4, title: "گزارش تخلف در دیجی‌کالا", href: "/report" },
+      { id: 5, title: "تماس با دیجی‌کالا", href: "/contact-us" },
+      { id: 6, title: "درباره دیجی‌کالا", href: "/about-us" },
     ],
   },
   {
     id: 2,
     title: "خدمات مشتریان",
     links: [
-      "پاسخ به پرسش‌های متداول",
-      "رویه‌های بازگرداندن کالا",
-      "شرایط استفاده",
-      "حریم خصوصی",
-      "گزارش باگ",
+      { id: 1, title: "پاسخ به پرسش‌های متداول", href: "/faq" },
+      { id: 2, title: "رویه‌های بازگرداندن کالا", href: "/return" },
+      { id: 3, title: "شرایط استفاده", href: "/terms" },
+      { id: 4, title: "حریم خصوصی", href: "/privacy" },
+      { id: 5, title: "گزارش باگ", href: "/bug-report" },
     ],
   },
   {
     id: 3,
     title: " راهنمای خرید از دیجی‌کالا",
-    links: ["نحوه ثبت سفارش", "رویه ارسال سفارش", "شیوه‌های پرداخت"],
+    links: [
+      { id: 1, title: "نحوه ثبت سفارش", href: "/order" },
+      { id: 2, title: "رویه ارسال سفارش", href: "/sending" },
+      { id: 3, title: "شیوه‌های پرداخت", href: "/payment" },
+    ],
+  },
+  {
+    id: 4,
+    title: " شرکای تجاری",
+    links: partners,
   },
 ];
