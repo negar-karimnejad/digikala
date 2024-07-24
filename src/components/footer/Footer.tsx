@@ -112,7 +112,6 @@ export default function Footer() {
           آنلاین دیجی‌کالا) است.
         </div>
       </div>
-
       <div className="max-lg:hidden flex h-20 mt-10">
         {partners.slice(0, 8).map((item, index) => (
           <div

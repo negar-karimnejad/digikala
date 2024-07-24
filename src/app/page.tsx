@@ -52,7 +52,7 @@ function Home() {
         <SelectedProducts />
         <Bestseller title="داغ ترین چند ساعت گذشته" />
         <Mag />
-        <Footer/>
+        <Footer />
       </QueryClientProvider>
     </>
   );
