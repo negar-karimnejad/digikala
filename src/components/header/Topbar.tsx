@@ -45,7 +45,6 @@ export default function Topbar() {
               </Link>
               <span className="sr-only">Shopping Cart</span>
             </div>
-
             <div className="w-[0.5px] h-6 bg-gray-300"></div>
             <DarkMode />
           </div>

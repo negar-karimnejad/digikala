@@ -12,7 +12,7 @@ import ScrollUp from "./ScrollUp";
 export default function Footer() {
   return (
     <>
-      <div className="border-t px-3 pt-10 border-gray-100 dark:border-gray-800">
+      <div className="border-t px-3 pt-5 border-gray-100 dark:border-gray-800">
         <div className="flex justify-between items-center">
           <svg
             width="120"

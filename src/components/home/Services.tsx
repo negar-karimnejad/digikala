@@ -4,7 +4,7 @@ import { Carousel, CarouselContent, CarouselItem } from "../ui/carousel";
 
 export default function Services() {
   return (
-    <div className="flex justify-between items-start my-8 px-4 !mx-auto w-full">
+    <div className="flex justify-between items-start my-8 lg:px-4 !mx-auto w-full">
       {services.map((service) => (
         <div
           key={service.title}
@@ -30,7 +30,7 @@ export default function Services() {
           {services.map((service) => (
             <CarouselItem
               key={service.title}
-              className="cursor-pointer basis-28 p-0 mx-2"
+              className="cursor-pointer lg:basis-28 basis-24 p-0 lg:mx-2"
             >
               <div
                 key={service.title}

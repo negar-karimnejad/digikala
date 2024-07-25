@@ -20,7 +20,7 @@ export default function Offers() {
     .slice(0, 12);
 
   return (
-    <div className="bg-rose-600 rounded-2xl py-4 lg:mx-3">
+    <div className="bg-rose-600 lg:rounded-2xl py-4 lg:mx-3">
       <Carousel
         opts={{
           align: "start",
@@ -112,13 +112,19 @@ export default function Offers() {
           <CountdownTimer initialTime={3000000} />
           <Link
             href="incredible-offers"
-            className="text-white flex items-center text-xs"
+            className="max-sm:hidden text-white flex items-center text-xs"
           >
             مشاهده همه
             <ChevronLeft size={18} />
           </Link>
+          <Link
+            href="incredible-offers"
+            className="sm:hidden text-white flex items-center text-xs"
+          >
+            همه
+            <ChevronLeft size={18} />
+          </Link>
         </div>
-
         <CarouselContent>
           <Link
             href="incredible-offers"
@@ -229,7 +235,6 @@ export default function Offers() {
                 fill="#FAFAFA"
               />
             </svg>
-
             <Link
               href="incredible-offers"
               className="text-white flex items-center text-xs"

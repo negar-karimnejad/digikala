@@ -22,6 +22,7 @@ import FloatingSupermarketButton from "@/components/ui/FloatingSupermarketButton
 import FloatingSupportButton from "@/components/ui/FloatingSupportButton";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import Image from "next/image";
 
 function Home() {
   const queryClient = new QueryClient({
@@ -51,12 +52,13 @@ function Home() {
         <Digiclub />
         <Bestseller title="پرفروش‌ترین کالاها" />
         <ProductsCard />
+        <div className="bg-[url('/banner.webp')] bg-cover bg-left bg-no-repeat h-40 rounded-2xl mx-3 my-5"></div>
         <SelectedProducts />
         <Bestseller title="داغ ترین چند ساعت گذشته" />
         <Mag />
         <Footer />
         <FloatingSupportButton />
-        <FloatingSupermarketButton/>
+        <FloatingSupermarketButton />
       </QueryClientProvider>
     </>
   );

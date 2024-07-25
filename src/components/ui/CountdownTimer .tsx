@@ -19,7 +19,7 @@ const CountdownTimer = ({ initialTime }: { initialTime: number }) => {
     return () => clearInterval(timerInterval);
   }, []);
 
-  const days = String(Math.floor(timeRemaining / (3600 * 24))).padStart(2, "0");
+  // const days = String(Math.floor(timeRemaining / (3600 * 24))).padStart(2, "0");
   const hours = String(
     Math.floor((timeRemaining % (3600 * 24)) / 3600)
   ).padStart(2, "0");
@@ -46,12 +46,6 @@ const CountdownTimer = ({ initialTime }: { initialTime: number }) => {
       <div className="flex flex-col items-center justify-center bg-white w-[26px] h-[26px] rounded-sm">
         <div className="flex justify-center items-center text-sm text-neutral-800 text-center w-[20px] h-[20px]">
           {hours}
-        </div>
-      </div>
-      <div className="text-sm text-white w-1">:</div>
-      <div className="flex flex-col items-center justify-center bg-white w-[26px] h-[26px] rounded-sm">
-        <div className="flex justify-center items-center text-sm text-neutral-800 text-center w-[20px] h-[20px]">
-          {days}
         </div>
       </div>
     </div>
