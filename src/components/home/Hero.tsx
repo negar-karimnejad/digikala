@@ -28,7 +28,7 @@ export default function Hero() {
               target="_blank"
               href={`/products/${item.title.replaceAll(" ", "+")}`}
             >
-              <div className="w-full h-96 max-sm:h-64">
+              <div className="w-full h-full">
                 <Image
                   src={item.cover}
                   width={4000}
