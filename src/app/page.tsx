@@ -35,7 +35,7 @@ function Home() {
   return (
     <>
       <QueryClientProvider client={queryClient}>
-        <ReactQueryDevtools initialIsOpen={false} />
+        {/* <ReactQueryDevtools initialIsOpen={false} /> */}
         <Header />
         <StorySlider />
         <Hero />

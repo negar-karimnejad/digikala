@@ -6,6 +6,7 @@ import { getServerSession } from "next-auth";
 import localFont from "next/font/local";
 import { Toaster } from "react-hot-toast";
 import "./globals.css";
+import MobileFooter from "@/components/mobile-footer/MobileFooter";
 
 const iranSans = localFont({ src: "../fonts/IranianSans.ttf" });
 
@@ -38,6 +39,7 @@ export default async function RootLayout({
             disableTransitionOnChange
           >
             {children}
+            <MobileFooter />
             <Toaster position="top-center" reverseOrder={false} />
           </ThemeProvider>
         </AuthProvider>

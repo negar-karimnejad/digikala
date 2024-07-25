@@ -127,7 +127,7 @@ export default function Navbar() {
   return (
     <>
       <nav
-        className={`sticky top-20 z-30 bg-white border-b shadow-sm max-lg:hidden transition-all duration-700 px-4 ${
+        className={`sticky top-20 z-30 bg-white dark:bg-neutral-950 border-b shadow-sm max-lg:hidden transition-all duration-700 px-4 ${
           isVisible ? "translate-y-0" : "-translate-y-32"
         }`}
       >

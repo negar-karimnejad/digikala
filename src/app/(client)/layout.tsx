@@ -1,6 +1,5 @@
 import Footer from "@/components/footer/Footer";
 import Header from "@/components/header/Header";
-import MobileFooter from "@/components/mobile-footer/MobileFooter";
 
 export default function UserLayout({
   children,
@@ -12,7 +11,6 @@ export default function UserLayout({
       <Header />
       {children}
       <Footer />
-      <MobileFooter />
     </>
   );
 }
