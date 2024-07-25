@@ -35,18 +35,18 @@ export default function FloatingSupermarketButton() {
         >
           <div className="flex justify-between items-center">
             <p className="font-irsansb flex flex-col gap-3">
-              <span className="text-[15px] dark:text-neutral-200 text-neutral-700">
+              <span className="text-[15px] dark:text-neutral-50 text-neutral-700">
                 یکی از سوپرمارکت‌های زیر را انتخاب کنید
               </span>
-              <span className="text-xs text-neutral-400 dark:text-neutral-300">
+              <span className="text-xs text-neutral-400 dark:text-neutral-400">
                 فقط در شهرهای تهران و کرج
               </span>
             </p>
-            <X onClick={closeModal} className="text-neutral-600" />
+            <X onClick={closeModal} className="cursor-pointer text-neutral-600 dark:text-neutral-300" />
           </div>
           <div className="flex gap-2 mt-4">
             <Link href="/fresh" className="py-4 bg-green-100 flex-1 rounded-xl">
-              <p className="px-4 text-[15px] flex items-center font-irsansb gap-2 mb-3">
+              <p className="text-neutral-800 px-4 text-[15px] flex items-center font-irsansb gap-2 mb-3">
                 پرتخفیف و متنوع
                 <ChevronLeft size={16} />
               </p>
@@ -67,7 +67,7 @@ export default function FloatingSupermarketButton() {
               href="/digi-jet"
               className="py-4 bg-orange-100 flex-1 rounded-xl"
             >
-              <p className="px-4 text-[15px] flex items-center font-irsansb gap-2 mb-3">
+              <p className="text-neutral-800 px-4 text-[15px] flex items-center font-irsansb gap-2 mb-3">
                 ارسال سریع
                 <ChevronLeft size={16} />
               </p>

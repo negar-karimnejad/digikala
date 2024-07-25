@@ -61,7 +61,7 @@ export default function FooterLinks() {
             {link.links.map((item) => (
               <Link
                 key={item.id}
-                className="text-sm text-neutral-500 mb-4 block dark:text-gray-400"
+                className="text-sm text-neutral-500 mb-4 block dark:text-neutral-400"
                 href={item.href}
               >
                 {item.title}
@@ -81,7 +81,7 @@ export default function FooterLinks() {
                 data-cro-id="footer-instagram"
                 href="https://www.instagram.com/digikalacom/"
               >
-                <div className="flex text-gray-400 dark:text-gray-500">
+                <div className="flex text-neutral-400 dark:text-neutral-500">
                   <Instagram size={32} />
                 </div>
               </Link>
@@ -90,7 +90,7 @@ export default function FooterLinks() {
                 data-cro-id="footer-twitter"
                 href="https://twitter.com/digikalacom"
               >
-                <div className="flex text-gray-400 dark:text-gray-500">
+                <div className="flex text-neutral-400 dark:text-neutral-500">
                   <Twitter size={32} />
                 </div>
               </Link>
@@ -99,7 +99,7 @@ export default function FooterLinks() {
                 data-cro-id="footer-linkedin"
                 href="https://www.linkedin.com/company/digikala/mycompany/"
               >
-                <div className="flex text-gray-400 dark:text-gray-500">
+                <div className="flex text-neutral-400 dark:text-neutral-500">
                   <Linkedin size={32} />
                 </div>
               </Link>
@@ -116,7 +116,7 @@ export default function FooterLinks() {
                     viewBox="0 0 24 24"
                     role="img"
                     xmlns="http://www.w3.org/2000/svg"
-                    className="dark:text-gray-500 fill-gray-400"
+                    className="dark:text-neutral-500 fill-neutral-400"
                   >
                     <path d="M12.001 1.594c-9.27-.003-13.913 11.203-7.36 17.758a10.403 10.403 0 0 0 17.76-7.355c0-5.744-4.655-10.401-10.4-10.403zM6.11 6.783c.501-2.598 3.893-3.294 5.376-1.103 1.483 2.19-.422 5.082-3.02 4.582A2.97 2.97 0 0 1 6.11 6.783zm4.322 8.988c-.504 2.597-3.897 3.288-5.377 1.096-1.48-2.192.427-5.08 3.025-4.579a2.97 2.97 0 0 1 2.352 3.483zm1.26-2.405c-1.152-.223-1.462-1.727-.491-2.387.97-.66 2.256.18 2.04 1.334a1.32 1.32 0 0 1-1.548 1.053zm6.198 3.838c-.501 2.598-3.893 3.293-5.376 1.103-1.484-2.191.421-5.082 3.02-4.583a2.97 2.97 0 0 1 2.356 3.48zm-1.967-5.502c-2.598-.501-3.293-3.896-1.102-5.38 2.19-1.483 5.081.422 4.582 3.02a2.97 2.97 0 0 1-3.48 2.36zM13.59 23.264l2.264.61a3.715 3.715 0 0 0 4.543-2.636l.64-2.402a11.383 11.383 0 0 1-7.448 4.428zm7.643-19.665L18.87 2.97a11.376 11.376 0 0 1 4.354 7.62l.65-2.459A3.715 3.715 0 0 0 21.231 3.6zM.672 13.809l-.541 2.04a3.715 3.715 0 0 0 2.636 4.543l2.107.562a11.38 11.38 0 0 1-4.203-7.145zM10.357.702 8.15.126a3.715 3.715 0 0 0-4.547 2.637l-.551 2.082A11.376 11.376 0 0 1 10.358.702z" />
                   </svg>
@@ -177,7 +177,7 @@ export default function FooterLinks() {
                   key={index}
                   className={`text-sm text-neutral-700 dark:text-neutral-300 ${
                     item.href === ""
-                      ? "border border-gray-100 border-r-0 border-t-0 h-20 w-full flex items-center justify-center"
+                      ? "border border-neutral-100 dark:border-neutral-500 border-r-0 border-t-0 h-20 w-full flex items-center justify-center"
                       : ""
                   } ${(index + 1) % 3 === 0 ? "border-l-0 " : ""}
                   `}

@@ -59,7 +59,7 @@ export default function Bestseller({ title }: { title: string }) {
               <Image alt="" width={100} height={100} src={product.thumbnail} />
               <div className="flex items-center gap-4">
                 <p className="text-sky-500 text-2xl font-bold">{index + 1}</p>
-                <p className="text-xs leading-6 border-b pb-7 text-gray-500 dark:text-gray-200">
+                <p className="text-xs leading-6 h-20 border-b pb-7 text-gray-500 dark:text-gray-200">
                   {product.title.slice(0, 50)}
                   {product.title.length > 50 ? "..." : ""}
                 </p>
