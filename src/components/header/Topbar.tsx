@@ -1,31 +1,21 @@
 "use client";
 
+import useScroll from "@/features/useScroll";
 import { ShoppingCart } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
 import persianLogo from "../../../public/digi.svg";
 import { DarkMode } from "../ui/DarkMode";
 import ProfileButton from "../ui/ProfileButton";
-import { Button } from "../ui/button";
 import Searchbar from "./Searchbar";
 
 export default function Topbar() {
-  const [scroll, setScroll] = useState(0);
+  const { isVisible } = useScroll();
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setScroll(window.scrollY);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
   return (
     <header
       className={`sticky top-0 bg-white dark:bg-neutral-950 w-full z-40 p-4 ${
-        scroll > 50 ? "shadow-sm border-b" : ""
+        isVisible ? "" : "shadow-sm border-b"
       }`}
     >
       <div className="max-lg:hidden">

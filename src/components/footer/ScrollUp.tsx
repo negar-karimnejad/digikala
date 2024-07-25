@@ -1,10 +1,12 @@
+"use client";
+
 import { ChevronUp } from "lucide-react";
 
 export default function ScrollUp() {
   const scrollUp = () => {
     window.scrollTo(0, 0);
   };
-  
+
   return (
     <button
       onClick={scrollUp}

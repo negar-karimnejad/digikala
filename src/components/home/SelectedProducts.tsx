@@ -33,7 +33,7 @@ export default function SelectedProducts() {
             className="xl:col-span-2 lg:col-span-3 md:col-span-4 col-span-6 border border-t-0 border-neutral-100 dark:border-neutral-800 p-2"
           >
             <Link
-              href={`/product/${product.title.replaceAll(" ", "-")}`}
+              href={`/products/${product.title.replaceAll(" ", "-")}`}
               className="flex items-center justify-center flex-col gap-4"
             >
               <Image alt="" width={150} height={150} src={product.thumbnail} />

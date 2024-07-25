@@ -1,13 +1,13 @@
 "use client";
 
 import { categories, cities, province } from "@/data/data";
+import useScroll from "@/features/useScroll";
 import {
   ArrowRight,
   BadgePercent,
   ChevronLeft,
   CreditCard,
   Flame,
-  Locate,
   LocateFixed,
   MapPin,
   Menu,
@@ -73,6 +73,7 @@ export default function Navbar() {
   const [selectedCategory, setSelectedCategory] = useState<Category | null>(
     categories.find((category) => category.id === 1) || null
   );
+  const { isVisible } = useScroll();
 
   const hoverHandler = (categoryId: number) => {
     const category = categories.find(
@@ -125,7 +126,11 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className="border-b shadow-sm max-lg:hidden duration-700 px-4">
+      <nav
+        className={`sticky top-20 z-30 bg-white border-b shadow-sm max-lg:hidden transition-all duration-700 px-4 ${
+          isVisible ? "translate-y-0" : "-translate-y-32"
+        }`}
+      >
         <div className="flex items-center justify-between">
           <div className="flex items-center">
             <div
