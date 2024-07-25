@@ -13,8 +13,8 @@ export default function ProductsCard() {
               key={product.id}
               className="col-span-3 max-lg:col-span-12 border-l p-5"
             >
-              <h3 className="font-irsansb text-gray-800 dark:text-white">{product.title}</h3>
-              <small className="text-gray-500 text-xs">بر اساس سلیقه شما</small>
+              <h3 className="font-irsansb text-neutral-800 dark:text-white">{product.title}</h3>
+              <small className="text-neutral-500 dark:text-neutral-400 text-xs">بر اساس سلیقه شما</small>
               <div className="grid grid-cols-12 mt-5">
                 {product.images.map((image, index) => (
                   <Link href={image.href} key={index} className="col-span-6 w-full">

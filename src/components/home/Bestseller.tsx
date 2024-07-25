@@ -4,9 +4,10 @@ import { Flame } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { Swiper, SwiperSlide } from "swiper/react";
+import OfferSkeleton from "../skeleton/OfferSkeleton";
 
 export default function Bestseller({ title }: { title: string }) {
-  const { products } = useProducts();
+  const { products, isLoading } = useProducts();
 
   return (
     <div className="border rounded-xl my-5 p-5 mx-3">
@@ -50,6 +51,17 @@ export default function Bestseller({ title }: { title: string }) {
           },
         }}
       >
+        {isLoading && (
+          <>
+            {Array.from({ length: 6 }).map((_, index) => (
+              <SwiperSlide
+                key={index}
+              >
+                <OfferSkeleton />
+              </SwiperSlide>
+            ))}
+          </>
+        )}
         {products?.slice(0, 6).map((product: Product, index: number) => (
           <SwiperSlide key={product.id} className="flex flex-col gap-5">
             <Link

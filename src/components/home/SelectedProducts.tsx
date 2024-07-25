@@ -3,9 +3,10 @@ import { Product } from "@prisma/client";
 import { BadgePercent } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import OfferSkeleton from "../skeleton/OfferSkeleton";
 
 export default function SelectedProducts() {
-  const { products } = useProducts();
+  const { products, isLoading } = useProducts();
 
   return (
     <div className="border rounded-xl my-5 pt-5 mx-3 overflow-hidden">
@@ -14,6 +15,18 @@ export default function SelectedProducts() {
         <span>منتخب محصولات تخفیف و حراج</span>
       </h2>
       <div className="grid grid-cols-12 mt-10">
+        {isLoading && (
+          <>
+            {Array.from({ length: 6 }).map((_, index) => (
+              <div
+                key={index}
+                className="xl:col-span-2 lg:col-span-3 md:col-span-4 col-span-6 border border-t-0 border-neutral-100 dark:border-neutral-800 p-2"
+              >
+                <OfferSkeleton />
+              </div>
+            ))}
+          </>
+        )}
         {products?.slice(0, 18).map((product: Product) => (
           <div
             key={product.id}

@@ -1,3 +1,4 @@
+import { Product } from "@prisma/client";
 import { useQuery } from "@tanstack/react-query";
 import axios, { AxiosResponse } from "axios";
 
@@ -15,7 +16,7 @@ function useProducts() {
     queryKey: ["products"],
     queryFn: getProducts,
   });
-  const products = data?.data;
+  const products: Product[] = data?.data;
   return { products, error, isLoading, isFetching };
 }
 
