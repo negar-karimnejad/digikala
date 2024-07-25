@@ -42,7 +42,10 @@ export default function FloatingSupermarketButton() {
                 فقط در شهرهای تهران و کرج
               </span>
             </p>
-            <X onClick={closeModal} className="cursor-pointer text-neutral-600 dark:text-neutral-300" />
+            <X
+              onClick={closeModal}
+              className="cursor-pointer text-neutral-600 dark:text-neutral-300"
+            />
           </div>
           <div className="flex gap-2 mt-4">
             <Link href="/fresh" className="py-4 bg-green-100 flex-1 rounded-xl">
