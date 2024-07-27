@@ -70,7 +70,7 @@ const editSchema = ProductSchema.extend({
 });
 
 export async function updateProduct(
-  id: string,
+  id: number,
   prevState: unknown,
   formData: FormData
 ) {
@@ -113,7 +113,7 @@ export async function updateProduct(
   redirect("/admin/products");
 }
 
-export async function deleteProduct(id: string) {
+export async function deleteProduct(id: number) {
   const product = await db.product.delete({ where: { id } });
 
   if (product == null) return notFound();

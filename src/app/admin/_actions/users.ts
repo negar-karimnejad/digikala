@@ -86,7 +86,7 @@ const updateSchema = z.object({
 });
 
 export async function updateUser(
-  id: string,
+  id: number,
   prevState: unknown,
   formData: FormData
 ) {
@@ -128,7 +128,7 @@ export async function updateUser(
   redirect("/admin/users");
 }
 
-export async function deleteUser(id: string) {
+export async function deleteUser(id: number) {
   const user = await db.user.delete({ where: { id } });
 
   if (user == null) return notFound();

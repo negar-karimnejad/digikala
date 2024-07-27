@@ -5,7 +5,7 @@ import db from "@/db/db";
 export default async function EditProductPage({
   params: { id },
 }: {
-  params: { id: string };
+  params: { id: number };
 }) {
   const user = await db.user.findUnique({ where: { id } });
   if (!user) return <p>کاربر یافت نشد.</p>;

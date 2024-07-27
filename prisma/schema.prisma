@@ -10,56 +10,124 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Product {
-  id          String     @id @default(uuid())
-  title       String
-  price       Int?
-  description String
-  rating      Int?
-  thumbnail   String
-  images      String?
-  discount    Int?
-  createdAt   DateTime   @default(now())
-  updatedAt   DateTime   @updatedAt
-  orderId     String?
-  order       Order?     @relation(fields: [orderId], references: [id])
-  reviews     Review[]
-  categories  Category[]
-}
-
 model User {
-  id        String   @id @default(uuid())
-  email     String   @unique
+  id        Int        @id @default(autoincrement())
+  email     String     @unique
   name      String
   avatar    String?
   password  String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  role      String   @default("USER")
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  role      String     @default("USER")
+  comments  Comment[]
+  questions Question[]
   orders    Order[]
 }
 
-model Order {
-  id         String    @id @default(uuid())
-  createdAt  DateTime  @default(now())
-  totalPrice Int
-  userId     String
-  user       User      @relation(fields: [userId], references: [id])
-  products   Product[]
+model Product {
+  id                  Int        @id @default(autoincrement())
+  title               String
+  en_title            String     @default("")
+  rating              Float?
+  voter               Int        @default(0)
+  comments            Comment[]
+  questions           Question[]
+  colors              Color[]
+  sizes               Size[]     @relation("ProductSizes")
+  images              Image[]
+  thumbnail           String
+  features            Feature[]
+  seller              Seller     @relation(fields: [sellerId], references: [id])
+  sellerId            Int        @default(1)
+  price               Float
+  discount            Float?
+  discount_price      Float?
+  description         String
+  recommended_percent Float?
+  guarantee           String?
+  likes               Int        @default(0)
+  categories          Category[] @relation("ProductCategories")
+  orders              Order[]    @relation("ProductOrders")
+  createdAt           DateTime   @default(now())
+  updatedAt           DateTime   @updatedAt
 }
 
 model Category {
+  id       Int        @id @default(autoincrement())
+  name     String
+  parentId Int? // Optional field to support hierarchical categories
+  parent   Category?  @relation("CategoryChildren", fields: [parentId], references: [id])
+  children Category[] @relation("CategoryChildren")
+  products Product[]  @relation("ProductCategories")
+}
+
+model Comment {
+  id        Int      @id @default(autoincrement())
+  content   String
+  author    User     @relation(fields: [authorId], references: [id])
+  authorId  Int
+  product   Product  @relation(fields: [productId], references: [id])
+  productId Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Question {
+  id        Int      @id @default(autoincrement())
+  content   String
+  author    User     @relation(fields: [authorId], references: [id])
+  authorId  Int
+  product   Product  @relation(fields: [productId], references: [id])
+  productId Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Color {
+  id        Int     @id @default(autoincrement())
+  name      String
+  hexCode   String
+  product   Product @relation(fields: [productId], references: [id])
+  productId Int
+}
+
+model Size {
+  id        Int     @id @default(autoincrement())
+  value     String
+  product   Product @relation("ProductSizes", fields: [productId], references: [id])
+  productId Int
+}
+
+model Image {
+  id        Int     @id @default(autoincrement())
+  url       String
+  product   Product @relation(fields: [productId], references: [id])
+  productId Int
+}
+
+model Feature {
+  id        Int     @id @default(autoincrement())
+  name      String
+  value     String
+  product   Product @relation(fields: [productId], references: [id])
+  productId Int
+}
+
+model Seller {
   id       Int       @id @default(autoincrement())
   name     String
+  email    String    @unique
   products Product[]
 }
 
-model Review {
-  id            Int      @id @default(autoincrement())
-  comment       String
-  date          DateTime @default(now())
-  reviewerName  String
-  reviewerEmail String
-  productId     String?
-  Product       Product? @relation(fields: [productId], references: [id])
+model Order {
+  id          Int       @id @default(autoincrement())
+  orderDate   DateTime  @default(now())
+  totalAmount Float
+  status      String
+  user        User      @relation(fields: [userId], references: [id])
+  userId      Int
+  products    Product[] @relation("ProductOrders")
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
 }

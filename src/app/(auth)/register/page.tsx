@@ -10,7 +10,9 @@ import { redirect } from "next/navigation";
 import { useFormState, useFormStatus } from "react-dom";
 
 export default function Register() {
-  const [error, action] = useFormState(signup, {});
+  const sss = useFormState(signup, {});
+  // const formErrors = state?.errors?.formErrors;
+  console.log(sss[0].);
 
   const session = useSession();
 
@@ -39,11 +41,11 @@ export default function Register() {
             name="name"
             autoFocus
             className={`bg-transparent py-5 border rounded-lg ${
-              error.name ? "border-red-500" : ""
+              errors.name ? "border-red-500" : ""
             }`}
           />
-          {error.name && (
-            <div className="text-destructive text-xs">{error.name}</div>
+          {errors.name && (
+            <div className="text-destructive text-xs">{errors.name}</div>
           )}
           <label htmlFor="name" className="text-xs">
             لطفا ایمیل خود را وارد کنید
@@ -53,11 +55,11 @@ export default function Register() {
             id="email"
             name="email"
             className={`bg-transparent py-5 border rounded-lg ${
-              error.email ? "border-red-500" : ""
+              errors.email ? "border-red-500" : ""
             }`}
           />
-          {error.email && (
-            <div className="text-destructive text-xs">{error.email}</div>
+          {errors.email && (
+            <div className="text-destructive text-xs">{errors.email}</div>
           )}
           <label htmlFor="password" className="text-xs">
             لطفا پسورد خود را وارد کنید
@@ -67,11 +69,11 @@ export default function Register() {
             id="password"
             name="password"
             className={`bg-transparent py-5 border rounded-lg ${
-              error.password ? "border-red-500" : ""
+              errors.password ? "border-red-500" : ""
             }`}
           />
-          {error.password && (
-            <div className="text-destructive text-xs">{error.password}</div>
+          {errors.password && (
+            <div className="text-destructive text-xs">{errors.password}</div>
           )}
           <SubmitButton />
         </form>

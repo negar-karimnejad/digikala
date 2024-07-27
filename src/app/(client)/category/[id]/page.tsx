@@ -5,7 +5,5 @@ export default function CategoryPage({
 }: {
   params: { id: string };
 }) {
-  console.log(id);
-
   return <div>CategoryPage</div>;
 }
