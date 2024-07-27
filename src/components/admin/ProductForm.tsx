@@ -2,6 +2,7 @@
 
 import { addProduct, updateProduct } from "@/app/admin/_actions/products";
 import { Button } from "@/components/ui/button";
+import { categories } from "@/data/data";
 import { Product } from "@prisma/client";
 import { LucideUploadCloud } from "lucide-react";
 import Image from "next/image";
@@ -54,6 +55,144 @@ export default function ProductForm({ product }: { product?: Product | null }) {
         >
           نام محصول
         </label>
+      </div>
+      <div className="h-20 relative">
+        <input
+          type="text"
+          id="en_title"
+          name="en_title"
+          placeholder=""
+          required
+          defaultValue={product?.en_title || ""}
+          className="peer block w-full appearance-none rounded-t-lg border-0 border-b-2 border-gray-300 bg-gray-50 px-2.5 pb-2.5 pt-5 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0 dark:border-gray-600 dark:bg-gray-900 dark:text-white dark:focus:border-blue-500"
+        />
+        {error.en_title && (
+          <div className="text-destructive text-xs">{error.en_title}</div>
+        )}
+        <label
+          htmlFor="en_title"
+          className="absolute right-2.5 top-4 z-10 origin-[0] -translate-y-4 scale-75 transform text-sm text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:text-blue-600 dark:text-gray-400 peer-focus:dark:text-blue-500"
+        >
+          نام انگلیسی محصول
+        </label>
+      </div>
+      <div className="h-20 relative">
+        <input
+          type="text"
+          id="seller"
+          name="seller"
+          placeholder=""
+          required
+          defaultValue={product?.seller || ""}
+          className="peer block w-full appearance-none rounded-t-lg border-0 border-b-2 border-gray-300 bg-gray-50 px-2.5 pb-2.5 pt-5 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0 dark:border-gray-600 dark:bg-gray-900 dark:text-white dark:focus:border-blue-500"
+        />
+        {error.seller && (
+          <div className="text-destructive text-xs">{error.seller}</div>
+        )}
+        <label
+          htmlFor="seller"
+          className="absolute right-2.5 top-4 z-10 origin-[0] -translate-y-4 scale-75 transform text-sm text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:text-blue-600 dark:text-gray-400 peer-focus:dark:text-blue-500"
+        >
+          فروشنده
+        </label>
+      </div>
+
+      <div>
+        <div>رنگ های محصول را انتخاب کنید:</div>
+        <div className="relative">
+          <input
+            type="checkbox"
+            id="color"
+            name="color"
+            value="قرمز#FF0000"
+            required
+            defaultValue={product?.color || ""}
+          />
+          {error.color && (
+            <div className="text-destructive text-xs">{error.color}</div>
+          )}
+          <label
+            htmlFor="color"
+            className="absolute right-2.5 top-4 z-10 origin-[0] -translate-y-4 scale-75 transform text-sm text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:text-blue-600 dark:text-gray-400 peer-focus:dark:text-blue-500"
+          >
+            قرمز
+          </label>
+        </div>
+        <div className="relative">
+          <input
+            type="checkbox"
+            id="color"
+            name="color"
+            value="مشکی#000"
+            required
+            defaultValue={product?.color || ""}
+          />
+          {error.color && (
+            <div className="text-destructive text-xs">{error.color}</div>
+          )}
+          <label
+            htmlFor="color"
+            className="absolute right-2.5 top-4 z-10 origin-[0] -translate-y-4 scale-75 transform text-sm text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:text-blue-600 dark:text-gray-400 peer-focus:dark:text-blue-500"
+          >
+            مشکی
+          </label>
+        </div>
+        <div className="relative">
+          <input
+            type="checkbox"
+            id="color"
+            name="color"
+            value="سبز#00ff15"
+            required
+            defaultValue={product?.color || ""}
+          />
+          {error.color && (
+            <div className="text-destructive text-xs">{error.color}</div>
+          )}
+          <label
+            htmlFor="color"
+            className="absolute right-2.5 top-4 z-10 origin-[0] -translate-y-4 scale-75 transform text-sm text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:text-blue-600 dark:text-gray-400 peer-focus:dark:text-blue-500"
+          >
+            سبز
+          </label>
+        </div>
+        <div className="relative">
+          <input
+            type="checkbox"
+            id="color"
+            name="color"
+            value="آبی#0051ff"
+            required
+            defaultValue={product?.color || ""}
+          />
+          {error.color && (
+            <div className="text-destructive text-xs">{error.color}</div>
+          )}
+          <label
+            htmlFor="color"
+            className="absolute right-2.5 top-4 z-10 origin-[0] -translate-y-4 scale-75 transform text-sm text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:text-blue-600 dark:text-gray-400 peer-focus:dark:text-blue-500"
+          >
+            آبی
+          </label>
+        </div>
+      </div>
+      <div>
+        <select name="" id="">
+          <option value="-1">سایز محصول را انتخاب کنید</option>
+          {Array.from({ length: 100 }).map((_, index) => (
+            <option key={index} value={index + 1}>
+              {index + 1}
+            </option>
+          ))}
+        </select>
+      </div>
+      <div>
+        <select name="" id="">
+          <option value="-1">دسته بندی محصول را انتخاب کنید</option>
+          {categories.map((category) => (
+            <option key={category.id}>{category.title}</option>
+          ))}
+        </select>
       </div>
       <div className="h-52 relative">
         <textarea
@@ -113,6 +252,130 @@ export default function ProductForm({ product }: { product?: Product | null }) {
             className="absolute right-2.5 top-4 z-10 origin-[0] -translate-y-4 scale-75 transform text-sm text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:text-blue-600 dark:text-gray-400 peer-focus:dark:text-blue-500"
           >
             میزان تخفیف
+          </label>
+        </div>
+        <div className="relative w-full">
+          <input
+            type="number"
+            id="discount_price"
+            name="discount_price"
+            placeholder=""
+            required
+            defaultValue={product?.discount_price || ""}
+            className="peer max-h-20 block w-full appearance-none rounded-t-lg border-0 border-b-2 border-gray-300 bg-gray-50 px-2.5 pb-2.5 pt-5 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0 dark:border-gray-600 dark:bg-gray-900 dark:text-white dark:focus:border-blue-500"
+          />
+          {error.discount_price && (
+            <div className="text-destructive text-xs">
+              {error.discount_price}
+            </div>
+          )}
+          <label
+            htmlFor="discount_price"
+            className="absolute right-2.5 top-4 z-10 origin-[0] -translate-y-4 scale-75 transform text-sm text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:text-blue-600 dark:text-gray-400 peer-focus:dark:text-blue-500"
+          >
+            قیمت بااحتساب تخفیف
+          </label>
+        </div>
+        <div className="relative w-full">
+          <input
+            type="number"
+            id="recommended_percent"
+            name="recommended_percent"
+            placeholder=""
+            required
+            defaultValue={product?.recommended_percent || ""}
+            className="peer max-h-20 block w-full appearance-none rounded-t-lg border-0 border-b-2 border-gray-300 bg-gray-50 px-2.5 pb-2.5 pt-5 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0 dark:border-gray-600 dark:bg-gray-900 dark:text-white dark:focus:border-blue-500"
+          />
+          {error.recommended_percent && (
+            <div className="text-destructive text-xs">
+              {error.recommended_percent}
+            </div>
+          )}
+          <label
+            htmlFor="recommended_percent"
+            className="absolute right-2.5 top-4 z-10 origin-[0] -translate-y-4 scale-75 transform text-sm text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:text-blue-600 dark:text-gray-400 peer-focus:dark:text-blue-500"
+          >
+            درصد پیشنهاد محصول
+          </label>
+        </div>
+        <div className="relative w-full">
+          <input
+            type="number"
+            id="guarantee"
+            name="guarantee"
+            placeholder=""
+            required
+            defaultValue={product?.guarantee || ""}
+            className="peer max-h-20 block w-full appearance-none rounded-t-lg border-0 border-b-2 border-gray-300 bg-gray-50 px-2.5 pb-2.5 pt-5 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0 dark:border-gray-600 dark:bg-gray-900 dark:text-white dark:focus:border-blue-500"
+          />
+          {error.guarantee && (
+            <div className="text-destructive text-xs">{error.guarantee}</div>
+          )}
+          <label
+            htmlFor="guarantee"
+            className="absolute right-2.5 top-4 z-10 origin-[0] -translate-y-4 scale-75 transform text-sm text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:text-blue-600 dark:text-gray-400 peer-focus:dark:text-blue-500"
+          >
+            نام شرکت گارانتی
+          </label>
+        </div>
+        <div className="relative w-full">
+          <input
+            type="text"
+            id="likes"
+            name="likes"
+            placeholder=""
+            required
+            defaultValue={product?.likes || ""}
+            className="peer max-h-20 block w-full appearance-none rounded-t-lg border-0 border-b-2 border-gray-300 bg-gray-50 px-2.5 pb-2.5 pt-5 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0 dark:border-gray-600 dark:bg-gray-900 dark:text-white dark:focus:border-blue-500"
+          />
+          {error.likes && (
+            <div className="text-destructive text-xs">{error.likes}</div>
+          )}
+          <label
+            htmlFor="likes"
+            className="absolute right-2.5 top-4 z-10 origin-[0] -translate-y-4 scale-75 transform text-sm text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:text-blue-600 dark:text-gray-400 peer-focus:dark:text-blue-500"
+          >
+            میزان رضایت از کالا
+          </label>
+        </div>
+        <div className="relative w-full">
+          <input
+            type="number"
+            id="rating"
+            name="rating"
+            placeholder=""
+            required
+            defaultValue={product?.rating || ""}
+            className="peer max-h-20 block w-full appearance-none rounded-t-lg border-0 border-b-2 border-gray-300 bg-gray-50 px-2.5 pb-2.5 pt-5 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0 dark:border-gray-600 dark:bg-gray-900 dark:text-white dark:focus:border-blue-500"
+          />
+          {error.rating && (
+            <div className="text-destructive text-xs">{error.rating}</div>
+          )}
+          <label
+            htmlFor="rating"
+            className="absolute right-2.5 top-4 z-10 origin-[0] -translate-y-4 scale-75 transform text-sm text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:text-blue-600 dark:text-gray-400 peer-focus:dark:text-blue-500"
+          >
+            امتیاز محصول
+          </label>
+        </div>
+        <div className="relative w-full">
+          <input
+            type="number"
+            id="voter"
+            name="voter"
+            placeholder=""
+            required
+            defaultValue={product?.voter || ""}
+            className="peer max-h-20 block w-full appearance-none rounded-t-lg border-0 border-b-2 border-gray-300 bg-gray-50 px-2.5 pb-2.5 pt-5 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0 dark:border-gray-600 dark:bg-gray-900 dark:text-white dark:focus:border-blue-500"
+          />
+          {error.voter && (
+            <div className="text-destructive text-xs">{error.voter}</div>
+          )}
+          <label
+            htmlFor="voter"
+            className="absolute right-2.5 top-4 z-10 origin-[0] -translate-y-4 scale-75 transform text-sm text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:text-blue-600 dark:text-gray-400 peer-focus:dark:text-blue-500"
+          >
+            تعداد امتیاز دهندگان
           </label>
         </div>
       </div>

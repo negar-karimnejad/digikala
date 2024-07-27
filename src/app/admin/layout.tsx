@@ -11,8 +11,8 @@ export default async function AdminLayout({
 }) {
   const session = await getServerSession();
 
-  if (!session?.user) redirect("/login?redirectTo=/admin");
-  if (session?.user?.email !== "negar.karimnejad@gmail.com") return notFound();
+  // if (!session?.user) redirect("/login?redirectTo=/admin");
+  // if (session?.user?.email !== "negar.karimnejad@gmail.com") return notFound();
 
   return (
     <div>

@@ -8,6 +8,7 @@ export default function AdminProductsPage() {
 
 async function ProductTable() {
   const products = await db.product.findMany({ orderBy: { title: "asc" } });
+console.log(products,"🥵⭐⭐");
 
   return (
     <>

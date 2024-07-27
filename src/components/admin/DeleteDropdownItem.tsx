@@ -13,7 +13,7 @@ export function DeleteDropdownItem({
   productId,
   userId,
 }: {
-  productId?: string;
+  productId?: number;
   userId?: string;
 }) {
   const [isPending, startTransition] = useTransition();

@@ -2,10 +2,10 @@
 
 import db from "@/db/db";
 import bcrypt from "bcryptjs";
+import fs from "fs/promises";
 import { revalidatePath } from "next/cache";
 import { notFound, redirect } from "next/navigation";
 import { z } from "zod";
-import fs from "fs/promises";
 
 const avatarSchema = z
   .instanceof(File, { message: "Required" })
@@ -25,10 +25,10 @@ const UserSchema = z.object({
 });
 
 type SignupErrors = {
-  name?: string;
-  email?: string;
-  password?: string;
-  avatar?: string;
+  name?: string[];
+  email?: string[];
+  password?: string[];
+  avatar?: string[];
 };
 
 export async function signup(prevState: unknown, formData: FormData) {

@@ -973,7 +973,7 @@ export const categories = [
     id: 9,
     title: "خودرو و موتورسیکلت",
     cover: "/category/car.png",
-    href: "/category/vehicles",
+    href: "/category/vehicles-spare-parts",
     submenu: [
       {
         title: "لوازم مصرفی خودرو",
@@ -1022,7 +1022,7 @@ export const categories = [
     id: 13,
     title: "کارت هدیه و گیفت کارت",
     cover: "/category/gift.png",
-    href: "/category/dk-ds-gift-card",
+    href: "/category/gift-card",
     submenu: [],
   },
   {

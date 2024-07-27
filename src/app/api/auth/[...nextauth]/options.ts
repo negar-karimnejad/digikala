@@ -1,11 +1,12 @@
 import db from "@/db/db";
 import { User } from "@prisma/client";
 import bcrypt from "bcryptjs";
-import { Session } from "next-auth";
+import { AuthOptions } from "next-auth";
 import { JWT } from "next-auth/jwt";
 import CredentialsProvider from "next-auth/providers/credentials";
+import { Session, User as NextAuthUser, Account, Profile } from "next-auth";
 
-export const authOptionsz = {
+export const authOptions: AuthOptions = {
   providers: [
     CredentialsProvider({
       name: "Credentials",
@@ -37,9 +38,9 @@ export const authOptionsz = {
       }
       return session;
     },
-    async jwt({ token, user }: { token: JWT; user?: User }) {
+    async jwt({ token, user }: { token: JWT; user?: NextAuthUser | User }) {
       if (user) {
-        token.picture = user.avatar;
+        token.picture = (user as User).avatar;
       }
       return token;
     },
