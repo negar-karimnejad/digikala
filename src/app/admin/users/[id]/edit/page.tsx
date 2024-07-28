@@ -7,7 +7,7 @@ export default async function EditProductPage({
 }: {
   params: { id: number };
 }) {
-  const user = await db.user.findUnique({ where: { id } });
+  const user = await db.user.findUnique({ where: { id: Number(id) } });
   if (!user) return <p>کاربر یافت نشد.</p>;
 
   return (

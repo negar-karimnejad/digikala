@@ -1,5 +1,6 @@
 "use server";
 
+import { FormState } from "@/app/(auth)/register/page";
 import db from "@/db/db";
 import bcrypt from "bcryptjs";
 import fs from "fs/promises";
@@ -24,19 +25,17 @@ const UserSchema = z.object({
     .min(5, { message: "رمز کاربری باید حداقل 5 کاراکتر باشد." }),
 });
 
-type SignupErrors = {
-  name?: string[];
-  email?: string[];
-  password?: string[];
-  avatar?: string[];
-};
-
-export async function signup(prevState: unknown, formData: FormData) {
+export async function signup(
+  state: FormState,
+  formData: FormData
+): Promise<FormState> {
   const result = UserSchema.safeParse(Object.fromEntries(formData.entries()));
-  console.log("✔✔", result.data);
 
   if (result.success === false) {
-    return result.error.formErrors.fieldErrors as SignupErrors;
+    return {
+      ...state,
+      errors: result.error.formErrors.fieldErrors,
+    };
   }
 
   const data = result.data;
@@ -52,7 +51,7 @@ export async function signup(prevState: unknown, formData: FormData) {
       },
     });
 
-    redirect("/login");
+    return { ...state, errors: {}, email: data.email };
   } catch (error: any) {
     if (
       error.code === "P2002" &&
@@ -60,8 +59,12 @@ export async function signup(prevState: unknown, formData: FormData) {
       error.meta.target.includes("email")
     ) {
       return {
-        email:
-          "این ایمیل قبلاً ثبت شده است. لطفاً از ایمیل دیگری استفاده کنید.",
+        ...state,
+        errors: {
+          email: [
+            "این ایمیل قبلاً ثبت شده است. لطفاً از ایمیل دیگری استفاده کنید.",
+          ],
+        },
       };
     }
     throw error; // Re-throw the error if it's not a unique constraint violation
@@ -86,18 +89,27 @@ const updateSchema = z.object({
 });
 
 export async function updateUser(
-  id: number,
-  prevState: unknown,
+  state: FormState,
   formData: FormData
-) {
+): Promise<FormState> {
+  const id = formData.get("id");
+  const numericId = Number(id);
+
+  if (!id) throw new Error("User ID is required");
+
   const result = updateSchema.safeParse(Object.fromEntries(formData.entries()));
 
   if (result.success === false) {
-    return result.error.formErrors.fieldErrors;
+    return {
+      ...state,
+      errors: result.error.formErrors.fieldErrors,
+    };
   }
+
   const data = result.data;
 
-  const user = await db.user.findUnique({ where: { id } });
+  const user = await db.user.findUnique({ where: { id: numericId } });
+
   if (user == null) return notFound();
 
   let avatarPath = user.avatar;
@@ -114,7 +126,7 @@ export async function updateUser(
   }
 
   await db.user.update({
-    where: { id },
+    where: { id: numericId },
     data: {
       name: data.name,
       role: data.role,

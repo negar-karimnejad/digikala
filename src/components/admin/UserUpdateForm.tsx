@@ -1,5 +1,6 @@
 "use client";
 
+import { FormState } from "@/app/(auth)/register/page";
 import { updateUser } from "@/app/admin/_actions/users";
 import {
   Select,
@@ -16,8 +17,15 @@ import { useFormState, useFormStatus } from "react-dom";
 import toast from "react-hot-toast";
 import { Button } from "../ui/button";
 
+const initialState: FormState = {
+  name: "",
+  email: "",
+  password: "",
+  errors: {},
+};
+
 export default function UserUpdateForm({ user }: { user: User }) {
-  const [error, action] = useFormState(updateUser.bind(null, user.id), {});
+  const [state, formAction] = useFormState(updateUser, initialState);
   const [role, setRole] = useState(user.role || "USER");
   const [file, setFile] = useState<File | null>(null);
 
@@ -30,13 +38,14 @@ export default function UserUpdateForm({ user }: { user: User }) {
   return (
     <form
       action={async (formData) => {
+        formData.append("id", String(user.id));
         if (file) {
           formData.append("avatar", file);
         }
         formData.append("role", role);
-        await action(formData);
-        if (error) {
-          console.log(error);
+        await formAction(formData);
+        if (state.errors) {
+          console.log(state.errors);
           return;
         } else {
           return toast.success("کاربر با موفقیت به روزرسانی شد.");
@@ -51,8 +60,8 @@ export default function UserUpdateForm({ user }: { user: User }) {
           defaultValue={user?.name}
           className="peer block w-full appearance-none rounded-t-lg border-0 border-b-2 border-gray-300 bg-gray-50 px-2.5 pb-2.5 pt-5 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0 dark:border-gray-600 dark:bg-gray-900 dark:text-white dark:focus:border-blue-500"
         />
-        {error.name && (
-          <div className="text-destructive text-xs">{error.name}</div>
+        {state.errors.name && (
+          <div className="text-destructive text-xs">{state.errors.name}</div>
         )}
         <label
           htmlFor="name"
@@ -71,8 +80,8 @@ export default function UserUpdateForm({ user }: { user: User }) {
             defaultValue={user?.email}
             className="disabled:cursor-not-allowed disabled:opacity-80 peer max-h-20 block w-full appearance-none rounded-t-lg border-0 border-b-2 border-gray-300 bg-gray-50 px-2.5 pb-2.5 pt-5 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0 dark:border-gray-600 dark:bg-gray-900 dark:text-white dark:focus:border-blue-500"
           />
-          {error.email && (
-            <div className="text-destructive text-xs">{error.email}</div>
+          {state.errors.email && (
+            <div className="text-destructive text-xs">{state.errors.email}</div>
           )}
           <label
             htmlFor="email"

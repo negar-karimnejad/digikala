@@ -9,10 +9,22 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { useFormState, useFormStatus } from "react-dom";
 
+export interface FormState {
+  name: string;
+  email: string;
+  password: string;
+  errors: { [key: string]: string[] };
+}
+
+const initialState: FormState = {
+  name: "",
+  email: "",
+  password: "",
+  errors: {},
+};
+
 export default function Register() {
-  const sss = useFormState(signup, {});
-  // const formErrors = state?.errors?.formErrors;
-  console.log(sss[0].);
+  const [state, formAction] = useFormState(signup, initialState);
 
   const session = useSession();
 
@@ -31,7 +43,7 @@ export default function Register() {
           | ثبت نام
         </p>
         <p className="text-xs text-right mt-5">سلام!</p>
-        <form action={action} className="flex flex-col gap-2 w-full">
+        <form action={formAction} className="flex flex-col gap-2 w-full">
           <label htmlFor="name" className="text-xs">
             لطفا نام و نام خانوادگی خود را وارد کنید
           </label>
@@ -40,12 +52,12 @@ export default function Register() {
             id="name"
             name="name"
             autoFocus
-            className={`bg-transparent py-5 border rounded-lg ${
-              errors.name ? "border-red-500" : ""
-            }`}
+            className={`bg-transparent py-5 border rounded-lg 
+              ${state.errors.name ? "border-red-500" : ""}
+               `}
           />
-          {errors.name && (
-            <div className="text-destructive text-xs">{errors.name}</div>
+          {state.errors.name && (
+            <div className="text-destructive text-xs">{state.errors.name}</div>
           )}
           <label htmlFor="name" className="text-xs">
             لطفا ایمیل خود را وارد کنید
@@ -55,11 +67,11 @@ export default function Register() {
             id="email"
             name="email"
             className={`bg-transparent py-5 border rounded-lg ${
-              errors.email ? "border-red-500" : ""
+              state.errors.email ? "border-red-500" : ""
             }`}
           />
-          {errors.email && (
-            <div className="text-destructive text-xs">{errors.email}</div>
+          {state.errors.email && (
+            <div className="text-destructive text-xs">{state.errors.email}</div>
           )}
           <label htmlFor="password" className="text-xs">
             لطفا پسورد خود را وارد کنید
@@ -69,11 +81,13 @@ export default function Register() {
             id="password"
             name="password"
             className={`bg-transparent py-5 border rounded-lg ${
-              errors.password ? "border-red-500" : ""
+              state.errors.password ? "border-red-500" : ""
             }`}
           />
-          {errors.password && (
-            <div className="text-destructive text-xs">{errors.password}</div>
+          {state.errors.password && (
+            <div className="text-destructive text-xs">
+              {state.errors.password}
+            </div>
           )}
           <SubmitButton />
         </form>
