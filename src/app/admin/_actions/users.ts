@@ -1,7 +1,7 @@
 "use server";
 
-import { FormState } from "@/app/(auth)/register/page";
 import db from "@/db/db";
+import { FormState } from "@/types/types";
 import bcrypt from "bcryptjs";
 import fs from "fs/promises";
 import { revalidatePath } from "next/cache";

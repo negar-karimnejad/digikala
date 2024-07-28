@@ -1,6 +1,5 @@
 "use client";
 
-import { FormState } from "@/app/(auth)/register/page";
 import { updateUser } from "@/app/admin/_actions/users";
 import {
   Select,
@@ -16,13 +15,7 @@ import { useState } from "react";
 import { useFormState, useFormStatus } from "react-dom";
 import toast from "react-hot-toast";
 import { Button } from "../ui/button";
-
-const initialState: FormState = {
-  name: "",
-  email: "",
-  password: "",
-  errors: {},
-};
+import { initialState } from "@/types/types";
 
 export default function UserUpdateForm({ user }: { user: User }) {
   const [state, formAction] = useFormState(updateUser, initialState);

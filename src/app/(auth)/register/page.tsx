@@ -4,31 +4,28 @@ import { signup } from "@/app/admin/_actions/users";
 import Logo from "@/components/Logo";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { initialState } from "@/types/types";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { useFormState, useFormStatus } from "react-dom";
-
-export interface FormState {
-  name: string;
-  email: string;
-  password: string;
-  errors: { [key: string]: string[] };
-}
-
-const initialState: FormState = {
-  name: "",
-  email: "",
-  password: "",
-  errors: {},
-};
+import toast from "react-hot-toast";
 
 export default function Register() {
   const [state, formAction] = useFormState(signup, initialState);
+  const { status } = useSession();
 
-  const session = useSession();
+  if (status === "authenticated") redirect("/");
 
-  if (session.status === "authenticated") redirect("/");
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    const success = await formAction(formData);
+    if (success) {
+      toast.success("ثبت نام با موفقیت انجام شد.");
+      redirect("/login");
+    }
+  };
 
   return (
     <div className="flex items-center justify-center">
@@ -43,7 +40,7 @@ export default function Register() {
           | ثبت نام
         </p>
         <p className="text-xs text-right mt-5">سلام!</p>
-        <form action={formAction} className="flex flex-col gap-2 w-full">
+        <form onSubmit={handleSubmit} className="flex flex-col gap-2 w-full">
           <label htmlFor="name" className="text-xs">
             لطفا نام و نام خانوادگی خود را وارد کنید
           </label>
