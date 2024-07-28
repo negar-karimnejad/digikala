@@ -10,7 +10,9 @@ import { z } from "zod";
 
 const avatarSchema = z
   .instanceof(File, { message: "Required" })
-  .refine((file) => file.size === 0 || file.type.startsWith("image/"));
+  .refine((file) => file.size === 0 || file.type.startsWith("image/"), {
+    message: "The file must be a non-empty image.",
+  });
 
 const UserSchema = z.object({
   name: z.coerce
@@ -23,6 +25,7 @@ const UserSchema = z.object({
   password: z
     .string({ required_error: "لطفا رمز کاربری را وارد کنید." })
     .min(5, { message: "رمز کاربری باید حداقل 5 کاراکتر باشد." }),
+  avatar: avatarSchema.optional(),
 });
 
 export async function signup(
@@ -31,10 +34,11 @@ export async function signup(
 ): Promise<FormState> {
   const result = UserSchema.safeParse(Object.fromEntries(formData.entries()));
 
-  if (result.success === false) {
+  if (!result.success) {
     return {
       ...state,
       errors: result.error.formErrors.fieldErrors,
+      success: false,
     };
   }
 
@@ -51,13 +55,9 @@ export async function signup(
       },
     });
 
-    return { ...state, errors: {}, email: data.email };
+    return { ...state, errors: {}, email: data.email, success: true };
   } catch (error: any) {
-    if (
-      error.code === "P2002" &&
-      error.meta &&
-      error.meta.target.includes("email")
-    ) {
+    if (error.code === "P2002" && error.meta?.target.includes("email")) {
       return {
         ...state,
         errors: {
@@ -65,6 +65,7 @@ export async function signup(
             "این ایمیل قبلاً ثبت شده است. لطفاً از ایمیل دیگری استفاده کنید.",
           ],
         },
+        success: false,
       };
     }
     throw error; // Re-throw the error if it's not a unique constraint violation

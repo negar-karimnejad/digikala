@@ -2,7 +2,8 @@ export interface FormState {
   name: string;
   email: string;
   password: string;
-  errors: { [key: string]: string[] };
+  errors: Record<string, string[]>;
+  success: boolean;
 }
 
 export const initialState: FormState = {
@@ -10,4 +11,5 @@ export const initialState: FormState = {
   email: "",
   password: "",
   errors: {},
+  success: false,
 };

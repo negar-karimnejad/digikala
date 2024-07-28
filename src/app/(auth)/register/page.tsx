@@ -8,6 +8,7 @@ import { initialState } from "@/types/types";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import { useEffect } from "react";
 import { useFormState, useFormStatus } from "react-dom";
 import toast from "react-hot-toast";
 
@@ -17,15 +18,18 @@ export default function Register() {
 
   if (status === "authenticated") redirect("/");
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const formData = new FormData(event.target);
-    const success = await formAction(formData);
-    if (success) {
+    const formData = new FormData(event.currentTarget);
+    formAction(formData);
+  };
+
+  useEffect(() => {
+    if (state.success) {
       toast.success("ثبت نام با موفقیت انجام شد.");
       redirect("/login");
     }
-  };
+  }, [state.success]);
 
   return (
     <div className="flex items-center justify-center">

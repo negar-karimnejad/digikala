@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { signIn, useSession } from "next-auth/react";
 import Link from "next/link";
-import { redirect, useRouter, useSearchParams } from "next/navigation";
+import { redirect, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { useFormStatus } from "react-dom";
 import toast from "react-hot-toast";
@@ -13,7 +13,7 @@ import { z } from "zod";
 
 const loginSchema = z.object({
   email: z.string().email("ایمیل نامعتبر است."),
-  password: z.string().min(6, "رمز عبور باید حداقل 5 کاراکتر باشد."),
+  password: z.string().min(5, "رمز عبور باید حداقل 5 کاراکتر باشد."),
 });
 
 type LoginForm = z.infer<typeof loginSchema>;
@@ -22,7 +22,6 @@ export default function Login() {
   const params = useSearchParams();
   const redirectedLogin = params.size === 1;
 
-  const router = useRouter();
   const [errors, setErrors] = useState<{ email?: string; password?: string }>(
     {}
   );
@@ -61,9 +60,9 @@ export default function Login() {
   const session = useSession();
 
   if (session.status === "authenticated" && redirectedLogin) {
-    router.push("/admin");
+    redirect("/admin");
   } else if (session.status === "authenticated" && !redirectedLogin) {
-    router.push("/");
+    redirect("/");
   }
 
   return (
