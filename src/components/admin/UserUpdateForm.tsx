@@ -1,6 +1,6 @@
 "use client";
 
-import { updateUser } from "@/app/admin/_actions/users";
+import { updateUser } from "@/app/admin/users/users";
 import {
   Select,
   SelectContent,

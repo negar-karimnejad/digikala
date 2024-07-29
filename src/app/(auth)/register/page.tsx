@@ -1,6 +1,6 @@
 "use client";
 
-import { signup } from "@/app/admin/_actions/users";
+import { signup } from "@/app/admin/users/action";
 import Logo from "@/components/Logo";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";

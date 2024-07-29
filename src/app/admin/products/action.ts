@@ -6,7 +6,7 @@ import fs from "fs/promises";
 import { revalidatePath } from "next/cache";
 import { notFound, redirect } from "next/navigation";
 
-export async function addProduct(formData) {
+export async function addProduct(state, formData: FormData) {
   const result = ProductSchema.safeParse(
     Object.fromEntries(formData.entries())
   );
