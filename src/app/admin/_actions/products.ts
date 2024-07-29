@@ -1,37 +1,12 @@
 "use server";
 
 import db from "@/db/db";
+import { imageSchema, ProductSchema } from "@/lib/validation";
 import fs from "fs/promises";
 import { revalidatePath } from "next/cache";
 import { notFound, redirect } from "next/navigation";
-import { TypeOf, z } from "zod";
 
-const fileSchema = z.instanceof(File, { message: "Required" });
-const imageSchema = fileSchema.refine(
-  (file) => file.size === 0 || file.type.startsWith("image/")
-);
-
-export type ProductFormInputs = TypeOf<typeof ProductSchema>;
-
-const ProductSchema = z.object({
-  title: z
-    .string({ required_error: "لطفا عنوان محصول را وارد کنید" })
-    .min(5, { message: "عنوان محصول باید حداقل 5 کاراکتر باشد" }),
-  description: z
-    .string({ required_error: "توضیحات محصول را وارد کنید" })
-    .min(10, { message: "توضیحات محصول باید حداقل 10 کاراکتر باشد" }),
-  price: z.coerce
-    .number({ required_error: "قیمت محصول را وارد کنید" })
-    .int()
-    .min(1, { message: "قیمت نمی تواند خالی یا عدد منفی باشد" }),
-
-  discount: z.coerce
-    .number({ required_error: "میزان تخفیف محصول را وارد کنید" })
-    .refine((val) => val >= 0, { message: "تخفیف نمی تواند عدد منفی باشد" }),
-  thumbnail: imageSchema.refine((file) => file.size > 0, "Required"),
-});
-
-export async function addProduct(prevState: unknown, formData: FormData) {
+export async function addProduct(formData) {
   const result = ProductSchema.safeParse(
     Object.fromEntries(formData.entries())
   );
@@ -51,11 +26,19 @@ export async function addProduct(prevState: unknown, formData: FormData) {
 
   await db.product.create({
     data: {
-      title: data.title,
-      description: data.description,
-      price: data.price,
-      discount: data.discount,
       thumbnail: imagePath,
+      title: data.title,
+      en_title: data.en_title || "",
+      rating: data.rating || null,
+      voter: data.voter || 0,
+      sellerId: data.sellerId,
+      price: data.price,
+      discount: data.discount || null,
+      discount_price: data.discount_price || null,
+      description: data.description,
+      recommended_percent: data.recommended_percent || null,
+      guarantee: data.guarantee || null,
+      likes: data.likes || 0,
     },
   });
 
@@ -69,11 +52,10 @@ const editSchema = ProductSchema.extend({
   thumbnail: imageSchema.optional(),
 });
 
-export async function updateProduct(
-  id: number,
-  prevState: unknown,
-  formData: FormData
-) {
+export async function updateProduct(state, formData: FormData) {
+  const id = formData.get("id");
+  const numericId = Number(id);
+
   const result = editSchema.safeParse(Object.fromEntries(formData.entries()));
 
   if (result.success === false) {
@@ -81,7 +63,7 @@ export async function updateProduct(
   }
 
   const data = result.data;
-  const product = await db.product.findUnique({ where: { id } });
+  const product = await db.product.findUnique({ where: { id: numericId } });
 
   if (product == null) return notFound();
 
@@ -97,7 +79,7 @@ export async function updateProduct(
   }
 
   await db.product.update({
-    where: { id },
+    where: { id: numericId },
     data: {
       title: data.title,
       description: data.description,

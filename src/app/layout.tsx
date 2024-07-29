@@ -42,7 +42,7 @@ export default async function RootLayout({
             disableTransitionOnChange
           >
             {children}
-            <MobileFooter />
+            {/* <MobileFooter /> */}
             <Toaster position="top-center" reverseOrder={false} />
           </ThemeProvider>
         </AuthProvider>

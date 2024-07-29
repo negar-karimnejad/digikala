@@ -32,7 +32,7 @@ model Product {
   voter               Int        @default(0)
   comments            Comment[]
   questions           Question[]
-  colors              Color[]
+  colors              Color[]    @relation("ProductColors")
   sizes               Size[]     @relation("ProductSizes")
   images              Image[]
   thumbnail           String
@@ -87,15 +87,15 @@ model Color {
   id        Int     @id @default(autoincrement())
   name      String
   hexCode   String
-  product   Product @relation(fields: [productId], references: [id])
   productId Int
+  product   Product @relation("ProductColors", fields: [productId], references: [id])
 }
 
 model Size {
   id        Int     @id @default(autoincrement())
   value     String
-  product   Product @relation("ProductSizes", fields: [productId], references: [id])
   productId Int
+  product   Product @relation("ProductSizes", fields: [productId], references: [id])
 }
 
 model Image {
