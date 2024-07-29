@@ -23,7 +23,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Product, User } from "@prisma/client";
+import { Category, Product, User } from "@prisma/client";
 import { Edit2, Eye, MoreVertical } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -31,10 +31,12 @@ import avatar from "./../../../public/avatar/avatar1.png";
 
 export default function AdminTable({
   products,
+  categories,
   users,
 }: {
   products?: Product[] | null;
   users?: User[] | null;
+  categories?: Category[] | null;
 }) {
   return (
     <div>
@@ -55,6 +57,12 @@ export default function AdminTable({
               <TableHead className="text-right">نام</TableHead>
               <TableHead className="text-right">ایمیل</TableHead>
               <TableHead className="text-right">نقش</TableHead>
+              <TableHead className="text-right"></TableHead>
+            </TableRow>
+          )}
+          {categories && (
+            <TableRow>
+              <TableHead className="text-right">نام</TableHead>
               <TableHead className="text-right"></TableHead>
             </TableRow>
           )}
@@ -170,6 +178,43 @@ export default function AdminTable({
                         </DropdownMenuItem>
                         <DropdownMenuSeparator />
                         <DeleteDropdownItem userId={user.id} />
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                  </Dialog>
+                </TableCell>
+              </TableRow>
+            ))}
+          {categories &&
+            categories.map((category) => (
+              <TableRow key={category.id}>
+                <TableCell>
+                  <p className="whitespace-nowrap">{category.name}</p>
+                </TableCell>
+                {/* <TableCell>
+                  <p>{user.email}</p>
+                </TableCell>
+                <TableCell>
+                  <p>{user.role === "USER" ? "کاربر" : "ادمین"}</p>
+                </TableCell> */}
+                <TableCell>
+                  <Dialog>
+                    <DropdownMenu>
+                      <DropdownMenuTrigger>
+                        <MoreVertical />
+                        <span className="sr-only">Actions</span>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent>
+                        <DropdownMenuItem asChild>
+                          <Link
+                            className="flex w-full justify-end items-center"
+                            href={`/admin/categories/${category.id}/edit`}
+                          >
+                            ویرایش
+                            <Edit2 size={15} className="text-gray-400 mx-4" />
+                          </Link>
+                        </DropdownMenuItem>
+                        <DropdownMenuSeparator />
+                        {/* <DeleteDropdownItem userId={category.id} /> */}
                       </DropdownMenuContent>
                     </DropdownMenu>
                   </Dialog>

@@ -7,8 +7,8 @@ export const imageSchema = fileSchema.refine(
 
 export const ProductSchema = z.object({
   title: z.string().min(5, { message: "لطفا عنوان محصول را وارد کنید" }),
-  en_title: z.string().optional(),
-  rating: z.number().optional(),
+  en_title: z.string(),
+  rating: z.number(),
   voter: z.number().default(0),
   thumbnail: imageSchema.refine((file) => file.size > 0, "Required"),
   sellerId: z.number().default(1),
@@ -16,7 +16,15 @@ export const ProductSchema = z.object({
   discount: z.number().optional(),
   discount_price: z.number().optional(),
   description: z.string().min(10, { message: "توضیحات محصول را وارد کنید" }),
-  recommended_percent: z.number().optional(),
-  guarantee: z.string().optional(),
+  recommended_percent: z.number(),
+  guarantee: z.string(),
   likes: z.number().default(0),
+  colors: z.array(
+    z.string().regex(/^[^#]+#[0-9A-Fa-f]{6}$/, { message: "رنگ نامعتبر است" })
+  ),
+});
+
+export const CategorySchema = z.object({
+  name: z.string().min(5, { message: "لطفا عنوان دسته بندی را وارد نمایید" }),
+  parentId: z.number().nullable().optional(),
 });

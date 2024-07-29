@@ -1,7 +1,7 @@
 "use client";
 
 import { deleteProduct } from "@/app/admin/products/action";
-import { deleteUser } from "@/app/admin/users/users";
+import { deleteUser } from "@/app/admin/users/action";
 import { Trash2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useTransition } from "react";

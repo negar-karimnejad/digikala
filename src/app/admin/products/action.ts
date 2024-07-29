@@ -10,6 +10,13 @@ export async function addProduct(state, formData: FormData) {
   const result = ProductSchema.safeParse(
     Object.fromEntries(formData.entries())
   );
+  console.log(result, "🥵🤣😉");
+
+  const selectedColorsEntry = formData.get("selectedColors");
+  if (typeof selectedColorsEntry !== "string") {
+    throw new Error("Invalid selectedColors");
+  }
+  const selectedColors = JSON.parse(selectedColorsEntry);
 
   if (result.success === false) {
     return result.error.formErrors.fieldErrors;
@@ -28,17 +35,18 @@ export async function addProduct(state, formData: FormData) {
     data: {
       thumbnail: imagePath,
       title: data.title,
-      en_title: data.en_title || "",
-      rating: data.rating || null,
-      voter: data.voter || 0,
+      en_title: data.en_title,
+      rating: data.rating,
+      voter: data.voter,
       sellerId: data.sellerId,
       price: data.price,
-      discount: data.discount || null,
-      discount_price: data.discount_price || null,
+      discount: data.discount,
+      discount_price: data.discount_price,
       description: data.description,
-      recommended_percent: data.recommended_percent || null,
-      guarantee: data.guarantee || null,
-      likes: data.likes || 0,
+      recommended_percent: data.recommended_percent,
+      guarantee: data.guarantee,
+      likes: data.likes,
+      colors: selectedColors,
     },
   });
 

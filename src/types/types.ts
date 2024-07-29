@@ -13,3 +13,15 @@ export const initialState: FormState = {
   errors: {},
   success: false,
 };
+
+export interface CategoryFormState {
+  name: string;
+  errors: Record<string, string[]>;
+  success: boolean;
+}
+
+export const categoryInitialState: CategoryFormState = {
+  name: "",
+  errors: {},
+  success: false,
+};

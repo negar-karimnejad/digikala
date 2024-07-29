@@ -2,8 +2,7 @@
 
 import { addProduct, updateProduct } from "@/app/admin/products/action";
 import { Button } from "@/components/ui/button";
-import { categories } from "@/data/data";
-import { Product } from "@prisma/client";
+import { Category, Product } from "@prisma/client";
 import { LucideUploadCloud } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
@@ -16,7 +15,13 @@ const initialState = (product: Product) => ({
   success: false,
 });
 
-export default function ProductForm({ product }: { product?: Product | null }) {
+export default function ProductForm({
+  product,
+  categories,
+}: {
+  product?: Product | null;
+  categories?: Category[] | null;
+}) {
   const [file, setFile] = useState<File | null>(null);
   const [state, formAction] = useFormState(
     product == null ? addProduct : updateProduct,
@@ -32,7 +37,12 @@ export default function ProductForm({ product }: { product?: Product | null }) {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
+
+    const selectedColors = Array.from(formData.getAll("color"));
+    formData.append("selectedColors", JSON.stringify(selectedColors));
+
     formData.append("id", String(state.id));
+
     if (file) {
       formData.append("thumbnail", file);
     }
@@ -50,20 +60,7 @@ export default function ProductForm({ product }: { product?: Product | null }) {
   }, [product, state.success]);
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      // action={async (formData) => {
-      //   formData.append("id", String(product.id));
-      //   if (file) {
-      //     formData.append("thumbnail", file);
-      //   }
-      //   await formAction(formData);
-      //   if (product == null) {
-      //     return toast.success("محصول با موفقیت اضافه شد.");
-      //   }
-      //   return toast.success("محصول با موفقیت ویرایش شد.");
-      // }}
-    >
+    <form onSubmit={handleSubmit}>
       <div className="h-20 relative">
         <input
           type="text"
@@ -74,8 +71,8 @@ export default function ProductForm({ product }: { product?: Product | null }) {
           defaultValue={product?.title || ""}
           className="peer block w-full appearance-none rounded-t-lg border-0 border-b-2 border-gray-300 bg-gray-50 px-2.5 pb-2.5 pt-5 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0 dark:border-gray-600 dark:bg-gray-900 dark:text-white dark:focus:border-blue-500"
         />
-        {state.errors.title && (
-          <div className="text-destructive text-xs">{state.errors.title}</div>
+        {state.errors?.title && (
+          <div className="text-destructive text-xs">{state.errors?.title}</div>
         )}
         <label
           htmlFor="title"
@@ -94,9 +91,9 @@ export default function ProductForm({ product }: { product?: Product | null }) {
           defaultValue={product?.en_title || ""}
           className="peer block w-full appearance-none rounded-t-lg border-0 border-b-2 border-gray-300 bg-gray-50 px-2.5 pb-2.5 pt-5 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0 dark:border-gray-600 dark:bg-gray-900 dark:text-white dark:focus:border-blue-500"
         />
-        {state.errors.en_title && (
+        {state.errors?.en_title && (
           <div className="text-destructive text-xs">
-            {state.errors.en_title}
+            {state.errors?.en_title}
           </div>
         )}
         <label
@@ -113,11 +110,10 @@ export default function ProductForm({ product }: { product?: Product | null }) {
           name="seller"
           placeholder=""
           required
-          defaultValue={product?.seller || ""}
           className="peer block w-full appearance-none rounded-t-lg border-0 border-b-2 border-gray-300 bg-gray-50 px-2.5 pb-2.5 pt-5 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0 dark:border-gray-600 dark:bg-gray-900 dark:text-white dark:focus:border-blue-500"
         />
-        {state.errors.seller && (
-          <div className="text-destructive text-xs">{state.errors.seller}</div>
+        {state.errors?.seller && (
+          <div className="text-destructive text-xs">{state.errors?.seller}</div>
         )}
         <label
           htmlFor="seller"
@@ -130,16 +126,9 @@ export default function ProductForm({ product }: { product?: Product | null }) {
       <div>
         <div>رنگ های محصول را انتخاب کنید:</div>
         <div className="relative">
-          <input
-            type="checkbox"
-            id="color"
-            name="color"
-            value="قرمز#FF0000"
-            required
-            defaultValue={product?.color || ""}
-          />
-          {state.errors.color && (
-            <div className="text-destructive text-xs">{state.errors.color}</div>
+          <input type="checkbox" id="color" name="color" value="قرمز#FF0000" />
+          {state.errors?.color && (
+            <div className="text-destructive text-xs">{state.errors?.color}</div>
           )}
           <label
             htmlFor="color"
@@ -149,16 +138,9 @@ export default function ProductForm({ product }: { product?: Product | null }) {
           </label>
         </div>
         <div className="relative">
-          <input
-            type="checkbox"
-            id="color"
-            name="color"
-            value="مشکی#000"
-            required
-            defaultValue={product?.color || ""}
-          />
-          {state.errors.color && (
-            <div className="text-destructive text-xs">{state.errors.color}</div>
+          <input type="checkbox" id="color" name="color" value="مشکی#000" />
+          {state.errors?.color && (
+            <div className="text-destructive text-xs">{state.errors?.color}</div>
           )}
           <label
             htmlFor="color"
@@ -168,16 +150,9 @@ export default function ProductForm({ product }: { product?: Product | null }) {
           </label>
         </div>
         <div className="relative">
-          <input
-            type="checkbox"
-            id="color"
-            name="color"
-            value="سبز#00ff15"
-            required
-            defaultValue={product?.color || ""}
-          />
-          {state.errors.color && (
-            <div className="text-destructive text-xs">{state.errors.color}</div>
+          <input type="checkbox" id="color" name="color" value="سبز#00ff15" />
+          {state.errors?.color && (
+            <div className="text-destructive text-xs">{state.errors?.color}</div>
           )}
           <label
             htmlFor="color"
@@ -187,16 +162,9 @@ export default function ProductForm({ product }: { product?: Product | null }) {
           </label>
         </div>
         <div className="relative">
-          <input
-            type="checkbox"
-            id="color"
-            name="color"
-            value="آبی#0051ff"
-            required
-            defaultValue={product?.color || ""}
-          />
-          {state.errors.color && (
-            <div className="text-destructive text-xs">{state.errors.color}</div>
+          <input type="checkbox" id="color" name="color" value="آبی#0051ff" />
+          {state.errors?.color && (
+            <div className="text-destructive text-xs">{state.errors?.color}</div>
           )}
           <label
             htmlFor="color"
@@ -220,7 +188,7 @@ export default function ProductForm({ product }: { product?: Product | null }) {
         <select name="" id="">
           <option value="-1">دسته بندی محصول را انتخاب کنید</option>
           {categories.map((category) => (
-            <option key={category.id}>{category.title}</option>
+            <option key={category.id}>{category.name}</option>
           ))}
         </select>
       </div>
@@ -233,9 +201,9 @@ export default function ProductForm({ product }: { product?: Product | null }) {
           defaultValue={product?.description || ""}
           className="peer max-h-48 block w-full appearance-none rounded-t-lg border-0 border-b-2 border-gray-300 bg-gray-50 px-2.5 pb-2.5 pt-5 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0 dark:border-gray-600 dark:bg-gray-900 dark:text-white dark:focus:border-blue-500"
         />
-        {state.errors.description && (
+        {state.errors?.description && (
           <div className="text-destructive text-xs">
-            {state.errors.description}
+            {state.errors?.description}
           </div>
         )}
         <label
@@ -256,8 +224,8 @@ export default function ProductForm({ product }: { product?: Product | null }) {
             defaultValue={product?.price || ""}
             className="peer max-h-20 block w-full appearance-none rounded-t-lg border-0 border-b-2 border-gray-300 bg-gray-50 px-2.5 pb-2.5 pt-5 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0 dark:border-gray-600 dark:bg-gray-900 dark:text-white dark:focus:border-blue-500"
           />
-          {state.errors.price && (
-            <div className="text-destructive text-xs">{state.errors.price}</div>
+          {state.errors?.price && (
+            <div className="text-destructive text-xs">{state.errors?.price}</div>
           )}
           <label
             htmlFor="price"
@@ -276,9 +244,9 @@ export default function ProductForm({ product }: { product?: Product | null }) {
             defaultValue={product?.discount || ""}
             className="peer max-h-20 block w-full appearance-none rounded-t-lg border-0 border-b-2 border-gray-300 bg-gray-50 px-2.5 pb-2.5 pt-5 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0 dark:border-gray-600 dark:bg-gray-900 dark:text-white dark:focus:border-blue-500"
           />
-          {state.errors.discount && (
+          {state.errors?.discount && (
             <div className="text-destructive text-xs">
-              {state.errors.discount}
+              {state.errors?.discount}
             </div>
           )}
           <label
@@ -298,9 +266,9 @@ export default function ProductForm({ product }: { product?: Product | null }) {
             defaultValue={product?.discount_price || ""}
             className="peer max-h-20 block w-full appearance-none rounded-t-lg border-0 border-b-2 border-gray-300 bg-gray-50 px-2.5 pb-2.5 pt-5 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0 dark:border-gray-600 dark:bg-gray-900 dark:text-white dark:focus:border-blue-500"
           />
-          {state.errors.discount_price && (
+          {state.errors?.discount_price && (
             <div className="text-destructive text-xs">
-              {state.errors.discount_price}
+              {state.errors?.discount_price}
             </div>
           )}
           <label
@@ -320,9 +288,9 @@ export default function ProductForm({ product }: { product?: Product | null }) {
             defaultValue={product?.recommended_percent || ""}
             className="peer max-h-20 block w-full appearance-none rounded-t-lg border-0 border-b-2 border-gray-300 bg-gray-50 px-2.5 pb-2.5 pt-5 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0 dark:border-gray-600 dark:bg-gray-900 dark:text-white dark:focus:border-blue-500"
           />
-          {state.errors.recommended_percent && (
+          {state.errors?.recommended_percent && (
             <div className="text-destructive text-xs">
-              {state.errors.recommended_percent}
+              {state.errors?.recommended_percent}
             </div>
           )}
           <label
@@ -342,9 +310,9 @@ export default function ProductForm({ product }: { product?: Product | null }) {
             defaultValue={product?.guarantee || ""}
             className="peer max-h-20 block w-full appearance-none rounded-t-lg border-0 border-b-2 border-gray-300 bg-gray-50 px-2.5 pb-2.5 pt-5 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0 dark:border-gray-600 dark:bg-gray-900 dark:text-white dark:focus:border-blue-500"
           />
-          {state.errors.guarantee && (
+          {state.errors?.guarantee && (
             <div className="text-destructive text-xs">
-              {state.errors.guarantee}
+              {state.errors?.guarantee}
             </div>
           )}
           <label
@@ -364,8 +332,8 @@ export default function ProductForm({ product }: { product?: Product | null }) {
             defaultValue={product?.likes || ""}
             className="peer max-h-20 block w-full appearance-none rounded-t-lg border-0 border-b-2 border-gray-300 bg-gray-50 px-2.5 pb-2.5 pt-5 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0 dark:border-gray-600 dark:bg-gray-900 dark:text-white dark:focus:border-blue-500"
           />
-          {state.errors.likes && (
-            <div className="text-destructive text-xs">{state.errors.likes}</div>
+          {state.errors?.likes && (
+            <div className="text-destructive text-xs">{state.errors?.likes}</div>
           )}
           <label
             htmlFor="likes"
@@ -384,9 +352,9 @@ export default function ProductForm({ product }: { product?: Product | null }) {
             defaultValue={product?.rating || ""}
             className="peer max-h-20 block w-full appearance-none rounded-t-lg border-0 border-b-2 border-gray-300 bg-gray-50 px-2.5 pb-2.5 pt-5 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0 dark:border-gray-600 dark:bg-gray-900 dark:text-white dark:focus:border-blue-500"
           />
-          {state.errors.rating && (
+          {state.errors?.rating && (
             <div className="text-destructive text-xs">
-              {state.errors.rating}
+              {state.errors?.rating}
             </div>
           )}
           <label
@@ -406,8 +374,8 @@ export default function ProductForm({ product }: { product?: Product | null }) {
             defaultValue={product?.voter || ""}
             className="peer max-h-20 block w-full appearance-none rounded-t-lg border-0 border-b-2 border-gray-300 bg-gray-50 px-2.5 pb-2.5 pt-5 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0 dark:border-gray-600 dark:bg-gray-900 dark:text-white dark:focus:border-blue-500"
           />
-          {state.errors.voter && (
-            <div className="text-destructive text-xs">{state.errors.voter}</div>
+          {state.errors?.voter && (
+            <div className="text-destructive text-xs">{state.errors?.voter}</div>
           )}
           <label
             htmlFor="voter"
@@ -452,9 +420,9 @@ export default function ProductForm({ product }: { product?: Product | null }) {
               )}
             </p>
           </div>
-          {state.errors.thumbnail && (
+          {state.errors?.thumbnail && (
             <div className="text-destructive text-xs">
-              {state.errors.thumbnail}
+              {state.errors?.thumbnail}
             </div>
           )}
         </div>

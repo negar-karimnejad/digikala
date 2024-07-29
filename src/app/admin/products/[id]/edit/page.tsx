@@ -8,11 +8,12 @@ export default async function EditProductPage({
   params: { id: number };
 }) {
   const product = await db.product.findUnique({ where: { id } });
+  const categories = await db.category.findMany({ orderBy: { name: "asc" } });
 
   return (
     <>
       <PageHeader>ویرایش محصول</PageHeader>
-      <ProductForm product={product} />
+      <ProductForm product={product} categories={categories}/>
     </>
   );
 }

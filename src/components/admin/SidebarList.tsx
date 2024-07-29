@@ -23,9 +23,9 @@ const sidebarMenu = [
   { label: "سفارشات", icon: <ShoppingBasket />, href: "/admin/orders" },
   { label: "دسته بندی ها", icon: <Layers3 />, href: "/admin/categories" },
   {
-    label: "مشخصات دسته بندی ها",
+    label: "دسته بندی جدید",
     icon: <ListChecks />,
-    href: "/admin/categories-features",
+    href: "/admin/categories/new",
   },
   { label: "کاربران", icon: <Users2 />, href: "/admin/users" },
   { label: "دیدگاه ها", icon: <MessagesSquare />, href: "/admin/reviews" },
