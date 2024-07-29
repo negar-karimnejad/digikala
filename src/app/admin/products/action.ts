@@ -1,7 +1,7 @@
 "use server";
 
 import db from "@/db/db";
-import { imageSchema, ProductSchema } from "@/lib/validation";
+import { productEditSchema, ProductSchema } from "@/lib/validation";
 import fs from "fs/promises";
 import { revalidatePath } from "next/cache";
 import { notFound, redirect } from "next/navigation";
@@ -10,7 +10,6 @@ export async function addProduct(state, formData: FormData) {
   const result = ProductSchema.safeParse(
     Object.fromEntries(formData.entries())
   );
-  console.log(result, "🥵🤣😉");
 
   const selectedColorsEntry = formData.get("selectedColors");
   if (typeof selectedColorsEntry !== "string") {
@@ -33,20 +32,22 @@ export async function addProduct(state, formData: FormData) {
 
   await db.product.create({
     data: {
-      thumbnail: imagePath,
       title: data.title,
       en_title: data.en_title,
       rating: data.rating,
       voter: data.voter,
-      sellerId: data.sellerId,
+      colors: selectedColors,
+      sizes: data.sizes,
+      thumbnail: imagePath,
       price: data.price,
       discount: data.discount,
+      // features: data.features,
       discount_price: data.discount_price,
       description: data.description,
       recommended_percent: data.recommended_percent,
       guarantee: data.guarantee,
       likes: data.likes,
-      colors: selectedColors,
+      sellerId: data.sellerId,
     },
   });
 
@@ -56,15 +57,13 @@ export async function addProduct(state, formData: FormData) {
   redirect("/admin/products");
 }
 
-const editSchema = ProductSchema.extend({
-  thumbnail: imageSchema.optional(),
-});
-
-export async function updateProduct(state, formData: FormData) {
+export async function updateProduct(state: any, formData: FormData) {
   const id = formData.get("id");
   const numericId = Number(id);
 
-  const result = editSchema.safeParse(Object.fromEntries(formData.entries()));
+  const result = productEditSchema.safeParse(
+    Object.fromEntries(formData.entries())
+  );
 
   if (result.success === false) {
     return result.error.formErrors.fieldErrors;

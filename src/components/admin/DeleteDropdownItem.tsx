@@ -8,21 +8,31 @@ import { useTransition } from "react";
 import toast from "react-hot-toast";
 import { Button } from "../ui/button";
 import { DropdownMenuItem } from "../ui/dropdown-menu";
+import { deleteCategory } from "@/app/admin/categories/action";
 
 export function DeleteDropdownItem({
+  categoryId,
   productId,
   userId,
 }: {
+  categoryId?: number;
   productId?: number;
   userId?: number;
 }) {
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
+  console.log("categoryId", categoryId);
+  console.log("productId", productId);
+  console.log("userId", userId);
 
   const deleteHandler = () => {
     toast((t) => (
       <div>
-        حذف {`${productId ? "محصول" : "کاربر"}`}:
+        حذف{" "}
+        {`${
+          productId ? "محصول" : categoryId ? "دسته بندی" : userId ? "کاربر" : ""
+        }`}
+        :
         <Button
           className="ml-1 mr-5"
           variant={"secondary"}
@@ -39,14 +49,18 @@ export function DeleteDropdownItem({
                 await deleteUser(userId);
               } else if (productId) {
                 await deleteProduct(productId);
+              } else if (categoryId) {
+                await deleteCategory(categoryId);
               }
               router.refresh();
               toast.success(
-                `${
-                  productId
-                    ? "محصول با موفقیت حذف شد!"
-                    : "کاربر با موفقیت حذف شد!"
-                }`
+                productId
+                  ? "محصول با موفقیت حذف شد!"
+                  : categoryId
+                  ? "دسته بندی با موفقیت حذف شد!"
+                  : userId
+                  ? "کاربر با موفقیت حذف شد!"
+                  : ""
               );
             });
           }}

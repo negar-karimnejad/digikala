@@ -7,7 +7,7 @@ export default function AdminCategoriesPage() {
 }
 
 async function ProductTable() {
-  const categories = await db.category.findMany({ orderBy: { name: "asc" } });
+  const categories = await db.category.findMany({ orderBy: { title: "asc" } });
 
   return (
     <>

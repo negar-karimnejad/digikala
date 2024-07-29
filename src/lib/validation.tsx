@@ -18,13 +18,25 @@ export const ProductSchema = z.object({
   description: z.string().min(10, { message: "توضیحات محصول را وارد کنید" }),
   recommended_percent: z.number(),
   guarantee: z.string(),
+  sizes: z.string(),
   likes: z.number().default(0),
-  colors: z.array(
-    z.string().regex(/^[^#]+#[0-9A-Fa-f]{6}$/, { message: "رنگ نامعتبر است" })
-  ),
+  colors: z.array(z.string()),
+  features: z.array(z.string()),
+});
+export const productEditSchema = ProductSchema.extend({
+  thumbnail: imageSchema.optional(),
 });
 
 export const CategorySchema = z.object({
-  name: z.string().min(5, { message: "لطفا عنوان دسته بندی را وارد نمایید" }),
-  parentId: z.number().nullable().optional(),
+  title: z.string().min(5, { message: "لطفا عنوان دسته بندی را وارد نمایید" }),
+  href: z
+    .string()
+    .min(5, { message: "لطفا آدرس لینک دسته بندی را وارد نمایید" }),
+  icon: imageSchema.refine((file) => file.size > 0, "Required"),
+  cover: imageSchema.refine((file) => file.size > 0, "Required"),
+});
+
+export const categoryEditSchema = CategorySchema.extend({
+  cover: imageSchema.optional(),
+  icon: imageSchema.optional(),
 });

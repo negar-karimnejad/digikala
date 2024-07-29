@@ -62,7 +62,10 @@ export default function AdminTable({
           )}
           {categories && (
             <TableRow>
+              <TableHead className="text-right">کاور</TableHead>
               <TableHead className="text-right">نام</TableHead>
+              <TableHead className="text-right">آیکون</TableHead>
+              <TableHead className="text-right">آدرس لینک</TableHead>
               <TableHead className="text-right"></TableHead>
             </TableRow>
           )}
@@ -188,14 +191,34 @@ export default function AdminTable({
             categories.map((category) => (
               <TableRow key={category.id}>
                 <TableCell>
-                  <p className="whitespace-nowrap">{category.name}</p>
-                </TableCell>
-                {/* <TableCell>
-                  <p>{user.email}</p>
+                  <div className="w-20">
+                    <Image
+                      alt={category.title}
+                      height={100}
+                      width={100}
+                      className="rounded-full w-16 h-16 object-cover"
+                      src={category.cover}
+                    />
+                  </div>
                 </TableCell>
                 <TableCell>
-                  <p>{user.role === "USER" ? "کاربر" : "ادمین"}</p>
-                </TableCell> */}
+                  <p className="whitespace-nowrap">{category.title}</p>
+                </TableCell>
+                <TableCell>
+                  <div>
+                    <Image
+                      alt={category.title}
+                      height={100}
+                      width={100}
+                      className="w-8 h-8 object-cover"
+                      src={category.icon}
+                    />
+                  </div>
+                </TableCell>
+                <TableCell>
+                  <p className="whitespace-nowrap">{category.href}</p>
+                </TableCell>
+
                 <TableCell>
                   <Dialog>
                     <DropdownMenu>
@@ -214,7 +237,7 @@ export default function AdminTable({
                           </Link>
                         </DropdownMenuItem>
                         <DropdownMenuSeparator />
-                        {/* <DeleteDropdownItem userId={category.id} /> */}
+                        <DeleteDropdownItem categoryId={category.id} />
                       </DropdownMenuContent>
                     </DropdownMenu>
                   </Dialog>

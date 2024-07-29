@@ -41,7 +41,7 @@ export default function ProductForm({
     const selectedColors = Array.from(formData.getAll("color"));
     formData.append("selectedColors", JSON.stringify(selectedColors));
 
-    formData.append("id", String(state.id));
+    formData.append("id", String(product.id));
 
     if (file) {
       formData.append("thumbnail", file);
@@ -128,7 +128,9 @@ export default function ProductForm({
         <div className="relative">
           <input type="checkbox" id="color" name="color" value="قرمز#FF0000" />
           {state.errors?.color && (
-            <div className="text-destructive text-xs">{state.errors?.color}</div>
+            <div className="text-destructive text-xs">
+              {state.errors?.color}
+            </div>
           )}
           <label
             htmlFor="color"
@@ -140,7 +142,9 @@ export default function ProductForm({
         <div className="relative">
           <input type="checkbox" id="color" name="color" value="مشکی#000" />
           {state.errors?.color && (
-            <div className="text-destructive text-xs">{state.errors?.color}</div>
+            <div className="text-destructive text-xs">
+              {state.errors?.color}
+            </div>
           )}
           <label
             htmlFor="color"
@@ -152,7 +156,9 @@ export default function ProductForm({
         <div className="relative">
           <input type="checkbox" id="color" name="color" value="سبز#00ff15" />
           {state.errors?.color && (
-            <div className="text-destructive text-xs">{state.errors?.color}</div>
+            <div className="text-destructive text-xs">
+              {state.errors?.color}
+            </div>
           )}
           <label
             htmlFor="color"
@@ -164,7 +170,9 @@ export default function ProductForm({
         <div className="relative">
           <input type="checkbox" id="color" name="color" value="آبی#0051ff" />
           {state.errors?.color && (
-            <div className="text-destructive text-xs">{state.errors?.color}</div>
+            <div className="text-destructive text-xs">
+              {state.errors?.color}
+            </div>
           )}
           <label
             htmlFor="color"
@@ -188,7 +196,7 @@ export default function ProductForm({
         <select name="" id="">
           <option value="-1">دسته بندی محصول را انتخاب کنید</option>
           {categories.map((category) => (
-            <option key={category.id}>{category.name}</option>
+            <option key={category.id}>{category.title}</option>
           ))}
         </select>
       </div>
@@ -225,7 +233,9 @@ export default function ProductForm({
             className="peer max-h-20 block w-full appearance-none rounded-t-lg border-0 border-b-2 border-gray-300 bg-gray-50 px-2.5 pb-2.5 pt-5 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0 dark:border-gray-600 dark:bg-gray-900 dark:text-white dark:focus:border-blue-500"
           />
           {state.errors?.price && (
-            <div className="text-destructive text-xs">{state.errors?.price}</div>
+            <div className="text-destructive text-xs">
+              {state.errors?.price}
+            </div>
           )}
           <label
             htmlFor="price"
@@ -333,7 +343,9 @@ export default function ProductForm({
             className="peer max-h-20 block w-full appearance-none rounded-t-lg border-0 border-b-2 border-gray-300 bg-gray-50 px-2.5 pb-2.5 pt-5 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0 dark:border-gray-600 dark:bg-gray-900 dark:text-white dark:focus:border-blue-500"
           />
           {state.errors?.likes && (
-            <div className="text-destructive text-xs">{state.errors?.likes}</div>
+            <div className="text-destructive text-xs">
+              {state.errors?.likes}
+            </div>
           )}
           <label
             htmlFor="likes"
@@ -375,7 +387,9 @@ export default function ProductForm({
             className="peer max-h-20 block w-full appearance-none rounded-t-lg border-0 border-b-2 border-gray-300 bg-gray-50 px-2.5 pb-2.5 pt-5 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0 dark:border-gray-600 dark:bg-gray-900 dark:text-white dark:focus:border-blue-500"
           />
           {state.errors?.voter && (
-            <div className="text-destructive text-xs">{state.errors?.voter}</div>
+            <div className="text-destructive text-xs">
+              {state.errors?.voter}
+            </div>
           )}
           <label
             htmlFor="voter"

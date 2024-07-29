@@ -3,7 +3,7 @@ import ProductForm from "@/components/admin/ProductForm";
 import db from "@/db/db";
 
 export default async function NewProductPage() {
-  const categories = await db.category.findMany({ orderBy: { name: "asc" } });
+  const categories = await db.category.findMany({ orderBy: { title: "asc" } });
 
   return (
     <>

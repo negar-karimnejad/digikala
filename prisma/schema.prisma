@@ -33,10 +33,10 @@ model Product {
   comments            Comment[]
   questions           Question[]
   colors              String
-  sizes               Size[]     @relation("ProductSizes")
-  images              Image[]
+  sizes               String
+  images              String
   thumbnail           String
-  features            Feature[]
+  features            String
   seller              Seller     @relation(fields: [sellerId], references: [id])
   sellerId            Int        @default(1)
   price               Float
@@ -46,19 +46,38 @@ model Product {
   recommended_percent Float?
   guarantee           String?
   likes               Int        @default(0)
-  categories          Category[] @relation("ProductCategories")
   orders              Order[]    @relation("ProductOrders")
   createdAt           DateTime   @default(now())
   updatedAt           DateTime   @updatedAt
+  Category            Category?  @relation(fields: [categoryId], references: [id])
+  categoryId          Int?
 }
 
 model Category {
-  id       Int        @id @default(autoincrement())
-  name     String
-  parentId Int? // Optional field to support hierarchical categories
-  parent   Category?  @relation("CategoryChildren", fields: [parentId], references: [id])
-  children Category[] @relation("CategoryChildren")
-  products Product[]  @relation("ProductCategories")
+  id       Int       @id @default(autoincrement())
+  title    String
+  icon     String?
+  cover    String
+  href     String
+  submenus Submenu[]
+  Product  Product[]
+}
+
+model Submenu {
+  id         Int           @id @default(autoincrement())
+  title      String
+  href       String
+  categoryId Int
+  category   Category      @relation(fields: [categoryId], references: [id])
+  items      SubmenuItem[]
+}
+
+model SubmenuItem {
+  id        Int     @id @default(autoincrement())
+  title     String
+  href      String
+  submenuId Int
+  submenu   Submenu @relation(fields: [submenuId], references: [id])
 }
 
 model Comment {
@@ -81,28 +100,6 @@ model Question {
   productId Int
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-}
-
-model Size {
-  id        Int     @id @default(autoincrement())
-  value     String
-  productId Int
-  product   Product @relation("ProductSizes", fields: [productId], references: [id])
-}
-
-model Image {
-  id        Int     @id @default(autoincrement())
-  url       String
-  product   Product @relation(fields: [productId], references: [id])
-  productId Int
-}
-
-model Feature {
-  id        Int     @id @default(autoincrement())
-  name      String
-  value     String
-  product   Product @relation(fields: [productId], references: [id])
-  productId Int
 }
 
 model Seller {
