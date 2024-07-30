@@ -6,25 +6,13 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { partners } from "@/data/data";
+import { footerLinks } from "@/data/data";
 import { Instagram, Linkedin, Twitter } from "lucide-react";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { FormEvent, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
-interface LinksProps {
-  id: number;
-  title: string;
-  links: LinkItemProps[];
-}
-[];
-
-interface LinkItemProps {
-  id: number;
-  title: string | JSX.Element;
-  href: string;
-}
 export default function FooterLinks() {
   const [email, setEmail] = useState("");
   const [isValidEmail, setIsValidEmail] = useState(false);
@@ -53,7 +41,7 @@ export default function FooterLinks() {
   return (
     <>
       <div className="max-lg:hidden flex w-full justify-between my-14">
-        {links.slice(0, 3).map((link) => (
+        {footerLinks.slice(0, 3).map((link) => (
           <div key={link.id} className="w-4/12 ">
             <p className="text-neutral-700 mb-5 font-irsansb block dark:text-white">
               {link.title}
@@ -162,7 +150,7 @@ export default function FooterLinks() {
       </div>
 
       <Accordion type="single" collapsible className="w-full lg:hidden mb-5">
-        {links.map((link, index) => (
+        {footerLinks.map((link, index) => (
           <AccordionItem key={link.id} value={`item-${index + 1}`}>
             <AccordionTrigger className="hover:no-underline col-span-12 text-neutral-800 dark:text-neutral-100 text-xs font-irsansb">
               {link.title}
@@ -196,43 +184,3 @@ export default function FooterLinks() {
     </>
   );
 }
-
-const links: LinksProps[] = [
-  {
-    id: 1,
-    title: "با دیجی‌کالا",
-    links: [
-      { id: 1, title: "اتاق خبر دیجی‌کالا", href: "/newsroom" },
-      { id: 2, title: "فروش در دیجی‌کالا", href: "/seller-introduction" },
-      { id: 3, title: "فرصت‌های شغلی", href: "/jobs" },
-      { id: 4, title: "گزارش تخلف در دیجی‌کالا", href: "/report" },
-      { id: 5, title: "تماس با دیجی‌کالا", href: "/contact-us" },
-      { id: 6, title: "درباره دیجی‌کالا", href: "/about-us" },
-    ],
-  },
-  {
-    id: 2,
-    title: "خدمات مشتریان",
-    links: [
-      { id: 1, title: "پاسخ به پرسش‌های متداول", href: "/faq" },
-      { id: 2, title: "رویه‌های بازگرداندن کالا", href: "/return" },
-      { id: 3, title: "شرایط استفاده", href: "/terms" },
-      { id: 4, title: "حریم خصوصی", href: "/privacy" },
-      { id: 5, title: "گزارش باگ", href: "/bug-report" },
-    ],
-  },
-  {
-    id: 3,
-    title: " راهنمای خرید از دیجی‌کالا",
-    links: [
-      { id: 1, title: "نحوه ثبت سفارش", href: "/order" },
-      { id: 2, title: "رویه ارسال سفارش", href: "/sending" },
-      { id: 3, title: "شیوه‌های پرداخت", href: "/payment" },
-    ],
-  },
-  {
-    id: 4,
-    title: " شرکای تجاری",
-    links: partners,
-  },
-];

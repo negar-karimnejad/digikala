@@ -8,17 +8,11 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { stories } from "@/data/data";
+import { Story } from "@/types/types";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import Image, { StaticImageData } from "next/image";
+import Image from "next/image";
 import { useState } from "react";
 import Modal from "../ui/Modal";
-
-interface Story {
-  id: number;
-  title: string;
-  cover: string | StaticImageData;
-  post: string | StaticImageData;
-}
 
 export default function StorySlider() {
   const [isShowStory, setIsShowStory] = useState(false);

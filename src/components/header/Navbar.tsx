@@ -2,6 +2,8 @@
 
 import { cities, province } from "@/data/data";
 import useScroll from "@/features/useScroll";
+import { City, Location } from "@/types/types";
+import { Category } from "@prisma/client";
 import {
   ArrowRight,
   BadgePercent,
@@ -18,23 +20,6 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import Modal from "../ui/Modal";
 import { Button } from "../ui/button";
-import { Category } from "@prisma/client";
-
-interface Location {
-  latitude: number;
-  longitude: number;
-}
-interface City {
-  id: number;
-  title: string;
-  slug: string;
-  province_id: number;
-  latitude: number;
-  longitude: number;
-}
-[];
-
-
 
 const links = [
   {
@@ -47,7 +32,7 @@ const links = [
   { label: "پرفروش ترین ها ", href: "/", icon: <Flame size={18} /> },
 ];
 
-export default function Navbar({categories}:{categories:Category[]}) {
+export default function Navbar({ categories }: { categories: Category[] }) {
   const [provincecities, setProvinceCities] = useState<City[]>([]);
   // const [userProvince, setUserProvince] = useState("");
   const [isShowMenu, setIsShowMenu] = useState(false);
