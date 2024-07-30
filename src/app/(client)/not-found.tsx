@@ -1,7 +1,8 @@
 import { ChevronLeft } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import pageNotFound from "../../public/page-not-found.webp";
+import pageNotFound from "../../../public/page-not-found.webp";
+
 function NotFound() {
   return (
     <div className="dark:bg-white w-full h-screen">

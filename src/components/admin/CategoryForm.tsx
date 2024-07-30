@@ -41,6 +41,8 @@ export default function CategoryForm({
 
     if (category != null) {
       formData.append("id", String(category.id));
+    } else {
+      formData.append("id", String(Math.floor(Math.random() * 500)));
     }
 
     if (coverFile) {

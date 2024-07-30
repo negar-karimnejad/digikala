@@ -21,10 +21,8 @@ import StorySlider from "@/components/home/StorySlider";
 import FloatingSupermarketButton from "@/components/ui/FloatingSupermarketButton";
 import FloatingSupportButton from "@/components/ui/FloatingSupportButton";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import Image from "next/image";
 
-function Home() {
+export default function Homepage() {
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: {
@@ -34,34 +32,28 @@ function Home() {
     },
   });
   return (
-    <>
-      <QueryClientProvider client={queryClient}>
-        {/* <ReactQueryDevtools initialIsOpen={false} /> */}
-        <Header />
-        <StorySlider />
-        <Hero />
-        <Services />
-        <Offers />
-        <MarketOffers />
-        <FirstBanner />
-        <Categories />
-        <MiddleBanner />
-        <Brands />
-        <LastBanner />
-        <ProductsCard />
-        <Digiclub />
-        <Bestseller title="پرفروش‌ترین کالاها" />
-        <ProductsCard />
-        <div className="bg-[url('/banner.webp')] bg-cover bg-left bg-no-repeat h-40 rounded-2xl mx-3 my-5"></div>
-        <SelectedProducts />
-        <Bestseller title="داغ ترین چند ساعت گذشته" />
-        <Mag />
-        <Footer />
-        <FloatingSupportButton />
-        <FloatingSupermarketButton />
-      </QueryClientProvider>
-    </>
+    <QueryClientProvider client={queryClient}>
+      {/* <ReactQueryDevtools initialIsOpen={false} /> */}
+      <StorySlider />
+      <Hero />
+      <Services />
+      <Offers />
+      <MarketOffers />
+      <FirstBanner />
+      <Categories />
+      <MiddleBanner />
+      <Brands />
+      <LastBanner />
+      <ProductsCard />
+      <Digiclub />
+      <Bestseller title="پرفروش‌ترین کالاها" />
+      <ProductsCard />
+      <div className="bg-[url('/banner.webp')] bg-cover bg-left bg-no-repeat h-40 rounded-2xl mx-3 my-5"></div>
+      <SelectedProducts />
+      <Bestseller title="داغ ترین چند ساعت گذشته" />
+      <Mag />
+      <FloatingSupportButton />
+      <FloatingSupermarketButton />
+    </QueryClientProvider>
   );
 }
-
-export default Home;

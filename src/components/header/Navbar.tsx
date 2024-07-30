@@ -18,6 +18,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import Modal from "../ui/Modal";
 import { Button } from "../ui/button";
+import { Category } from "@prisma/client";
 
 interface Location {
   latitude: number;
@@ -33,20 +34,7 @@ interface City {
 }
 [];
 
-interface Category {
-  id: number;
-  title: string;
-  icon: JSX.Element;
-  href: string;
-  submenu: {
-    title: string;
-    href: string;
-    list: {
-      title: string;
-      href: string;
-    }[];
-  }[];
-}
+
 
 const links = [
   {
@@ -59,7 +47,7 @@ const links = [
   { label: "پرفروش ترین ها ", href: "/", icon: <Flame size={18} /> },
 ];
 
-export default function Navbar({ categories }: { categories: Category[] }) {
+export default function Navbar({categories}:{categories:Category[]}) {
   const [provincecities, setProvinceCities] = useState<City[]>([]);
   // const [userProvince, setUserProvince] = useState("");
   const [isShowMenu, setIsShowMenu] = useState(false);
@@ -71,8 +59,9 @@ export default function Navbar({ categories }: { categories: Category[] }) {
     return savedCity ? JSON.parse(savedCity) : null;
   });
   const [selectedCategory, setSelectedCategory] = useState<Category | null>(
-    categories.find((category) => category.id === 1) || null
+    categories?.find((category) => category.title === "موبایل") || null
   );
+
   const { isVisible } = useScroll();
 
   const hoverHandler = (categoryId: number) => {
@@ -187,7 +176,7 @@ export default function Navbar({ categories }: { categories: Category[] }) {
                       </Link>
                     </h2>
                     <div className="mt-5 grid grid-cols-12 gap-y-7">
-                      {selectedCategory?.submenu.map((menu) => (
+                      {/* {selectedCategory?.submenu.map((menu) => (
                         <div key={menu.title} className="col-span-3">
                           <h3 className="text-sm text-gray-700 font-irsansb dark:hover:text-red-500 dark:text-white flex items-center hover:text-red-500 transition-all">
                             <span className="text-red-500 ml-2">|</span>
@@ -210,7 +199,7 @@ export default function Navbar({ categories }: { categories: Category[] }) {
                             ))}
                           </div>
                         </div>
-                      ))}
+                      ))} */}
                     </div>
                   </div>
                 </div>

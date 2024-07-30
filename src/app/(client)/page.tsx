@@ -1,5 +1,15 @@
-import React from "react";
+import Footer from "@/components/footer/Footer";
+import Header from "@/components/header/Header";
+import Homepage from "@/components/home/Homepage";
 
-export default function page() {
-  return <div>page</div>;
+function Home() {
+  return (
+    <>
+      <Header />
+      <Homepage />
+      <Footer />
+    </>
+  );
 }
+
+export default Home;

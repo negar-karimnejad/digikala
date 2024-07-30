@@ -22,7 +22,6 @@ export default async function AdminLayout({
             <Sidebar />
           </div>
           <div className="col-span-8 max-lg:col-span-12 px-5 xl:col-span-9">
-            {/* <Nav /> */}
             {children}
           </div>
         </div>

@@ -1,3 +1,5 @@
+// deleteSubmenu
+
 import AdminTable from "@/components/admin/AdminTable";
 import PageHeader from "@/components/admin/PageHeader";
 import db from "@/db/db";
@@ -7,12 +9,12 @@ export default function AdminCategoriesPage() {
 }
 
 async function ProductTable() {
-  const categories = await db.category.findMany();
+  const submenus = await db.submenu.findMany({ orderBy: { title: "asc" } });
 
   return (
     <>
       <PageHeader>دسته‌بندی ها</PageHeader>
-      <AdminTable categories={categories} />
+      <AdminTable submenus={submenus} />
     </>
   );
 }

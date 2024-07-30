@@ -23,7 +23,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Category, Product, User } from "@prisma/client";
+import { Category, Product, Submenu, User } from "@prisma/client";
 import { Edit2, Eye, MoreVertical } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -33,10 +33,12 @@ export default function AdminTable({
   products,
   categories,
   users,
+  submenus,
 }: {
   products?: Product[] | null;
   users?: User[] | null;
   categories?: Category[] | null;
+  submenus?: Submenu[] | null;
 }) {
   return (
     <div>
@@ -65,6 +67,13 @@ export default function AdminTable({
               <TableHead className="text-right">کاور</TableHead>
               <TableHead className="text-right">نام</TableHead>
               <TableHead className="text-right">آیکون</TableHead>
+              <TableHead className="text-right">آدرس لینک</TableHead>
+              <TableHead className="text-right"></TableHead>
+            </TableRow>
+          )}
+          {submenus && (
+            <TableRow>
+              <TableHead className="text-right">نام</TableHead>
               <TableHead className="text-right">آدرس لینک</TableHead>
               <TableHead className="text-right"></TableHead>
             </TableRow>
@@ -238,6 +247,30 @@ export default function AdminTable({
                         </DropdownMenuItem>
                         <DropdownMenuSeparator />
                         <DeleteDropdownItem categoryId={category.id} />
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                  </Dialog>
+                </TableCell>
+              </TableRow>
+            ))}
+          {submenus &&
+            submenus.map((submenu) => (
+              <TableRow key={submenu.id}>
+                <TableCell>
+                  <p className="whitespace-nowrap">{submenu.title}</p>
+                </TableCell>
+                <TableCell>
+                  <p className="whitespace-nowrap">{submenu.href}</p>
+                </TableCell>
+                <TableCell>
+                  <Dialog>
+                    <DropdownMenu>
+                      <DropdownMenuTrigger>
+                        <MoreVertical />
+                        <span className="sr-only">Actions</span>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent>
+                        <DeleteDropdownItem submenuId={submenu.id} />
                       </DropdownMenuContent>
                     </DropdownMenu>
                   </Dialog>

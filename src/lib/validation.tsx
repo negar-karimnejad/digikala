@@ -38,6 +38,7 @@ export const CategorySubmenusSchema = z.object({
 });
 
 export const CategorySchema = z.object({
+  id: z.number(),
   title: z.string().min(5, { message: "لطفا عنوان دسته‌بندی را وارد نمایید" }),
   href: z
     .string()
