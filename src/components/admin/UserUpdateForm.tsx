@@ -1,6 +1,6 @@
 "use client";
 
-import { updateUser } from "@/app/admin/users/users";
+import { updateUser } from "@/app/admin/users/action";
 import {
   Select,
   SelectContent,
@@ -9,13 +9,13 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { initialState } from "@/types/types";
 import { User } from "@prisma/client";
 import Image from "next/image";
 import { useState } from "react";
 import { useFormState, useFormStatus } from "react-dom";
 import toast from "react-hot-toast";
 import { Button } from "../ui/button";
-import { initialState } from "@/types/types";
 
 export default function UserUpdateForm({ user }: { user: User }) {
   const [state, formAction] = useFormState(updateUser, initialState);

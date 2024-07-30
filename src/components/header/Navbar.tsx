@@ -1,6 +1,6 @@
 "use client";
 
-import { categories, cities, province } from "@/data/data";
+import { cities, province } from "@/data/data";
 import useScroll from "@/features/useScroll";
 import {
   ArrowRight,
@@ -59,7 +59,7 @@ const links = [
   { label: "پرفروش ترین ها ", href: "/", icon: <Flame size={18} /> },
 ];
 
-export default function Navbar() {
+export default function Navbar({ categories }: { categories: Category[] }) {
   const [provincecities, setProvinceCities] = useState<City[]>([]);
   // const [userProvince, setUserProvince] = useState("");
   const [isShowMenu, setIsShowMenu] = useState(false);
@@ -83,7 +83,6 @@ export default function Navbar() {
       setSelectedCategory(category);
     }
   };
-
   const handleLocationClick = async () => {
     setLocating(true);
 
@@ -149,13 +148,13 @@ export default function Navbar() {
               ></span>
               <div
                 onMouseMove={() => setIsShowMenu(false)}
-                className={`fixed w-full z-10 h-full mt-11 bg-black/50 right-0 top-20 transition-all ${
+                className={`fixed w-full z-10 h-screen bg-black/50 right-0 top-[2.8rem] transition-all ${
                   isShowMenu ? "block" : "hidden"
                 }`}
               >
                 <div
                   onMouseMove={(e) => e.stopPropagation()}
-                  className="mr-4 grid grid-cols-12 top-12 border bg-white dark:bg-neutral-700 right-0 max-w-6xl shadow-sm"
+                  className="mr-4 grid grid-cols-12 top-0 border bg-white dark:bg-neutral-700 right-0 max-w-6xl shadow-sm"
                 >
                   <div className="bg-neutral-100 dark:bg-neutral-800 max-h-[25.5rem] overflow-y-auto col-span-2">
                     {categories.map((category) => (

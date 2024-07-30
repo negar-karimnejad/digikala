@@ -1,27 +1,25 @@
+import { Category, User } from "@prisma/client";
+
 export interface FormState {
-  name: string;
-  email: string;
-  password: string;
+  data: User | null;
   errors: Record<string, string[]>;
   success: boolean;
 }
 
 export const initialState: FormState = {
-  name: "",
-  email: "",
-  password: "",
+  data: null,
   errors: {},
   success: false,
 };
 
 export interface CategoryFormState {
-  name: string;
+  data: Category | null;
   errors: Record<string, string[]>;
   success: boolean;
 }
 
 export const categoryInitialState: CategoryFormState = {
-  name: "",
+  data: null,
   errors: {},
   success: false,
 };

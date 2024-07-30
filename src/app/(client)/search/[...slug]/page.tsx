@@ -13,7 +13,6 @@ export default function SearchCategoryPage({
 }: {
   params: { slug: string[] };
 }) {
-  console.log(slug[1]);
 
   return <div>SearchCategoryPage</div>;
 }

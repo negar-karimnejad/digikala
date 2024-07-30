@@ -194,7 +194,7 @@ export default function ProductForm({
       </div>
       <div>
         <select name="" id="">
-          <option value="-1">دسته بندی محصول را انتخاب کنید</option>
+          <option value="-1">دسته‌بندی محصول را انتخاب کنید</option>
           {categories.map((category) => (
             <option key={category.id}>{category.title}</option>
           ))}

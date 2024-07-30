@@ -60,7 +60,6 @@ export default function ProfileButton() {
       { position: "top-left" }
     );
   };
-  // console.log(data.user);
 
   return (
     <>

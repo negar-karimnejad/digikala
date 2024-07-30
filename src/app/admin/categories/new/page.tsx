@@ -4,7 +4,7 @@ import PageHeader from "@/components/admin/PageHeader";
 export default function NewCategoryPage() {
   return (
     <>
-      <PageHeader>افزودن دسته بندی جدید</PageHeader>
+      <PageHeader>افزودن دسته‌بندی جدید</PageHeader>
       <CategoryForm />
     </>
   );

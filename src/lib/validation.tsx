@@ -27,13 +27,24 @@ export const productEditSchema = ProductSchema.extend({
   thumbnail: imageSchema.optional(),
 });
 
-export const CategorySchema = z.object({
-  title: z.string().min(5, { message: "لطفا عنوان دسته بندی را وارد نمایید" }),
+export const CategorySubmenusSchema = z.object({
+  title: z
+    .string()
+    .min(5, { message: "لطفا عنوان زیرمجموعه دسته‌بندی را وارد نمایید" }),
   href: z
     .string()
-    .min(5, { message: "لطفا آدرس لینک دسته بندی را وارد نمایید" }),
+    .min(5, { message: "لطفا آدرس لینک زیرمجموعه دسته‌بندی را وارد نمایید" }),
+  categoryId: z.number(),
+});
+
+export const CategorySchema = z.object({
+  title: z.string().min(5, { message: "لطفا عنوان دسته‌بندی را وارد نمایید" }),
+  href: z
+    .string()
+    .min(5, { message: "لطفا آدرس لینک دسته‌بندی را وارد نمایید" }),
   icon: imageSchema.refine((file) => file.size > 0, "Required"),
   cover: imageSchema.refine((file) => file.size > 0, "Required"),
+  submenus: z.array(CategorySubmenusSchema).optional(),
 });
 
 export const categoryEditSchema = CategorySchema.extend({

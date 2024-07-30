@@ -11,7 +11,7 @@ async function ProductTable() {
 
   return (
     <>
-      <PageHeader>دسته بندی ها</PageHeader>
+      <PageHeader>دسته‌بندی ها</PageHeader>
       <AdminTable categories={categories} />
     </>
   );

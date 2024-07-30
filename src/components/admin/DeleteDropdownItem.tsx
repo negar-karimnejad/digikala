@@ -21,16 +21,13 @@ export function DeleteDropdownItem({
 }) {
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
-  console.log("categoryId", categoryId);
-  console.log("productId", productId);
-  console.log("userId", userId);
 
   const deleteHandler = () => {
     toast((t) => (
       <div>
         حذف{" "}
         {`${
-          productId ? "محصول" : categoryId ? "دسته بندی" : userId ? "کاربر" : ""
+          productId ? "محصول" : categoryId ? "دسته‌بندی" : userId ? "کاربر" : ""
         }`}
         :
         <Button
@@ -57,7 +54,7 @@ export function DeleteDropdownItem({
                 productId
                   ? "محصول با موفقیت حذف شد!"
                   : categoryId
-                  ? "دسته بندی با موفقیت حذف شد!"
+                  ? "دسته‌بندی با موفقیت حذف شد!"
                   : userId
                   ? "کاربر با موفقیت حذف شد!"
                   : ""
