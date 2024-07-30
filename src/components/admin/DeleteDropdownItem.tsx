@@ -1,5 +1,10 @@
 "use client";
 
+import {
+  deleteCategory,
+  deleteSubmenu,
+  deleteSubmenuItem,
+} from "@/app/admin/categories/action";
 import { deleteProduct } from "@/app/admin/products/action";
 import { deleteUser } from "@/app/admin/users/action";
 import { Trash2 } from "lucide-react";
@@ -8,18 +13,19 @@ import { useTransition } from "react";
 import toast from "react-hot-toast";
 import { Button } from "../ui/button";
 import { DropdownMenuItem } from "../ui/dropdown-menu";
-import { deleteCategory, deleteSubmenu } from "@/app/admin/categories/action";
 
 export function DeleteDropdownItem({
   categoryId,
   productId,
   userId,
   submenuId,
+  itemId,
 }: {
   categoryId?: number;
   productId?: number;
   userId?: number;
   submenuId?: number;
+  itemId?: number;
 }) {
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
@@ -37,6 +43,8 @@ export function DeleteDropdownItem({
             ? "کاربر"
             : submenuId
             ? "زیرمجموعه"
+            : itemId
+            ? "آیتم زیرمجموعه"
             : ""
         }`}
         :
@@ -60,6 +68,8 @@ export function DeleteDropdownItem({
                 await deleteCategory(categoryId);
               } else if (submenuId) {
                 await deleteSubmenu(submenuId);
+              } else if (itemId) {
+                await deleteSubmenuItem(itemId);
               }
               router.refresh();
               toast.success(
@@ -71,6 +81,8 @@ export function DeleteDropdownItem({
                   ? "کاربر با موفقیت حذف شد!"
                   : submenuId
                   ? "زیرمجموعه با موفقیت حذف شد"
+                  : itemId
+                  ? "آیتم زیرمجموعه با موفقیت حذف شد"
                   : ""
               );
             });

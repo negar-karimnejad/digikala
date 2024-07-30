@@ -23,7 +23,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Category, Product, Submenu, User } from "@prisma/client";
+import { Category, Product, Submenu, SubmenuItem, User } from "@prisma/client";
 import { Edit2, Eye, MoreVertical } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -34,11 +34,13 @@ export default function AdminTable({
   categories,
   users,
   submenus,
+  submenuItems,
 }: {
   products?: Product[] | null;
   users?: User[] | null;
   categories?: Category[] | null;
   submenus?: Submenu[] | null;
+  submenuItems?: SubmenuItem[] | null;
 }) {
   return (
     <div>
@@ -72,6 +74,13 @@ export default function AdminTable({
             </TableRow>
           )}
           {submenus && (
+            <TableRow>
+              <TableHead className="text-right">نام</TableHead>
+              <TableHead className="text-right">آدرس لینک</TableHead>
+              <TableHead className="text-right"></TableHead>
+            </TableRow>
+          )}
+          {submenuItems && (
             <TableRow>
               <TableHead className="text-right">نام</TableHead>
               <TableHead className="text-right">آدرس لینک</TableHead>
@@ -271,6 +280,30 @@ export default function AdminTable({
                       </DropdownMenuTrigger>
                       <DropdownMenuContent>
                         <DeleteDropdownItem submenuId={submenu.id} />
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                  </Dialog>
+                </TableCell>
+              </TableRow>
+            ))}
+          {submenuItems &&
+            submenuItems.map((item) => (
+              <TableRow key={item.id}>
+                <TableCell>
+                  <p className="whitespace-nowrap">{item.title}</p>
+                </TableCell>
+                <TableCell>
+                  <p className="whitespace-nowrap">{item.href}</p>
+                </TableCell>
+                <TableCell>
+                  <Dialog>
+                    <DropdownMenu>
+                      <DropdownMenuTrigger>
+                        <MoreVertical />
+                        <span className="sr-only">Actions</span>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent>
+                        <DeleteDropdownItem itemId={item.id} />
                       </DropdownMenuContent>
                     </DropdownMenu>
                   </Dialog>

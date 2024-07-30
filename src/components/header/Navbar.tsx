@@ -2,8 +2,7 @@
 
 import { cities, province } from "@/data/data";
 import useScroll from "@/features/useScroll";
-import { City, Location } from "@/types/types";
-import { Category } from "@prisma/client";
+import { CategoryProps, City, Location } from "@/types/types";
 import {
   ArrowRight,
   BadgePercent,
@@ -20,6 +19,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import Modal from "../ui/Modal";
 import { Button } from "../ui/button";
+import Image from "next/image";
 
 const links = [
   {
@@ -32,7 +32,11 @@ const links = [
   { label: "پرفروش ترین ها ", href: "/", icon: <Flame size={18} /> },
 ];
 
-export default function Navbar({ categories }: { categories: Category[] }) {
+export default function Navbar({
+  categories,
+}: {
+  categories: CategoryProps[];
+}) {
   const [provincecities, setProvinceCities] = useState<City[]>([]);
   // const [userProvince, setUserProvince] = useState("");
   const [isShowMenu, setIsShowMenu] = useState(false);
@@ -43,15 +47,16 @@ export default function Navbar({ categories }: { categories: Category[] }) {
     const savedCity = localStorage.getItem("location");
     return savedCity ? JSON.parse(savedCity) : null;
   });
-  const [selectedCategory, setSelectedCategory] = useState<Category | null>(
-    categories?.find((category) => category.title === "موبایل") || null
-  );
+  const [selectedCategory, setSelectedCategory] =
+    useState<CategoryProps | null>(
+      categories?.find((category) => category.title === "موبایل") || null
+    );
 
   const { isVisible } = useScroll();
 
   const hoverHandler = (categoryId: number) => {
     const category = categories.find(
-      (category: Category) => category.id === categoryId
+      (category: CategoryProps) => category.id === categoryId
     );
     if (category) {
       setSelectedCategory(category);
@@ -96,6 +101,8 @@ export default function Navbar({ categories }: { categories: Category[] }) {
       localStorage.setItem("location", JSON.stringify(userCity));
     }
   }, [userCity]);
+
+  console.log(categories);
 
   return (
     <>
@@ -144,7 +151,12 @@ export default function Navbar({ categories }: { categories: Category[] }) {
                               : ""
                           }`}
                         >
-                          {category.icon}
+                          <Image
+                            alt={category.title}
+                            width={15}
+                            height={15}
+                            src={category.icon}
+                          />
                           {category.title}
                         </Link>
                       </div>
@@ -161,30 +173,42 @@ export default function Navbar({ categories }: { categories: Category[] }) {
                       </Link>
                     </h2>
                     <div className="mt-5 grid grid-cols-12 gap-y-7">
-                      {/* {selectedCategory?.submenu.map((menu) => (
-                        <div key={menu.title} className="col-span-3">
-                          <h3 className="text-sm text-gray-700 font-irsansb dark:hover:text-red-500 dark:text-white flex items-center hover:text-red-500 transition-all">
-                            <span className="text-red-500 ml-2">|</span>
-                            <Link
-                              href={menu.href}
-                              className="flex items-center"
-                            >
-                              {menu.title}
-                              <ChevronLeft size={15} />
-                            </Link>
-                          </h3>
-                          <div className="space-y-4 mt-5">
-                            {menu.list.map((item) => (
-                              <div
-                                className="text-gray-500 dark:text-gray-300 text-sm hover:text-red-500 dark:hover:text-red-500 transition-all"
-                                key={item.title}
+                      {selectedCategory?.submenus ? (
+                        selectedCategory?.submenus.map((menu) => (
+                          <div key={menu.title} className="col-span-3">
+                            <h3 className="text-sm text-gray-700 font-irsansb dark:hover:text-red-500 dark:text-white flex items-center hover:text-red-500 transition-all">
+                              <span className="text-red-500 ml-2">|</span>
+                              <Link
+                                href={menu.href}
+                                className="flex items-center"
                               >
-                                <Link href={item.href}>{item.title}</Link>
-                              </div>
-                            ))}
+                                {menu.title}
+                                <ChevronLeft size={15} />
+                              </Link>
+                            </h3>
+                            <div className="space-y-4 mt-5">
+                              {menu.list?.map((item) => (
+                                <div
+                                  className="text-gray-500 dark:text-gray-300 text-sm hover:text-red-500 dark:hover:text-red-500 transition-all"
+                                  key={item.title}
+                                >
+                                  <Link href={item.href}>{item.title}</Link>
+                                </div>
+                              ))}
+                            </div>
                           </div>
+                        ))
+                      ) : (
+                        <div className="col-span-12">
+                          <p className="text-gray-500 text-sm mr-5 my-5">
+                            محصولی برای{" "}
+                            <span className="text-red-500 font-irsansb">
+                              {selectedCategory?.title}
+                            </span>{" "}
+                            وجود ندارد.
+                          </p>
                         </div>
-                      ))} */}
+                      )}
                     </div>
                   </div>
                 </div>

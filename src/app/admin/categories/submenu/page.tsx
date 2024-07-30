@@ -4,16 +4,16 @@ import AdminTable from "@/components/admin/AdminTable";
 import PageHeader from "@/components/admin/PageHeader";
 import db from "@/db/db";
 
-export default function AdminCategoriesPage() {
-  return <ProductTable />;
+export default function SubmenuPage() {
+  return <SubmenuTable />;
 }
 
-async function ProductTable() {
+async function SubmenuTable() {
   const submenus = await db.submenu.findMany({ orderBy: { title: "asc" } });
 
   return (
     <>
-      <PageHeader>دسته‌بندی ها</PageHeader>
+      <PageHeader>زیرمجموعه دسته‌بندی ها</PageHeader>
       <AdminTable submenus={submenus} />
     </>
   );

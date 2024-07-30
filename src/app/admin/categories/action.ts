@@ -196,3 +196,75 @@ export async function deleteSubmenu(id: number) {
   revalidatePath("/");
   revalidatePath("/categories");
 }
+// Submenu-Item Actions
+// export async function addSubmenu(formData: FormData) {
+//   try {
+//     // Convert FormData entries to a plain object
+//     const entries = Object.fromEntries(formData.entries());
+//     console.log("Form Data Entries:", entries);
+
+//     // Parse and validate entries
+//     const parsedEntries = {
+//       ...entries,
+//       categoryId: Number(entries.categoryId),
+//     };
+
+//     const result = CategorySubmenusSchema.safeParse(parsedEntries);
+//     console.log("Validation Result:", result);
+
+//     if (!result.success) {
+//       console.error("Validation Errors:", result.error.formErrors.fieldErrors);
+//       return result.error.formErrors.fieldErrors;
+//     }
+
+//     const data = result.data;
+
+//     // Create the new submenu
+//     const newSubmenu = await db.submenu.create({
+//       data: {
+//         title: data.title,
+//         href: data.href,
+//         categoryId: data.categoryId,
+//       },
+//     });
+//     console.log("New Submenu Created:", newSubmenu);
+
+//     // Update the category to include the new submenu
+//     const updatedCategory = await db.category.update({
+//       where: { id: data.categoryId },
+//       data: {
+//         submenus: {
+//           connect: { id: newSubmenu.id },
+//         },
+//       },
+//       include: { submenus: true }, // Include submenus in the result
+//     });
+//     console.log("Updated Category:", updatedCategory);
+
+//     // Verify the category update
+//     const categoryWithSubmenus = await db.category.findUnique({
+//       where: { id: data.categoryId },
+//       include: { submenus: true },
+//     });
+//     console.log("Category with Submenus:", categoryWithSubmenus);
+
+//     // Revalidate paths
+//     await revalidatePath("/");
+//     await revalidatePath("/categories");
+
+//     // Redirect
+//     redirect("/admin/categories");
+//   } catch (error) {
+//     console.error("Error in addSubmenu:", error);
+//     // Optionally, handle error responses here
+//   }
+// }
+
+export async function deleteSubmenuItem(id: number) {
+  const submenuItem = await db.submenuItem.delete({ where: { id } });
+
+  if (submenuItem == null) return notFound();
+
+  revalidatePath("/");
+  revalidatePath("/categories");
+}

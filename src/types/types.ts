@@ -59,3 +59,17 @@ export const categoryInitialState: CategoryFormState = {
   errors: {},
   success: false,
 };
+export interface SubmenuItem {
+  title: string;
+  href: string;
+  list: { title: string; href: string }[];
+}
+
+export interface CategoryProps {
+  id: number;
+  title: string;
+  icon: string;
+  cover: string;
+  href: string;
+  submenus?: SubmenuItem[]; // Make sure submenu is optional if not all categories have it
+}
