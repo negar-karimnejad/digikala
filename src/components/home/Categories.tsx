@@ -9,6 +9,7 @@ export default function Categories() {
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>{error}</div>;
+  console.log("categories😎😎😎😎", categories);
 
   return (
     <div className="lg:mx-3 my-12 group relative">
@@ -43,19 +44,25 @@ export default function Categories() {
               },
             }}
           >
-            {categories.slice(0, 8).map((category) => (
-              <SwiperSlide key={category.id} className="flex flex-col gap-5">
-                <Link
-                  href={category.href}
-                  className="flex items-center flex-col"
-                >
-                  <Image alt="" width={100} height={100} src={category.cover} />
-                  <p className="text-xs font-irsansb">{category.title}</p>
-                </Link>
-              </SwiperSlide>
-            ))}
+            {categories != null &&
+              categories.map((category) => (
+                <SwiperSlide key={category.id} className="flex flex-col gap-5">
+                  <Link
+                    href={category.href}
+                    className="flex items-center flex-col"
+                  >
+                    <Image
+                      alt=""
+                      width={100}
+                      height={100}
+                      src={category.cover}
+                    />
+                    <p className="text-xs font-irsansb">{category.title}</p>
+                  </Link>
+                </SwiperSlide>
+              ))}
           </Swiper>
-          <Swiper
+          {/* <Swiper
             className="mt-10"
             spaceBetween={250}
             breakpoints={{
@@ -81,7 +88,7 @@ export default function Categories() {
               },
             }}
           >
-            {categories.slice(8, 16).map((category) => (
+            {categories?.slice(8, 16).map((category) => (
               <SwiperSlide key={category.id} className="flex flex-col gap-5">
                 <Link
                   href={category.href}
@@ -92,7 +99,7 @@ export default function Categories() {
                 </Link>
               </SwiperSlide>
             ))}
-          </Swiper>
+          </Swiper> */}
         </div>
       </div>
     </div>
