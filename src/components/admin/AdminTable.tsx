@@ -223,7 +223,7 @@ export default function AdminTable({
                   <p className="whitespace-nowrap">{category.title}</p>
                 </TableCell>
                 <TableCell>
-                  <div>
+                  <div className="bg-white rounded-full w-12 h-12 flex items-center justify-center">
                     <Image
                       alt={category.title}
                       height={100}

@@ -7,7 +7,7 @@ export default async function NewSubmenuPage() {
   const categories = await db.category.findMany({ orderBy: { id: "asc" } });
   return (
     <>
-      <PageHeader>افزودن زیر مجموعه دسته‌بندی جدید</PageHeader>
+      <PageHeader title="افزودن زیر مجموعه دسته‌بندی" />
       <CategorySubmenuForm categories={categories} />
     </>
   );

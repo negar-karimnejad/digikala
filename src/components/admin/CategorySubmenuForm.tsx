@@ -12,6 +12,7 @@ export default function CategorySubmenuForm({
 }) {
   return (
     <form action={addSubmenu}>
+      <input type="number" hidden name="id" value={crypto.randomUUID()} />
       <div className="h-20 relative">
         <input
           type="text"
@@ -46,7 +47,12 @@ export default function CategorySubmenuForm({
         </label>
       </div>
 
-      <select required name="categoryId" id="categoryId">
+      <select
+        className="outline-none border rounded-lg py-1 px-3 text-sm"
+        required
+        name="categoryId"
+        id="categoryId"
+      >
         <option value="-1">دسته‌بندی مورد نظر را انتخاب کنید</option>
         {categories.map((category) => (
           <option key={category.id} value={category.id}>

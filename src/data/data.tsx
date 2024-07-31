@@ -1326,7 +1326,7 @@ export const categories = [
           },
           {
             title: "هودی زنانه",
-            href: "/search/women-clothing/",
+            href: "/search/women-clothing/hoodie",
           },
         ],
       },
@@ -1570,7 +1570,7 @@ export const categories = [
       },
       {
         title: "جاروبرقی",
-        href: "/category/vacuum ",
+        href: "/category/vacuum",
         list: [
           {
             title: "جارو شارژی",

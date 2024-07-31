@@ -17,7 +17,7 @@ async function SubmenuItemTable() {
     <>
       <PageHeader
         title="آیتم های زیرمجموعه دسته‌بندی ها"
-        href="/admin/categories/new"
+        href="/admin/categories/submenu-Item/new"
       />
 
       <AdminTable submenuItems={submenuItems} />

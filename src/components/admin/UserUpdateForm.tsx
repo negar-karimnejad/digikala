@@ -92,7 +92,7 @@ export default function UserUpdateForm({ user }: { user: User }) {
             className="pb-2 text-sm pr-3 text-gray-500"
           ></label>
           <Select dir="rtl" required onValueChange={(value) => setRole(value)}>
-            <SelectTrigger className="">
+            <SelectTrigger>
               <SelectValue placeholder="نقش کاربر" />
             </SelectTrigger>
             <SelectContent>

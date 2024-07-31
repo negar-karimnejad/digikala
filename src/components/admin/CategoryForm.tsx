@@ -112,7 +112,7 @@ export default function CategoryForm({
         <div className="flex items-center justify-between gap-2">
           <label
             htmlFor="cover"
-            className="cursor-pointer relative w-36 whitespace-nowrap flex items-center text-gray-500 dark:text-gray-400"
+            className="border-b py-2 px-4 rounded-lg cursor-pointer relative w-40 whitespace-nowrap flex items-center text-gray-500 dark:text-gray-400"
           >
             آپلود تصویر کاور
             <input
@@ -138,7 +138,7 @@ export default function CategoryForm({
         <div className="flex items-center justify-between gap-2">
           <label
             htmlFor="icon"
-            className="cursor-pointer relative w-36 whitespace-nowrap flex items-center text-gray-500 dark:text-gray-400"
+            className="border-b py-2 px-4 cursor-pointer relative w-40 whitespace-nowrap flex items-center text-gray-500 dark:text-gray-400"
           >
             آپلود تصویر آیکون
             <input
@@ -157,7 +157,7 @@ export default function CategoryForm({
               height={70}
               width={70}
               alt="Product Image"
-              className="object-cover border rounded-lg p-1"
+              className="bg-white object-cover border rounded-lg p-1"
             />
           )}
         </div>
