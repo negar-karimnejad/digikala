@@ -11,9 +11,8 @@ export default function useProducts() {
   useEffect(() => {
     async function fetchProducts() {
       try {
-        const response: AxiosResponse = await axios.get("/api/products");
-        setProducts(response.data.products);
-        return response;
+        const response: AxiosResponse<any[]> = await axios.get("/api/products");
+        setProducts(response.data);
       } catch (error) {
         setError("Failed to fetch products");
       } finally {
