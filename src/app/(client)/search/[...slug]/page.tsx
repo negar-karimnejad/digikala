@@ -13,6 +13,5 @@ export default function SearchCategoryPage({
 }: {
   params: { slug: string[] };
 }) {
-
   return <div>SearchCategoryPage</div>;
 }

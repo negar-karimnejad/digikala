@@ -12,7 +12,7 @@ import { Card, CardContent } from "../ui/card";
 import CountdownTimer from "../ui/CountdownTimer ";
 
 export default function Offers() {
-  const { products, isLoading } = useProducts();
+  const { products, loading } = useProducts();
 
   const offerProducts = products
     ?.slice()
@@ -243,7 +243,7 @@ export default function Offers() {
               <ChevronLeft size={18} />
             </Link>
           </Link>
-          {isLoading && (
+          {loading && (
             <>
               {Array.from({ length: 7 }).map((_, index) => (
                 <CarouselItem

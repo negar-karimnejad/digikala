@@ -12,7 +12,7 @@ export default async function EditProductPage({
 
   return (
     <>
-      <PageHeader>ویرایش اطلاعات کاربر</PageHeader>
+      <PageHeader title="ویرایش اطلاعات کاربر" />
       <UserUpdateForm user={user} />
     </>
   );

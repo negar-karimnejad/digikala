@@ -1,5 +1,42 @@
 import { z } from "zod";
 
+export const avatarSchema = z
+  .instanceof(File, { message: "Required" })
+  .refine((file) => file.size === 0 || file.type.startsWith("image/"), {
+    message: "The file must be a non-empty image.",
+  });
+
+export const UserSchema = z.object({
+  name: z.coerce
+    .string({ required_error: "لطفا نام و نام خانوادگی را وارد کنید." })
+    .min(5, { message: "نام و نام خانوادگی باید حداقل 5 کاراکتر باشد." }),
+  email: z
+    .string()
+    .min(1, { message: "لطفا ایمیل را وارد کنید." })
+    .email("ایمیل معتبر نیست."),
+  password: z
+    .string({ required_error: "لطفا رمز کاربری را وارد کنید." })
+    .min(5, { message: "رمز کاربری باید حداقل 5 کاراکتر باشد." }),
+  avatar: avatarSchema.optional(),
+});
+
+export const UserupdateSchema = z.object({
+  name: z.coerce
+    .string({ required_error: "لطفا نام و نام خانوادگی را وارد کنید." })
+    .min(5, { message: "نام و نام خانوادگی باید حداقل 5 کاراکتر باشد." }),
+  email: z
+    .string()
+    .min(1, { message: "لطفا ایمیل را وارد کنید." })
+    .email("ایمیل معتبر نیست.")
+    .optional(),
+  password: z
+    .string({ required_error: "لطفا رمز کاربری را وارد کنید." })
+    .min(5, { message: "رمز کاربری باید حداقل 5 کاراکتر باشد." })
+    .optional(),
+  role: z.string(),
+  avatar: avatarSchema.optional(),
+});
+
 const fileSchema = z.instanceof(File, { message: "Required" });
 export const imageSchema = fileSchema.refine(
   (file) => file.size === 0 || file.type.startsWith("image/")

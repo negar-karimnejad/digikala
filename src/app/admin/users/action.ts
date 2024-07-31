@@ -1,37 +1,17 @@
 "use server";
 
 import db from "@/db/db";
-import { FormState } from "@/types/types";
+import { UserSchema, UserupdateSchema } from "@/lib/validation";
+import { UserFormState } from "@/types/types";
 import bcrypt from "bcryptjs";
 import fs from "fs/promises";
 import { revalidatePath } from "next/cache";
 import { notFound, redirect } from "next/navigation";
-import { z } from "zod";
-
-const avatarSchema = z
-  .instanceof(File, { message: "Required" })
-  .refine((file) => file.size === 0 || file.type.startsWith("image/"), {
-    message: "The file must be a non-empty image.",
-  });
-
-const UserSchema = z.object({
-  name: z.coerce
-    .string({ required_error: "لطفا نام و نام خانوادگی را وارد کنید." })
-    .min(5, { message: "نام و نام خانوادگی باید حداقل 5 کاراکتر باشد." }),
-  email: z
-    .string()
-    .min(1, { message: "لطفا ایمیل را وارد کنید." })
-    .email("ایمیل معتبر نیست."),
-  password: z
-    .string({ required_error: "لطفا رمز کاربری را وارد کنید." })
-    .min(5, { message: "رمز کاربری باید حداقل 5 کاراکتر باشد." }),
-  avatar: avatarSchema.optional(),
-});
 
 export async function signup(
-  state: FormState,
+  state: UserFormState,
   formData: FormData
-): Promise<FormState> {
+): Promise<UserFormState> {
   const result = UserSchema.safeParse(Object.fromEntries(formData.entries()));
 
   if (!result.success) {
@@ -72,33 +52,18 @@ export async function signup(
   }
 }
 
-const updateSchema = z.object({
-  name: z.coerce
-    .string({ required_error: "لطفا نام و نام خانوادگی را وارد کنید." })
-    .min(5, { message: "نام و نام خانوادگی باید حداقل 5 کاراکتر باشد." }),
-  email: z
-    .string()
-    .min(1, { message: "لطفا ایمیل را وارد کنید." })
-    .email("ایمیل معتبر نیست.")
-    .optional(),
-  password: z
-    .string({ required_error: "لطفا رمز کاربری را وارد کنید." })
-    .min(5, { message: "رمز کاربری باید حداقل 5 کاراکتر باشد." })
-    .optional(),
-  role: z.string(),
-  avatar: avatarSchema.optional(),
-});
-
 export async function updateUser(
-  state: FormState,
+  state: UserFormState,
   formData: FormData
-): Promise<FormState> {
+): Promise<UserFormState> {
   const id = formData.get("id");
   const numericId = Number(id);
 
   if (!id) throw new Error("User ID is required");
 
-  const result = updateSchema.safeParse(Object.fromEntries(formData.entries()));
+  const result = UserupdateSchema.safeParse(
+    Object.fromEntries(formData.entries())
+  );
 
   if (result.success === false) {
     return {

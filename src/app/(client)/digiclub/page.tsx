@@ -1,7 +1,5 @@
-import React from 'react'
+import React from "react";
 
 export default function Digiclub() {
-  return (
-    <div>Digiclub</div>
-  )
+  return <div>Digiclub</div>;
 }

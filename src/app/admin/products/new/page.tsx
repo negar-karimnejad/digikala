@@ -7,8 +7,8 @@ export default async function NewProductPage() {
 
   return (
     <>
-      <PageHeader>افزودن محصول جدید</PageHeader>
-      <ProductForm categories={categories}/>
+      <PageHeader title="افزودن محصول جدید" />
+      <ProductForm categories={categories} />
     </>
   );
 }

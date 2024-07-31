@@ -6,7 +6,7 @@ import Link from "next/link";
 import OfferSkeleton from "../skeleton/OfferSkeleton";
 
 export default function SelectedProducts() {
-  const { products, isLoading } = useProducts();
+  const { products, loading } = useProducts();
 
   return (
     <div className="border rounded-xl my-5 pt-5 mx-3 overflow-hidden">
@@ -15,7 +15,7 @@ export default function SelectedProducts() {
         <span>منتخب محصولات تخفیف و حراج</span>
       </h2>
       <div className="grid grid-cols-12 mt-10">
-        {isLoading && (
+        {loading && (
           <>
             {Array.from({ length: 6 }).map((_, index) => (
               <div

@@ -8,7 +8,7 @@ export default async function AdminUsersPage() {
 
   return (
     <>
-      <PageHeader>کاربران</PageHeader>
+      <PageHeader title="کاربران" />
       <AdminTable users={users} />
     </>
   );

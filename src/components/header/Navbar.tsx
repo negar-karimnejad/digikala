@@ -35,7 +35,7 @@ const links = [
 
 export default function Navbar() {
   const { categories } = useCategories();
-  
+
   const [provincecities, setProvinceCities] = useState<City[]>([]);
   // const [userProvince, setUserProvince] = useState("");
   const [isShowMenu, setIsShowMenu] = useState(false);

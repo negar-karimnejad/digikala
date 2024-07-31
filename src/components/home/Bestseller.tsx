@@ -7,7 +7,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import OfferSkeleton from "../skeleton/OfferSkeleton";
 
 export default function Bestseller({ title }: { title: string }) {
-  const { products, isLoading } = useProducts();
+  const { products, loading } = useProducts();
 
   return (
     <div className="border rounded-xl my-5 p-5 mx-3">
@@ -51,7 +51,7 @@ export default function Bestseller({ title }: { title: string }) {
           },
         }}
       >
-        {isLoading && (
+        {loading && (
           <>
             {Array.from({ length: 6 }).map((_, index) => (
               <SwiperSlide key={index}>

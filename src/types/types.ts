@@ -36,14 +36,14 @@ export interface Story {
   post: string | StaticImageData;
 }
 
-export interface FormState {
-  data: User | null;
+export interface UserFormState {
+  email?: string;
   errors: Record<string, string[]>;
   success: boolean;
 }
 
-export const initialState: FormState = {
-  data: null,
+export const initialState: UserFormState = {
+  email: "",
   errors: {},
   success: false,
 };

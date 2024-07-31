@@ -12,8 +12,8 @@ export default async function EditProductPage({
 
   return (
     <>
-      <PageHeader>ویرایش محصول</PageHeader>
-      <ProductForm product={product} categories={categories}/>
+      <PageHeader title="ویرایش محصول" />
+      <ProductForm product={product} categories={categories} />
     </>
   );
 }
