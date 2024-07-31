@@ -1,17 +1,23 @@
 "use client";
 
-import { addSubmenu } from "@/app/admin/categories/action";
+import { addSubmenuItem } from "@/app/admin/categories/action";
 import { Button } from "@/components/ui/button";
-import { Category } from "@prisma/client";
+import { Submenu } from "@prisma/client";
 import { useFormStatus } from "react-dom";
 
-export default function CategorySubmenuForm({
-  categories,
+export default function CategorySubmenuItemForm({
+  submenus,
 }: {
-  categories: Category[];
+  submenus: Submenu[];
 }) {
   return (
-    <form action={addSubmenu}>
+    <form action={addSubmenuItem}>
+      <input
+        type="number"
+        hidden
+        name="id"
+        value={String(Math.floor(Math.random() * 500))}
+      />
       <div className="h-20 relative">
         <input
           type="text"
@@ -25,7 +31,7 @@ export default function CategorySubmenuForm({
           htmlFor="title"
           className="absolute right-2.5 top-4 z-10 origin-[0] -translate-y-4 scale-75 transform text-sm text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:text-blue-600 dark:text-gray-400 peer-focus:dark:text-blue-500"
         >
-          نام زیرمجموعه
+          نام آیتم زیرمجموعه
         </label>
       </div>
 
@@ -46,11 +52,11 @@ export default function CategorySubmenuForm({
         </label>
       </div>
 
-      <select required name="categoryId" id="categoryId">
+      <select required name="submenuId" id="submenuId">
         <option value="-1">دسته‌بندی مورد نظر را انتخاب کنید</option>
-        {categories.map((category) => (
-          <option key={category.id} value={category.id}>
-            {category.title}
+        {submenus.map((submenu) => (
+          <option key={submenu.id} value={submenu.id}>
+            {submenu.title}
           </option>
         ))}
       </select>
@@ -69,7 +75,7 @@ const SubmitButton = () => {
       disabled={pending}
     >
       <div className="flex items-center justify-center gap-2">
-        <span>{pending ? `در حال افزودن ...` : `افزودن زیرمجموعه`}</span>
+        <span>{pending ? `در حال افزودن ...` : `افزودن آیتم زیرمجموعه`}</span>
         {pending && (
           <div className="h-5 w-5 animate-spin rounded-full border-2 border-dotted border-gray-800"></div>
         )}

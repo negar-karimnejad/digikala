@@ -1,4 +1,4 @@
-import useProducts from "@/features/useProducts";
+import useProducts from "@/hooks/useProducts";
 import { Product } from "@prisma/client";
 import { Flame } from "lucide-react";
 import Image from "next/image";
@@ -54,9 +54,7 @@ export default function Bestseller({ title }: { title: string }) {
         {isLoading && (
           <>
             {Array.from({ length: 6 }).map((_, index) => (
-              <SwiperSlide
-                key={index}
-              >
+              <SwiperSlide key={index}>
                 <OfferSkeleton />
               </SwiperSlide>
             ))}

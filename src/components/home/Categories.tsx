@@ -1,10 +1,15 @@
-import { categories } from "@/data/data";
+import useCategories from "@/hooks/useCategories";
 import Image from "next/image";
 import Link from "next/link";
 import "swiper/css";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 export default function Categories() {
+  const { categories, loading, error } = useCategories();
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>{error}</div>;
+
   return (
     <div className="lg:mx-3 my-12 group relative">
       <div className="w-full">

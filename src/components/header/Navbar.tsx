@@ -1,7 +1,7 @@
 "use client";
 
 import { cities, province } from "@/data/data";
-import useScroll from "@/features/useScroll";
+import useScroll from "@/hooks/useScroll";
 import { CategoryProps, City, Location } from "@/types/types";
 import {
   ArrowRight,
@@ -102,8 +102,6 @@ export default function Navbar({
     }
   }, [userCity]);
 
-  console.log(categories);
-
   return (
     <>
       <nav
@@ -187,7 +185,7 @@ export default function Navbar({
                               </Link>
                             </h3>
                             <div className="space-y-4 mt-5">
-                              {menu.list?.map((item) => (
+                              {menu.items?.map((item) => (
                                 <div
                                   className="text-gray-500 dark:text-gray-300 text-sm hover:text-red-500 dark:hover:text-red-500 transition-all"
                                   key={item.title}

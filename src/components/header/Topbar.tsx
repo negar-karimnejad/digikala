@@ -1,6 +1,6 @@
 "use client";
 
-import useScroll from "@/features/useScroll";
+import useScroll from "@/hooks/useScroll";
 import { ShoppingCart } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";

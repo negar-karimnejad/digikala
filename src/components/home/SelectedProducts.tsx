@@ -1,4 +1,4 @@
-import useProducts from "@/features/useProducts";
+import useProducts from "@/hooks/useProducts";
 import { Product } from "@prisma/client";
 import { BadgePercent } from "lucide-react";
 import Image from "next/image";

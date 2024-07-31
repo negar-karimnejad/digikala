@@ -59,10 +59,20 @@ export const categoryInitialState: CategoryFormState = {
   errors: {},
   success: false,
 };
-export interface SubmenuItem {
+
+export interface SubmenuItemProps {
+  id: number;
   title: string;
   href: string;
-  list: { title: string; href: string }[];
+  submenuId: number;
+}
+
+export interface SubmenuProps {
+  id: number;
+  title: string;
+  href: string;
+  categoryId: number;
+  items: SubmenuItemProps[];
 }
 
 export interface CategoryProps {
@@ -71,5 +81,5 @@ export interface CategoryProps {
   icon: string;
   cover: string;
   href: string;
-  submenus?: SubmenuItem[]; // Make sure submenu is optional if not all categories have it
+  submenus?: SubmenuProps[];
 }

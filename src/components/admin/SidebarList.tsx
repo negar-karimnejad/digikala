@@ -23,6 +23,16 @@ const sidebarMenu = [
   { label: "سفارشات", icon: <ShoppingBasket />, href: "/admin/orders" },
   { label: "دسته‌بندی ها", icon: <Layers3 />, href: "/admin/categories" },
   {
+    label: "زیرمجموعه دسته‌بندی ها",
+    icon: <Layers3 />,
+    href: "/admin/categories/submenu",
+  },
+  {
+    label: "آیتم های زیرمجموعه ها",
+    icon: <Layers3 />,
+    href: "/admin/categories/submenu-Item",
+  },
+  {
     label: "دسته‌بندی جدید",
     icon: <ListChecks />,
     href: "/admin/categories/new",

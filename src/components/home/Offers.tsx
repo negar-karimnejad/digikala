@@ -3,7 +3,7 @@ import {
   CarouselContent,
   CarouselItem,
 } from "@/components/ui/carousel";
-import useProducts from "@/features/useProducts";
+import useProducts from "@/hooks/useProducts";
 import { ArrowLeft, ChevronLeft } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";

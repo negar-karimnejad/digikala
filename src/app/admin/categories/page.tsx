@@ -7,7 +7,13 @@ export default function AdminCategoriesPage() {
 }
 
 async function ProductTable() {
-  const categories = await db.category.findMany();
+  const categories = await db.category.findMany({
+    include: { submenus: true },
+  });
+  const submenus = await db.submenu.findMany({
+    include: { items: true },
+  });
+  console.log(submenus);
 
   return (
     <>

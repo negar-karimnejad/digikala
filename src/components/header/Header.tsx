@@ -5,7 +5,7 @@ import Topbar from "./Topbar";
 export default async function Header() {
   const categories = await db.category.findMany({
     orderBy: { title: "asc" },
-    include: { submenus: true },
+    include: { submenus: { include: { items: true } } },
   });
 
   return (
