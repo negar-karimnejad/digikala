@@ -20,6 +20,7 @@ import { useEffect, useState } from "react";
 import Modal from "../ui/Modal";
 import { Button } from "../ui/button";
 import Image from "next/image";
+import useCategories from "@/hooks/useCategories";
 
 const links = [
   {
@@ -32,11 +33,9 @@ const links = [
   { label: "پرفروش ترین ها ", href: "/", icon: <Flame size={18} /> },
 ];
 
-export default function Navbar({
-  categories,
-}: {
-  categories: CategoryProps[];
-}) {
+export default function Navbar() {
+  const { categories } = useCategories();
+  
   const [provincecities, setProvinceCities] = useState<City[]>([]);
   // const [userProvince, setUserProvince] = useState("");
   const [isShowMenu, setIsShowMenu] = useState(false);
@@ -151,8 +150,8 @@ export default function Navbar({
                         >
                           <Image
                             alt={category.title}
-                            width={15}
-                            height={15}
+                            width={18}
+                            height={18}
                             src={category.icon}
                           />
                           {category.title}

@@ -13,7 +13,7 @@ async function SubmenuTable() {
 
   return (
     <>
-      <PageHeader>زیرمجموعه دسته‌بندی ها</PageHeader>
+      <PageHeader title="زیرمجموعه دسته‌بندی ها" href="/admin/categories/new" />
       <AdminTable submenus={submenus} />
     </>
   );

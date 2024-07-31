@@ -9,11 +9,17 @@ export default function SubmenuItemPage() {
 }
 
 async function SubmenuItemTable() {
-  const submenuItems = await db.submenuItem.findMany({ orderBy: { title: "asc" } });
+  const submenuItems = await db.submenuItem.findMany({
+    orderBy: { title: "asc" },
+  });
 
   return (
     <>
-      <PageHeader>آیتم های زیرمجموعه دسته‌بندی ها</PageHeader>
+      <PageHeader
+        title="آیتم های زیرمجموعه دسته‌بندی ها"
+        href="/admin/categories/new"
+      />
+
       <AdminTable submenuItems={submenuItems} />
     </>
   );

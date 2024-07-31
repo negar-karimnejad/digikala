@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 export async function GET() {
   try {
     const categories = await db.category.findMany({
-      orderBy: { title: "asc" },
+      orderBy: { id: "asc" },
       include: { submenus: { include: { items: true } } },
     });
 

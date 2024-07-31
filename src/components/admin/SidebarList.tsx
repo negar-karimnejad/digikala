@@ -18,8 +18,8 @@ import { DarkMode } from "../ui/DarkMode";
 import { useRouter } from "next/navigation";
 
 const sidebarMenu = [
-  { label: "محصول جدید", icon: <Plus />, href: "/admin/products/new" },
   { label: "محصولات", icon: <PackageOpen />, href: "/admin/products" },
+  { label: "محصول جدید", icon: <Plus />, href: "/admin/products/new" },
   { label: "سفارشات", icon: <ShoppingBasket />, href: "/admin/orders" },
   { label: "دسته‌بندی ها", icon: <Layers3 />, href: "/admin/categories" },
   {
@@ -32,11 +32,7 @@ const sidebarMenu = [
     icon: <Layers3 />,
     href: "/admin/categories/submenu-Item",
   },
-  {
-    label: "دسته‌بندی جدید",
-    icon: <ListChecks />,
-    href: "/admin/categories/new",
-  },
+
   { label: "کاربران", icon: <Users2 />, href: "/admin/users" },
   { label: "دیدگاه ها", icon: <MessagesSquare />, href: "/admin/reviews" },
 ];
@@ -82,7 +78,7 @@ export default function SidebarList({
   };
 
   return (
-    <div className="flex flex-col justify-center h-full gap-10">
+    <div className="flex flex-col justify-between h-full">
       <div className="py-5 flex items-center justify-center gap-2">
         <DarkMode />
         <h1 onClick={closeSheet} className="font-bold text-center text-5xl ">

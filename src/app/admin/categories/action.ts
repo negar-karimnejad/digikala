@@ -57,12 +57,14 @@ export async function addCategory(_state, formData: FormData) {
 }
 
 export async function updateCategory(state: any, formData: FormData) {
-  const id = formData.get("id");
-  const numericId = Number(id);
+  const entries = Object.fromEntries(formData.entries());
 
-  const result = categoryEditSchema.safeParse(
-    Object.fromEntries(formData.entries())
-  );
+  const parsedEntries = {
+    ...entries,
+    id: Number(entries.id),
+  };
+
+  const result = categoryEditSchema.safeParse(parsedEntries);
 
   if (result.success === false) {
     return result.error.formErrors.fieldErrors;
@@ -70,7 +72,7 @@ export async function updateCategory(state: any, formData: FormData) {
 
   const data = result.data;
 
-  const category = await db.category.findUnique({ where: { id: numericId } });
+  const category = await db.category.findUnique({ where: { id: data.id } });
 
   if (category == null) return notFound();
 
@@ -96,7 +98,7 @@ export async function updateCategory(state: any, formData: FormData) {
   }
 
   await db.category.update({
-    where: { id: numericId },
+    where: { id: data.id },
     data: {
       title: data.title,
       cover: coverPath,
@@ -190,7 +192,6 @@ export async function deleteSubmenu(id: number) {
 
 // Submenu-Item Actions
 export async function addSubmenuItem(formData: FormData) {
-
   try {
     // Convert FormData entries to a plain object
     const entries = Object.fromEntries(formData.entries());
@@ -203,7 +204,7 @@ export async function addSubmenuItem(formData: FormData) {
     };
 
     const result = CategorySubmenuItemSchema.safeParse(parsedEntries);
-  console.log("😂😁", parsedEntries);
+    console.log("😂😁", parsedEntries);
 
     if (!result.success) {
       console.error("Validation Errors:", result.error.formErrors.fieldErrors);

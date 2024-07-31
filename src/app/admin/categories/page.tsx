@@ -1,6 +1,8 @@
 import AdminTable from "@/components/admin/AdminTable";
 import PageHeader from "@/components/admin/PageHeader";
+import { Button } from "@/components/ui/button";
 import db from "@/db/db";
+import { Plus } from "lucide-react";
 
 export default function AdminCategoriesPage() {
   return <ProductTable />;
@@ -13,11 +15,10 @@ async function ProductTable() {
   const submenus = await db.submenu.findMany({
     include: { items: true },
   });
-  console.log(submenus);
 
   return (
     <>
-      <PageHeader>دسته‌بندی ها</PageHeader>
+      <PageHeader href="/admin/categories/new" title="دسته‌بندی ها" />
       <AdminTable categories={categories} />
     </>
   );

@@ -11,7 +11,7 @@ async function ProductTable() {
 
   return (
     <>
-      <PageHeader>محصولات</PageHeader>
+      <PageHeader title="محصولات" />
       <AdminTable products={products} />
     </>
   );

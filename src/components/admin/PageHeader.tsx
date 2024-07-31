@@ -1,13 +1,27 @@
+import { Plus } from "lucide-react";
 import React from "react";
+import { Button } from "../ui/button";
+import Link from "next/link";
 
 export default function PageHeader({
-  children,
+  title,
+  href,
 }: {
-  children: React.ReactNode;
+  title: string;
+  href?: string;
 }) {
   return (
     <div>
-      <h1 className="text-3xl font-bold mb-10">{children}</h1>
+      <div className="text-2xl font-bold mb-10 flex justify-between items-center">
+        <span>{title}</span>
+        {href && (
+          <Button>
+            <Link className="flex items-center gap-1" href={href}>
+              <Plus size={22} /> افزودن
+            </Link>
+          </Button>
+        )}
+      </div>
     </div>
   );
 }
