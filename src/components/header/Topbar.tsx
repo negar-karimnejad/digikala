@@ -4,7 +4,7 @@ import useScroll from "@/hooks/useScroll";
 import { ShoppingCart } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import persianLogo from "../../../public/digi.svg";
+import persianLogo from "../../../public/logo/digi.svg";
 import { DarkMode } from "../ui/DarkMode";
 import ProfileButton from "../ui/ProfileButton";
 import Searchbar from "./Searchbar";

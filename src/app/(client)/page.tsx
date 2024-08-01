@@ -46,7 +46,7 @@ export default function Home() {
       <Digiclub />
       <Bestseller title="پرفروش‌ترین کالاها" />
       <ProductsCard />
-      <div className="bg-[url('/banner.webp')] bg-cover bg-left bg-no-repeat h-40 rounded-2xl mx-3 my-5"></div>
+      <div className="bg-[url('/banner/hotdog-banner.webp')] bg-cover bg-left bg-no-repeat h-40 rounded-2xl mx-3 my-5"></div>
       <SelectedProducts />
       <Bestseller title="داغ ترین چند ساعت گذشته" />
       <Mag />

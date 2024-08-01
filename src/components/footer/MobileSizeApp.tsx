@@ -12,7 +12,7 @@ export default function MobileSizeApp() {
     <>
       <div className="lg:hidden border-b pb-5 mt-5 flex justify-between items-center w-full">
         <div className="flex items-center gap-4">
-          <Image alt="" width={45} height={45} src="/footerlogo2.webp" />
+          <Image alt="" width={45} height={45} src="/logo/footerlogo2.webp" />
           <div className="flex flex-col gap-2">
             <span className="text-[11px] text-neutral-500 dark:text-neutral-400">
               تجربه خرید بهتر در
@@ -55,21 +55,31 @@ export default function MobileSizeApp() {
               href="https://www.digikala.com/landings/new-app/#download-box"
               className="bg-black rounded-md"
             >
-              <Image alt="" width={225} height={50} src="/myket-dark.svg" />
+              <Image
+                alt="myket"
+                width={225}
+                height={50}
+                src="/nemad/myket-dark.svg"
+              />
             </Link>
             <Link
               href="https://cafebazaar.ir/app/com.digikala"
               className="bg-black rounded-md"
             >
               <Image
-                alt=""
+                alt="coffe-bazzar"
                 width={225}
                 height={50}
-                src="/mobile-coffe-bazzar.svg"
+                src="/nemad/mobile-coffe-bazzar.svg"
               />
             </Link>
             <div className="bg-black rounded-md">
-              <Image alt="" width={225} height={50} src="/directlink.png" />
+              <Image
+                alt="directlink"
+                width={225}
+                height={50}
+                src="/nemad/directlink.png"
+              />
             </div>
           </div>
         </div>

@@ -60,6 +60,7 @@ export const ProductSchema = z.object({
   colors: z.array(z.string()),
   features: z.array(z.string()),
 });
+
 export const productEditSchema = ProductSchema.extend({
   thumbnail: imageSchema.optional(),
 });
@@ -101,4 +102,11 @@ export const CategorySchema = z.object({
 export const categoryEditSchema = CategorySchema.extend({
   cover: imageSchema.optional(),
   icon: imageSchema.optional(),
+});
+
+export const StorySchema = z.object({
+  id: z.number(),
+  title: z.string().min(5, { message: "لطفا عنوان داستان را وارد نمایید" }),
+  cover: imageSchema.refine((file) => file.size > 0, "Required"),
+  post: imageSchema.refine((file) => file.size > 0, "Required"),
 });

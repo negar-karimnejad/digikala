@@ -120,3 +120,10 @@ model Order {
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
 }
+
+model Story {
+  id    Int    @id @default(autoincrement())
+  title String
+  cover String
+  post  String
+}

@@ -1,13 +1,15 @@
 import {
+  BookCheck,
   BringToFront,
   ChevronLeft,
+  CircleFadingPlus,
   Layers3,
   LayoutDashboard,
   LogOut,
   MessagesSquare,
   PackageOpen,
   ShoppingBasket,
-  Users2,
+  Users2
 } from "lucide-react";
 import { signOut } from "next-auth/react";
 import Link from "next/link";
@@ -37,6 +39,7 @@ const sidebarMenu = [
     href: "/admin/categories/submenu-Item",
   },
 
+  { label: "داستان ها", icon: <CircleFadingPlus />, href: "/admin/stories" },
   { label: "کاربران", icon: <Users2 />, href: "/admin/users" },
   { label: "دیدگاه ها", icon: <MessagesSquare />, href: "/admin/reviews" },
 ];

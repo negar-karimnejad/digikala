@@ -23,11 +23,18 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Category, Product, Submenu, SubmenuItem, User } from "@prisma/client";
+import {
+  Category,
+  Product,
+  Story,
+  Submenu,
+  SubmenuItem,
+  User,
+} from "@prisma/client";
 import { Edit2, Eye, MoreVertical } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import avatar from "./../../../public/avatar/avatar1.png";
+import avatar from "./../../../public/users/avatar1.png";
 
 export default function AdminTable({
   products,
@@ -35,12 +42,14 @@ export default function AdminTable({
   users,
   submenus,
   submenuItems,
+  stories,
 }: {
   products?: Product[] | null;
   users?: User[] | null;
   categories?: Category[] | null;
   submenus?: Submenu[] | null;
   submenuItems?: SubmenuItem[] | null;
+  stories?: Story[] | null;
 }) {
   return (
     <div>
@@ -84,6 +93,14 @@ export default function AdminTable({
             <TableRow>
               <TableHead className="text-right">نام</TableHead>
               <TableHead className="text-right">آدرس لینک</TableHead>
+              <TableHead className="text-right"></TableHead>
+            </TableRow>
+          )}
+          {stories && (
+            <TableRow>
+              <TableHead className="text-right">نام</TableHead>
+              <TableHead className="text-right">کاور</TableHead>
+              <TableHead className="text-right">تصویر</TableHead>
               <TableHead className="text-right"></TableHead>
             </TableRow>
           )}
@@ -304,6 +321,49 @@ export default function AdminTable({
                       </DropdownMenuTrigger>
                       <DropdownMenuContent>
                         <DeleteDropdownItem itemId={item.id} />
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                  </Dialog>
+                </TableCell>
+              </TableRow>
+            ))}
+          {stories &&
+            stories.map((story) => (
+              <TableRow key={story.id}>
+                <TableCell>
+                  <p className="whitespace-nowrap">{story.title}</p>
+                </TableCell>
+                <TableCell>
+                  <div className="w-20">
+                    <Image
+                      alt={story.title}
+                      height={100}
+                      width={100}
+                      className="rounded-full w-16 h-16 object-cover"
+                      src={story.cover}
+                    />
+                  </div>
+                </TableCell>
+                <TableCell>
+                  <div className="w-20">
+                    <Image
+                      alt={story.title}
+                      height={100}
+                      width={100}
+                      className="rounded-full w-16 h-16 object-cover"
+                      src={story.post}
+                    />
+                  </div>
+                </TableCell>
+                <TableCell>
+                  <Dialog>
+                    <DropdownMenu>
+                      <DropdownMenuTrigger>
+                        <MoreVertical />
+                        <span className="sr-only">Actions</span>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent>
+                        <DeleteDropdownItem storyId={story.id} />
                       </DropdownMenuContent>
                     </DropdownMenu>
                   </Dialog>
