@@ -9,6 +9,18 @@ import { notFound, redirect } from "next/navigation";
 export async function addProduct(_state: any, formData: FormData) {
   const entries = Object.fromEntries(formData.entries());
 
+  const featureArray = JSON.parse(entries.features as string) as {
+    key: string;
+    value: string;
+  }[];
+
+  const serializedFeatures = JSON.stringify(featureArray);
+
+  const selectedColorsEntry = formData.get("selectedColors");
+  const selectedColors = selectedColorsEntry
+    ? JSON.parse(String(selectedColorsEntry))
+    : [];
+
   const parsedEntries = {
     ...entries,
     id: Number(entries.id),
@@ -20,27 +32,13 @@ export async function addProduct(_state: any, formData: FormData) {
     discount_price: Number(entries.discount_price),
     recommended_percent: Number(entries.recommended_percent),
     likes: Number(entries.likes),
+    colors: selectedColors,
   };
 
   const result = ProductSchema.safeParse(parsedEntries);
 
-  const selectedColorsEntry = formData.get("selectedColors");
-  if (typeof selectedColorsEntry !== "string") {
-    throw new Error("Invalid selectedColors");
-  }
-
-  let selectedColors;
-  try {
-    selectedColors = JSON.parse(selectedColorsEntry);
-    if (!Array.isArray(selectedColors)) {
-      throw new Error("selectedColors should be an array");
-    }
-  } catch (error) {
-    throw new Error("Failed to parse selectedColors: " + error.message);
-  }
-
   if (result.success === false) {
-    console.log("👒👒👒", result.error.formErrors.fieldErrors);
+    console.log(result.error.formErrors.fieldErrors);
     return result.error.formErrors.fieldErrors;
   }
 
@@ -52,15 +50,14 @@ export async function addProduct(_state: any, formData: FormData) {
     `public${imagePath}`,
     Buffer.from(await data.thumbnail.arrayBuffer())
   );
-  
 
-  await db.product.create({
+  const product = await db.product.create({
     data: {
       title: data.title,
       en_title: data.en_title,
       rating: data.rating,
       voter: data.voter,
-      colors: JSON.stringify(selectedColors),
+      colors: selectedColors,
       sizes: data.sizes,
       thumbnail: imagePath,
       price: data.price,
@@ -72,10 +69,23 @@ export async function addProduct(_state: any, formData: FormData) {
       likes: data.likes,
       sellerId: data.sellerId,
       categoryId: data.categoryId,
-      // images
-      // features: data.features,
     },
   });
+
+  // Create features
+  if (Array.isArray(serializedFeatures)) {
+    await Promise.all(
+      serializedFeatures.map((feature) =>
+        db.feature.create({
+          data: {
+            key: feature.key,
+            value: feature.value,
+            productId: product.id,
+          },
+        })
+      )
+    );
+  }
 
   revalidatePath("/");
   revalidatePath("/products");

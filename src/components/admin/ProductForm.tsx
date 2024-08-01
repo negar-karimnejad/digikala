@@ -19,6 +19,9 @@ const initialState = (product: Product) => ({
 export default function ProductForm({ product }: { product?: Product | null }) {
   const { categories } = useCategories();
 
+  const [features, setFeatures] = useState<{ key: string; value: string }[]>(
+    []
+  );
   const [file, setFile] = useState<File | null>(null);
   const [state, formAction] = useFormState(
     product == null ? addProduct : updateProduct,
@@ -31,43 +34,57 @@ export default function ProductForm({ product }: { product?: Product | null }) {
     }
   };
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  const addFeature = () => {
+    setFeatures((prev) => [...prev, { key: "", value: "" }]);
+  };
+
+  const handleFeatureChange = (
+    index: number,
+    field: "key" | "value",
+    value: string
+  ) => {
+    const updatedFeatures = [...features];
+    updatedFeatures[index] = { ...updatedFeatures[index], [field]: value };
+    setFeatures(updatedFeatures);
+  };
+
+  const removeFeature = (index: number) => {
+    setFeatures((prev) => prev.filter((_, i) => i !== index));
+  };
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
 
-    const selectedColors = Array.from(formData.getAll("color"));
+    // Collect selected colors using FormData API
+    const selectedColors = formData.getAll("colors");
     formData.append("selectedColors", JSON.stringify(selectedColors));
 
-    if (product == null) {
-      formData.append("id", String(Math.floor(Math.random()*1000000)));
-    } else {
+    // Append selected colors as a JSON string
+    formData.append("selectedColors", JSON.stringify(selectedColors));
+    formData.append("features", JSON.stringify(features));
+
+    if (product != null) {
       formData.append("id", String(product.id));
+    } else {
+      formData.append("id", String(Math.floor(Math.random() * 1000000)));
     }
 
     if (file) {
       formData.append("thumbnail", file);
     }
-    try {
-      await formAction(formData);
-      toast.success(
-        product == null
-          ? "دسته بندی با موفقیت اضافه شد."
-          : "دسته بندی با موفقیت ویرایش شد."
-      );
-    } catch (error) {
-      toast.error("خطا در ارسال فرم.");
-    }
+    formAction(formData);
   };
 
-  // useEffect(() => {
-  //   if (state.success) {
-  //     toast.success(
-  //       product == null
-  //         ? "محصول با موفقیت اضافه شد."
-  //         : "محصول با موفقیت ویرایش شد."
-  //     );
-  //   }
-  // }, [product, state.success]);
+  useEffect(() => {
+    if (state.success) {
+      toast.success(
+        product == null
+          ? "محصول با موفقیت اضافه شد."
+          : "محصول با موفقیت ویرایش شد."
+      );
+    }
+  }, [product, state.success]);
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
@@ -183,7 +200,7 @@ export default function ProductForm({ product }: { product?: Product | null }) {
                   type="checkbox"
                   id={`color-${index}`}
                   name="colors"
-                  value={color}
+                  value={color.split("#")[0]}
                   className="ml-2"
                 />
                 <label
@@ -238,6 +255,58 @@ export default function ProductForm({ product }: { product?: Product | null }) {
             </option>
           ))}
         </select>
+      </div>
+
+      <div>
+        <h3 className="text-gray-800 mb-2">ویژگی‌های محصول</h3>
+        {features.map((feature, index) => (
+          <div key={index} className="relative flex gap-2 items-center mb-2">
+            <div className="relative w-full">
+              <input
+                type="text"
+                placeholder=""
+                value={feature.key}
+                onChange={(e) =>
+                  handleFeatureChange(index, "key", e.target.value)
+                }
+                className="peer w-full block appearance-none rounded-l-lg border-0 border-b-2 border-gray-300 bg-gray-50 px-2.5 pb-2.5 pt-5 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0 dark:border-gray-600 dark:bg-gray-900 dark:text-white dark:focus:border-blue-500"
+              />
+              <label
+                htmlFor=""
+                className="absolute right-3 top-2 text-gray-500 text-sm duration-300 transform -translate-y-4 scale-75 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:text-blue-600 dark:text-gray-400 dark:peer-focus:text-blue-500"
+              >
+                ویژگی
+              </label>
+            </div>
+            <div className="relative w-full">
+              <input
+                type="text"
+                placeholder=""
+                value={feature.value}
+                onChange={(e) =>
+                  handleFeatureChange(index, "value", e.target.value)
+                }
+                className="peer block w-full appearance-none rounded-r-lg border-0 border-b-2 border-gray-300 bg-gray-50 px-2.5 pb-2.5 pt-5 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0 dark:border-gray-600 dark:bg-gray-900 dark:text-white dark:focus:border-blue-500"
+              />
+              <label
+                htmlFor=""
+                className="absolute right-3 top-2 text-gray-500 text-sm duration-300 transform -translate-y-4 scale-75 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:text-blue-600 dark:text-gray-400 dark:peer-focus:text-blue-500"
+              >
+                مقدار
+              </label>
+            </div>
+            <button
+              type="button"
+              onClick={() => removeFeature(index)}
+              className=" text-red-600 text-sm"
+            >
+              حذف
+            </button>
+          </div>
+        ))}
+        <button type="button" onClick={addFeature} className="text-blue-600">
+          افزودن ویژگی
+        </button>
       </div>
 
       <div className="relative h-52">

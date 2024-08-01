@@ -4,7 +4,7 @@ import { addStory } from "@/app/admin/stories/action";
 import { Button } from "@/components/ui/button";
 import { categoryInitialState } from "@/types/types";
 import { UploadCloud } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useFormState, useFormStatus } from "react-dom";
 import toast from "react-hot-toast";
 

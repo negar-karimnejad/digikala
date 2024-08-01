@@ -34,9 +34,9 @@ model Product {
   questions           Question[]
   colors              String
   sizes               String
-  images              String
+  images              String?
   thumbnail           String
-  features            String
+  features            Feature[]
   seller              Seller     @relation(fields: [sellerId], references: [id])
   sellerId            Int        @default(1)
   price               Float
@@ -51,6 +51,14 @@ model Product {
   updatedAt           DateTime   @updatedAt
   Category            Category?  @relation(fields: [categoryId], references: [id])
   categoryId          Int?
+}
+
+model Feature {
+  id        Int     @id @default(autoincrement())
+  key       String
+  value     String
+  productId Int
+  product   Product @relation(fields: [productId], references: [id])
 }
 
 model Category {

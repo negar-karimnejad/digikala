@@ -6,7 +6,7 @@ import { categoryInitialState } from "@/types/types";
 import { Category } from "@prisma/client";
 import { UploadCloud } from "lucide-react";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useFormState, useFormStatus } from "react-dom";
 import toast from "react-hot-toast";
 
@@ -35,7 +35,7 @@ export default function CategoryForm({
     }
   };
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
 
@@ -51,27 +51,19 @@ export default function CategoryForm({
     if (iconFile) {
       formData.append("icon", iconFile);
     }
-    try {
-      await formAction(formData);
+
+    formAction(formData);
+  };
+
+  useEffect(() => {
+    if (state.success) {
       toast.success(
         category == null
           ? "دسته بندی با موفقیت اضافه شد."
           : "دسته بندی با موفقیت ویرایش شد."
       );
-    } catch (error) {
-      toast.error("خطا در ارسال فرم.");
     }
-  };
-
-  // useEffect(() => {
-  //   if (state.success) {
-  //     toast.success(
-  //       category == null
-  //         ? "دسته بندی با موفقیت اضافه شد."
-  //         : "دسته بندی با موفقیت ویرایش شد."
-  //     );
-  //   }
-  // }, [category, state.success]);
+  }, [category, state.success]);
 
   return (
     <form onSubmit={handleSubmit}>

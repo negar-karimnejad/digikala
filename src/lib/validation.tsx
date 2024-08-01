@@ -42,6 +42,11 @@ export const imageSchema = fileSchema.refine(
   (file) => file.size === 0 || file.type.startsWith("image/")
 );
 
+const featureSchema = z.object({
+  key: z.string(),
+  value: z.string(),
+});
+
 export const ProductSchema = z.object({
   title: z.string().min(5, { message: "لطفا عنوان محصول را وارد کنید" }),
   en_title: z.string(),
@@ -59,7 +64,6 @@ export const ProductSchema = z.object({
   sizes: z.string(),
   likes: z.number().default(0),
   colors: z.array(z.string()),
-  // features: z.array(z.string()),
 });
 
 export const productEditSchema = ProductSchema.extend({
