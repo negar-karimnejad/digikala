@@ -23,10 +23,14 @@ export default function StoryForm() {
       toast.success("داستان با موفقیت اضافه شد.");
     }
   }, [state.success]);
-
   return (
     <form onSubmit={handleSubmit}>
-      <input type="number" hidden name="id" value={crypto.randomUUID()} />
+      <input
+        type="number"
+        hidden
+        name="id"
+        value={Math.floor(Math.random() * 1000000)}
+      />
 
       <div className="h-20 relative">
         <input

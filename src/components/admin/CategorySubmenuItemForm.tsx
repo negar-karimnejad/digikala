@@ -12,7 +12,12 @@ export default function CategorySubmenuItemForm({
 }) {
   return (
     <form action={addSubmenuItem}>
-      <input type="number" hidden name="id" value={crypto.randomUUID()} />
+      <input
+        type="number"
+        hidden
+        name="id"
+        value={Math.floor(Math.random() * 1000000)}
+      />
       <div className="h-20 relative">
         <input
           type="text"

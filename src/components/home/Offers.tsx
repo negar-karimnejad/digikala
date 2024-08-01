@@ -128,7 +128,7 @@ export default function Offers() {
         <CarouselContent>
           <Link
             href="incredible-offers"
-            className="max-lg:hidden pl-6 cursor-pointer flex flex-col items-center justify-between"
+            className="max-lg:hidden pl-6 cursor-pointer flex flex-col items-center justify-between gap-5"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"

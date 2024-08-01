@@ -45,6 +45,7 @@ export const imageSchema = fileSchema.refine(
 export const ProductSchema = z.object({
   title: z.string().min(5, { message: "لطفا عنوان محصول را وارد کنید" }),
   en_title: z.string(),
+  categoryId: z.number(),
   rating: z.number(),
   voter: z.number().default(0),
   thumbnail: imageSchema.refine((file) => file.size > 0, "Required"),
@@ -58,7 +59,7 @@ export const ProductSchema = z.object({
   sizes: z.string(),
   likes: z.number().default(0),
   colors: z.array(z.string()),
-  features: z.array(z.string()),
+  // features: z.array(z.string()),
 });
 
 export const productEditSchema = ProductSchema.extend({

@@ -6,18 +6,41 @@ import fs from "fs/promises";
 import { revalidatePath } from "next/cache";
 import { notFound, redirect } from "next/navigation";
 
-export async function addProduct(state, formData: FormData) {
-  const result = ProductSchema.safeParse(
-    Object.fromEntries(formData.entries())
-  );
+export async function addProduct(_state: any, formData: FormData) {
+  const entries = Object.fromEntries(formData.entries());
+
+  const parsedEntries = {
+    ...entries,
+    id: Number(entries.id),
+    rating: Number(entries.rating),
+    categoryId: Number(entries.categoryId),
+    voter: Number(entries.voter),
+    price: Number(entries.price),
+    discount: Number(entries.discount),
+    discount_price: Number(entries.discount_price),
+    recommended_percent: Number(entries.recommended_percent),
+    likes: Number(entries.likes),
+  };
+
+  const result = ProductSchema.safeParse(parsedEntries);
 
   const selectedColorsEntry = formData.get("selectedColors");
   if (typeof selectedColorsEntry !== "string") {
     throw new Error("Invalid selectedColors");
   }
-  const selectedColors = JSON.parse(selectedColorsEntry);
+
+  let selectedColors;
+  try {
+    selectedColors = JSON.parse(selectedColorsEntry);
+    if (!Array.isArray(selectedColors)) {
+      throw new Error("selectedColors should be an array");
+    }
+  } catch (error) {
+    throw new Error("Failed to parse selectedColors: " + error.message);
+  }
 
   if (result.success === false) {
+    console.log("👒👒👒", result.error.formErrors.fieldErrors);
     return result.error.formErrors.fieldErrors;
   }
 
@@ -29,6 +52,7 @@ export async function addProduct(state, formData: FormData) {
     `public${imagePath}`,
     Buffer.from(await data.thumbnail.arrayBuffer())
   );
+  
 
   await db.product.create({
     data: {
@@ -36,18 +60,20 @@ export async function addProduct(state, formData: FormData) {
       en_title: data.en_title,
       rating: data.rating,
       voter: data.voter,
-      colors: selectedColors,
+      colors: JSON.stringify(selectedColors),
       sizes: data.sizes,
       thumbnail: imagePath,
       price: data.price,
       discount: data.discount,
-      // features: data.features,
       discount_price: data.discount_price,
       description: data.description,
       recommended_percent: data.recommended_percent,
       guarantee: data.guarantee,
       likes: data.likes,
       sellerId: data.sellerId,
+      categoryId: data.categoryId,
+      // images
+      // features: data.features,
     },
   });
 
@@ -57,7 +83,7 @@ export async function addProduct(state, formData: FormData) {
   redirect("/admin/products");
 }
 
-export async function updateProduct(state: any, formData: FormData) {
+export async function updateProduct(_state: any, formData: FormData) {
   const id = formData.get("id");
   const numericId = Number(id);
 

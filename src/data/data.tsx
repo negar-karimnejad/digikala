@@ -1,4 +1,3 @@
-
 // Hero Images Source
 import image1 from "@/../public/hero/223182406f6b2b94af6e227293071c82552e3f04_1720613062.webp";
 import image2 from "@/../public/hero/4663d35c9f9e75c051d24b070df6673aa0ab57ba_1721201981.webp";
@@ -4359,4 +4358,4 @@ export const mobileFooterLinks = [
     ),
     href: "/profile",
   },
-];
+]

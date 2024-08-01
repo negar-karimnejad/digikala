@@ -6,7 +6,7 @@ import { categoryInitialState } from "@/types/types";
 import { Category } from "@prisma/client";
 import { UploadCloud } from "lucide-react";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useFormState, useFormStatus } from "react-dom";
 import toast from "react-hot-toast";
 
@@ -35,14 +35,14 @@ export default function CategoryForm({
     }
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
 
     if (category != null) {
       formData.append("id", String(category.id));
     } else {
-      formData.append("id", String(Math.floor(Math.random() * 500)));
+      formData.append("id", String(Math.floor(Math.random() * 1000000)));
     }
 
     if (coverFile) {
@@ -51,18 +51,27 @@ export default function CategoryForm({
     if (iconFile) {
       formData.append("icon", iconFile);
     }
-    formAction(formData);
-  };
-
-  useEffect(() => {
-    if (state.success) {
+    try {
+      await formAction(formData);
       toast.success(
         category == null
-          ? "محصول با موفقیت اضافه شد."
-          : "محصول با موفقیت ویرایش شد."
+          ? "دسته بندی با موفقیت اضافه شد."
+          : "دسته بندی با موفقیت ویرایش شد."
       );
+    } catch (error) {
+      toast.error("خطا در ارسال فرم.");
     }
-  }, [category, state.success]);
+  };
+
+  // useEffect(() => {
+  //   if (state.success) {
+  //     toast.success(
+  //       category == null
+  //         ? "دسته بندی با موفقیت اضافه شد."
+  //         : "دسته بندی با موفقیت ویرایش شد."
+  //     );
+  //   }
+  // }, [category, state.success]);
 
   return (
     <form onSubmit={handleSubmit}>
