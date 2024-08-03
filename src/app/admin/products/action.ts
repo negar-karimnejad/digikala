@@ -38,7 +38,6 @@ export async function addProduct(_state: any, formData: FormData) {
   const result = ProductSchema.safeParse(parsedEntries);
 
   if (result.success === false) {
-    console.log("🥎🥎🥎", result.error.formErrors.fieldErrors);
     return result.error.formErrors.fieldErrors;
   }
 
@@ -57,7 +56,7 @@ export async function addProduct(_state: any, formData: FormData) {
       en_title: data.en_title,
       rating: data.rating,
       voter: data.voter,
-      colors: selectedColors.join(","),
+      colors: selectedColors,
       sizes: data.sizes,
       thumbnail: imagePath,
       price: data.price,

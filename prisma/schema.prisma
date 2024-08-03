@@ -25,32 +25,41 @@ model User {
 }
 
 model Product {
-  id                  Int        @id @default(autoincrement())
-  title               String
-  en_title            String     @default("")
-  rating              Float?
-  voter               Int        @default(0)
-  comments            Comment[]
-  questions           Question[]
-  colors              String
+  id        Int        @id @default(autoincrement())
+  title     String
+  en_title  String     @default("")
+  rating    Float?
+  voter     Int        @default(0)
+  comments  Comment[]
+  questions Question[]
+
   sizes               String
   images              String?
   thumbnail           String
   features            Feature[]
-  seller              Seller     @relation(fields: [sellerId], references: [id])
-  sellerId            Int        @default(1)
+  colors              Colors[]
+  seller              Seller    @relation(fields: [sellerId], references: [id])
+  sellerId            Int       @default(1)
   price               Float
   discount            Float?
   discount_price      Float?
   description         String
   recommended_percent Float?
   guarantee           String?
-  likes               Int        @default(0)
-  orders              Order[]    @relation("ProductOrders")
-  createdAt           DateTime   @default(now())
-  updatedAt           DateTime   @updatedAt
-  Category            Category?  @relation(fields: [categoryId], references: [id])
+  likes               Int       @default(0)
+  orders              Order[]   @relation("ProductOrders")
+  createdAt           DateTime  @default(now())
+  updatedAt           DateTime  @updatedAt
+  Category            Category? @relation(fields: [categoryId], references: [id])
   categoryId          Int?
+}
+
+model Colors {
+  id        Int      @id @default(autoincrement())
+  name      String
+  hexanCode String
+  Product   Product? @relation(fields: [productId], references: [id])
+  productId Int?
 }
 
 model Feature {
