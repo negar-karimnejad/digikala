@@ -22,15 +22,29 @@ export default function ProductForm({ product }: { product?: Product | null }) {
   const [features, setFeatures] = useState<{ key: string; value: string }[]>(
     []
   );
-  const [file, setFile] = useState<File | null>(null);
+  const [colors, setColors] = useState<{ name: string; hex: string }[]>([]);
+  const [thumbnailFile, setThumbnailFile] = useState<File | null>(null);
+  const [additionalFiles, setAdditionalFiles] = useState<File[]>([]);
   const [state, formAction] = useFormState(
     product == null ? addProduct : updateProduct,
     initialState(product)
   );
+  console.log(thumbnailFile);
+
+  const handleAdditionalFilesChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    if (e.target.files) {
+      setAdditionalFiles((prevFiles) => [
+        ...prevFiles,
+        ...Array.from(e.target.files),
+      ]);
+    }
+  };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
-      setFile(e.target.files[0]);
+      setThumbnailFile(e.target.files[0]);
     }
   };
 
@@ -52,16 +66,29 @@ export default function ProductForm({ product }: { product?: Product | null }) {
     setFeatures((prev) => prev.filter((_, i) => i !== index));
   };
 
+  const addColor = () => {
+    setColors((prev) => [...prev, { name: "", hex: "" }]);
+  };
+
+  const handleColorChange = (
+    index: number,
+    field: "name" | "hex",
+    value: string
+  ) => {
+    const updatedColors = [...colors];
+    updatedColors[index] = { ...updatedColors[index], [field]: value };
+    setColors(updatedColors);
+  };
+
+  const removeColor = (index: number) => {
+    setColors((prev) => prev.filter((_, i) => i !== index));
+  };
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
 
-    // Collect selected colors using FormData API
-    const selectedColors = formData.getAll("colors");
-    formData.append("selectedColors", JSON.stringify(selectedColors));
-
-    // Append selected colors as a JSON string
-    formData.append("selectedColors", JSON.stringify(selectedColors));
+    formData.append("colors", JSON.stringify(colors));
     formData.append("features", JSON.stringify(features));
 
     if (product != null) {
@@ -70,9 +97,14 @@ export default function ProductForm({ product }: { product?: Product | null }) {
       formData.append("id", String(Math.floor(Math.random() * 1000000)));
     }
 
-    if (file) {
-      formData.append("thumbnail", file);
+    if (thumbnailFile) {
+      formData.append("thumbnail", thumbnailFile);
     }
+
+    additionalFiles.forEach((file, index) => {
+      formData.append(`additionalFiles[${index}]`, file);
+    });
+
     formAction(formData);
   };
 
@@ -130,25 +162,6 @@ export default function ProductForm({ product }: { product?: Product | null }) {
         </label>
       </div>
 
-      <div className="relative h-20">
-        <input
-          type="text"
-          id="seller"
-          name="seller"
-          placeholder=""
-          required
-          className="peer block w-full appearance-none rounded-t-lg border-0 border-b-2 border-gray-300 bg-gray-50 px-2.5 pb-2.5 pt-5 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0 dark:border-gray-600 dark:bg-gray-900 dark:text-white dark:focus:border-blue-500"
-        />
-        {state.errors?.seller && (
-          <div className="text-red-600 text-xs">{state.errors?.seller}</div>
-        )}
-        <label
-          htmlFor="seller"
-          className="absolute right-3 top-2 text-gray-500 text-sm duration-300 transform -translate-y-4 scale-75 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:text-blue-600 dark:text-gray-400 dark:peer-focus:text-blue-500"
-        >
-          فروشنده
-        </label>
-      </div>
       <div className="grid grid-cols-2 gap-4">
         {[
           { id: "price", label: "قیمت محصول", type: "number" },
@@ -162,19 +175,25 @@ export default function ProductForm({ product }: { product?: Product | null }) {
             id: "recommended_percent",
             label: "درصد پیشنهاد محصول",
             type: "number",
+            step: "0.1",
           },
           { id: "guarantee", label: "نام شرکت گارانتی", type: "text" },
-          { id: "likes", label: "میزان رضایت از کالا", type: "number" },
-          { id: "rating", label: "امتیاز محصول", type: "number" },
+          {
+            id: "likes",
+            label: "میزان رضایت از کالا",
+            type: "number",
+            step: "0.1",
+          },
+          { id: "rating", label: "امتیاز محصول", type: "number", step: "0.1" },
           { id: "voter", label: "تعداد امتیاز دهندگان", type: "number" },
-        ].map(({ id, label, type }) => (
+        ].map(({ id, label, type, step }) => (
           <div key={id} className="relative">
             <input
               type={type}
               id={id}
               name={id}
+              step={step}
               placeholder=""
-              required
               defaultValue={product?.[id] || ""}
               className="peer block w-full appearance-none rounded-t-lg border-0 border-b-2 border-gray-300 bg-gray-50 px-2.5 pb-2.5 pt-5 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0 dark:border-gray-600 dark:bg-gray-900 dark:text-white dark:focus:border-blue-500"
             />
@@ -189,35 +208,6 @@ export default function ProductForm({ product }: { product?: Product | null }) {
             </label>
           </div>
         ))}
-      </div>
-      <div>
-        <div className="text-gray-800 mb-2">رنگ های محصول را انتخاب کنید:</div>
-        <div className="space-y-2">
-          {["قرمز#FF0000", "مشکی#000", "سبز#00ff15", "آبی#0051ff"].map(
-            (color, index) => (
-              <div className="relative flex items-center" key={index}>
-                <input
-                  type="checkbox"
-                  id={`color-${index}`}
-                  name="colors"
-                  value={color.split("#")[0]}
-                  className="ml-2"
-                />
-                <label
-                  htmlFor={`color-${index}`}
-                  className="text-gray-500 text-sm duration-300 transform peer-focus:text-blue-600 dark:text-gray-400 dark:peer-focus:text-blue-500"
-                >
-                  {color.split("#")[0]}
-                </label>
-                {state.errors?.color && (
-                  <div className="text-red-600 text-xs absolute top-6 left-0">
-                    {state.errors?.color}
-                  </div>
-                )}
-              </div>
-            )
-          )}
-        </div>
       </div>
 
       <div>
@@ -309,11 +299,62 @@ export default function ProductForm({ product }: { product?: Product | null }) {
         </button>
       </div>
 
+      <div>
+        <h3 className="text-gray-800 mb-2">رنگ های محصول</h3>
+        {colors.map((color, index) => (
+          <div key={index} className="relative flex gap-2 items-center mb-2">
+            <div className="relative w-full">
+              <input
+                type="text"
+                placeholder=""
+                value={color.name}
+                onChange={(e) =>
+                  handleColorChange(index, "name", e.target.value)
+                }
+                className="peer w-full block appearance-none rounded-l-lg border-0 border-b-2 border-gray-300 bg-gray-50 px-2.5 pb-2.5 pt-5 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0 dark:border-gray-600 dark:bg-gray-900 dark:text-white dark:focus:border-blue-500"
+              />
+              <label
+                htmlFor=""
+                className="absolute right-3 top-2 text-gray-500 text-sm duration-300 transform -translate-y-4 scale-75 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:text-blue-600 dark:text-gray-400 dark:peer-focus:text-blue-500"
+              >
+                نام
+              </label>
+            </div>
+            <div className="relative w-full">
+              <input
+                type="text"
+                placeholder=""
+                value={color.hex}
+                onChange={(e) =>
+                  handleColorChange(index, "hex", e.target.value)
+                }
+                className="peer block w-full appearance-none rounded-r-lg border-0 border-b-2 border-gray-300 bg-gray-50 px-2.5 pb-2.5 pt-5 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0 dark:border-gray-600 dark:bg-gray-900 dark:text-white dark:focus:border-blue-500"
+              />
+              <label
+                htmlFor=""
+                className="absolute right-3 top-2 text-gray-500 text-sm duration-300 transform -translate-y-4 scale-75 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:text-blue-600 dark:text-gray-400 dark:peer-focus:text-blue-500"
+              >
+                کد
+              </label>
+            </div>
+            <button
+              type="button"
+              onClick={() => removeColor(index)}
+              className=" text-red-600 text-sm"
+            >
+              حذف
+            </button>
+          </div>
+        ))}
+        <button type="button" onClick={addColor} className="text-blue-600">
+          افزودن رنگ
+        </button>
+      </div>
+
       <div className="relative h-52">
         <textarea
           id="description"
           name="description"
-          required
           rows={8}
           placeholder=""
           defaultValue={product?.description || ""}
@@ -331,6 +372,7 @@ export default function ProductForm({ product }: { product?: Product | null }) {
           معرفی محصول
         </label>
       </div>
+
       {product != null ? (
         <div className="mb-5 dark:border-gray-700 dark:bg-gray-900 rounded-lg border border-gray-100 p-1">
           <input
@@ -355,14 +397,14 @@ export default function ProductForm({ product }: { product?: Product | null }) {
           <div className="flex -mt-32 items-center justify-center flex-col gap-2">
             <LucideUploadCloud size={35} className="text-red-600" />
             <p className="font-medium text-gray-400">
-              {file != null ? (
+              {thumbnailFile != null ? (
                 <span className="text-center flex flex-col items-center justify-center">
-                  تصویر آپلود شد
+                  تصویر کاور آپلود شد
                   <br />
-                  {file?.name}
+                  {thumbnailFile?.name}
                 </span>
               ) : (
-                "تصویر محصول را آپلود کنید"
+                "تصویر کاور محصول را آپلود کنید"
               )}
             </p>
           </div>
@@ -373,15 +415,41 @@ export default function ProductForm({ product }: { product?: Product | null }) {
           )}
         </div>
       )}
-      {product != null && (
-        <Image
-          src={product.thumbnail}
-          height={200}
-          width={300}
-          alt="Product Image"
-          className="object-cover border rounded-lg mx-auto"
+
+      <div className="h-40 bg-red-50 dark:border-gray-700 dark:bg-gray-900 rounded-lg border-dashed border-2 border-gray-300">
+        <input
+          type="file"
+          id="additionalFiles"
+          name="additionalFiles"
+          multiple
+          onChange={handleAdditionalFilesChange}
+          className="opacity-0 h-full w-full bg-transparent border-0"
         />
-      )}
+        <div className="flex -mt-32 items-center justify-center flex-col gap-2">
+          <LucideUploadCloud size={35} className="text-red-600" />
+          <p className="font-medium text-gray-400">
+            {additionalFiles.length > 0 ? (
+              <span className="text-center flex flex-col items-center justify-center">
+                {additionalFiles.length} تصویر آپلود شد
+              </span>
+            ) : (
+              "تصاویر بیشتری برای محصول آپلود کنید"
+            )}
+          </p>
+        </div>
+      </div>
+      <div className="mt-4 flex">
+        {additionalFiles.map((file, index) => (
+          <Image
+            key={index}
+            src={URL.createObjectURL(file)}
+            height={50}
+            width={50}
+            alt={`Uploaded image ${index}`}
+            className="object-cover border rounded-lg mx-2"
+          />
+        ))}
+      </div>
       <SubmitButton title={product ? "ویرایش" : "افزودن"} />
     </form>
   );

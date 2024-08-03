@@ -9,7 +9,11 @@ export default async function AdminUsersPage() {
   return (
     <>
       <PageHeader title="کاربران" />
-      <AdminTable users={users} />
+      {users.length ? (
+        <AdminTable users={users} />
+      ) : (
+        <div className="text-neutral-500">آیتمی برای نمایش وجود ندارد.</div>
+      )}
     </>
   );
 }

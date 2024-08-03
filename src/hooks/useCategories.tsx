@@ -11,7 +11,9 @@ export default function useCategories() {
   useEffect(() => {
     async function fetchCategories() {
       try {
-        const response: AxiosResponse<any[]> = await axios.get("/api/categories");
+        const response: AxiosResponse<any[]> = await axios.get(
+          "/api/categories"
+        );
         setCategories(response.data);
       } catch (error) {
         setError("Failed to fetch categories");

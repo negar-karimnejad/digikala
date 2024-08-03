@@ -12,7 +12,11 @@ async function ProductTable() {
   return (
     <>
       <PageHeader href="/admin/products/new" title="محصولات" />
-      <AdminTable products={products} />
+      {products.length ? (
+        <AdminTable products={products} />
+      ) : (
+        <div className="text-neutral-500">آیتمی برای نمایش وجود ندارد.</div>
+      )}
     </>
   );
 }

@@ -19,8 +19,11 @@ async function SubmenuItemTable() {
         title="آیتم های زیرمجموعه دسته‌بندی ها"
         href="/admin/categories/submenu-Item/new"
       />
-
-      <AdminTable submenuItems={submenuItems} />
+      {submenuItems.length ? (
+        <AdminTable submenuItems={submenuItems} />
+      ) : (
+        <div className="text-neutral-500">آیتمی برای نمایش وجود ندارد.</div>
+      )}
     </>
   );
 }

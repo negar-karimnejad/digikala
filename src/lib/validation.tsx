@@ -42,11 +42,6 @@ export const imageSchema = fileSchema.refine(
   (file) => file.size === 0 || file.type.startsWith("image/")
 );
 
-const featureSchema = z.object({
-  key: z.string(),
-  value: z.string(),
-});
-
 export const ProductSchema = z.object({
   title: z.string().min(5, { message: "لطفا عنوان محصول را وارد کنید" }),
   en_title: z.string(),
@@ -54,7 +49,6 @@ export const ProductSchema = z.object({
   rating: z.number(),
   voter: z.number().default(0),
   thumbnail: imageSchema.refine((file) => file.size > 0, "Required"),
-  sellerId: z.number().default(1),
   price: z.number().min(0, { message: "قیمت نمی تواند خالی یا عدد منفی باشد" }),
   discount: z.number().optional(),
   discount_price: z.number().optional(),
@@ -63,7 +57,6 @@ export const ProductSchema = z.object({
   guarantee: z.string(),
   sizes: z.string(),
   likes: z.number().default(0),
-  colors: z.array(z.string()),
 });
 
 export const productEditSchema = ProductSchema.extend({

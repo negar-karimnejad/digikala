@@ -3,7 +3,18 @@ import { NextResponse } from "next/server";
 
 export async function GET() {
   try {
-    const products = await db.product.findMany();
+    const products = await db.product.findMany({
+      orderBy: { id: "asc" },
+      include: {
+        comment: true,
+        color: true,
+        image: true,
+        feature: true,
+        category: true,
+        order: true,
+        question: true,
+      },
+    });
 
     return NextResponse.json(products);
   } catch (error) {

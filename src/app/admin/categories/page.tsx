@@ -19,7 +19,11 @@ async function ProductTable() {
   return (
     <>
       <PageHeader href="/admin/categories/new" title="دسته‌بندی ها" />
-      <AdminTable categories={categories} />
+      {categories.length ? (
+        <AdminTable categories={categories} />
+      ) : (
+        <div className="text-neutral-500">آیتمی برای نمایش وجود ندارد.</div>
+      )}
     </>
   );
 }

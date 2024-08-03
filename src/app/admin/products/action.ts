@@ -16,10 +16,12 @@ export async function addProduct(_state: any, formData: FormData) {
 
   const serializedFeatures = JSON.stringify(featureArray);
 
-  const selectedColorsEntry = formData.get("selectedColors");
-  const selectedColors = selectedColorsEntry
-    ? JSON.parse(String(selectedColorsEntry))
-    : [];
+  const colorArray = JSON.parse(entries.colors as string) as {
+    name: string;
+    hex: string;
+  }[];
+
+  const serializedColors = JSON.stringify(colorArray);
 
   const parsedEntries = {
     ...entries,
@@ -32,12 +34,14 @@ export async function addProduct(_state: any, formData: FormData) {
     discount_price: Number(entries.discount_price),
     recommended_percent: Number(entries.recommended_percent),
     likes: Number(entries.likes),
-    colors: selectedColors,
+    sellerId: Number(entries.sellerId),
   };
+  console.log("✨Parsed Entries: ", parsedEntries);
 
   const result = ProductSchema.safeParse(parsedEntries);
 
   if (result.success === false) {
+    console.log("🎨🎨🎨", result.error.formErrors.fieldErrors);
     return result.error.formErrors.fieldErrors;
   }
 
@@ -56,7 +60,6 @@ export async function addProduct(_state: any, formData: FormData) {
       en_title: data.en_title,
       rating: data.rating,
       voter: data.voter,
-      colors: selectedColors,
       sizes: data.sizes,
       thumbnail: imagePath,
       price: data.price,
@@ -66,7 +69,6 @@ export async function addProduct(_state: any, formData: FormData) {
       recommended_percent: data.recommended_percent,
       guarantee: data.guarantee,
       likes: data.likes,
-      sellerId: data.sellerId,
       categoryId: data.categoryId,
     },
   });
@@ -79,6 +81,21 @@ export async function addProduct(_state: any, formData: FormData) {
           data: {
             key: feature.key,
             value: feature.value,
+            productId: product.id,
+          },
+        })
+      )
+    );
+  }
+
+  // Create colors
+  if (Array.isArray(serializedColors)) {
+    await Promise.all(
+      serializedColors.map((color) =>
+        db.colors.create({
+          data: {
+            name: color.name,
+            hex: color.hex,
             productId: product.id,
           },
         })

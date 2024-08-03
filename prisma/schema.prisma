@@ -19,46 +19,50 @@ model User {
   createdAt DateTime   @default(now())
   updatedAt DateTime   @updatedAt
   role      String     @default("USER")
-  comments  Comment[]
-  questions Question[]
-  orders    Order[]
+  comment   Comment[]
+  question  Question[]
+  order     Order[]
 }
 
 model Product {
-  id        Int        @id @default(autoincrement())
-  title     String
-  en_title  String     @default("")
-  rating    Float?
-  voter     Int        @default(0)
-  comments  Comment[]
-  questions Question[]
-
+  id                  Int        @id @default(autoincrement())
+  title               String
+  en_title            String     @default("")
+  rating              Float?
+  voter               Int        @default(0)
+  comment             Comment[]
+  question            Question[]
   sizes               String
-  images              String?
   thumbnail           String
-  features            Feature[]
-  colors              Colors[]
-  seller              Seller    @relation(fields: [sellerId], references: [id])
-  sellerId            Int       @default(1)
+  feature             Feature[]
+  color               Colors[]
   price               Float
   discount            Float?
   discount_price      Float?
   description         String
   recommended_percent Float?
   guarantee           String?
-  likes               Int       @default(0)
-  orders              Order[]   @relation("ProductOrders")
-  createdAt           DateTime  @default(now())
-  updatedAt           DateTime  @updatedAt
-  Category            Category? @relation(fields: [categoryId], references: [id])
+  likes               Float      @default(0)
+  createdAt           DateTime   @default(now())
+  updatedAt           DateTime   @updatedAt
+  category            Category?  @relation(fields: [categoryId], references: [id])
   categoryId          Int?
+  order               Order[]
+  image               Image[]
+}
+
+model Image {
+  id        Int     @id @default(autoincrement())
+  url       String
+  product   Product @relation(fields: [productId], references: [id])
+  productId Int
 }
 
 model Colors {
   id        Int      @id @default(autoincrement())
   name      String
-  hexanCode String
-  Product   Product? @relation(fields: [productId], references: [id])
+  hex       String   @unique
+  product   Product? @relation(fields: [productId], references: [id])
   productId Int?
 }
 
@@ -119,23 +123,17 @@ model Question {
   updatedAt DateTime @updatedAt
 }
 
-model Seller {
-  id       Int       @id @default(autoincrement())
-  name     String
-  email    String    @unique
-  products Product[]
-}
-
 model Order {
-  id          Int       @id @default(autoincrement())
-  orderDate   DateTime  @default(now())
+  id          Int      @id @default(autoincrement())
+  orderDate   DateTime @default(now())
   totalAmount Float
   status      String
-  user        User      @relation(fields: [userId], references: [id])
+  user        User     @relation(fields: [userId], references: [id])
   userId      Int
-  products    Product[] @relation("ProductOrders")
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  product     Product? @relation(fields: [productId], references: [id])
+  productId   Int?
 }
 
 model Story {

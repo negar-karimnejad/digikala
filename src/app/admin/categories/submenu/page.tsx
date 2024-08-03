@@ -17,7 +17,11 @@ async function SubmenuTable() {
         title="زیرمجموعه دسته‌بندی ها"
         href="/admin/categories/submenu/new"
       />
-      <AdminTable submenus={submenus} />
+      {submenus.length ? (
+        <AdminTable submenus={submenus} />
+      ) : (
+        <div className="text-neutral-500">آیتمی برای نمایش وجود ندارد.</div>
+      )}
     </>
   );
 }

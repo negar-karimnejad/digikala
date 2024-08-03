@@ -12,7 +12,11 @@ async function StoriesTable() {
   return (
     <>
       <PageHeader title="داستان ها" href="/admin/stories/new" />
-      <AdminTable stories={stories} />
+      {stories.length ? (
+        <AdminTable stories={stories} />
+      ) : (
+        <div className="text-neutral-500">آیتمی برای نمایش وجود ندارد.</div>
+      )}
     </>
   );
 }
