@@ -5,6 +5,7 @@ import { productEditSchema, ProductSchema } from "@/lib/validation";
 import fs from "fs/promises";
 import { revalidatePath } from "next/cache";
 import { notFound, redirect } from "next/navigation";
+import path from "path";
 
 export async function addProduct(_state: any, formData: FormData) {
   const entries = Object.fromEntries(formData.entries());
@@ -14,14 +15,10 @@ export async function addProduct(_state: any, formData: FormData) {
     value: string;
   }[];
 
-  const serializedFeatures = JSON.stringify(featureArray);
-
   const colorArray = JSON.parse(entries.colors as string) as {
     name: string;
     hex: string;
   }[];
-
-  const serializedColors = JSON.stringify(colorArray);
 
   const parsedEntries = {
     ...entries,
@@ -36,12 +33,9 @@ export async function addProduct(_state: any, formData: FormData) {
     likes: Number(entries.likes),
     sellerId: Number(entries.sellerId),
   };
-  console.log("✨Parsed Entries: ", parsedEntries);
 
   const result = ProductSchema.safeParse(parsedEntries);
-
   if (result.success === false) {
-    console.log("🎨🎨🎨", result.error.formErrors.fieldErrors);
     return result.error.formErrors.fieldErrors;
   }
 
@@ -74,9 +68,9 @@ export async function addProduct(_state: any, formData: FormData) {
   });
 
   // Create features
-  if (Array.isArray(serializedFeatures)) {
+  if (featureArray.length > 0) {
     await Promise.all(
-      serializedFeatures.map((feature) =>
+      featureArray.map((feature) =>
         db.feature.create({
           data: {
             key: feature.key,
@@ -89,9 +83,9 @@ export async function addProduct(_state: any, formData: FormData) {
   }
 
   // Create colors
-  if (Array.isArray(serializedColors)) {
+  if (colorArray.length > 0) {
     await Promise.all(
-      serializedColors.map((color) =>
+      colorArray.map((color) =>
         db.colors.create({
           data: {
             name: color.name,
@@ -101,6 +95,35 @@ export async function addProduct(_state: any, formData: FormData) {
         })
       )
     );
+  }
+
+  // Create images
+  if (formData.has("image")) {
+    const images = formData.getAll("image");
+    console.log(`Found ${images.length} images.`);
+
+    // Ensure image files are properly handled
+    const imagePromises = (images as File[]).map(async (image) => {
+      if (image instanceof File) {
+        const imagePath = `/products/${crypto.randomUUID()}-${image.name}`;
+        await fs.writeFile(
+          path.join(process.cwd(), "public", imagePath),
+          Buffer.from(await image.arrayBuffer())
+        );
+
+        // Save image paths to the database
+        await db.image.create({
+          data: {
+            url: imagePath,
+            productId: product.id,
+          },
+        });
+      } else {
+        console.warn("Expected a File but got:", image);
+      }
+    });
+
+    await Promise.all(imagePromises);
   }
 
   revalidatePath("/");
@@ -155,11 +178,44 @@ export async function updateProduct(_state: any, formData: FormData) {
 }
 
 export async function deleteProduct(id: number) {
-  const product = await db.product.delete({ where: { id } });
+  const productWithImages = await db.product.findUnique({
+    where: { id },
+    include: {
+      image: true,
+    },
+  });
 
-  if (product == null) return notFound();
+  if (!productWithImages) return notFound();
 
-  await fs.unlink(`public${product.thumbnail}`);
+  const imagePaths = productWithImages.image.map((img) => img.url);
+  const allImagePaths = [productWithImages.thumbnail, ...imagePaths].filter(
+    Boolean
+  ); // Remove any falsy values (like null or undefined)
+
+  // Delete image files
+  await Promise.all(
+    allImagePaths.map(async (filePath) => {
+      const fullPath = path.join("public", filePath);
+      try {
+        await fs.unlink(fullPath);
+        console.log(`Deleted file: ${fullPath}`);
+      } catch (error) {
+        if (error.code === "ENOENT") {
+          console.warn(`File not found: ${fullPath}`);
+        } else {
+          console.error(`Failed to delete file ${fullPath}:`, error);
+        }
+      }
+    })
+  );
+
+  // Delete related records from the database
+  await Promise.all([
+    db.image.deleteMany({ where: { productId: id } }),
+    db.feature.deleteMany({ where: { productId: id } }),
+    db.colors.deleteMany({ where: { productId: id } }),
+    db.product.delete({ where: { id } }),
+  ]);
 
   revalidatePath("/");
   revalidatePath("/products");

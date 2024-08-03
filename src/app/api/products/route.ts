@@ -4,13 +4,13 @@ import { NextResponse } from "next/server";
 export async function GET() {
   try {
     const products = await db.product.findMany({
-      orderBy: { id: "asc" },
+      orderBy: { createdAt: "desc" },
       include: {
-        comment: true,
-        color: true,
-        image: true,
-        feature: true,
         category: true,
+        color: true,
+        comment: true,
+        feature: true,
+        image: true,
         order: true,
         question: true,
       },

@@ -18,18 +18,16 @@ const initialState = (product: Product) => ({
 
 export default function ProductForm({ product }: { product?: Product | null }) {
   const { categories } = useCategories();
-
-  const [features, setFeatures] = useState<{ key: string; value: string }[]>(
-    []
-  );
   const [colors, setColors] = useState<{ name: string; hex: string }[]>([]);
   const [thumbnailFile, setThumbnailFile] = useState<File | null>(null);
   const [additionalFiles, setAdditionalFiles] = useState<File[]>([]);
+  const [features, setFeatures] = useState<{ key: string; value: string }[]>(
+    []
+  );
   const [state, formAction] = useFormState(
     product == null ? addProduct : updateProduct,
     initialState(product)
   );
-  console.log(thumbnailFile);
 
   const handleAdditionalFilesChange = (
     e: React.ChangeEvent<HTMLInputElement>
@@ -97,13 +95,11 @@ export default function ProductForm({ product }: { product?: Product | null }) {
       formData.append("id", String(Math.floor(Math.random() * 1000000)));
     }
 
-    if (thumbnailFile) {
-      formData.append("thumbnail", thumbnailFile);
-    }
+    if (thumbnailFile) formData.append("thumbnail", thumbnailFile);
 
-    additionalFiles.forEach((file, index) => {
-      formData.append(`additionalFiles[${index}]`, file);
-    });
+    additionalFiles.forEach((file, index) =>
+      formData.append(`image[${index}]`, file)
+    );
 
     formAction(formData);
   };
@@ -419,8 +415,8 @@ export default function ProductForm({ product }: { product?: Product | null }) {
       <div className="h-40 bg-red-50 dark:border-gray-700 dark:bg-gray-900 rounded-lg border-dashed border-2 border-gray-300">
         <input
           type="file"
-          id="additionalFiles"
-          name="additionalFiles"
+          id="image"
+          name="image"
           multiple
           onChange={handleAdditionalFilesChange}
           className="opacity-0 h-full w-full bg-transparent border-0"
