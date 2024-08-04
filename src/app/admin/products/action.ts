@@ -31,150 +31,237 @@ export async function addProduct(_state: any, formData: FormData) {
     discount_price: Number(entries.discount_price),
     recommended_percent: Number(entries.recommended_percent),
     likes: Number(entries.likes),
-    sellerId: Number(entries.sellerId),
   };
 
+  console.log("🎁🎗", parsedEntries);
+
   const result = ProductSchema.safeParse(parsedEntries);
-  if (result.success === false) {
-    return result.error.formErrors.fieldErrors;
-  }
+  try {
+    if (result.success === false) {
+      console.log("🎁🎗", result.error.formErrors.fieldErrors);
 
-  const data = result.data;
+      return result.error.formErrors.fieldErrors;
+    }
 
-  await fs.mkdir("public/products", { recursive: true });
-  const imagePath = `/products/${crypto.randomUUID()}-${data.thumbnail.name}`;
-  await fs.writeFile(
-    `public${imagePath}`,
-    Buffer.from(await data.thumbnail.arrayBuffer())
-  );
+    const data = result.data;
 
-  const product = await db.product.create({
-    data: {
-      title: data.title,
-      en_title: data.en_title,
-      rating: data.rating,
-      voter: data.voter,
-      sizes: data.sizes,
-      thumbnail: imagePath,
-      price: data.price,
-      discount: data.discount,
-      discount_price: data.discount_price,
-      description: data.description,
-      recommended_percent: data.recommended_percent,
-      guarantee: data.guarantee,
-      likes: data.likes,
-      categoryId: data.categoryId,
-    },
-  });
-
-  // Create features
-  if (featureArray.length > 0) {
-    await Promise.all(
-      featureArray.map((feature) =>
-        db.feature.create({
-          data: {
-            key: feature.key,
-            value: feature.value,
-            productId: product.id,
-          },
-        })
-      )
-    );
-  }
-
-  // Create colors
-  if (colorArray.length > 0) {
-    await Promise.all(
-      colorArray.map((color) =>
-        db.colors.create({
-          data: {
-            name: color.name,
-            hex: color.hex,
-            productId: product.id,
-          },
-        })
-      )
-    );
-  }
-
-  // Create images
-  if (formData.has("image")) {
-    const images = formData.getAll("image");
-    console.log(`Found ${images.length} images.`);
-
-    // Ensure image files are properly handled
-    const imagePromises = (images as File[]).map(async (image) => {
-      if (image instanceof File) {
-        const imagePath = `/products/${crypto.randomUUID()}-${image.name}`;
-        await fs.writeFile(
-          path.join(process.cwd(), "public", imagePath),
-          Buffer.from(await image.arrayBuffer())
-        );
-
-        // Save image paths to the database
-        await db.image.create({
-          data: {
-            url: imagePath,
-            productId: product.id,
-          },
-        });
-      } else {
-        console.warn("Expected a File but got:", image);
-      }
-    });
-
-    await Promise.all(imagePromises);
-  }
-
-  revalidatePath("/");
-  revalidatePath("/products");
-
-  redirect("/admin/products");
-}
-
-export async function updateProduct(_state: any, formData: FormData) {
-  const id = formData.get("id");
-  const numericId = Number(id);
-
-  const result = productEditSchema.safeParse(
-    Object.fromEntries(formData.entries())
-  );
-
-  if (result.success === false) {
-    return result.error.formErrors.fieldErrors;
-  }
-
-  const data = result.data;
-  const product = await db.product.findUnique({ where: { id: numericId } });
-
-  if (product == null) return notFound();
-
-  let imagePath = product.thumbnail;
-
-  if (data.thumbnail != null && data.thumbnail.size > 0) {
-    await fs.unlink(`public${product.thumbnail}`);
-    imagePath = `/products/${crypto.randomUUID()}-${data.thumbnail.name}`;
+    await fs.mkdir("public/products", { recursive: true });
+    const imagePath = `/products/${crypto.randomUUID()}-${data.thumbnail.name}`;
     await fs.writeFile(
       `public${imagePath}`,
       Buffer.from(await data.thumbnail.arrayBuffer())
     );
+
+    const product = await db.product.create({
+      data: {
+        title: data.title,
+        en_title: data.en_title,
+        rating: data.rating,
+        voter: data.voter,
+        sizes: data.sizes,
+        thumbnail: imagePath,
+        price: data.price,
+        discount: data.discount,
+        discount_price: data.discount_price,
+        description: data.description,
+        recommended_percent: data.recommended_percent,
+        guarantee: data.guarantee,
+        likes: data.likes,
+        categoryId: data.categoryId,
+      },
+    });
+
+    // Create features
+    if (featureArray.length > 0) {
+      await Promise.all(
+        featureArray.map((feature) =>
+          db.feature.create({
+            data: {
+              key: feature.key,
+              value: feature.value,
+              productId: product.id,
+            },
+          })
+        )
+      );
+    }
+
+    // Create colors
+    if (colorArray.length > 0) {
+      await Promise.all(
+        colorArray.map((color) =>
+          db.colors.create({
+            data: {
+              name: color.name,
+              hex: color.hex,
+              productId: product.id,
+            },
+          })
+        )
+      );
+    }
+
+    // Create images
+    if (formData.has("image")) {
+      const images = formData.getAll("image");
+
+      // Ensure image files are properly handled
+      const imagePromises = (images as File[]).map(async (image) => {
+        if (image instanceof File) {
+          const imagePath = `/products/${crypto.randomUUID()}-${image.name}`;
+          await fs.writeFile(
+            path.join(process.cwd(), "public", imagePath),
+            Buffer.from(await image.arrayBuffer())
+          );
+
+          // Save image paths to the database
+          await db.image.create({
+            data: {
+              url: imagePath,
+              productId: product.id,
+            },
+          });
+        } else {
+          console.warn("Expected a File but got:", image);
+        }
+      });
+
+      await Promise.all(imagePromises);
+    }
+
+    revalidatePath("/");
+    revalidatePath("/products");
+
+    redirect("/admin/products");
+  } catch (error) {
+    console.error("Error in addProduct:", error);
+    throw error;
   }
+}
 
-  await db.product.update({
-    where: { id: numericId },
-    data: {
-      title: data.title,
-      description: data.description,
-      price: data.price,
-      discount: data.discount,
-      thumbnail: imagePath,
-    },
-  });
+export async function updateProduct(_state: any, formData: FormData) {
+  try {
+    const id = formData.get("id");
+    const numericId = Number(id);
 
-  revalidatePath("/");
-  revalidatePath("/products");
+    const entries = Object.fromEntries(formData.entries());
 
-  redirect("/admin/products");
+    const parsedEntries = {
+      ...entries,
+      id: Number(entries.id),
+      rating: Number(entries.rating),
+      categoryId: Number(entries.categoryId),
+      voter: Number(entries.voter),
+      price: Number(entries.price),
+      discount: Number(entries.discount),
+      discount_price: Number(entries.discount_price),
+      recommended_percent: Number(entries.recommended_percent),
+      likes: Number(entries.likes),
+    };
+
+    const result = productEditSchema.safeParse(parsedEntries);
+    if (result.success === false) {
+      console.log(
+        "✨✨Validation failed:",
+        result.error.formErrors.fieldErrors
+      );
+      return result.error.formErrors.fieldErrors;
+    }
+
+    const data = result.data;
+    const product = await db.product.findUnique({ where: { id: numericId } });
+
+    if (product == null) return notFound();
+
+    let imagePath = product.thumbnail;
+
+    if (data.thumbnail != null && data.thumbnail.size > 0) {
+      await fs.unlink(`public${product.thumbnail}`);
+      imagePath = `/products/${crypto.randomUUID()}-${data.thumbnail.name}`;
+      await fs.writeFile(
+        `public${imagePath}`,
+        Buffer.from(await data.thumbnail.arrayBuffer())
+      );
+    }
+
+    await db.product.update({
+      where: { id: numericId },
+      data: {
+        title: data.title,
+        description: data.description,
+        price: data.price,
+        discount: data.discount,
+        thumbnail: imagePath,
+      },
+    });
+
+    const features = data.features ? JSON.parse(data.features as string) : [];
+    if (features.length > 0) {
+      await db.feature.deleteMany({ where: { productId: numericId } });
+      await Promise.all(
+        features.map((feature: { key: string; value: string }) =>
+          db.feature.create({
+            data: {
+              key: feature.key,
+              value: feature.value,
+              productId: numericId,
+            },
+          })
+        )
+      );
+    }
+
+    // Handle colors update
+    const colors = data.colors ? JSON.parse(data.colors as string) : [];
+    if (colors.length > 0) {
+      await db.colors.deleteMany({ where: { productId: numericId } });
+      await Promise.all(
+        colors.map((color: { name: string; hex: string }) =>
+          db.colors.create({
+            data: {
+              name: color.name,
+              hex: color.hex,
+              productId: numericId,
+            },
+          })
+        )
+      );
+    }
+
+    // Handle additional images update
+    if (formData.has("image")) {
+      const images = formData.getAll("image");
+      const imagePromises = (images as File[]).map(async (image) => {
+        if (image instanceof File) {
+          const imagePath = `/products/${crypto.randomUUID()}-${image.name}`;
+          await fs.writeFile(
+            path.join(process.cwd(), "public", imagePath),
+            Buffer.from(await image.arrayBuffer())
+          );
+
+          // Save image paths to the database
+          await db.image.create({
+            data: {
+              url: imagePath,
+              productId: numericId,
+            },
+          });
+        } else {
+          console.warn("Expected a File but got:", image);
+        }
+      });
+
+      await Promise.all(imagePromises);
+    }
+
+    revalidatePath("/");
+    revalidatePath("/products");
+
+    redirect("/admin/products");
+  } catch (error) {
+    console.error("Error in updateProduct:", error);
+    throw error;
+  }
 }
 
 export async function deleteProduct(id: number) {

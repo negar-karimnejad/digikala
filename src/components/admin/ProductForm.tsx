@@ -3,20 +3,24 @@
 import { addProduct, updateProduct } from "@/app/admin/products/action";
 import { Button } from "@/components/ui/button";
 import useCategories from "@/hooks/useCategories";
-import { Product } from "@prisma/client";
-import { LucideUploadCloud } from "lucide-react";
+import { ProductIncludeImage } from "@/types/types";
+import { LucideUploadCloud, X } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useFormState, useFormStatus } from "react-dom";
 import toast from "react-hot-toast";
 
-const initialState = (product: Product) => ({
+const initialState = (product: ProductIncludeImage) => ({
   ...product,
   errors: {},
   success: false,
 });
 
-export default function ProductForm({ product }: { product?: Product | null }) {
+export default function ProductForm({
+  product,
+}: {
+  product?: ProductIncludeImage | null;
+}) {
   const { categories } = useCategories();
   const [colors, setColors] = useState<{ name: string; hex: string }[]>([]);
   const [thumbnailFile, setThumbnailFile] = useState<File | null>(null);
@@ -28,6 +32,10 @@ export default function ProductForm({ product }: { product?: Product | null }) {
     product == null ? addProduct : updateProduct,
     initialState(product)
   );
+
+  const removeFile = (index: number) => {
+    setAdditionalFiles((prevFiles) => prevFiles.filter((_, i) => i !== index));
+  };
 
   const handleAdditionalFilesChange = (
     e: React.ChangeEvent<HTMLInputElement>
@@ -42,7 +50,12 @@ export default function ProductForm({ product }: { product?: Product | null }) {
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
-      setThumbnailFile(e.target.files[0]);
+      const file = e.target.files[0];
+      if (!file.type.startsWith("image/")) {
+        toast.error("Please upload a valid image file.");
+        return;
+      }
+      setThumbnailFile(file);
     }
   };
 
@@ -86,33 +99,36 @@ export default function ProductForm({ product }: { product?: Product | null }) {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
 
+    // Append additional fields and files
     formData.append("colors", JSON.stringify(colors));
     formData.append("features", JSON.stringify(features));
-
-    if (product != null) {
-      formData.append("id", String(product.id));
-    } else {
-      formData.append("id", String(Math.floor(Math.random() * 1000000)));
-    }
-
-    if (thumbnailFile) formData.append("thumbnail", thumbnailFile);
-
-    additionalFiles.forEach((file, index) =>
-      formData.append(`image[${index}]`, file)
+    formData.append(
+      "id",
+      product ? String(product.id) : String(Math.floor(Math.random() * 1000000))
     );
 
-    formAction(formData);
-  };
+    if (thumbnailFile) formData.append("thumbnail", thumbnailFile);
+    additionalFiles.forEach((file) => formData.append("image", file));
 
-  useEffect(() => {
-    if (state.success) {
+    try {
+      formAction(formData);
       toast.success(
         product == null
           ? "محصول با موفقیت اضافه شد."
           : "محصول با موفقیت ویرایش شد."
       );
+    } catch (error) {
+      toast.error("خطا در ارسال اطلاعات. لطفا دوباره تلاش کنید.");
+      console.error("Submit Error:", error);
     }
-  }, [product, state.success]);
+  };
+
+  // Reset state for additionalFiles if in update mode
+  useEffect(() => {
+    if (product) {
+      setAdditionalFiles([]);
+    }
+  }, [product]);
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
@@ -213,6 +229,7 @@ export default function ProductForm({ product }: { product?: Product | null }) {
         <select
           name="sizes"
           id="sizes"
+          defaultValue={product?.sizes || ""}
           className="block w-full rounded-lg border-2 border-gray-300 bg-gray-50 px-3 py-2 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0 dark:border-gray-600 dark:bg-gray-900 dark:text-white dark:focus:border-blue-500"
         >
           <option value="-1">سایز محصول را انتخاب کنید</option>
@@ -233,8 +250,9 @@ export default function ProductForm({ product }: { product?: Product | null }) {
           required
           name="categoryId"
           id="categoryId"
+          defaultValue={product?.categoryId ? String(product.categoryId) : ""}
         >
-          <option value="-1">دسته‌بندی مورد نظر را انتخاب کنید</option>
+          <option value="">دسته‌بندی مورد نظر را انتخاب کنید</option>
           {categories.map((category) => (
             <option key={category.id} value={category.id}>
               {category.title}
@@ -434,16 +452,24 @@ export default function ProductForm({ product }: { product?: Product | null }) {
           </p>
         </div>
       </div>
-      <div className="mt-4 flex">
+      <div className="mt-4 flex flex-wrap gap-3">
         {additionalFiles.map((file, index) => (
-          <Image
-            key={index}
-            src={URL.createObjectURL(file)}
-            height={50}
-            width={50}
-            alt={`Uploaded image ${index}`}
-            className="object-cover border rounded-lg mx-2"
-          />
+          <div key={index} className="relative">
+            <Image
+              key={index}
+              src={URL.createObjectURL(file)}
+              height={50}
+              width={50}
+              alt={`Uploaded image ${index}`}
+              className="object-cover border rounded-lg"
+            />
+            <span
+              onClick={() => removeFile(index)}
+              className="absolute w-4 h-4 flex items-center justify-center -right-2 -top-2 bg-red-500 rounded-full text-white text-xs"
+            >
+              <X size={16} />
+            </span>
+          </div>
         ))}
       </div>
       <SubmitButton title={product ? "ویرایش" : "افزودن"} />

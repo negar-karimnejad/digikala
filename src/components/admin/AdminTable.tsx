@@ -59,6 +59,7 @@ export default function AdminTable({
             <TableRow>
               <TableHead className="text-right">تصویر</TableHead>
               <TableHead className="text-right">عنوان</TableHead>
+              <TableHead className="text-right">امتیاز</TableHead>
               <TableHead className="text-right">قیمت</TableHead>
               <TableHead className="text-right max-sm:hidden">تخفیف</TableHead>
               <TableHead className="text-right"></TableHead>
@@ -122,6 +123,9 @@ export default function AdminTable({
                 </TableCell>
                 <TableCell>
                   <p className="w-52 max-w-64">{product.title}</p>
+                </TableCell>
+                <TableCell>
+                  <p>{product.rating}</p>
                 </TableCell>
                 <TableCell>
                   <p className="font-iransans text-center whitespace-nowrap">

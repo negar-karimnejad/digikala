@@ -61,6 +61,8 @@ export const ProductSchema = z.object({
 
 export const productEditSchema = ProductSchema.extend({
   thumbnail: imageSchema.optional(),
+  features: z.string().optional(),
+  colors: z.string().optional(),
 });
 
 export const CategorySubmenuItemSchema = z.object({

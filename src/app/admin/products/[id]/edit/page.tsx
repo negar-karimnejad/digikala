@@ -7,13 +7,15 @@ export default async function EditProductPage({
 }: {
   params: { id: number };
 }) {
-  const product = await db.product.findUnique({ where: { id } });
-  const categories = await db.category.findMany({ orderBy: { title: "asc" } });
+  const product = await db.product.findUnique({
+    where: { id: Number(id) },
+    include: { image: true },
+  });
 
   return (
     <>
       <PageHeader title="ویرایش محصول" />
-      <ProductForm product={product} categories={categories} />
+      <ProductForm product={product} />
     </>
   );
 }
