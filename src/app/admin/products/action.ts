@@ -39,7 +39,6 @@ export async function addProduct(_state: any, formData: FormData) {
   try {
     if (result.success === false) {
       console.log("🎁🎗", result.error.formErrors.fieldErrors);
-
       return result.error.formErrors.fieldErrors;
     }
 
