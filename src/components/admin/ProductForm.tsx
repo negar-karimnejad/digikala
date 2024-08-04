@@ -229,7 +229,7 @@ export default function ProductForm({
         <select
           name="sizes"
           id="sizes"
-          defaultValue={product?.sizes || ""}
+          defaultValue={product?.sizes ? String(product.sizes) : ""}
           className="block w-full rounded-lg border-2 border-gray-300 bg-gray-50 px-3 py-2 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0 dark:border-gray-600 dark:bg-gray-900 dark:text-white dark:focus:border-blue-500"
         >
           <option value="-1">سایز محصول را انتخاب کنید</option>
