@@ -3,14 +3,14 @@
 import { addProduct, updateProduct } from "@/app/admin/products/action";
 import { Button } from "@/components/ui/button";
 import useCategories from "@/hooks/useCategories";
-import { ProductIncludeImage } from "@/types/types";
+import { ProductProps } from "@/types/types";
 import { LucideUploadCloud, X } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
 import { useFormState, useFormStatus } from "react-dom";
 import toast from "react-hot-toast";
 
-const initialState = (product: ProductIncludeImage) => ({
+const initialState = (product: ProductProps) => ({
   ...product,
   errors: {},
   success: false,
@@ -19,7 +19,7 @@ const initialState = (product: ProductIncludeImage) => ({
 export default function ProductForm({
   product,
 }: {
-  product?: ProductIncludeImage | null;
+  product?: ProductProps | null;
 }) {
   const { categories } = useCategories();
   const [colors, setColors] = useState<{ name: string; hex: string }[]>([]);

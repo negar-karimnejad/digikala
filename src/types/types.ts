@@ -1,4 +1,13 @@
-import { Category, Image, Product, User } from "@prisma/client";
+import {
+  Category,
+  Colors,
+  Feature,
+  Image,
+  Product,
+  Submenu,
+  SubmenuItem,
+  User,
+} from "@prisma/client";
 import { StaticImageData } from "next/image";
 
 export interface Location {
@@ -84,6 +93,9 @@ export interface CategoryProps {
   submenus?: SubmenuProps[];
 }
 
-export interface ProductIncludeImage extends Product {
-  image: Image[];
+export interface ProductProps extends Product {
+  image?: Image[];
+  category?: CategoryProps;
+  color?: Colors[];
+  feature?: Feature[];
 }

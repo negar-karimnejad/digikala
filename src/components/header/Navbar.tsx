@@ -220,13 +220,13 @@ export default function Navbar() {
             <NavLinks />
             <div className="w-[0.5px] h-4 bg-gray-200 dark:bg-gray-500"></div>
             <button className="relative flex mx-3 py-3 items-center gap-1 text-gray-500 dark:text-gray-300 text-[13px] group">
-              <Link href="" className="font-medium transition-colors">
+              <Link href="/faq" className="font-medium transition-colors">
                 سوالی دارید؟
               </Link>
               <span className="absolute bottom-0 left-0 h-0.5 bg-red-500 transition-all duration-900 ease-linear group-hover:w-full w-0"></span>
             </button>
             <button className="relative flex mx-3 py-3 items-center gap-1 text-gray-500 dark:text-gray-300 text-[13px] group">
-              <Link href="" className="font-medium transition-colors">
+              <Link href="/landings/seller-introduction" className="font-medium transition-colors">
                 در دیجی کالا بفروشید!
               </Link>
               <span className="absolute bottom-0 left-0 h-0.5 bg-red-500 transition-all duration-900 ease-linear group-hover:w-full w-0"></span>

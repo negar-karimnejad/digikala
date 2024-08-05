@@ -8,6 +8,9 @@ export async function GET(
   try {
     const product = await db.product.findUnique({
       where: { id: Number(params.id) },
+      include: {
+        category: { include: { submenus: { include: { items: true } } } },
+      },
     });
     return NextResponse.json(product);
   } catch (error) {
