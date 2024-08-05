@@ -1,17 +1,24 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 function useScroll() {
   const [isVisible, setIsVisible] = useState(true);
-  const [prevScrollPos, setPrevScrollPos] = useState(window.pageYOffset);
+  const [prevScrollPos, setPrevScrollPos] = useState<number>(() => {
+    if (typeof window !== "undefined") {
+      return window.pageYOffset;
+    }
+    return 0; // Default value for server-side rendering
+  });
 
   useEffect(() => {
     const handleScroll = () => {
-      const currentScrollPos = window.pageYOffset;
-      const isScrollingDown = prevScrollPos < currentScrollPos;
+      if (typeof window !== "undefined") {
+        const currentScrollPos = window.pageYOffset;
+        const isScrollingDown = prevScrollPos < currentScrollPos;
 
-      setIsVisible(!isScrollingDown);
-      setPrevScrollPos(currentScrollPos);
+        setIsVisible(!isScrollingDown);
+        setPrevScrollPos(currentScrollPos);
+      }
     };
 
     window.addEventListener("scroll", handleScroll);

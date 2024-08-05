@@ -36,22 +36,33 @@ const links = [
 export default function Navbar() {
   const { categories } = useCategories();
 
-  const [provincecities, setProvinceCities] = useState<City[]>([]);
   // const [userProvince, setUserProvince] = useState("");
+  const [provincecities, setProvinceCities] = useState<City[]>([]);
   const [isShowMenu, setIsShowMenu] = useState(false);
   const [locating, setLocating] = useState(false);
   const [isShowCityModal, setIsShowCityModal] = useState(false);
   const [location, setLocation] = useState<Location | null>(null);
-  const [userCity, setUserCity] = useState<City | null>(() => {
-    const savedCity = localStorage.getItem("location");
-    return savedCity ? JSON.parse(savedCity) : null;
-  });
+  const [userCity, setUserCity] = useState<City | null>(null);
   const [selectedCategory, setSelectedCategory] =
     useState<CategoryProps | null>(
       categories?.find((category) => category.title === "موبایل") || null
     );
 
   const { isVisible } = useScroll();
+
+  useEffect(() => {
+    // Only run on the client side
+    const savedCity = localStorage.getItem("location");
+    if (savedCity) {
+      setUserCity(JSON.parse(savedCity));
+    }
+  }, []);
+
+  useEffect(() => {
+    if (userCity) {
+      localStorage.setItem("location", JSON.stringify(userCity));
+    }
+  }, [userCity]);
 
   const hoverHandler = (categoryId: number) => {
     const category = categories.find(
@@ -94,12 +105,6 @@ export default function Navbar() {
   };
 
   const closeModalHandler = () => setIsShowCityModal(false);
-
-  useEffect(() => {
-    if (userCity) {
-      localStorage.setItem("location", JSON.stringify(userCity));
-    }
-  }, [userCity]);
 
   return (
     <>

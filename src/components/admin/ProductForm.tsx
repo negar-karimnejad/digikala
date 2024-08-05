@@ -4,7 +4,6 @@ import { addProduct, updateProduct } from "@/app/admin/products/action";
 import { Button } from "@/components/ui/button";
 import useCategories from "@/hooks/useCategories";
 import { ProductIncludeImage } from "@/types/types";
-import { Image as ImageProps } from "@prisma/client";
 import { LucideUploadCloud, X } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
@@ -26,12 +25,10 @@ export default function ProductForm({
   const [colors, setColors] = useState<{ name: string; hex: string }[]>([]);
   const [thumbnailFile, setThumbnailFile] = useState<File | null>(null);
   const [additionalFiles, setAdditionalFiles] = useState<File[]>([]);
-  const [existingImages, setExistingImages] = useState<ImageProps[]>(
-    product?.image || []
-  );
   const [features, setFeatures] = useState<{ key: string; value: string }[]>(
     []
   );
+
   const [state, formAction] = useFormState(
     product == null ? addProduct : updateProduct,
     initialState(product)
@@ -81,16 +78,13 @@ export default function ProductForm({
     setColors((prev) => prev.filter((_, i) => i !== index));
   };
 
-  const handleRemoveImage = (imageId: number) => {
-    setExistingImages(existingImages.filter((image) => image.id !== imageId));
+  const handleRemoveImage = (index: number) => {
+    setAdditionalFiles(additionalFiles.filter((_, i) => i !== index));
   };
 
   const addColor = () => {
     setColors((prev) => [...prev, { name: "", hex: "" }]);
   };
-  console.log("existingImages =>", existingImages);
-  console.log("additionalFiles =>", additionalFiles);
-  console.log("product.image =>", product?.image);
 
   const handleColorChange = (
     index: number,
@@ -114,8 +108,21 @@ export default function ProductForm({
       product ? String(product.id) : String(Math.floor(Math.random() * 1000000))
     );
 
-    if (thumbnailFile) formData.append("thumbnail", thumbnailFile);
-    additionalFiles.forEach((file) => formData.append("image", file));
+    if (thumbnailFile) {
+      formData.append("thumbnail", thumbnailFile);
+    }
+
+    // Track files to avoid duplicates
+    const seenFiles = new Set();
+    additionalFiles.forEach((file) => {
+      const fileName = file.name;
+      if (!seenFiles.has(fileName)) {
+        seenFiles.add(fileName);
+        formData.append("image", file);
+      } else {
+        console.warn("Duplicate file detected:", file);
+      }
+    });
 
     try {
       formAction(formData);
@@ -485,8 +492,8 @@ export default function ProductForm({
               className="object-cover border rounded-lg"
             />
             <span
-              // onClick={}
-              className="absolute w-4 h-4 flex items-center justify-center -right-2 -top-2 bg-red-500 rounded-full text-white text-xs"
+              onClick={() => handleRemoveImage(index)}
+              className="cursor-pointer absolute w-4 h-4 flex items-center justify-center -right-2 -top-2 bg-red-500 rounded-full text-white text-xs"
             >
               <X size={16} />
             </span>

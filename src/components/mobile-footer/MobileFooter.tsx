@@ -2,11 +2,15 @@
 
 import { mobileFooterLinks } from "@/data/data";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function MobileFooter() {
-  const pathname = window.location.pathname;
-  const [activeLink, setActiveLink] = useState(pathname);
+  const [activeLink, setActiveLink] = useState<string | null>(null);
+
+  useEffect(() => {
+    const pathname = window.location.pathname;
+    setActiveLink(pathname);
+  }, []);
 
   return (
     <div className="lg:hidden bg-white dark:bg-neutral-900 py-1 w-full fixed bottom-0 right-0 shadow-lg shadow-neutral-500 border-t z-30">
