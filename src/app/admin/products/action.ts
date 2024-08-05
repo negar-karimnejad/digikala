@@ -229,22 +229,32 @@ export async function updateProduct(_state: any, formData: FormData) {
 
     // Handle additional images update
     if (formData.has("image")) {
+      await db.image.deleteMany({ where: { productId: numericId } });
       const images = formData.getAll("image");
+
+      // Log to check duplicates
+      const imagePaths = new Set();
       const imagePromises = (images as File[]).map(async (image) => {
         if (image instanceof File) {
           const imagePath = `/products/${crypto.randomUUID()}-${image.name}`;
-          await fs.writeFile(
-            path.join(process.cwd(), "public", imagePath),
-            Buffer.from(await image.arrayBuffer())
-          );
 
-          // Save image paths to the database
-          await db.image.create({
-            data: {
-              url: imagePath,
-              productId: numericId,
-            },
-          });
+          if (imagePaths.has(imagePath)) {
+            console.warn(`Duplicate image detected: ${image.name}`);
+          } else {
+            imagePaths.add(imagePath);
+            await fs.writeFile(
+              path.join(process.cwd(), "public", imagePath),
+              Buffer.from(await image.arrayBuffer())
+            );
+
+            // Save image paths to the database
+            await db.image.create({
+              data: {
+                url: imagePath,
+                productId: numericId,
+              },
+            });
+          }
         } else {
           console.warn("Expected a File but got:", image);
         }

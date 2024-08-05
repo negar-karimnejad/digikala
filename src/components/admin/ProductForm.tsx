@@ -4,9 +4,10 @@ import { addProduct, updateProduct } from "@/app/admin/products/action";
 import { Button } from "@/components/ui/button";
 import useCategories from "@/hooks/useCategories";
 import { ProductIncludeImage } from "@/types/types";
+import { Image as ImageProps } from "@prisma/client";
 import { LucideUploadCloud, X } from "lucide-react";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useFormState, useFormStatus } from "react-dom";
 import toast from "react-hot-toast";
 
@@ -25,6 +26,9 @@ export default function ProductForm({
   const [colors, setColors] = useState<{ name: string; hex: string }[]>([]);
   const [thumbnailFile, setThumbnailFile] = useState<File | null>(null);
   const [additionalFiles, setAdditionalFiles] = useState<File[]>([]);
+  const [existingImages, setExistingImages] = useState<ImageProps[]>(
+    product?.image || []
+  );
   const [features, setFeatures] = useState<{ key: string; value: string }[]>(
     []
   );
@@ -32,10 +36,6 @@ export default function ProductForm({
     product == null ? addProduct : updateProduct,
     initialState(product)
   );
-
-  const removeFile = (index: number) => {
-    setAdditionalFiles((prevFiles) => prevFiles.filter((_, i) => i !== index));
-  };
 
   const handleAdditionalFilesChange = (
     e: React.ChangeEvent<HTMLInputElement>
@@ -77,9 +77,20 @@ export default function ProductForm({
     setFeatures((prev) => prev.filter((_, i) => i !== index));
   };
 
+  const removeColor = (index: number) => {
+    setColors((prev) => prev.filter((_, i) => i !== index));
+  };
+
+  const handleRemoveImage = (imageId: number) => {
+    setExistingImages(existingImages.filter((image) => image.id !== imageId));
+  };
+
   const addColor = () => {
     setColors((prev) => [...prev, { name: "", hex: "" }]);
   };
+  console.log("existingImages =>", existingImages);
+  console.log("additionalFiles =>", additionalFiles);
+  console.log("product.image =>", product.image);
 
   const handleColorChange = (
     index: number,
@@ -89,10 +100,6 @@ export default function ProductForm({
     const updatedColors = [...colors];
     updatedColors[index] = { ...updatedColors[index], [field]: value };
     setColors(updatedColors);
-  };
-
-  const removeColor = (index: number) => {
-    setColors((prev) => prev.filter((_, i) => i !== index));
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -123,13 +130,17 @@ export default function ProductForm({
     }
   };
 
-  // Reset state for additionalFiles if in update mode
-  useEffect(() => {
-    if (product) {
-      setAdditionalFiles([]);
-    }
-  }, [product]);
+  //
+  const bill = 275;
+  const tip = bill >= 50 && bill <= 300 ? bill * 0.15 : bill * 0.2;
 
+  console.log(
+    `The bill was ${bill} and the tip was ${tip} and the total value ${
+      bill + tip
+    }`
+  );
+
+  //
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       <div className="relative h-20">
@@ -452,6 +463,27 @@ export default function ProductForm({
           </p>
         </div>
       </div>
+
+      {/* <div className="mt-4 flex flex-wrap gap-3">
+        {existingImages.map((image) => (
+          <div key={image.id} className="relative">
+            <Image
+              src={image.url}
+              height={50}
+              width={50}
+              alt={`Uploaded image ${image.id}`}
+              className="object-cover border rounded-lg"
+            />
+            <span
+              onClick={() => handleRemoveImage(image.id)}
+              className="absolute w-4 h-4 flex items-center justify-center -right-2 -top-2 bg-red-500 rounded-full text-white text-xs cursor-pointer"
+            >
+              <X size={16} />
+            </span>
+          </div>
+        ))}
+      </div> */}
+
       <div className="mt-4 flex flex-wrap gap-3">
         {additionalFiles.map((file, index) => (
           <div key={index} className="relative">
@@ -464,7 +496,7 @@ export default function ProductForm({
               className="object-cover border rounded-lg"
             />
             <span
-              onClick={() => removeFile(index)}
+              // onClick={}
               className="absolute w-4 h-4 flex items-center justify-center -right-2 -top-2 bg-red-500 rounded-full text-white text-xs"
             >
               <X size={16} />
@@ -472,6 +504,7 @@ export default function ProductForm({
           </div>
         ))}
       </div>
+
       <SubmitButton title={product ? "ویرایش" : "افزودن"} />
     </form>
   );
