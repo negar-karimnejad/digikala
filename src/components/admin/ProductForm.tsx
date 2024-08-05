@@ -90,7 +90,7 @@ export default function ProductForm({
   };
   console.log("existingImages =>", existingImages);
   console.log("additionalFiles =>", additionalFiles);
-  console.log("product.image =>", product.image);
+  console.log("product.image =>", product?.image);
 
   const handleColorChange = (
     index: number,
