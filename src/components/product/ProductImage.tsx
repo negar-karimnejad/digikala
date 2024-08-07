@@ -4,6 +4,7 @@ import { ProductProps } from "@/types/types";
 import Image from "next/image";
 import { useState } from "react";
 import ProductSlider from "./ProductSlider";
+import FullSizeImage from "./FullSizeImage";
 
 export default function ProductImage({ product }: { product: ProductProps }) {
   const [isOpen, setIsOpen] = useState(-1);
@@ -17,8 +18,8 @@ export default function ProductImage({ product }: { product: ProductProps }) {
       <div className="max-lg:hidden">
         <Image
           alt={product.title}
-          width={450}
-          height={450}
+          width={420}
+          height={420}
           src={product.thumbnail}
           className="object-cover"
         />
@@ -26,6 +27,7 @@ export default function ProductImage({ product }: { product: ProductProps }) {
           {product.image.slice(0, 5).map((img, index) => (
             <div
               key={img.id}
+              onClick={() => setIsOpen(img.id)}
               className="cursor-pointer relative border rounded-lg overflow-hidden"
             >
               <div
@@ -61,7 +63,11 @@ export default function ProductImage({ product }: { product: ProductProps }) {
         <ProductSlider product={product} productImages={product.image} />
       </div>
       <div className="max-md:hidden">
-        {/* <FullSizeImage room={room} isOpen={isOpen} closeModal={closeModal} /> */}
+        <FullSizeImage
+          image={product.image}
+          isOpen={isOpen}
+          closeModal={closeModal}
+        />
       </div>
     </>
   );
