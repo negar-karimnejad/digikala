@@ -6,7 +6,7 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
-import { Category, Submenu, Product, SubmenuItem } from "@prisma/client";
+import { Category, Product, Submenu, SubmenuItem } from "@prisma/client";
 import { SlashIcon } from "lucide-react";
 
 interface BreadcrumbContainerProps {
@@ -28,6 +28,7 @@ export default function BreadcrumbContainer({
     { label: submenu.title, href: submenu.href },
     { label: item.title, href: item.href },
   ];
+
   return (
     <Breadcrumb>
       <BreadcrumbList>

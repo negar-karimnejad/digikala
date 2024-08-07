@@ -264,7 +264,10 @@ export default function Offers() {
                 <Card className="h-72 rounded-none border-0">
                   <CardContent className="p-0">
                     <Link
-                      href={`/products/${product.title.replaceAll(" ", "-")}`}
+                      href={`/products/${product.id}-${product.title.replaceAll(
+                        " ",
+                        "-"
+                      )}`}
                       className="flex flex-col items-center justify-center p-2"
                     >
                       <div className="relative mb-5">

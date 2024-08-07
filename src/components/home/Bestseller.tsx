@@ -63,7 +63,10 @@ export default function Bestseller({ title }: { title: string }) {
         {products?.slice(0, 6).map((product: Product, index: number) => (
           <SwiperSlide key={product.id} className="flex flex-col gap-5">
             <Link
-              href={`/products/${product.title.replaceAll(" ", "-")}`}
+              href={`/products/${product.id}-${product.title.replaceAll(
+                " ",
+                "-"
+              )}`}
               className="flex items-center gap-4"
             >
               <Image alt="" width={100} height={100} src={product.thumbnail} />
