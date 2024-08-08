@@ -1,6 +1,5 @@
 import { ThemeProvider } from "@/components/ui/theme-provider";
 import { cn } from "@/lib/utils";
-
 import { AuthProvider } from "@/lib/AuthProvider";
 import { getServerSession } from "next-auth";
 import localFont from "next/font/local";
@@ -41,7 +40,6 @@ export default async function RootLayout({
             disableTransitionOnChange
           >
             {children}
-            {/* <MobileFooter /> */}
             <Toaster position="top-center" reverseOrder={false} />
           </ThemeProvider>
         </AuthProvider>

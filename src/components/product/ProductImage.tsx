@@ -23,7 +23,7 @@ export default function ProductImage({ product }: { product: ProductProps }) {
           src={product.thumbnail}
           className="object-cover"
         />
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between gap-2">
           {product.image.slice(0, 5).map((img, index) => (
             <div
               key={img.id}
@@ -62,7 +62,7 @@ export default function ProductImage({ product }: { product: ProductProps }) {
       <div className="lg:hidden w-full">
         <ProductSlider product={product} productImages={product.image} />
       </div>
-      <div className="max-md:hidden">
+      <div>
         <FullSizeImage
           image={product.image}
           isOpen={isOpen}
