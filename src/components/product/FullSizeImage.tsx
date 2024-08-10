@@ -173,10 +173,10 @@ function FullSizeImage({
               </button>
             </div>
             <div className="h-screen overflow-y-scroll mt-10 p-5  mx-auto max-w-5xl">
-              <div className="grid grid-cols-12 justify-between gap-3">
+              <div className="grid grid-cols-12 justify-between gap-3 mb-28">
                 <div className="flex col-span-12 mb-3 px-3 font-bold text-neutral-600 items-center justify-between text-sm w-full">
                   <span>تصاویر رسمی</span>
-                  <span>{image.length}مورد</span>
+                  <span>{image.length} مورد</span>
                 </div>
                 {image.map((img) => (
                   <Image

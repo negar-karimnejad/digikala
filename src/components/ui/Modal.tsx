@@ -34,7 +34,7 @@ function Modal({
         className={`overflow-hidden max-sm:fixed bottom-0 right-0 w-full rounded-lg bg-white px-5 shadow transition-all duration-500 dark:text-white
          ${
            centered
-             ? "dark:bg-neutral-700 min-[600px]:w-[500px] h-[30rem]"
+             ? "dark:bg-neutral-700 min-[600px]:w-[500px]"
              : "dark:bg-neutral-800 min-[600px]:w-[750px]"
          } ${
           isStory

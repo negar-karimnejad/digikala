@@ -14,7 +14,7 @@ export default function ProductImage({ product }: { product: ProductProps }) {
   };
 
   return (
-    <>
+    <div className="w-full col-span-4 max-lg:col-span-12 justify-center items-center">
       <div className="max-lg:hidden">
         <Image
           alt={product.title}
@@ -69,6 +69,6 @@ export default function ProductImage({ product }: { product: ProductProps }) {
           closeModal={closeModal}
         />
       </div>
-    </>
+    </div>
   );
 }

@@ -55,7 +55,9 @@ export default function Footer() {
           </button>
         </div>
         <MobileSizeApp />
-        <FooterFaq />
+        <div className="my-10">
+          <FooterFaq vertical={true} />
+        </div>
         <FooterLinks />
         <App />
         <div className="max-lg:hidden my-10 w-full border-b bg-gray-400"></div>

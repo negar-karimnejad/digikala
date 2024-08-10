@@ -1,11 +1,13 @@
 import Link from "next/link";
 
-export default function FooterFaq() {
+export default function FooterFaq({ vertical }: { vertical?: boolean }) {
   return (
-    <div className="max-lg:hidden my-14 grid grid-cols-5 w-full justify-center items-center">
+    <div className="max-lg:hidden my-4 grid grid-cols-5 w-full justify-center items-center">
       <Link
         href="/guarantee"
-        className="mx-auto flex items-center justify-center flex-col"
+        className={`mx-auto flex items-center justify-center ${
+          vertical ? "flex-col" : ""
+        }`}
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -50,7 +52,9 @@ export default function FooterFaq() {
       </Link>
       <Link
         href="/return"
-        className="mx-auto flex items-center justify-center flex-col"
+        className={`mx-auto flex items-center justify-center ${
+          vertical ? "flex-col" : ""
+        }`}
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -101,7 +105,9 @@ export default function FooterFaq() {
       </Link>
       <Link
         href="/contact-us"
-        className="mx-auto flex items-center justify-center flex-col"
+        className={`mx-auto flex items-center justify-center ${
+          vertical ? "flex-col" : ""
+        }`}
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -160,7 +166,9 @@ export default function FooterFaq() {
       </Link>
       <Link
         href="/payment"
-        className="mx-auto flex items-center justify-center flex-col"
+        className={`mx-auto flex items-center justify-center ${
+          vertical ? "flex-col" : ""
+        }`}
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -213,7 +221,9 @@ export default function FooterFaq() {
       </Link>
       <Link
         href="/sending"
-        className="mx-auto flex items-center justify-center flex-col"
+        className={`mx-auto flex items-center justify-center ${
+          vertical ? "flex-col" : ""
+        }`}
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
