@@ -1,9 +1,11 @@
 import {
   Category,
   Colors,
+  Comment,
   Feature,
   Image,
   Product,
+  Question,
   Submenu,
   SubmenuItem,
   User,
@@ -98,4 +100,6 @@ export interface ProductProps extends Product {
   category?: CategoryProps;
   color?: Colors[];
   feature?: Feature[];
+  comment?: Comment[];
+  question?: Question[];
 }

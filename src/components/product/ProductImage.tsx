@@ -1,17 +1,21 @@
 "use client";
 
-import { ProductProps } from "@/types/types";
+import useProduct from "@/hooks/useProduct";
 import Image from "next/image";
 import { useState } from "react";
-import ProductSlider from "./ProductSlider";
 import FullSizeImage from "./FullSizeImage";
+import ProductSlider from "./ProductSlider";
 
-export default function ProductImage({ product }: { product: ProductProps }) {
+export default function ProductImage({ productId }: { productId: number }) {
   const [isOpen, setIsOpen] = useState(-1);
+
+  const { product } = useProduct(productId);
 
   const closeModal = () => {
     setIsOpen(-1);
   };
+
+  if (!product) return null;
 
   return (
     <div className="w-full col-span-4 max-lg:col-span-12 justify-center items-center">

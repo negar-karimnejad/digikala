@@ -6,14 +6,23 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { ProductProps } from "@/types/types";
+import useProduct from "@/hooks/useProduct";
 import { ChevronLeft, Info, Sparkle, ThumbsUp } from "lucide-react";
-import { useRef, useState } from "react";
+import { RefObject, useState } from "react";
 import { Button } from "../ui/button";
 
-export default function ProductInfo({ product }: { product: ProductProps }) {
-  const [sizeValue, setSizeValue] = useState(product.sizes);
-  const featureRef = useRef(null);
+export default function ProductInfo({
+  productId,
+  featureRef,
+}: {
+  productId: number;
+  featureRef: RefObject<HTMLDivElement>;
+}) {
+  const { product } = useProduct(productId);
+
+  const [sizeValue, setSizeValue] = useState(product?.sizes);
+
+  if (!product) return null;
 
   return (
     <div className="col-span-5 max-lg:col-span-12">
@@ -144,7 +153,6 @@ export default function ProductInfo({ product }: { product: ProductProps }) {
             featureRef.current.scrollIntoView({
               behavior: "smooth",
               block: "start",
-              inline: "nearest",
             })
           }
         >

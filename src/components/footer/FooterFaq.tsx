@@ -1,8 +1,18 @@
 import Link from "next/link";
+import { RefObject } from "react";
 
-export default function FooterFaq({ vertical }: { vertical?: boolean }) {
+export default function FooterFaq({
+  featureRef,
+  vertical,
+}: {
+  featureRef: RefObject<HTMLDivElement>;
+  vertical?: boolean;
+}) {
   return (
-    <div className="max-lg:hidden my-4 grid grid-cols-5 w-full justify-center items-center">
+    <div
+      ref={featureRef}
+      className="max-lg:hidden my-4 grid grid-cols-5 w-full justify-center items-center"
+    >
       <Link
         href="/guarantee"
         className={`mx-auto flex items-center justify-center ${

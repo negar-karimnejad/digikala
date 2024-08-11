@@ -10,6 +10,12 @@ export async function GET(
       where: { id: Number(params.id) },
       include: {
         category: { include: { submenus: { include: { items: true } } } },
+        image: true,
+        color: true,
+        feature: true,
+        comment: true,
+        order: true,
+        question: true,
       },
     });
     return NextResponse.json(product);

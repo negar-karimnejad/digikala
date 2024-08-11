@@ -6,7 +6,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { ProductProps } from "@/types/types";
+import useProduct from "@/hooks/useProduct";
 import {
   ChevronLeft,
   Info,
@@ -20,9 +20,13 @@ import { useState } from "react";
 import { Button } from "../ui/button";
 import Modal from "../ui/Modal";
 
-export default function ProductSeller({ product }: { product: ProductProps }) {
+export default function ProductSeller({ productId }: { productId: number }) {
   const [isShowModal, setIsShowModal] = useState(false);
   const closeModal = () => setIsShowModal(false);
+
+  const { product } = useProduct(productId);
+
+  if (!product) return null;
 
   return (
     <>

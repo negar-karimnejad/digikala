@@ -13,7 +13,7 @@ export default function useProduct(id: number) {
     async function fetchProducts() {
       try {
         const response: AxiosResponse<ProductProps> = await axios.get(
-          `/api/product/${id}`
+          `/api/products/${id}`
         );
         setProduct(response.data);
       } catch (error) {

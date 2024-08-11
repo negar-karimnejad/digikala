@@ -1,9 +1,5 @@
-import FooterFaq from "@/components/footer/FooterFaq";
 import BreadcrumbContainer from "@/components/product/BreadcrumbContainer";
-import ProductImage from "@/components/product/ProductImage";
-import ProductInfo from "@/components/product/ProductInfo";
-import ProductSeller from "@/components/product/ProductSeller";
-import ProductTab from "@/components/product/ProductTab";
+import ProductMain from "@/components/product/ProductMain";
 
 import db from "@/db/db";
 import { Megaphone, Store } from "lucide-react";
@@ -68,17 +64,7 @@ export default async function ProductPage({
         </div>
       </div>
 
-      <div className="grid grid-cols-12 gap-5 ">
-        <ProductImage product={product} />
-        <ProductInfo product={product} />
-        <ProductSeller product={product} />
-      </div>
-      <hr />
-      <div className="border-b-4 grayscale opacity-70">
-        <FooterFaq />
-      </div>
-      <ProductTab />
-      
+      <ProductMain productId={productId} />
     </div>
   );
 }
