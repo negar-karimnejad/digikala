@@ -27,9 +27,9 @@ export default function ProductTab({ productId }: { productId: number }) {
 
   if (!product) return null;
   return (
-    <div className="relative">
+    <div className="relative mb-10">
       <ul
-        className={`sticky pr-2 bg-white z-10 text-sm text-neutral-600 h-10 pt-2 cursor-pointer flex items-center gap-8 border-b ${
+        className={`sticky pr-2 dark:bg-neutral-950 bg-white z-10 text-sm text-neutral-600 dark:text-neutral-400 h-10 pt-2 cursor-pointer flex items-center gap-8 border-b ${
           isVisible ? "top-[7.5rem]" : "top-20"
         }`}
       >
@@ -42,7 +42,7 @@ export default function ProductTab({ productId }: { productId: number }) {
                 block: "center",
               });
             }}
-            className={`h-full ${
+            className={`h-full dark:text-neutral-200 ${
               activeTab === tab.title ? "border-b-2 border-red-500" : ""
             }`}
             key={index}
@@ -57,7 +57,7 @@ export default function ProductTab({ productId }: { productId: number }) {
         className="py-8 grid grid-cols-12 border-b-4 gap-14"
       >
         <div className="col-span-3 flex flex-col justify-between h-full items-start">
-          <h3 className="border-b-2 pb-3 w-fit border-red-500 text-black font-irsansb">
+          <h3 className="border-b-2 pb-3 w-fit border-red-500 text-black dark:text-white font-irsansb">
             مشخصات
           </h3>
           <button
@@ -88,11 +88,11 @@ export default function ProductTab({ productId }: { productId: number }) {
         className="py-8 grid grid-cols-12 border-b-4 gap-14"
       >
         <div className="col-span-3 pl-5 flex flex-col gap-4">
-          <h3 className="border-b-2 pb-3 w-fit border-red-500 text-black font-irsansb">
+          <h3 className="border-b-2 pb-3 w-fit border-red-500 text-black dark:text-white font-irsansb">
             دیدگاه‌ها
           </h3>
           <div>
-            <p className="text-xs text-neutral-600 mb-2">
+            <p className="text-xs text-neutral-600 dark:text-neutral-400 mb-2">
               هنوز امتیازی ثبت نشده است
             </p>
             <div className="flex">
@@ -101,7 +101,7 @@ export default function ProductTab({ productId }: { productId: number }) {
               ))}
             </div>
           </div>
-          <p className="text-xs text-neutral-600">
+          <p className="text-xs text-neutral-600 dark:text-neutral-400">
             شما هم درباره این کالا دیدگاه ثبت کنید
           </p>
           <Button variant="destructiveOutline">ثبت دیدگاه</Button>
@@ -138,10 +138,10 @@ export default function ProductTab({ productId }: { productId: number }) {
             </>
           ) : (
             <div>
-              <h4 className="text-black mb-2">
+              <h4 className="text-black dark:text-white mb-2">
                 شما هم می‌توانید در مورد این کالا نظر دهید.
               </h4>
-              <p className="text-neutral-600 text-xs">
+              <p className="text-neutral-600 dark:text-neutral-400 text-xs">
                 اگر این محصول را قبلا از دیجیکالا خریده باشید، دیدگاه شما به
                 عنوان خریدار ثبت خواهد شد. همچنین در صورت تمایل می‌توانید به
                 صورت ناشناس نیز دیدگاه خود را ثبت کنید
@@ -153,7 +153,7 @@ export default function ProductTab({ productId }: { productId: number }) {
       {/* questions */}
       <div ref={questionRef} className="py-8 grid grid-cols-12 border-b-4">
         <div className="col-span-3 flex flex-col justify-between h-full items-start">
-          <h3 className="border-b-2 pb-3 w-fit border-red-500 text-black font-irsansb">
+          <h3 className="border-b-2 pb-3 w-fit border-red-500 text-black dark:text-white font-irsansb">
             پرسش‌ها
           </h3>
         </div>
@@ -184,7 +184,7 @@ export default function ProductTab({ productId }: { productId: number }) {
             </>
           ) : (
             <div className="w-full">
-              <h4 className="text-black mb-2">
+              <h4 className="text-black dark:text-white mb-2">
                 درباره این کالا چه پرسشی دارید؟
               </h4>
               <textarea
@@ -197,7 +197,7 @@ export default function ProductTab({ productId }: { productId: number }) {
                 className="p-4 outline-none w-full appearance-none border rounded-lg "
               ></textarea>
               <div className="flex justify-between">
-                <Link href="/comments-rules" className="text-xs">
+                <Link href="/comments-rules" className="text-xs text-neutral-500">
                   ثبت پاسخ به معنی موافقت با{" "}
                   <span className="text-blue-400">قوانین انتشار دیجی‌کالا</span>{" "}
                   است.

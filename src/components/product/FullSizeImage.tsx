@@ -134,13 +134,6 @@ function FullSizeImage({
             modules={[FreeMode, Navigation, Thumbs]}
             className="mySwiper relative h-20 flex-1 bg-neutral-950"
           >
-            {/* <SwiperSlide
-            onClick={() => setShowAllImages(true)}
-            className="cursor-pointer w-full text-center font-irsansb text-xs text-white border rounded-lg p-2 !ml-5 h-full"
-          >
-            <LayoutGrid size={20} className="mx-auto mb-2" />
-            <span>همه تصاویر</span>
-          </SwiperSlide> */}
             <div className="!mx-10">
               {image.map((img, index) => (
                 <SwiperSlide key={img.id}>
@@ -163,7 +156,7 @@ function FullSizeImage({
 
         {/* All Images Section */}
         {showAllImages && (
-          <div className="bg-white absolute top-0 right-0 w-full h-screen z-50">
+          <div className="bg-white dark:bg-black absolute top-0 right-0 w-full h-screen z-50">
             <div className="flex justify-end w-full">
               <button
                 className="w-5 h-5 font-vazirMedium text-3xl mt-5 ml-8"
@@ -174,7 +167,7 @@ function FullSizeImage({
             </div>
             <div className="h-screen overflow-y-scroll mt-10 p-5  mx-auto max-w-5xl">
               <div className="grid grid-cols-12 justify-between gap-3 mb-28">
-                <div className="flex col-span-12 mb-3 px-3 font-bold text-neutral-600 items-center justify-between text-sm w-full">
+                <div className="flex col-span-12 mb-3 px-3 font-bold text-neutral-600 dark:text-neutral-200 items-center justify-between text-sm w-full">
                   <span>تصاویر رسمی</span>
                   <span>{image.length} مورد</span>
                 </div>

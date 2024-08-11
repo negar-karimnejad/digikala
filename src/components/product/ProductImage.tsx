@@ -19,13 +19,13 @@ export default function ProductImage({ productId }: { productId: number }) {
 
   return (
     <div className="w-full col-span-4 max-lg:col-span-12 justify-center items-center">
-      <div className="max-lg:hidden">
+      <div className="max-lg:hidden overflow-hidden w-full">
         <Image
           alt={product.title}
           width={420}
           height={420}
           src={product.thumbnail}
-          className="object-cover"
+          className="object-cover mb-5 rounded-lg w-full"
         />
         <div className="flex items-center justify-between gap-2">
           {product.image.slice(0, 5).map((img, index) => (

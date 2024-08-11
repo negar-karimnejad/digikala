@@ -30,23 +30,33 @@ export default function ProductSeller({ productId }: { productId: number }) {
 
   return (
     <>
-      <div className="h-fit flex flex-col gap-5 border bg-neutral-50 col-span-3 max-lg:col-span-12 rounded-lg p-5">
+      <div className="h-fit flex flex-col gap-5 border bg-neutral-50 dark:bg-neutral-800 col-span-3 max-lg:col-span-12 rounded-lg p-5">
         <h4>فروشنده</h4>
         <div>
           <p className="flex gap-5 items-center mb-2">
-            <Store size={20} className="text-neutral-600" />
-            <span className="text-neutral-700">دیجی‌کالا</span>
+            <Store
+              size={20}
+              className="text-neutral-600 dark:text-neutral-400"
+            />
+            <span className="text-neutral-700 dark:text-neutral-300">
+              دیجی‌کالا
+            </span>
           </p>
-          <p className="text-xs flex gap-5 items-center text-neutral-600">
-            <Store size={20} className="opacity-0 text-neutral-600" />
+          <p className="text-xs flex gap-5 items-center text-neutral-600 dark:text-neutral-400">
+            <Store
+              size={20}
+              className="opacity-0 text-neutral-600 dark:text-neutral-200"
+            />
             <span>
-              <span className="text-green-700">{product.likes}%</span> رضایت از
-              کالا
+              <span className="text-green-700 dark:text-green-500">
+                {product.likes}%
+              </span>{" "}
+              رضایت از کالا
               <span className="px-2 text-neutral-300">|</span> عملکرد
             </span>
           </p>
         </div>
-        <hr />
+        <hr className="dark:border-neutral-700" />
         <div className="cursor-pointer flex justify-between items-center">
           <TooltipProvider>
             <Tooltip>
@@ -64,7 +74,7 @@ export default function ProductSeller({ productId }: { productId: number }) {
           </TooltipProvider>
 
           <p className="flex gap-1">
-            <span className="text-neutral-950 text-lg">
+            <span className="text-neutral-950 dark:text-white text-lg">
               {product.price.toLocaleString()}
             </span>
             <svg
@@ -82,27 +92,30 @@ export default function ProductSeller({ productId }: { productId: number }) {
         </div>
         <Button className="w-full">افزودن به سبد</Button>
         <div className="flex items-center gap-3 text-[13px]">
-          <ShieldCheck size={21} className="text-neutral-700" />
+          <ShieldCheck
+            size={21}
+            className="text-neutral-700 dark:text-neutral-300"
+          />
           <span>{product.guarantee}</span>
         </div>
-        <hr />
+        <hr className="dark:border-neutral-700" />
         <div
           onClick={() => setIsShowModal(true)}
           className="cursor-pointer text-neutral-600 flex flex-col gap-3"
         >
           <p className="flex items-center justify-between gap-2 text-xs">
-            <span className="flex items-center gap-2">
+            <span className="flex items-center gap-2 dark:text-neutral-400">
               <Truck size={16} className="text-red-500" />
               ارسال دیجی‌کالا
             </span>
-            <ChevronLeft size={17} />
+            <ChevronLeft size={17} className="dark:text-neutral-400" />
           </p>
-          <p className="flex items-center gap-2 text-xs">
+          <p className="flex items-center gap-2 text-xs dark:text-neutral-400">
             <PackageOpen size={16} className="text-blue-700" />
             ارسال امروز (فعلا در شهر تهران و کرج)
           </p>
         </div>
-        <hr />
+        <hr className="dark:border-neutral-700" />
         <div className="flex items-center gap-3 text-[13px]">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -165,10 +178,10 @@ export default function ProductSeller({ productId }: { productId: number }) {
             <span className="font-irsansb">جزئیات ارسال</span>
             <X size={18} onClick={closeModal} className="cursor-pointer" />
           </div>
-          <hr />
+          <hr className="dark:border-neutral-700" />
           <div>
             <h3 className="font-irsansb mb-2">ارسال دیجی‌کالا</h3>
-            <p className="text-[13px] leading-7 text-neutral-600">
+            <p className="text-[13px] leading-7 text-neutral-600 dark:text-neutral-500">
               این کالا در انبار دیجی‌کالا موجود و آماده پردازش است و توسط پیک
               دیجی‌کالا در بازه انتخابی ارسال خواهد شد.
             </p>
@@ -177,7 +190,7 @@ export default function ProductSeller({ productId }: { productId: number }) {
             <h3 className="font-irsansb mb-2">
               ارسال امروز (فعلا در شهر تهران و کرج)
             </h3>
-            <p className="text-[13px] leading-7 text-neutral-600">
+            <p className="text-[13px] leading-7 text-neutral-600 dark:text-neutral-500">
               اگر سفارش را قبل از ساعت ۶ عصر ثبت کنید، همان روز ارسال می‌شود. در
               صورت ثبت سفارش بعد از ساعت ۶ عصر، فردا ارسال خواهد شد.
             </p>

@@ -26,7 +26,9 @@ export default function ProductInfo({
 
   return (
     <div className="col-span-5 max-lg:col-span-12">
-      <h1 className="text-xl font-irsansb text-neutral-700">{product.title}</h1>
+      <h1 className="text-xl font-irsansb text-neutral-700 dark:text-neutral-50">
+        {product.title}
+      </h1>
       <div className="flex items-center gap-2">
         <p className="text-neutral-400 text-xs my-4 whitespace-nowrap shrink-0">
           {product.en_title}
@@ -61,14 +63,14 @@ export default function ProductInfo({
           </svg>
           {product.rating}
         </span>
-        <span className="text-neutral-300">{`(امتیاز ${product.voter} خریدار)`}</span>
+        <span className="text-neutral-300 dark:text-neutral-600">{`(امتیاز ${product.voter} خریدار)`}</span>
         <span className="w-1 h-1 bg-neutral-200 rounded-full"></span>
         {/* Task: دیدگاه و پرسش سرور را قرار بده*/}
         <span className="text-sky-400">{`${product.voter} دیدگاه`}</span>
         <span className="w-1 h-1 bg-neutral-200 rounded-full"></span>
         <span className="text-sky-400">{`${product.voter} پرسش`}</span>
       </div>
-      <div className="mb-5 flex text-[13px] items-center gap-1 text-neutral-600">
+      <div className="mb-5 flex text-[13px] items-center gap-1 text-neutral-600 dark:text-neutral-200">
         <span className="flex gap-1">
           <ThumbsUp size={15} className="text-green-600" />
           {`${product.recommended_percent}% (${product.likes} نفر) از خریداران، این کالا را پیشنهاد کرده‌اند`}
@@ -132,7 +134,7 @@ export default function ProductInfo({
           {product.feature.slice(0, 4).map((item) => (
             <div
               key={item.id}
-              className="w-32 bg-neutral-100 flex flex-col gap-2 p-3 rounded-lg"
+              className="w-32 bg-neutral-100 dark:bg-neutral-800 flex flex-col gap-2 p-3 rounded-lg"
             >
               <span className="overflow-hidden text-ellipsis whitespace-nowrap text-xs text-neutral-500">
                 {item.key}
@@ -161,15 +163,18 @@ export default function ProductInfo({
         <hr className="grow" />
       </div>
 
-      <div className="border pt-5 rounded-lg text-xs mt-5 mb-3">
-        <p className="px-5 flex items-center gap-3 text-fuchsia-800">
-          <Sparkle size={18} className="text-fuchsia-800" />
+      <div className="bg-white dark:bg-neutral-800  border pt-5 rounded-lg text-xs mt-5 mb-3">
+        <p className="px-5 flex items-center gap-3 text-fuchsia-800 dark:text-fuchsia-500">
+          <Sparkle
+            size={18}
+            className="text-fuchsia-800 dark:text-fuchsia-500"
+          />
           <span>
             ارسال <strong>رایگان</strong> سفارش‌ها برای اعضای دیجی‌پلاس
           </span>
         </p>
-        <p className="px-5 flex items-center gap-3 text-neutral-600 mt-3 mr-1.5">
-          <span className="w-1.5 h-1.5 rounded-full bg-fuchsia-800 after:absolute after:w-0.5 after:h-2 after:bg-neutral-300 after:bottom-2.5 after:left-0 after:mx-auto after:right-0 relative"></span>
+        <p className="px-5 flex items-center gap-3 text-neutral-600 dark:text-neutral-300 mt-3 mr-1.5">
+          <span className="w-1.5 h-1.5 rounded-full bg-fuchsia-800 dark:bg-fuchsia-500 after:absolute after:w-0.5 after:h-2 after:bg-neutral-300 after:dark:bg-neutral-500 after:bottom-2.5 after:left-0 after:mx-auto after:right-0 relative"></span>
           پشتیبانی اختصاصی
         </p>
         <div className="flex justify-end">
@@ -460,7 +465,7 @@ export default function ProductInfo({
         </div>
       </div>
 
-      <div className="border p-5 rounded-lg text-xs">
+      <div className="bg-white  dark:bg-neutral-800 border p-5 rounded-lg text-xs">
         <p className="flex items-center gap-3">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -485,16 +490,16 @@ export default function ProductInfo({
               />
             </g>
           </svg>
-          <span className="font-irsansb text-neutral-700">
+          <span className="text-sm font-irsansb text-neutral-700 dark:text-neutral-200">
             با استفاده از تسهیلات دیجی‌پی
           </span>
         </p>
-        <p className="flex items-center gap-3 text-neutral-600 mt-5 mr-1.5">
-          <span className="w-1.5 h-1.5 rounded-full bg-blue-600 after:absolute after:w-0.5 after:h-2 after:bg-neutral-300 after:bottom-2.5 after:left-0 after:mx-auto after:right-0 relative"></span>
+        <p className="flex items-center gap-3 text-neutral-600 dark:text-neutral-400 mt-5 mr-1.5">
+          <span className="w-1.5 h-1.5 rounded-full bg-blue-600 after:absolute after:w-0.5 after:h-2 after:bg-neutral-300 after:dark:bg-neutral-500 after:bottom-2.5 after:left-0 after:mx-auto after:right-0 relative"></span>
           ۱,۴۱۱,۱۰۰ تومان ماهانه (۱۲ ماه)
         </p>
-        <p className="flex items-center gap-3 text-neutral-600 mt-2 mr-1.5">
-          <span className="w-1.5 h-1.5 rounded-full bg-blue-600 after:absolute after:w-0.5 after:h-2 after:bg-neutral-300 after:bottom-2.5 after:left-0 after:mx-auto after:right-0 relative"></span>
+        <p className="flex items-center gap-3 text-neutral-600 dark:text-neutral-400 mt-2 mr-1.5">
+          <span className="w-1.5 h-1.5 rounded-full bg-blue-600 after:absolute after:w-0.5 after:h-2 after:bg-neutral-300 after:dark:bg-neutral-500 after:bottom-2.5 after:left-0 after:mx-auto after:right-0 relative"></span>
           اعتبار تا سقف ۱۵,۰۰۰,۰۰۰ تومان
         </p>
       </div>

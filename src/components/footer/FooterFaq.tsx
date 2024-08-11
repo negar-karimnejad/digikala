@@ -16,7 +16,7 @@ export default function FooterFaq({
       <Link
         href="/guarantee"
         className={`mx-auto flex items-center justify-center ${
-          vertical ? "flex-col" : ""
+          vertical ? "flex-col" : "gap-2"
         }`}
       >
         <svg
@@ -63,7 +63,7 @@ export default function FooterFaq({
       <Link
         href="/return"
         className={`mx-auto flex items-center justify-center ${
-          vertical ? "flex-col" : ""
+          vertical ? "flex-col" : "gap-2"
         }`}
       >
         <svg
@@ -116,7 +116,7 @@ export default function FooterFaq({
       <Link
         href="/contact-us"
         className={`mx-auto flex items-center justify-center ${
-          vertical ? "flex-col" : ""
+          vertical ? "flex-col" : "gap-2"
         }`}
       >
         <svg
@@ -177,7 +177,7 @@ export default function FooterFaq({
       <Link
         href="/payment"
         className={`mx-auto flex items-center justify-center ${
-          vertical ? "flex-col" : ""
+          vertical ? "flex-col" : "gap-2"
         }`}
       >
         <svg
@@ -232,7 +232,7 @@ export default function FooterFaq({
       <Link
         href="/sending"
         className={`mx-auto flex items-center justify-center ${
-          vertical ? "flex-col" : ""
+          vertical ? "flex-col" : "gap-2"
         }`}
       >
         <svg

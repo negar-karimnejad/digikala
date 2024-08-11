@@ -1,6 +1,7 @@
 "use client";
 
 import { cities, province } from "@/data/data";
+import useCategories from "@/hooks/useCategories";
 import useScroll from "@/hooks/useScroll";
 import { CategoryProps, City, Location } from "@/types/types";
 import {
@@ -15,12 +16,11 @@ import {
   ShoppingBasket,
   X,
 } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import Modal from "../ui/Modal";
 import { Button } from "../ui/button";
-import Image from "next/image";
-import useCategories from "@/hooks/useCategories";
 
 const links = [
   {
@@ -147,9 +147,9 @@ export default function Navbar() {
                       >
                         <Link
                           href={category.href}
-                          className={`transition-all px-2 py-5 border dark:border-neutral-900 border-gray-100 hover:border-gray-200 hover:font-irsansb hover:text-red-500 hover:bg-white text-gray-600 dark:text-gray-100 flex items-center gap-2 text-xs font-irsansb ${
+                          className={`transition-all px-2 py-5 border dark:border-neutral-900 border-neutral-100 hover:border-neutral-200 hover:font-irsansb hover:text-red-500 hover:bg-white text-neutral-600 dark:text-neutral-100 flex items-center gap-2 text-xs font-irsansb ${
                             selectedCategory?.id === category.id
-                              ? "border-gray-200 font-irsansb text-red-500 dark:text-red-500 bg-white dark:bg-neutral-900"
+                              ? "border-neutral-200 font-irsansb text-red-500 dark:text-red-500 bg-white dark:bg-neutral-900"
                               : ""
                           }`}
                         >
@@ -158,6 +158,7 @@ export default function Navbar() {
                             width={18}
                             height={18}
                             src={category.icon}
+                            className="dark:invert"
                           />
                           {category.title}
                         </Link>
@@ -178,7 +179,7 @@ export default function Navbar() {
                       {selectedCategory?.submenus ? (
                         selectedCategory?.submenus.map((menu) => (
                           <div key={menu.title} className="col-span-3">
-                            <h3 className="text-sm text-gray-700 font-irsansb dark:hover:text-red-500 dark:text-white flex items-center hover:text-red-500 transition-all">
+                            <h3 className="text-sm text-neutral-700 font-irsansb dark:hover:text-red-500 dark:text-white flex items-center hover:text-red-500 transition-all">
                               <span className="text-red-500 ml-2">|</span>
                               <Link
                                 href={menu.href}
@@ -191,7 +192,7 @@ export default function Navbar() {
                             <div className="space-y-4 mt-5">
                               {menu.items?.map((item) => (
                                 <div
-                                  className="text-gray-500 dark:text-gray-300 text-sm hover:text-red-500 dark:hover:text-red-500 transition-all"
+                                  className="text-neutral-500 dark:text-neutral-300 text-sm hover:text-red-500 dark:hover:text-red-500 transition-all"
                                   key={item.title}
                                 >
                                   <Link href={item.href}>{item.title}</Link>
@@ -202,7 +203,7 @@ export default function Navbar() {
                         ))
                       ) : (
                         <div className="col-span-12">
-                          <p className="text-gray-500 text-sm mr-5 my-5">
+                          <p className="text-neutral-500 text-sm mr-5 my-5">
                             محصولی برای{" "}
                             <span className="text-red-500 font-irsansb">
                               {selectedCategory?.title}
@@ -216,16 +217,16 @@ export default function Navbar() {
                 </div>
               </div>
             </div>
-            <div className="w-[0.5px] h-4 bg-gray-200 dark:bg-gray-500 mr-2"></div>
+            <div className="w-[0.5px] h-4 bg-neutral-200 dark:bg-neutral-500 mr-2"></div>
             <NavLinks />
-            <div className="w-[0.5px] h-4 bg-gray-200 dark:bg-gray-500"></div>
-            <button className="relative flex mx-3 py-3 items-center gap-1 text-gray-500 dark:text-gray-300 text-[13px] group">
+            <div className="w-[0.5px] h-4 bg-neutral-200 dark:bg-neutral-500"></div>
+            <button className="relative flex mx-3 py-3 items-center gap-1 text-neutral-500 dark:text-neutral-300 text-[13px] group">
               <Link href="/faq" className="font-medium transition-colors">
                 سوالی دارید؟
               </Link>
               <span className="absolute bottom-0 left-0 h-0.5 bg-red-500 transition-all duration-900 ease-linear group-hover:w-full w-0"></span>
             </button>
-            <button className="relative flex mx-3 py-3 items-center gap-1 text-gray-500 dark:text-gray-300 text-[13px] group">
+            <button className="relative flex mx-3 py-3 items-center gap-1 text-neutral-500 dark:text-neutral-300 text-[13px] group">
               <Link
                 href="/landings/seller-introduction"
                 className="font-medium transition-colors"
@@ -238,7 +239,7 @@ export default function Navbar() {
           <div
             title="لطفا شهر خود را انتخاب کنید"
             onClick={() => setIsShowCityModal(true)}
-            className="flex items-center gap-2 text-gray-500 dark:text-gray-100 cursor-pointer"
+            className="flex items-center gap-2 text-neutral-500 dark:text-neutral-100 cursor-pointer"
           >
             <MapPin size={18} />
             {userCity ? (
@@ -256,8 +257,9 @@ export default function Navbar() {
           </div>
         </div>
       </nav>
+
       <Modal isOpen={isShowCityModal} closeModalHandler={closeModalHandler}>
-        <div className="border-b py-3 text-gray-800 dark:text-white flex justify-between items-center">
+        <div className="border-b dark:border-b-neutral-700 py-3 text-neutral-800 dark:text-white flex justify-between items-center">
           <h2 className="text-lg font-irsansb">انتخاب شهر</h2>
           <Button variant="ghost" className="" onClick={closeModalHandler}>
             <X />
@@ -281,7 +283,7 @@ export default function Navbar() {
                     setIsShowCityModal(false);
                     setProvinceCities([]);
                   }}
-                  className="cursor-pointer text-gray-700 dark:text-gray-100 flex itece justify-between border-b py-3"
+                  className="cursor-pointer text-neutral-700 dark:text-neutral-100 flex itece justify-between border-b dark:border-b-neutral-700 py-3"
                 >
                   {city.title}
                   <ChevronLeft />
@@ -305,7 +307,7 @@ export default function Navbar() {
                 <div
                   key={item.id}
                   onClick={() => handlecitiesClick(item.id)}
-                  className="cursor-pointer dark:text-gray-100 text-gray-700 flex itece justify-between border-b py-3"
+                  className="cursor-pointer dark:border-b-neutral-700 dark:text-neutral-100 text-neutral-700 flex itece justify-between border-b py-3"
                 >
                   {item.title}
                   <ChevronLeft />
@@ -325,7 +327,7 @@ const NavLinks = () => {
       {links.map((link) => (
         <button
           key={link.label}
-          className="relative flex mx-2.5 py-3 items-center gap-1 text-gray-500 dark:text-gray-300 text-[13px] group"
+          className="relative flex mx-2.5 py-3 items-center gap-1 text-neutral-500 dark:text-neutral-300 text-[13px] group"
         >
           <span>{link.icon}</span>
           <Link href={link.href} className="font-medium transition-colors">
