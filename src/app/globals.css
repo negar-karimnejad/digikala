@@ -92,7 +92,7 @@ html {
   background-color: #a0a0a0 !important;
 }
 
-/*  */
+/* breadcrumb */
 .breadcrumb-container::-webkit-scrollbar-thumb {
   display: none;
 }

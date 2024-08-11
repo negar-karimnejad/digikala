@@ -26,16 +26,16 @@ export default function ProductInfo({
 
   return (
     <div className="col-span-5 max-lg:col-span-12">
-      <h1 className="text-xl font-irsansb text-neutral-700 dark:text-neutral-50">
+      <h1 className="lg:text-xl font-irsansb text-neutral-700 dark:text-neutral-50">
         {product.title}
       </h1>
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-2 max-lg:hidden">
         <p className="text-neutral-400 text-xs my-4 whitespace-nowrap shrink-0">
           {product.en_title}
         </p>
         <span className="w-full bg-neutral-200 h-[1px]"></span>
       </div>
-      <div className="mb-5 flex text-xs items-center gap-4">
+      <div className="mb-5 max-lg:mt-10 flex text-xs items-center lg:gap-4 gap-2">
         <span className="flex items-center gap-1">
           <svg
             height="13px"
@@ -91,22 +91,57 @@ export default function ProductInfo({
           </Tooltip>
         </TooltipProvider>
       </div>
-      <div className="mb-4">
-        {product.color.length > 0 && (
-          <h4 className="text-lg font-irsansb mb-2">
-            رنگ:{" "}
-            {product.color.map((item) => (
-              <span key={item.id}>{item.name}</span>
-            ))}
-          </h4>
-        )}
-        <div>
+
+      <div className="grow min-w-0 lg:hidden">
+        <div className="flex overflow-x-auto overflow-y-hidden gap-2 px-2 breadcrumb-container">
+          {product.feature.slice(0, 5).map((item) => (
+            <div
+              key={item.id}
+              className="w-fit max-w-42 bg-neutral-100 dark:bg-neutral-800 flex flex-col gap-1 p-1 rounded-lg"
+            >
+              <span className="overflow-hidden text-ellipsis whitespace-nowrap text-xs text-neutral-500">
+                {item.key}
+              </span>
+              <span className="overflow-hidden text-ellipsis whitespace-nowrap text-xs">
+                {item.value}
+              </span>
+            </div>
+          ))}
+          {product.feature.length > 5 && (
+            <div className="w-fit max-w-42 items-center bg-sky-200 text-sky-600 dark:bg-sky-800 flex gap-2 p-2 rounded-lg text-xs whitespace-nowrap">
+              مشاهده همه <ChevronLeft size={18} />
+            </div>
+          )}
+        </div>
+      </div>
+
+      <hr className="my-2 lg:hidden" />
+      <div className="mb-5">
+        <div className="flex items-center justify-between">
+          {product.color.length > 0 && (
+            <h4 className="text-lg font-irsansb mb-2">
+              رنگ:{" "}
+              {product.color.map((item) => (
+                <span key={item.id}>{item.name}</span>
+              ))}
+            </h4>
+          )}
+          <p className="text-neutral-600 text-sm">{product.color.length} رنگ</p>
+        </div>
+        <div className="flex items-center gap-2 flex-wrap">
           {product.color.map((item) => (
             <div
               key={item.id}
-              style={{ backgroundColor: item.hex }}
-              className="border-blue-500 w-8 h-8 border-4 rounded-full p-2"
-            ></div>
+              className="flex w-fit gap-2 border-blue-500 border-2 p-1 items-center rounded-full"
+            >
+              <span
+                className="w-5 h-5 rounded-full border"
+                style={{
+                  backgroundColor: item.hex,
+                }}
+              ></span>
+              <span className="lg:hidden pl-1">{item.name}</span>
+            </div>
           ))}
         </div>
       </div>
@@ -128,7 +163,7 @@ export default function ProductInfo({
           ))}
         </select>
       </div>
-      <div>
+      <div className="max-lg:hidden">
         <h4 className="text-lg font-irsansb mb-4">ویژگی‌ها</h4>
         <div className="flex gap-3 flex-wrap">
           {product.feature.slice(0, 4).map((item) => (
@@ -146,7 +181,7 @@ export default function ProductInfo({
           ))}
         </div>
       </div>
-      <div className="mt-5 flex items-center gap-5">
+      <div className="max-lg:hidden mt-5 flex items-center gap-5">
         <hr className="grow" />
         <Button
           variant="outline"
