@@ -63,7 +63,6 @@ export default async function ProductPage({
           </Link>
         </div>
       </div>
-
       <ProductMain productId={productId} />
     </div>
   );

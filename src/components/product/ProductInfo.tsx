@@ -21,6 +21,7 @@ export default function ProductInfo({
   const { product } = useProduct(productId);
 
   const [sizeValue, setSizeValue] = useState(product?.sizes);
+  const [chosenColor, setChosenColor] = useState(product?.color[0]);
 
   if (!product) return null;
 
@@ -73,7 +74,7 @@ export default function ProductInfo({
       <div className="mb-5 flex text-[13px] items-center gap-1 text-neutral-600 dark:text-neutral-200">
         <span className="flex gap-1">
           <ThumbsUp size={15} className="text-green-600" />
-          {`${product.recommended_percent}% (${product.likes} نفر) از خریداران، این کالا را پیشنهاد کرده‌اند`}
+          {`${product.recommended_percent}% (${product.voter} نفر) از خریداران، این کالا را پیشنهاد کرده‌اند`}
         </span>
         <TooltipProvider>
           <Tooltip>
@@ -120,10 +121,7 @@ export default function ProductInfo({
         <div className="flex items-center justify-between">
           {product.color.length > 0 && (
             <h4 className="text-lg font-irsansb mb-2">
-              رنگ:{" "}
-              {product.color.map((item) => (
-                <span key={item.id}>{item.name}</span>
-              ))}
+              رنگ: {chosenColor?.name}
             </h4>
           )}
           <p className="text-neutral-600 text-sm">{product.color.length} رنگ</p>
@@ -132,7 +130,10 @@ export default function ProductInfo({
           {product.color.map((item) => (
             <div
               key={item.id}
-              className="flex w-fit gap-2 border-blue-500 border-2 p-1 items-center rounded-full"
+              onClick={() => setChosenColor(item)}
+              className={`flex w-fit gap-2 p-1 items-center rounded-full ${
+                chosenColor === item ? "border-blue-500 border-2" : "border-2"
+              }`}
             >
               <span
                 className="w-5 h-5 rounded-full border"
@@ -140,29 +141,29 @@ export default function ProductInfo({
                   backgroundColor: item.hex,
                 }}
               ></span>
-              <span className="lg:hidden pl-1">{item.name}</span>
+              <span className="lg:hidden pl-1 text-xs">{item.name}</span>
             </div>
           ))}
         </div>
       </div>
-      <div className="mb-4">
-        {product.sizes && (
+      {product.sizes != "-1" && (
+        <div className="mb-4">
           <p className="text-lg font-irsansb">سایز: {product.sizes}</p>
-        )}
-        <select
-          name=""
-          id=""
-          value={sizeValue}
-          onChange={(e) => setSizeValue(e.target.value)}
-          className="mt-4 border p-2 rounded-lg outline-none w-32"
-        >
-          {Array.from({ length: 8 }).map((_, index) => (
-            <option key={index + 37} value={index + 37}>
-              {index + 37}
-            </option>
-          ))}
-        </select>
-      </div>
+          <select
+            name=""
+            id=""
+            value={sizeValue}
+            onChange={(e) => setSizeValue(e.target.value)}
+            className="mt-4 border p-2 rounded-lg outline-none w-32"
+          >
+            {Array.from({ length: 8 }).map((_, index) => (
+              <option key={index + 37} value={index + 37}>
+                {index + 37}
+              </option>
+            ))}
+          </select>
+        </div>
+      )}
       <div className="max-lg:hidden">
         <h4 className="text-lg font-irsansb mb-4">ویژگی‌ها</h4>
         <div className="flex gap-3 flex-wrap">

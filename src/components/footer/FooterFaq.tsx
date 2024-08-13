@@ -5,27 +5,28 @@ export default function FooterFaq({
   featureRef,
   vertical,
 }: {
-  featureRef: RefObject<HTMLDivElement>;
+  featureRef?: RefObject<HTMLDivElement>;
   vertical?: boolean;
 }) {
   return (
     <div
       ref={featureRef}
-      className="max-lg:hidden my-4 grid grid-cols-5 w-full justify-center items-center"
+      className={`my-4 grid grid-cols-5 w-full justify-center items-center ${
+        vertical ? "max-lg:hidden" : ""
+      }`}
     >
       <Link
         href="/guarantee"
-        className={`mx-auto flex items-center justify-center ${
-          vertical ? "flex-col" : "gap-2"
+        className={`text-center mx-auto flex items-center justify-center ${
+          vertical ? "flex-col" : "gap-2 max-lg:flex-col"
         }`}
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="54"
-          height="54"
           viewBox="0 0 54 54"
           fill="none"
-          className="dark:bg-white dark:rounded-full"
+          className="dark:bg-white dark:rounded-full w-16 h-16 max-md:w-10 max-md:h-10 object-cover"
         >
           <path
             fillRule="evenodd"
@@ -62,17 +63,15 @@ export default function FooterFaq({
       </Link>
       <Link
         href="/return"
-        className={`mx-auto flex items-center justify-center ${
-          vertical ? "flex-col" : "gap-2"
+        className={`text-center mx-auto flex items-center justify-center max-lg:text-xs ${
+          vertical ? "flex-col" : "gap-2 max-lg:flex-col"
         }`}
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          width="55"
-          height="54"
           viewBox="0 0 55 54"
           fill="none"
-          className="dark:bg-white dark:rounded-full"
+          className="dark:bg-white dark:rounded-full w-16 h-16 max-md:w-10 max-md:h-10 object-cover"
         >
           <path
             fillRule="evenodd"
@@ -115,17 +114,15 @@ export default function FooterFaq({
       </Link>
       <Link
         href="/contact-us"
-        className={`mx-auto flex items-center justify-center ${
-          vertical ? "flex-col" : "gap-2"
+        className={`text-center mx-auto flex items-center justify-center ${
+          vertical ? "flex-col" : "gap-2 max-lg:flex-col"
         }`}
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          width="55"
-          height="54"
           viewBox="0 0 55 54"
           fill="none"
-          className="dark:bg-white dark:rounded-full"
+          className="dark:bg-white dark:rounded-full w-16 h-16 max-md:w-10 max-md:h-10 object-cover"
         >
           <path
             fillRule="evenodd"
@@ -176,17 +173,15 @@ export default function FooterFaq({
       </Link>
       <Link
         href="/payment"
-        className={`mx-auto flex items-center justify-center ${
-          vertical ? "flex-col" : "gap-2"
+        className={`text-center mx-auto flex items-center justify-center ${
+          vertical ? "flex-col" : "gap-2 max-lg:flex-col"
         }`}
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          width="55"
-          height="54"
           viewBox="0 0 55 54"
           fill="none"
-          className="dark:bg-white dark:rounded-full"
+          className="dark:bg-white dark:rounded-full w-16 h-16 max-md:w-10 max-md:h-10 object-cover"
         >
           <path
             d="M18.3774 46.3837H10.7982C9.92605 46.3837 9.21919 45.6767 9.21919 44.8047V31.9357C9.21919 31.0636 9.92613 30.3567 10.7982 30.3567H18.3775C19.2496 30.3567 19.9565 31.0636 19.9565 31.9357V44.8047C19.9565 45.6767 19.2495 46.3837 18.3774 46.3837Z"
@@ -231,17 +226,15 @@ export default function FooterFaq({
       </Link>
       <Link
         href="/sending"
-        className={`mx-auto flex items-center justify-center ${
-          vertical ? "flex-col" : "gap-2"
+        className={`text-center mx-auto flex items-center justify-center ${
+          vertical ? "flex-col" : "gap-2 max-lg:flex-col"
         }`}
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          width="55"
-          height="54"
           viewBox="0 0 55 54"
           fill="none"
-          className="dark:bg-white dark:rounded-full"
+          className="dark:bg-white dark:rounded-full w-16 h-16 max-md:w-10 max-md:h-10 object-cover"
         >
           <path
             fillRule="evenodd"

@@ -14,11 +14,13 @@ import { useRef, useState } from "react";
 import { Button } from "../ui/button";
 
 export default function ProductTab({ productId }: { productId: number }) {
+  const introductionRef = useRef<HTMLDivElement>(null);
   const featureRef = useRef<HTMLDivElement>(null);
   const questionRef = useRef<HTMLDivElement>(null);
   const reviewsRef = useRef<HTMLDivElement>(null);
 
   const productTabs = [
+    { title: "معرفی", ref: introductionRef },
     { title: "مشخصات", ref: featureRef },
     { title: "دیدگاه‌ها", ref: reviewsRef },
     { title: "پرسش‌ها", ref: questionRef },
@@ -30,6 +32,7 @@ export default function ProductTab({ productId }: { productId: number }) {
   const [activeTab, setActiveTab] = useState(productTabs[0].title);
   const [showAllFeatures, setShowAllFeatures] = useState(false);
   const [questionValue, setQuestionValue] = useState("");
+  const [showFullIntroduction, setShowFullIntroduction] = useState(false);
 
   if (!product) return null;
   return (
@@ -57,6 +60,32 @@ export default function ProductTab({ productId }: { productId: number }) {
           </li>
         ))}
       </ul>
+      {/* introduction */}
+      <div
+        ref={introductionRef}
+        className="py-8 lg:grid grid-cols-12 border-b-4 gap-14"
+      >
+        <div className="col-span-3 max-lg:mb-5 flex flex-col justify-between h-full items-start">
+          <h3 className="border-b-2 pb-3 w-fit border-red-500 text-black dark:text-white font-irsansb">
+            معرفی
+          </h3>
+        </div>
+        <div className="col-span-9">
+          <p
+            className={`text-neutral-700 text-sm leading-7  ${
+              showFullIntroduction ? "line-clamp-none" : "line-clamp-3"
+            }`}
+          >
+            {product.description}
+          </p>
+          <button
+            className="flex items-center text-blue-400 text-xs mt-2"
+            onClick={() => setShowFullIntroduction((prev) => !prev)}
+          >
+            {showFullIntroduction ? "بستن" : "بیشتر"} <ChevronLeft size={16} />
+          </button>
+        </div>
+      </div>
       {/* features */}
       <div
         ref={featureRef}
