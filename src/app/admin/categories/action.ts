@@ -140,6 +140,7 @@ export async function addSubmenu(formData: FormData) {
   const result = CategorySubmenusSchema.safeParse(parsedEntries);
 
   if (!result.success) {
+    console.log("❌❌❌", result.error.formErrors.fieldErrors);
     return result.error.formErrors.fieldErrors;
   }
 

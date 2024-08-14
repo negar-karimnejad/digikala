@@ -47,6 +47,8 @@ model Product {
   updatedAt           DateTime   @updatedAt
   category            Category?  @relation(fields: [categoryId], references: [id])
   categoryId          Int?
+  submenuId           Int?
+  submenuItemId       Int?
   order               Order[]
   image               Image[]
 }

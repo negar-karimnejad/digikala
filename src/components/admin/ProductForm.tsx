@@ -3,6 +3,8 @@
 import { addProduct, updateProduct } from "@/app/admin/products/action";
 import { Button } from "@/components/ui/button";
 import useCategories from "@/hooks/useCategories";
+import useSubmenuItems from "@/hooks/useSubmenuItems";
+import useSubmenus from "@/hooks/useSubmenus";
 import { ProductProps } from "@/types/types";
 import { LucideUploadCloud, X } from "lucide-react";
 import Image from "next/image";
@@ -22,6 +24,8 @@ export default function ProductForm({
   product?: ProductProps | null;
 }) {
   const { categories } = useCategories();
+  const { submenus } = useSubmenus();
+  const { submenuItems } = useSubmenuItems();
   const [colors, setColors] = useState<{ name: string; hex: string }[]>([]);
   const [thumbnailFile, setThumbnailFile] = useState<File | null>(null);
   const [additionalFiles, setAdditionalFiles] = useState<File[]>([]);
@@ -263,6 +267,48 @@ export default function ProductForm({
           {categories.map((category) => (
             <option key={category.id} value={category.id}>
               {category.title}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      <div>
+        <label htmlFor="categoryId" className="block text-gray-800 mb-2">
+          زیرمجموعه دسته‌بندی مورد نظر را انتخاب کنید:
+        </label>
+        <select
+          className="block w-full rounded-lg border-2 border-gray-300 bg-gray-50 px-3 py-2 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0 dark:border-gray-600 dark:bg-gray-900 dark:text-white dark:focus:border-blue-500"
+          required
+          name="categoryId"
+          id="categoryId"
+          defaultValue={product?.categoryId ? String(product.categoryId) : ""}
+        >
+          <option value="">زیرمجموعه دسته‌بندی مورد نظر را انتخاب کنید</option>
+          {submenus.map((submenu) => (
+            <option key={submenu.id} value={submenu.id}>
+              {submenu.title}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      <div>
+        <label htmlFor="categoryId" className="block text-gray-800 mb-2">
+          آیتم های زیرمجموعه دسته‌بندی مورد نظر را انتخاب کنید:
+        </label>
+        <select
+          className="block w-full rounded-lg border-2 border-gray-300 bg-gray-50 px-3 py-2 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0 dark:border-gray-600 dark:bg-gray-900 dark:text-white dark:focus:border-blue-500"
+          required
+          name="categoryId"
+          id="categoryId"
+          defaultValue={product?.categoryId ? String(product.categoryId) : ""}
+        >
+          <option value="">
+            آیتم های زیرمجموعه دسته‌بندی مورد نظر را انتخاب کنید
+          </option>
+          {submenuItems.map((submenuItem) => (
+            <option key={submenuItem.id} value={submenuItem.id}>
+              {submenuItem.title}
             </option>
           ))}
         </select>

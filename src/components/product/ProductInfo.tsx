@@ -7,9 +7,10 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import useProduct from "@/hooks/useProduct";
-import { ChevronLeft, Info, Sparkle, ThumbsUp } from "lucide-react";
-import { RefObject, useState } from "react";
+import { Check, ChevronLeft, Info, Sparkle, ThumbsUp } from "lucide-react";
+import { RefObject, useEffect, useState } from "react";
 import { Button } from "../ui/button";
+import { Colors } from "@prisma/client";
 
 export default function ProductInfo({
   productId,
@@ -21,9 +22,14 @@ export default function ProductInfo({
   const { product } = useProduct(productId);
 
   const [sizeValue, setSizeValue] = useState(product?.sizes);
-  const [chosenColor, setChosenColor] = useState(product?.color[0]);
+  const [chosenColor, setChosenColor] = useState<Colors>();
+
+  useEffect(() => {
+    setChosenColor(product?.color[0]);
+  }, [product?.color]);
 
   if (!product) return null;
+console.log(product.category);
 
   return (
     <div className="col-span-5 max-lg:col-span-12">
@@ -131,16 +137,20 @@ export default function ProductInfo({
             <div
               key={item.id}
               onClick={() => setChosenColor(item)}
-              className={`flex w-fit gap-2 p-1 items-center rounded-full ${
-                chosenColor === item ? "border-blue-500 border-2" : "border-2"
+              className={`flex w-fit gap-2 p-0.5 border-2 items-center rounded-full ${
+                chosenColor?.id === item.id ? "border-blue-500 border-4" : ""
               }`}
             >
               <span
-                className="w-5 h-5 rounded-full border"
+                className="w-7 h-7 flex items-center justify-center rounded-full border"
                 style={{
                   backgroundColor: item.hex,
                 }}
-              ></span>
+              >
+                {chosenColor?.id === item.id && (
+                  <Check size={20} className="text-neutral-700" />
+                )}
+              </span>
               <span className="lg:hidden pl-1 text-xs">{item.name}</span>
             </div>
           ))}

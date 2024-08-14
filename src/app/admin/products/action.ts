@@ -17,6 +17,8 @@ export async function addProduct(_state: any, formData: FormData) {
     id: Number(entries.id),
     rating: Number(entries.rating),
     categoryId: Number(entries.categoryId),
+    submenuId: Number(entries.submenuId),
+    submenuItemId: Number(entries.submenuItemId),
     voter: Number(entries.voter),
     price: Number(entries.price),
     discount: Number(entries.discount),
@@ -55,6 +57,8 @@ export async function addProduct(_state: any, formData: FormData) {
       guarantee: data.guarantee,
       likes: data.likes,
       categoryId: data.categoryId,
+      submenuId: data.submenuId,
+      submenuItemId: data.submenuItemId,
     },
   });
 

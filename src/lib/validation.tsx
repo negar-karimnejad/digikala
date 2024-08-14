@@ -46,6 +46,8 @@ export const ProductSchema = z.object({
   title: z.string().min(5, { message: "لطفا عنوان محصول را وارد کنید" }),
   en_title: z.string(),
   categoryId: z.number(),
+  submenuId: z.number(),
+  submenuItemId: z.number(),
   rating: z.number(),
   voter: z.number().default(0),
   thumbnail: imageSchema.refine((file) => file.size > 0, "Required"),
@@ -69,7 +71,7 @@ export const CategorySubmenuItemSchema = z.object({
   id: z.number(),
   title: z
     .string()
-    .min(5, { message: "لطفا عنوان زیرمجموعه دسته‌بندی را وارد نمایید" }),
+    .min(3, { message: "لطفا عنوان زیرمجموعه دسته‌بندی را وارد نمایید" }),
   href: z
     .string()
     .min(5, { message: "لطفا آدرس لینک زیرمجموعه دسته‌بندی را وارد نمایید" }),
@@ -80,7 +82,7 @@ export const CategorySubmenusSchema = z.object({
   id: z.number(),
   title: z
     .string()
-    .min(5, { message: "لطفا عنوان زیرمجموعه دسته‌بندی را وارد نمایید" }),
+    .min(3, { message: "لطفا عنوان زیرمجموعه دسته‌بندی را وارد نمایید" }),
   href: z
     .string()
     .min(5, { message: "لطفا آدرس لینک زیرمجموعه دسته‌بندی را وارد نمایید" }),
