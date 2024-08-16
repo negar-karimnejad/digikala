@@ -16,7 +16,6 @@ export default function ProductImage({ productId }: { productId: number }) {
   };
 
   if (!product) return null;
-  console.log(product, "🎟🎨");
 
   return (
     <div className="w-full col-span-4 max-lg:col-span-12 justify-center items-center">

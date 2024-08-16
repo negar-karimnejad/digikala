@@ -21,7 +21,6 @@ export default async function ProductPage({
       category: { include: { submenus: { include: { items: true } } } },
     },
   });
-  console.log("product🎍🎍", product);
 
   const category = product.category;
   const submenu = category.submenus.find(

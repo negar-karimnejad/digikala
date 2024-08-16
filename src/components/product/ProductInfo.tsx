@@ -29,7 +29,6 @@ export default function ProductInfo({
   }, [product?.color]);
 
   if (!product) return null;
-  console.log(product.category);
 
   return (
     <div className="col-span-5 max-lg:col-span-12">
