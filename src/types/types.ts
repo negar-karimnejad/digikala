@@ -6,9 +6,6 @@ import {
   Image,
   Product,
   Question,
-  Submenu,
-  SubmenuItem,
-  User,
 } from "@prisma/client";
 import { StaticImageData } from "next/image";
 

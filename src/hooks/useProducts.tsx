@@ -1,19 +1,18 @@
 "use client";
 
-import { ProductIncludeImage } from "@/types/types";
-import { Image, Product } from "@prisma/client";
+import { ProductProps } from "@/types/types";
 import axios, { AxiosResponse } from "axios";
 import { useEffect, useState } from "react";
 
 export default function useProducts() {
-  const [products, setProducts] = useState<ProductIncludeImage[]>([]);
+  const [products, setProducts] = useState<ProductProps[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     async function fetchProducts() {
       try {
-        const response: AxiosResponse<ProductIncludeImage[]> = await axios.get(
+        const response: AxiosResponse<ProductProps[]> = await axios.get(
           "/api/products"
         );
         setProducts(response.data);
