@@ -21,13 +21,13 @@ export default async function ProductPage({
       category: { include: { submenus: { include: { items: true } } } },
     },
   });
+  console.log("product🎍🎍", product);
 
   const category = product.category;
-  const submenu = product.category.submenus.find(
-    (submenu) => submenu.categoryId === product.category.id
+  const submenu = category.submenus.find(
+    (submenu) => submenu.id === product.submenuId
   );
-
-  const item = submenu.items.find((item) => item.submenuId === submenu.id);
+  const item = submenu?.items.find((item) => item.id === product.submenuItemId);
 
   if (!product) return null;
 

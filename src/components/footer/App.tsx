@@ -117,8 +117,8 @@ export default function App() {
                   y2="33"
                   gradientUnits="userSpaceOnUse"
                 >
-                  <stop stop-color="#8FC345" />
-                  <stop offset="1" stop-color="#118F4E" />
+                  <stop stopColor="#8FC345" />
+                  <stop offset="1" stopColor="#118F4E" />
                 </linearGradient>
               </defs>
             </svg>

@@ -29,7 +29,7 @@ export default function ProductInfo({
   }, [product?.color]);
 
   if (!product) return null;
-console.log(product.category);
+  console.log(product.category);
 
   return (
     <div className="col-span-5 max-lg:col-span-12">
@@ -231,7 +231,7 @@ console.log(product.category);
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <g clip-path="url(#clip0_8551_116)">
+            <g clipPath="url(#clip0_8551_116)">
               <g style={{ mixBlendMode: "multiply" }} opacity="0.8">
                 <path
                   d="M41.7398 39.8789V29.4333L38.6072 28.3893H33.3858L30.2533 29.4333V39.8789L19.0636 48.833V24.9278H13.9516V21.7319H13.3125V24.9278H11.3955V28.1237H9.47852V52.4124H11.3955H14.5906H19.0636H30.2533H31.297L32.8193 45.5604C33.1501 44.0704 34.4707 43.0108 35.9958 43.0108C37.5209 43.0108 38.8415 44.0704 39.1724 45.5604L40.6946 52.4124H41.7384H57.4011L41.7398 39.8789Z"
@@ -393,9 +393,9 @@ console.log(product.category);
                 y2="3.77461"
                 gradientUnits="userSpaceOnUse"
               >
-                <stop stop-color="white" />
-                <stop offset="0.5169" stop-color="#DBF0F2" />
-                <stop offset="1" stop-color="white" />
+                <stop stopColor="white" />
+                <stop offset="0.5169" stopColor="#DBF0F2" />
+                <stop offset="1" stopColor="white" />
               </linearGradient>
               <linearGradient
                 id="paint1_linear_8551_116"
@@ -405,9 +405,9 @@ console.log(product.category);
                 y2="-420.252"
                 gradientUnits="userSpaceOnUse"
               >
-                <stop stop-color="white" />
-                <stop offset="0.5169" stop-color="#DBF0F2" />
-                <stop offset="1" stop-color="white" />
+                <stop stopColor="white" />
+                <stop offset="0.5169" stopColor="#DBF0F2" />
+                <stop offset="1" stopColor="white" />
               </linearGradient>
               <linearGradient
                 id="paint2_linear_8551_116"
@@ -417,9 +417,9 @@ console.log(product.category);
                 y2="-2.71495"
                 gradientUnits="userSpaceOnUse"
               >
-                <stop stop-color="white" />
-                <stop offset="0.5169" stop-color="#DBF0F2" />
-                <stop offset="1" stop-color="white" />
+                <stop stopColor="white" />
+                <stop offset="0.5169" stopColor="#DBF0F2" />
+                <stop offset="1" stopColor="white" />
               </linearGradient>
               <linearGradient
                 id="paint3_linear_8551_116"
@@ -429,9 +429,9 @@ console.log(product.category);
                 y2="-5.38372"
                 gradientUnits="userSpaceOnUse"
               >
-                <stop stop-color="white" />
-                <stop offset="0.5169" stop-color="#DBF0F2" />
-                <stop offset="1" stop-color="white" />
+                <stop stopColor="white" />
+                <stop offset="0.5169" stopColor="#DBF0F2" />
+                <stop offset="1" stopColor="white" />
               </linearGradient>
               <linearGradient
                 id="paint4_linear_8551_116"
@@ -441,9 +441,9 @@ console.log(product.category);
                 y2="-1.0545"
                 gradientUnits="userSpaceOnUse"
               >
-                <stop stop-color="white" />
-                <stop offset="0.5169" stop-color="#DBF0F2" />
-                <stop offset="1" stop-color="white" />
+                <stop stopColor="white" />
+                <stop offset="0.5169" stopColor="#DBF0F2" />
+                <stop offset="1" stopColor="white" />
               </linearGradient>
               <linearGradient
                 id="paint5_linear_8551_116"
@@ -453,9 +453,9 @@ console.log(product.category);
                 y2="16.4315"
                 gradientUnits="userSpaceOnUse"
               >
-                <stop stop-color="white" />
-                <stop offset="0.5117" stop-color="#9CBDCD" />
-                <stop offset="1" stop-color="white" />
+                <stop stopColor="white" />
+                <stop offset="0.5117" stopColor="#9CBDCD" />
+                <stop offset="1" stopColor="white" />
               </linearGradient>
               <linearGradient
                 id="paint6_linear_8551_116"
@@ -476,8 +476,8 @@ console.log(product.category);
                 y2="48.9124"
                 gradientUnits="userSpaceOnUse"
               >
-                <stop stop-color="#909090" />
-                <stop offset="1" stop-color="#575757" />
+                <stop stopColor="#909090" />
+                <stop offset="1" stopColor="#575757" />
               </linearGradient>
               <linearGradient
                 id="paint8_linear_8551_116"
@@ -487,9 +487,9 @@ console.log(product.category);
                 y2="10.0102"
                 gradientUnits="userSpaceOnUse"
               >
-                <stop stop-color="#818181" />
-                <stop offset="0.41677" stop-color="#939393" />
-                <stop offset="1" stop-color="#C7C7C7" />
+                <stop stopColor="#818181" />
+                <stop offset="0.41677" stopColor="#939393" />
+                <stop offset="1" stopColor="#C7C7C7" />
               </linearGradient>
               <linearGradient
                 id="paint9_linear_8551_116"
@@ -499,9 +499,9 @@ console.log(product.category);
                 y2="27.6068"
                 gradientUnits="userSpaceOnUse"
               >
-                <stop offset="0.000245848" stop-color="#D69102" />
-                <stop offset="0.207632" stop-color="#E69F00" />
-                <stop offset="1" stop-color="#F3CB41" />
+                <stop offset="0.000245848" stopColor="#D69102" />
+                <stop offset="0.207632" stopColor="#E69F00" />
+                <stop offset="1" stopColor="#F3CB41" />
               </linearGradient>
               <clipPath id="clip0_8551_116">
                 <rect width="102.857" height="60" fill="white" />

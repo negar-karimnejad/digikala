@@ -26,11 +26,32 @@ export default function ProductForm({
   const { categories } = useCategories();
   const { submenus } = useSubmenus();
   const { submenuItems } = useSubmenuItems();
-  const [colors, setColors] = useState<{ name: string; hex: string }[]>([]);
+
+  const [selectedCategory, setSelectedCategory] = useState(
+    product?.categoryId ? String(product.categoryId) : ""
+  );
+  const [selectedSubmenu, setSelectedSubmenu] = useState(
+    product?.submenuId ? String(product.submenuId) : ""
+  );
+  const [selectedSubmenuItem, setSelectedSubmenuItem] = useState(
+    product?.submenuItemId ? String(product.submenuItemId) : ""
+  );
+
+  // Filtered submenus and submenu items
+  const filteredSubmenus = submenus.filter(
+    (submenu) => submenu.categoryId === Number(selectedCategory)
+  );
+  const filteredSubmenuItems = submenuItems.filter(
+    (item) => item.submenuId === Number(selectedSubmenu)
+  );
+
   const [thumbnailFile, setThumbnailFile] = useState<File | null>(null);
   const [additionalFiles, setAdditionalFiles] = useState<File[]>([]);
+  const [colors, setColors] = useState<{ name: string; hex: string }[]>(
+    product?.color ? product.color : []
+  );
   const [features, setFeatures] = useState<{ key: string; value: string }[]>(
-    []
+    product?.feature ? product.feature : []
   );
 
   const [state, formAction] = useFormState(
@@ -261,7 +282,11 @@ export default function ProductForm({
           required
           name="categoryId"
           id="categoryId"
-          defaultValue={product?.categoryId ? String(product.categoryId) : ""}
+          value={selectedCategory}
+          onChange={(e) => {
+            setSelectedCategory(e.target.value);
+            setSelectedSubmenu("");
+          }}
         >
           <option value="">دسته‌بندی مورد نظر را انتخاب کنید</option>
           {categories.map((category) => (
@@ -273,18 +298,20 @@ export default function ProductForm({
       </div>
 
       <div>
-        <label htmlFor="categoryId" className="block text-gray-800 mb-2">
+        <label htmlFor="submenuId" className="block text-gray-800 mb-2">
           زیرمجموعه دسته‌بندی مورد نظر را انتخاب کنید:
         </label>
         <select
-          className="block w-full rounded-lg border-2 border-gray-300 bg-gray-50 px-3 py-2 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0 dark:border-gray-600 dark:bg-gray-900 dark:text-white dark:focus:border-blue-500"
+          className="disabled:cursor-not-allowed disabled:opacity-50 block w-full rounded-lg border-2 border-gray-300 bg-gray-50 px-3 py-2 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0 dark:border-gray-600 dark:bg-gray-900 dark:text-white dark:focus:border-blue-500"
           required
-          name="categoryId"
-          id="categoryId"
-          defaultValue={product?.categoryId ? String(product.categoryId) : ""}
+          disabled={filteredSubmenus.length === 0}
+          name="submenuId"
+          id="submenuId"
+          value={selectedSubmenu}
+          onChange={(e) => setSelectedSubmenu(e.target.value)}
         >
           <option value="">زیرمجموعه دسته‌بندی مورد نظر را انتخاب کنید</option>
-          {submenus.map((submenu) => (
+          {filteredSubmenus.map((submenu) => (
             <option key={submenu.id} value={submenu.id}>
               {submenu.title}
             </option>
@@ -293,20 +320,26 @@ export default function ProductForm({
       </div>
 
       <div>
-        <label htmlFor="categoryId" className="block text-gray-800 mb-2">
+        <label htmlFor="submenuItemId" className="block text-gray-800 mb-2">
           آیتم های زیرمجموعه دسته‌بندی مورد نظر را انتخاب کنید:
         </label>
         <select
-          className="block w-full rounded-lg border-2 border-gray-300 bg-gray-50 px-3 py-2 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0 dark:border-gray-600 dark:bg-gray-900 dark:text-white dark:focus:border-blue-500"
+          className="disabled:cursor-not-allowed disabled:opacity-50 block w-full rounded-lg border-2 border-gray-300 bg-gray-50 px-3 py-2 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0 dark:border-gray-600 dark:bg-gray-900 dark:text-white dark:focus:border-blue-500"
           required
-          name="categoryId"
-          id="categoryId"
-          defaultValue={product?.categoryId ? String(product.categoryId) : ""}
+          disabled={filteredSubmenuItems.length === 0}
+          name="submenuItemId"
+          id="submenuItemId"
+          value={selectedSubmenuItem}
+          onChange={(e) => setSelectedSubmenuItem(e.target.value)}
+
+          // defaultValue={
+          //   product?.submenuItemId ? String(product.submenuItemId) : ""
+          // }
         >
           <option value="">
             آیتم های زیرمجموعه دسته‌بندی مورد نظر را انتخاب کنید
           </option>
-          {submenuItems.map((submenuItem) => (
+          {filteredSubmenuItems.map((submenuItem) => (
             <option key={submenuItem.id} value={submenuItem.id}>
               {submenuItem.title}
             </option>

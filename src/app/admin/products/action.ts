@@ -2,6 +2,7 @@
 
 import db from "@/db/db";
 import { productEditSchema, ProductSchema } from "@/lib/validation";
+import { Colors } from "@prisma/client";
 import fs from "fs/promises";
 import { revalidatePath } from "next/cache";
 import { notFound, redirect } from "next/navigation";
@@ -78,7 +79,7 @@ export async function addProduct(_state: any, formData: FormData) {
 
   if (colorArray.length > 0) {
     await Promise.all(
-      colorArray.map((color) =>
+      colorArray.map((color:Colors) =>
         db.colors.create({
           data: {
             name: color.name,
@@ -90,7 +91,6 @@ export async function addProduct(_state: any, formData: FormData) {
     );
   }
 
-  // if (formData.has("image")) {
   const images = formData.getAll("image");
   const imagePaths = new Set();
   const imagePromises = (images as File[]).map(async (image) => {
@@ -115,7 +115,6 @@ export async function addProduct(_state: any, formData: FormData) {
     }
   });
   await Promise.all(imagePromises);
-  // }
 
   revalidatePath("/");
   revalidatePath("/products");

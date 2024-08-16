@@ -78,12 +78,15 @@ export default function ProductTab({ productId }: { productId: number }) {
           >
             {product.description}
           </p>
-          <button
-            className="flex items-center text-blue-400 text-xs mt-2"
-            onClick={() => setShowFullIntroduction((prev) => !prev)}
-          >
-            {showFullIntroduction ? "بستن" : "بیشتر"} <ChevronLeft size={16} />
-          </button>
+          {product.description.length > 600 && (
+            <button
+              className="flex items-center text-blue-400 text-xs mt-2"
+              onClick={() => setShowFullIntroduction((prev) => !prev)}
+            >
+              {showFullIntroduction ? "بستن" : "بیشتر"}{" "}
+              <ChevronLeft size={16} />
+            </button>
+          )}
         </div>
       </div>
       {/* features */}
