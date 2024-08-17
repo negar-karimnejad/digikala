@@ -6,11 +6,22 @@ import { JWT } from "next-auth/jwt";
 import CredentialsProvider from "next-auth/providers/credentials";
 
 declare module "next-auth" {
-  interface User extends PrismaUser {
+  interface User {
+    id: number;
+    email: string;
+    name: string;
     avatar?: string;
     role?: string;
   }
 }
+
+type CustomUser = {
+  id: number;
+  email: string;
+  name: string;
+  avatar: string;
+  role: string;
+};
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -25,26 +36,21 @@ export const authOptions: NextAuthOptions = {
           return null;
         }
 
-        // Fetch the user from the database
         const user = await db.user.findUnique({
           where: { email: credentials.email },
         });
 
-        // Check if the user exists and the password is correct
         if (user && bcrypt.compareSync(credentials.password, user.password)) {
           return {
-            id: user.id.toString(),
+            id: user.id,
             email: user.email,
             name: user.name,
             avatar: user.avatar,
-            password: user.password,
-            createdAt: user.createdAt,
-            updatedAt: user.updatedAt,
             role: user.role,
-          };
-        } else {
-          return null;
+          } as CustomUser;
         }
+
+        return null;
       },
     }),
   ],
