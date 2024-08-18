@@ -10,7 +10,7 @@ export default function useProduct(id: number) {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    async function fetchProducts() {
+    async function fetchProduct() {
       try {
         const response: AxiosResponse<ProductProps> = await axios.get(
           `/api/products/${id}`
@@ -23,7 +23,7 @@ export default function useProduct(id: number) {
       }
     }
 
-    fetchProducts();
+    fetchProduct();
   }, [id]);
 
   return { product, loading, error };
