@@ -1,19 +1,9 @@
 import BreadcrumbContainer from "@/components/product/BreadcrumbContainer";
 import ProductMain from "@/components/product/ProductMain";
 
+import db from "@/db/db";
 import { Megaphone, Store } from "lucide-react";
 import Link from "next/link";
-
-async function getProduct(productId: number) {
-  const baseUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
-  const res = await fetch(`${baseUrl}/api/products/${productId}`);
-
-  if (!res.ok) {
-    throw new Error("Failed to fetch product data");
-  }
-
-  return res.json();
-}
 
 export default async function ProductPage({
   params: { id },
@@ -21,7 +11,16 @@ export default async function ProductPage({
   params: { id: string };
 }) {
   const productId = parseInt(id, 10);
-  const product = await getProduct(productId);
+
+  const product = await db.product.findUnique({
+    where: { id: productId },
+    include: {
+      image: true,
+      color: true,
+      feature: true,
+      category: { include: { submenus: { include: { items: true } } } },
+    },
+  });
 
   const category = product.category;
   const submenu = category.submenus.find(
