@@ -1,11 +1,13 @@
 import BreadcrumbContainer from "@/components/product/BreadcrumbContainer";
 import ProductMain from "@/components/product/ProductMain";
 
-import useProduct from "@/hooks/useProduct";
-import { ProductProps } from "@/types/types";
-import axios, { AxiosResponse } from "axios";
 import { Megaphone, Store } from "lucide-react";
 import Link from "next/link";
+
+async function getProduct(productId: number) {
+  const res = await fetch(`/api/products/${productId}`);
+  return res.json();
+}
 
 export default async function ProductPage({
   params: { id },
@@ -14,10 +16,9 @@ export default async function ProductPage({
 }) {
   const productId = parseInt(id, 10);
 
-  const response: AxiosResponse<ProductProps> = await axios.get(
-    `/api/products/${productId}`
-  );
-  const product = response.data
+  const productData = getProduct(productId);
+  const [product] = await Promise.all([productData]);
+
   // const { product } = useProduct(productId);
   // const product = await db.product.findUnique({
   //   where: { id: productId },
