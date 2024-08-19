@@ -1,6 +1,6 @@
 import { ThemeProvider } from "@/components/ui/theme-provider";
-import { cn } from "@/lib/utils";
 import { AuthProvider } from "@/lib/AuthProvider";
+import { cn } from "@/lib/utils";
 import { getServerSession } from "next-auth";
 import localFont from "next/font/local";
 import { Toaster } from "react-hot-toast";
