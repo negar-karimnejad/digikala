@@ -34,6 +34,7 @@ export const authOptions: NextAuthOptions = {
       async authorize(credentials) {
         try {
           if (!credentials?.email || !credentials?.password) {
+            console.error("Missing email or password");
             return null;
           }
 
