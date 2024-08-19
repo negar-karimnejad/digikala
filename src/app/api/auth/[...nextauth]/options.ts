@@ -1,5 +1,4 @@
 import db from "@/db/db";
-import { User as PrismaUser } from "@prisma/client";
 import bcrypt from "bcryptjs";
 import { NextAuthOptions, Session } from "next-auth";
 import { JWT } from "next-auth/jwt";

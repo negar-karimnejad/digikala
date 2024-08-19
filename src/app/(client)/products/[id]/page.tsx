@@ -1,7 +1,8 @@
 import BreadcrumbContainer from "@/components/product/BreadcrumbContainer";
 import ProductMain from "@/components/product/ProductMain";
-
 import db from "@/db/db";
+
+
 import { Megaphone, Store } from "lucide-react";
 import Link from "next/link";
 
