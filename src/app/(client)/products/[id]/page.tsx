@@ -29,6 +29,8 @@ export default async function ProductPage({
   const item = submenu?.items.find((item) => item.id === product.submenuItemId);
 
   if (!product) return null;
+  
+  console.log("product🦺", product);
 
   return (
     <div className="px-4 flex flex-col gap-10 py-4">
