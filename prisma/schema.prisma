@@ -1,36 +1,146 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider  = "postgresql"
-  url       = env("POSTGRES_PRISMA_URL")
-  directUrl = env("POSTGRES_URL_NON_POOLING")
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
 }
 
-model customers {
-  id        String @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
-  name      String @db.VarChar(255)
-  email     String @db.VarChar(255)
-  image_url String @db.VarChar(255)
+model User {
+  id        Int        @id @default(autoincrement())
+  email     String     @unique
+  name      String
+  avatar    String?
+  password  String
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  role      String     @default("USER")
+  comment   Comment[]
+  question  Question[]
+  order     Order[]
 }
 
-model invoices {
-  id          String   @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
-  customer_id String   @db.Uuid
-  amount      Int
-  status      String   @db.VarChar(255)
-  date        DateTime @db.Date
+model Product {
+  id                  Int        @id @default(autoincrement())
+  title               String
+  en_title            String     @default("")
+  rating              Float?
+  voter               Int        @default(0)
+  comment             Comment[]
+  question            Question[]
+  sizes               String
+  thumbnail           String
+  feature             Feature[]
+  color               Colors[]
+  price               Float
+  discount            Float?
+  discount_price      Float?
+  description         String
+  recommended_percent Float?
+  guarantee           String?
+  likes               Float      @default(0)
+  createdAt           DateTime   @default(now())
+  updatedAt           DateTime   @updatedAt
+  category            Category?  @relation(fields: [categoryId], references: [id])
+  categoryId          Int?
+  submenuId           Int?
+  submenuItemId       Int?
+  order               Order[]
+  image               Image[]
 }
 
-model revenue {
-  month   String @unique @db.VarChar(4)
-  revenue Int
+model Image {
+  id        Int     @id @default(autoincrement())
+  url       String
+  product   Product @relation(fields: [productId], references: [id])
+  productId Int
 }
 
-model users {
-  id       String @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
-  name     String @db.VarChar(255)
-  email    String @unique
-  password String
+model Colors {
+  id        Int      @id @default(autoincrement())
+  name      String
+  hex       String
+  product   Product? @relation(fields: [productId], references: [id])
+  productId Int?
+}
+
+model Feature {
+  id        Int     @id @default(autoincrement())
+  key       String
+  value     String
+  productId Int
+  product   Product @relation(fields: [productId], references: [id])
+}
+
+model Category {
+  id       Int       @id @default(autoincrement())
+  title    String
+  icon     String?
+  cover    String
+  href     String
+  submenus Submenu[]
+  Product  Product[]
+}
+
+model Submenu {
+  id         Int           @id @default(autoincrement())
+  title      String
+  href       String
+  categoryId Int
+  category   Category      @relation(fields: [categoryId], references: [id])
+  items      SubmenuItem[]
+}
+
+model SubmenuItem {
+  id        Int     @id @default(autoincrement())
+  title     String
+  href      String
+  submenuId Int
+  submenu   Submenu @relation(fields: [submenuId], references: [id])
+}
+
+model Comment {
+  id        Int      @id @default(autoincrement())
+  content   String
+  author    User     @relation(fields: [authorId], references: [id])
+  authorId  Int
+  product   Product  @relation(fields: [productId], references: [id])
+  productId Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Question {
+  id        Int      @id @default(autoincrement())
+  content   String
+  author    User     @relation(fields: [authorId], references: [id])
+  authorId  Int
+  product   Product  @relation(fields: [productId], references: [id])
+  productId Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Order {
+  id          Int      @id @default(autoincrement())
+  orderDate   DateTime @default(now())
+  totalAmount Float
+  status      String
+  user        User     @relation(fields: [userId], references: [id])
+  userId      Int
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  product     Product? @relation(fields: [productId], references: [id])
+  productId   Int?
+}
+
+model Story {
+  id    Int    @id @default(autoincrement())
+  title String
+  cover String
+  post  String
 }
