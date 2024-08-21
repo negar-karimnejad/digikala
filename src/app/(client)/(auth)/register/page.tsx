@@ -1,68 +1,82 @@
 "use client";
 
+import { signup } from "@/app/admin/users/action";
 import Logo from "@/components/Logo";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { UserSchema } from "@/lib/validation";
+import { UserFormData, UserSchema } from "@/lib/validation";
+import { UserFormState } from "@/types/types";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import { useState } from "react";
+import { useFormStatus } from "react-dom";
 import toast from "react-hot-toast";
 
-export default function Register() {
-  const [name, setName] = useState("");
-  const [phone, setPhone] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
+const initialState: UserFormState = {
+  errors: {},
+  success: false,
+};
 
-  // Form Errors States
-  const [nameError, setNameError] = useState("");
-  const [emailError, setEmailError] = useState("");
-  const [phoneError, setPhoneError] = useState("");
-  const [passwordError, setPasswordError] = useState("");
+export default function Register() {
+  const [state, setState] = useState<UserFormState>(initialState);
+  const { status } = useSession();
+
+  if (status === "authenticated") redirect("/");
+
+  const validateForm = (formData: FormData) => {
+    const formObject = Object.fromEntries(formData.entries()) as UserFormData;
+    const validation = UserSchema.safeParse(formObject);
+
+    if (validation.success) {
+      return {}; // No errors
+    } else {
+      const errors: Partial<UserFormState["errors"]> = {};
+      validation.error.errors.forEach((error) => {
+        errors[error.path[0]] = [error.message];
+      });
+      return errors;
+    }
+  };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    setLoading(true);
     event.preventDefault();
-    const user = { name, phone, email, password };
+    const formData = new FormData(event.currentTarget);
 
-    const validation = UserSchema.safeParse(user);
-
-    if (!validation.success) {
-      // Handle validation errors
-      setNameError("");
-      setEmailError("");
-      setPhoneError("");
-      setPasswordError("");
-
-      validation.error.errors.forEach((error) => {
-        if (error.path.includes("name")) setNameError(error.message);
-        if (error.path.includes("email")) setEmailError(error.message);
-        if (error.path.includes("phone")) setPhoneError(error.message);
-        if (error.path.includes("password")) setPasswordError(error.message);
-      });
-      setLoading(false);
+    // Perform client-side validation
+    const validationErrors = validateForm(formData);
+    if (Object.keys(validationErrors).length > 0) {
+      setState((prevState) => ({
+        ...prevState,
+        errors: validationErrors,
+        success: false,
+      }));
       return;
     }
-    setNameError("");
-    setEmailError("");
-    setPhoneError("");
-    setPasswordError("");
 
-    const res = await fetch("/api/auth/signup", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(user),
-    });
+    try {
+      const result = await signup(state, formData);
 
-    console.log(res);
-
-    if (res.status === 201) {
-      toast.success("ثبت نام با موفقیت انجام شد :)");
+      if (result.success) {
+        toast.success("ثبت نام با موفقیت انجام شد.");
+        redirect("/login");
+      } else {
+        setState((prevState) => ({
+          ...prevState,
+          errors: result.errors,
+          success: false,
+        }));
+      }
+    } catch (error) {
+      console.error("Error during signup:", error);
+      setState((prevState) => ({
+        ...prevState,
+        errors: {
+          general: ["An unexpected error occurred. Please try again."],
+        },
+        success: false,
+      }));
     }
-    setLoading(false);
   };
 
   return (
@@ -86,30 +100,28 @@ export default function Register() {
             type="name"
             id="name"
             name="name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
             autoFocus
-            className={`bg-transparent py-5 border rounded-lg ${
-              nameError ? "border-red-500" : ""
-            }`}
+            className={`bg-transparent py-5 border rounded-lg 
+              ${state.errors.name ? "border-red-500" : ""}
+               `}
           />
-          {nameError && <div className="text-red-500 text-xs">{nameError}</div>}
-          <label htmlFor="phone" className="text-xs">
+          {state.errors.name && (
+            <div className="text-destructive text-xs">{state.errors.name}</div>
+          )}
+          <label htmlFor="name" className="text-xs">
             لطفا شماره تماس خود را وارد کنید
           </label>
           <Input
             type="phone"
             id="phone"
             name="phone"
-            value={phone}
-            onChange={(e) => setPhone(e.target.value)}
             autoFocus
-            className={`bg-transparent py-5 border rounded-lg ${
-              nameError ? "border-red-500" : ""
-            }`}
+            className={`bg-transparent py-5 border rounded-lg 
+              ${state.errors.phone ? "border-red-500" : ""}
+               `}
           />
-          {nameError && (
-            <div className="text-red-500 text-xs">{phoneError}</div>
+          {state.errors.phone && (
+            <div className="text-destructive text-xs">{state.errors.phone}</div>
           )}
           <label htmlFor="name" className="text-xs">
             لطفا ایمیل خود را وارد کنید
@@ -118,14 +130,12 @@ export default function Register() {
             type="text"
             id="email"
             name="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
             className={`bg-transparent py-5 border rounded-lg ${
-              nameError ? "border-red-500" : ""
+              state.errors.email ? "border-red-500" : ""
             }`}
           />
-          {nameError && (
-            <div className="text-red-500 text-xs">{emailError}</div>
+          {state.errors.email && (
+            <div className="text-destructive text-xs">{state.errors.email}</div>
           )}
           <label htmlFor="password" className="text-xs">
             لطفا پسورد خود را وارد کنید
@@ -134,18 +144,16 @@ export default function Register() {
             type="password"
             id="password"
             name="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
             className={`bg-transparent py-5 border rounded-lg ${
-              nameError ? "border-red-500" : ""
+              state.errors.password ? "border-red-500" : ""
             }`}
           />
-          {nameError && (
-            <div className="text-red-500 text-xs">{passwordError}</div>
+          {state.errors.password && (
+            <div className="text-destructive text-xs">
+              {state.errors.password}
+            </div>
           )}
-          <Button disabled={loading} type="submit" className="rounded-lg mt-8">
-            {loading ? "در حال انتظار..." : "ثبت نام"}
-          </Button>
+          <SubmitButton />
         </form>
         <small className="text-gray-600 dark:text-gray-300 mx-auto text-[10px] sm:text-xs mt-1">
           ورود شما به معنای پذیرش{" "}
@@ -162,3 +170,12 @@ export default function Register() {
     </div>
   );
 }
+
+const SubmitButton = () => {
+  const { pending } = useFormStatus();
+  return (
+    <Button disabled={pending} type="submit" className="rounded-lg mt-8">
+      {pending ? "در حال انتظار..." : "ثبت نام"}
+    </Button>
+  );
+};

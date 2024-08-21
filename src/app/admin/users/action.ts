@@ -1,57 +1,69 @@
 "use server";
 
-import db from "@/db/db";
-import { UserSchema, UserupdateSchema } from "@/lib/validation";
+import { UserSchema } from "@/lib/validation";
 import { UserFormState } from "@/types/types";
 import { generateAccessToken } from "@/utils/auth";
 import { roles } from "@/utils/constants";
 import bcrypt from "bcryptjs";
-import fs from "fs/promises";
-import { revalidatePath } from "next/cache";
-import { notFound, redirect } from "next/navigation";
-import UserModel from "../../../../models/User";
+import UserModel from "models/User";
 
-// export async function signup(
-//   state: UserFormState,
-//   formData: FormData
-// ): Promise<UserFormState> {
-//   const result = UserSchema.safeParse(Object.fromEntries(formData.entries()));
+export async function signup(
+  state: UserFormState,
+  formData: FormData
+): Promise<UserFormState> {
+  const result = UserSchema.safeParse(Object.fromEntries(formData.entries()));
 
-//   if (!result.success) {
-//     return {
-//       ...state,
-//       errors: result.error.formErrors.fieldErrors,
-//       success: false,
-//     };
-//   }
+  if (!result.success) {
+    return {
+      ...state,
+      errors: result.error.formErrors.fieldErrors,
+      success: false,
+    };
+  }
 
-//   const data = result.data;
-//   const { avatar, email, name, password, phone } = data;
+  const { name, email, phone, password } = result.data;
 
-//   const isUserExist = await UserModel.findOne({
-//     $or: [{ name }, { email }, { phone }],
-//   });
+  const isUserExist = await UserModel.findOne({
+    $or: [{ name }, { email }, { phone }],
+  });
 
-//   if (isUserExist) {
-//     throw new Error("The username or email or phone exist already !!");
-//   }
+  if (isUserExist) {
+    return {
+      ...state,
+      errors: {
+        name: ["The username already exists."],
+        email: ["The email already exists."],
+        phone: ["The phone number already exists."],
+      },
+      success: false,
+    };
+  }
 
-//   const hashedPassword = bcrypt.hashSync(password, 10);
+  const hashedPassword = bcrypt.hashSync(password, 10);
+  const accessToken = generateAccessToken({ name });
 
-//   const accessToken = generateAccessToken({ name });
+  const users = await UserModel.find({});
 
-//   const users = await UserModel.find({});
+  try {
+    await UserModel.create({
+      name,
+      email,
+      phone,
+      password: hashedPassword,
+      role: users.length > 0 ? roles.USER : roles.ADMIN,
+    });
 
-//   await UserModel.create({
-//     name,
-//     email,
-//     phone,
-//     password: hashedPassword,
-//     role: users.length > 0 ? roles.USER : roles.ADMIN,
-//   });
+    return { ...state, errors: {}, email, success: true };
+  } catch (error: any) {
+    return {
+      ...state,
+      errors: { general: ["An unexpected error occurred. Please try again."] },
+      success: false,
+    };
+  }
+}
 
-//   return { ...state, errors: {}, email, success: true };
-// }
+// headers: { "Set-Cookie": `token=${accessToken};path=/;httpOnly=true` },
 
 // export async function updateUser(
 //   state: UserFormState,

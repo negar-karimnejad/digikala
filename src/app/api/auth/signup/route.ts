@@ -1,54 +1,53 @@
-import { generateAccessToken, hashPassword } from "@/utils/auth";
-import { roles } from "@/utils/constants";
-import connectToDB from "configs/db";
-import UserModel from "models/User";
+// import { generateAccessToken, hashPassword } from "@/utils/auth";
+// import { roles } from "@/utils/constants";
+// import connectToDB from "configs/db";
+// import UserModel from "models/User";
 
-export async function GET() {
-  connectToDB();
-  const users = await UserModel.find({});
+// export async function GET() {
+//   connectToDB();
+//   const users = await UserModel.find({});
 
-  return Response.json(users);
-}
+//   return Response.json(users);
+// }
 
-export async function POST(req) {
-  connectToDB();
-  const body = await req.json();
-  const { name, phone, email, password } = body;
-  console.log("body=>", body);
+// export async function POST(req) {
+//   connectToDB();
+//   const body = await req.json();
+//   const { name, phone, email, password } = body;
 
-  const isUserExist = await UserModel.findOne({
-    $or: [{ name }, { email }, { phone }],
-  });
+//   const isUserExist = await UserModel.findOne({
+//     $or: [{ name }, { email }, { phone }],
+//   });
 
-  if (isUserExist) {
-    return Response.json(
-      {
-        message: "The username or email or phone exist already !!",
-      },
-      {
-        status: 422,
-      }
-    );
-  }
+//   if (isUserExist) {
+//     return Response.json(
+//       {
+//         message: "The username or email or phone exist already !!",
+//       },
+//       {
+//         status: 422,
+//       }
+//     );
+//   }
 
-  const hashedPassword = await hashPassword(password);
-  const accessToken = generateAccessToken({ name });
+//   const hashedPassword = await hashPassword(password);
+//   const accessToken = generateAccessToken({ name });
 
-  const users = await UserModel.find({});
+//   const users = await UserModel.find({});
 
-  await UserModel.create({
-    name,
-    email,
-    phone,
-    password: hashedPassword,
-    role: users.length > 0 ? roles.USER : roles.ADMIN,
-  });
+//   await UserModel.create({
+//     name,
+//     email,
+//     phone,
+//     password: hashedPassword,
+//     role: users.length > 0 ? roles.USER : roles.ADMIN,
+//   });
 
-  return Response.json(
-    { message: "User signed up successfully :))" },
-    {
-      status: 201,
-      headers: { "Set-Cookie": `token=${accessToken};path=/;httpOnly=true` },
-    }
-  );
-}
+//   return Response.json(
+//     { message: "User signed up successfully :))" },
+//     {
+//       status: 201,
+//       headers: { "Set-Cookie": `token=${accessToken};path=/;httpOnly=true` },
+//     }
+//   );
+// }

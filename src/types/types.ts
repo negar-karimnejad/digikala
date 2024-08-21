@@ -1,12 +1,12 @@
-import {
-  Category,
-  Colors,
-  Comment,
-  Feature,
-  Image,
-  Product,
-  Question,
-} from "@prisma/client";
+// import {
+//   Category,
+//   Colors,
+//   Comment,
+//   Feature,
+//   Image,
+//   Product,
+//   Question,
+// } from "@prisma/client";
 import { StaticImageData } from "next/image";
 
 export interface Location {
@@ -45,16 +45,16 @@ export interface Story {
 }
 
 export interface UserFormState {
-  email?: string;
-  errors: Record<string, string[]>;
+  errors: {
+    name?: string[];
+    email?: string[];
+    phone?: string[];
+    password?: string[];
+    general?: string[];
+  };
   success: boolean;
+  email?: string;
 }
-
-export const initialState: UserFormState = {
-  email: "",
-  errors: {},
-  success: false,
-};
 
 export interface CategoryFormState {
   data: Category | null;

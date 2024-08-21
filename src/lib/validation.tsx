@@ -20,6 +20,8 @@ export const UserSchema = z.object({
     .min(5, { message: "رمز کاربری باید حداقل 5 کاراکتر باشد." }),
   avatar: avatarSchema.optional(),
 });
+export type UserFormData = z.infer<typeof UserSchema>;
+
 
 export const UserupdateSchema = z.object({
   name: z.coerce
