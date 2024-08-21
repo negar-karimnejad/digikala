@@ -14,14 +14,8 @@ export async function POST(req) {
   connectToDB();
   const body = await req.json();
   const { name, phone, email, password } = body;
+  console.log("body=>", body);
 
-  // validatePhone(phone);
-  // validateEmail(email);
-  // validatePassword(password);
-
-  // if (!validatePhone || !validateEmail || !validatePassword) {
-  //   return error
-  // }
   const isUserExist = await UserModel.findOne({
     $or: [{ name }, { email }, { phone }],
   });

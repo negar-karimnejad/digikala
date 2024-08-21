@@ -3,9 +3,9 @@
 import Logo from "@/components/Logo";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { UserSchema } from "@/lib/validation";
 import Link from "next/link";
 import { useState } from "react";
-import { useFormStatus } from "react-dom";
 import toast from "react-hot-toast";
 
 export default function Register() {
@@ -13,10 +13,41 @@ export default function Register() {
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  // Form Errors States
+  const [nameError, setNameError] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [phoneError, setPhoneError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    setLoading(true);
     event.preventDefault();
     const user = { name, phone, email, password };
+
+    const validation = UserSchema.safeParse(user);
+
+    if (!validation.success) {
+      // Handle validation errors
+      setNameError("");
+      setEmailError("");
+      setPhoneError("");
+      setPasswordError("");
+
+      validation.error.errors.forEach((error) => {
+        if (error.path.includes("name")) setNameError(error.message);
+        if (error.path.includes("email")) setEmailError(error.message);
+        if (error.path.includes("phone")) setPhoneError(error.message);
+        if (error.path.includes("password")) setPasswordError(error.message);
+      });
+      setLoading(false);
+      return;
+    }
+    setNameError("");
+    setEmailError("");
+    setPhoneError("");
+    setPasswordError("");
 
     const res = await fetch("/api/auth/signup", {
       method: "POST",
@@ -31,6 +62,7 @@ export default function Register() {
     if (res.status === 201) {
       toast.success("ثبت نام با موفقیت انجام شد :)");
     }
+    setLoading(false);
   };
 
   return (
@@ -57,8 +89,11 @@ export default function Register() {
             value={name}
             onChange={(e) => setName(e.target.value)}
             autoFocus
-            className="bg-transparent py-5 border rounded-lg"
+            className={`bg-transparent py-5 border rounded-lg ${
+              nameError ? "border-red-500" : ""
+            }`}
           />
+          {nameError && <div className="text-red-500 text-xs">{nameError}</div>}
           <label htmlFor="phone" className="text-xs">
             لطفا شماره تماس خود را وارد کنید
           </label>
@@ -69,8 +104,13 @@ export default function Register() {
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
             autoFocus
-            className="bg-transparent py-5 border rounded-lg"
+            className={`bg-transparent py-5 border rounded-lg ${
+              nameError ? "border-red-500" : ""
+            }`}
           />
+          {nameError && (
+            <div className="text-red-500 text-xs">{phoneError}</div>
+          )}
           <label htmlFor="name" className="text-xs">
             لطفا ایمیل خود را وارد کنید
           </label>
@@ -80,8 +120,13 @@ export default function Register() {
             name="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="bg-transparent py-5 border rounded-lg"
+            className={`bg-transparent py-5 border rounded-lg ${
+              nameError ? "border-red-500" : ""
+            }`}
           />
+          {nameError && (
+            <div className="text-red-500 text-xs">{emailError}</div>
+          )}
           <label htmlFor="password" className="text-xs">
             لطفا پسورد خود را وارد کنید
           </label>
@@ -91,9 +136,16 @@ export default function Register() {
             name="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="bg-transparent py-5 border rounded-lg"
+            className={`bg-transparent py-5 border rounded-lg ${
+              nameError ? "border-red-500" : ""
+            }`}
           />
-          <SubmitButton />
+          {nameError && (
+            <div className="text-red-500 text-xs">{passwordError}</div>
+          )}
+          <Button disabled={loading} type="submit" className="rounded-lg mt-8">
+            {loading ? "در حال انتظار..." : "ثبت نام"}
+          </Button>
         </form>
         <small className="text-gray-600 dark:text-gray-300 mx-auto text-[10px] sm:text-xs mt-1">
           ورود شما به معنای پذیرش{" "}
@@ -110,12 +162,3 @@ export default function Register() {
     </div>
   );
 }
-
-const SubmitButton = () => {
-  const { pending } = useFormStatus();
-  return (
-    <Button disabled={pending} type="submit" className="rounded-lg mt-8">
-      {pending ? "در حال انتظار..." : "ثبت نام"}
-    </Button>
-  );
-};
