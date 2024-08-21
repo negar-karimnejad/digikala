@@ -35,7 +35,27 @@ const generateRefreshToken = (data) => {
   return token;
 };
 
-export {
-    generateAccessToken, generateRefreshToken, hashPassword, verifyAccessToken, verifyPassword
+const validateEmail = (email) => {
+  const pattern = /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/g;
+  pattern.test(email);
+};
+const validatePassword = (password) => {
+  const pattern =
+    /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$/g;
+  pattern.test(password);
+};
+const validatePhone = (phone) => {
+  const pattern = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/g;
+  pattern.test(phone);
 };
 
+export {
+  generateAccessToken,
+  generateRefreshToken,
+  hashPassword,
+  verifyAccessToken,
+  verifyPassword,
+  validateEmail,
+  validatePassword,
+  validatePhone,
+};

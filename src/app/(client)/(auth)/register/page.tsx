@@ -1,35 +1,37 @@
 "use client";
 
-import { signup } from "@/app/admin/users/action";
 import Logo from "@/components/Logo";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { initialState } from "@/types/types";
-import { useSession } from "next-auth/react";
 import Link from "next/link";
-import { redirect } from "next/navigation";
-import { useEffect } from "react";
-import { useFormState, useFormStatus } from "react-dom";
+import { useState } from "react";
+import { useFormStatus } from "react-dom";
 import toast from "react-hot-toast";
 
 export default function Register() {
-  const [state, formAction] = useFormState(signup, initialState);
-  const { status } = useSession();
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  if (status === "authenticated") redirect("/");
-
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const formData = new FormData(event.currentTarget);
-    formAction(formData);
-  };
+    const user = { name, phone, email, password };
 
-  useEffect(() => {
-    if (state.success) {
-      toast.success("ثبت نام با موفقیت انجام شد.");
-      redirect("/login");
+    const res = await fetch("/api/auth/signup", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(user),
+    });
+
+    console.log(res);
+
+    if (res.status === 201) {
+      toast.success("ثبت نام با موفقیت انجام شد :)");
     }
-  }, [state.success]);
+  };
 
   return (
     <div className="flex items-center justify-center">
@@ -52,14 +54,23 @@ export default function Register() {
             type="name"
             id="name"
             name="name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
             autoFocus
-            className={`bg-transparent py-5 border rounded-lg 
-              ${state.errors.name ? "border-red-500" : ""}
-               `}
+            className="bg-transparent py-5 border rounded-lg"
           />
-          {state.errors.name && (
-            <div className="text-destructive text-xs">{state.errors.name}</div>
-          )}
+          <label htmlFor="phone" className="text-xs">
+            لطفا شماره تماس خود را وارد کنید
+          </label>
+          <Input
+            type="phone"
+            id="phone"
+            name="phone"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+            autoFocus
+            className="bg-transparent py-5 border rounded-lg"
+          />
           <label htmlFor="name" className="text-xs">
             لطفا ایمیل خود را وارد کنید
           </label>
@@ -67,13 +78,10 @@ export default function Register() {
             type="text"
             id="email"
             name="email"
-            className={`bg-transparent py-5 border rounded-lg ${
-              state.errors.email ? "border-red-500" : ""
-            }`}
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="bg-transparent py-5 border rounded-lg"
           />
-          {state.errors.email && (
-            <div className="text-destructive text-xs">{state.errors.email}</div>
-          )}
           <label htmlFor="password" className="text-xs">
             لطفا پسورد خود را وارد کنید
           </label>
@@ -81,15 +89,10 @@ export default function Register() {
             type="password"
             id="password"
             name="password"
-            className={`bg-transparent py-5 border rounded-lg ${
-              state.errors.password ? "border-red-500" : ""
-            }`}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="bg-transparent py-5 border rounded-lg"
           />
-          {state.errors.password && (
-            <div className="text-destructive text-xs">
-              {state.errors.password}
-            </div>
-          )}
           <SubmitButton />
         </form>
         <small className="text-gray-600 dark:text-gray-300 mx-auto text-[10px] sm:text-xs mt-1">

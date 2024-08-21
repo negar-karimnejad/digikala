@@ -3,118 +3,119 @@
 import db from "@/db/db";
 import { UserSchema, UserupdateSchema } from "@/lib/validation";
 import { UserFormState } from "@/types/types";
+import { generateAccessToken } from "@/utils/auth";
+import { roles } from "@/utils/constants";
 import bcrypt from "bcryptjs";
 import fs from "fs/promises";
 import { revalidatePath } from "next/cache";
 import { notFound, redirect } from "next/navigation";
+import UserModel from "../../../../models/User";
 
-export async function signup(
-  state: UserFormState,
-  formData: FormData
-): Promise<UserFormState> {
-  const result = UserSchema.safeParse(Object.fromEntries(formData.entries()));
+// export async function signup(
+//   state: UserFormState,
+//   formData: FormData
+// ): Promise<UserFormState> {
+//   const result = UserSchema.safeParse(Object.fromEntries(formData.entries()));
 
-  if (!result.success) {
-    return {
-      ...state,
-      errors: result.error.formErrors.fieldErrors,
-      success: false,
-    };
-  }
+//   if (!result.success) {
+//     return {
+//       ...state,
+//       errors: result.error.formErrors.fieldErrors,
+//       success: false,
+//     };
+//   }
 
-  const data = result.data;
+//   const data = result.data;
+//   const { avatar, email, name, password, phone } = data;
 
-  const dashPassword = bcrypt.hashSync(data.password, 10);
+//   const isUserExist = await UserModel.findOne({
+//     $or: [{ name }, { email }, { phone }],
+//   });
 
-  try {
-    await db.user.create({
-      data: {
-        name: data.name,
-        email: data.email,
-        password: dashPassword,
-      },
-    });
+//   if (isUserExist) {
+//     throw new Error("The username or email or phone exist already !!");
+//   }
 
-    return { ...state, errors: {}, email: data.email, success: true };
-  } catch (error: any) {
-    if (error.code === "P2002" && error.meta?.target.includes("email")) {
-      return {
-        ...state,
-        errors: {
-          email: [
-            "این ایمیل قبلاً ثبت شده است. لطفاً از ایمیل دیگری استفاده کنید.",
-          ],
-        },
-        success: false,
-      };
-    }
-    throw error; // Re-throw the error if it's not a unique constraint violation
-  }
-}
+//   const hashedPassword = bcrypt.hashSync(password, 10);
 
-export async function updateUser(
-  state: UserFormState,
-  formData: FormData
-): Promise<UserFormState> {
-  const id = formData.get("id");
-  const numericId = Number(id);
+//   const accessToken = generateAccessToken({ name });
 
-  if (!id) throw new Error("User ID is required");
+//   const users = await UserModel.find({});
 
-  const result = UserupdateSchema.safeParse(
-    Object.fromEntries(formData.entries())
-  );
+//   await UserModel.create({
+//     name,
+//     email,
+//     phone,
+//     password: hashedPassword,
+//     role: users.length > 0 ? roles.USER : roles.ADMIN,
+//   });
 
-  if (result.success === false) {
-    return {
-      ...state,
-      errors: result.error.formErrors.fieldErrors,
-    };
-  }
+//   return { ...state, errors: {}, email, success: true };
+// }
 
-  const data = result.data;
+// export async function updateUser(
+//   state: UserFormState,
+//   formData: FormData
+// ): Promise<UserFormState> {
+//   const id = formData.get("id");
+//   const numericId = Number(id);
 
-  const user = await db.user.findUnique({ where: { id: numericId } });
+//   if (!id) throw new Error("User ID is required");
 
-  if (user == null) return notFound();
+//   const result = UserupdateSchema.safeParse(
+//     Object.fromEntries(formData.entries())
+//   );
 
-  let avatarPath = user.avatar;
+//   if (result.success === false) {
+//     return {
+//       ...state,
+//       errors: result.error.formErrors.fieldErrors,
+//     };
+//   }
 
-  if (data.avatar != null && data.avatar.size > 0) {
-    if (user.avatar) {
-      await fs.unlink(`public${user.avatar}`);
-    }
-    avatarPath = `/users/${crypto.randomUUID()}-${data.avatar.name}`;
-    await fs.writeFile(
-      `public${avatarPath}`,
-      Buffer.from(await data.avatar.arrayBuffer())
-    );
-  }
+//   const data = result.data;
 
-  await db.user.update({
-    where: { id: numericId },
-    data: {
-      name: data.name,
-      role: data.role,
-      avatar: avatarPath,
-    },
-  });
+//   const user = await db.user.findUnique({ where: { id: numericId } });
 
-  revalidatePath("/");
-  revalidatePath("/users");
+//   if (user == null) return notFound();
 
-  redirect("/admin/users");
-}
+//   let avatarPath = user.avatar;
 
-export async function deleteUser(id: number) {
-  const user = await db.user.delete({ where: { id } });
+//   if (data.avatar != null && data.avatar.size > 0) {
+//     if (user.avatar) {
+//       await fs.unlink(`public${user.avatar}`);
+//     }
+//     avatarPath = `/users/${crypto.randomUUID()}-${data.avatar.name}`;
+//     await fs.writeFile(
+//       `public${avatarPath}`,
+//       Buffer.from(await data.avatar.arrayBuffer())
+//     );
+//   }
 
-  if (user == null) return notFound();
+//   await db.user.update({
+//     where: { id: numericId },
+//     data: {
+//       name: data.name,
+//       role: data.role,
+//       avatar: avatarPath,
+//     },
+//   });
 
-  if (user.avatar) {
-    await fs.unlink(`public${user.avatar}`);
-  }
+//   revalidatePath("/");
+//   revalidatePath("/users");
 
-  revalidatePath("/");
-  revalidatePath("/users");
-}
+//   redirect("/admin/users");
+// }
+
+// export async function deleteUser(id: number) {
+//   const user = await db.user.delete({ where: { id } });
+
+//   if (user == null) return notFound();
+
+//   if (user.avatar) {
+//     await fs.unlink(`public${user.avatar}`);
+//   }
+
+//   revalidatePath("/");
+//   revalidatePath("/users");
+// }
