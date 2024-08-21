@@ -44,7 +44,7 @@ export interface Story {
   post: string | StaticImageData;
 }
 
-export interface UserFormState {
+export interface RegisterFormState {
   errors: {
     name?: string[];
     email?: string[];
@@ -55,48 +55,57 @@ export interface UserFormState {
   success: boolean;
   email?: string;
 }
-
-export interface CategoryFormState {
-  data: Category | null;
-  errors: Record<string, string[]>;
+export interface LoginFormState {
+  errors: {
+    email?: string[];
+    password?: string[];
+    general?: string[];
+  };
   success: boolean;
+  email?: string;
 }
 
-export const categoryInitialState: CategoryFormState = {
-  data: null,
-  errors: {},
-  success: false,
-};
+// export interface CategoryFormState {
+//   data: Category | null;
+//   errors: Record<string, string[]>;
+//   success: boolean;
+// }
 
-export interface SubmenuItemProps {
-  id: number;
-  title: string;
-  href: string;
-  submenuId: number;
-}
+// export const categoryInitialState: CategoryFormState = {
+//   data: null,
+//   errors: {},
+//   success: false,
+// };
 
-export interface SubmenuProps {
-  id: number;
-  title: string;
-  href: string;
-  categoryId: number;
-  items: SubmenuItemProps[];
-}
+// export interface SubmenuItemProps {
+//   id: number;
+//   title: string;
+//   href: string;
+//   submenuId: number;
+// }
 
-export interface CategoryProps {
-  id: number;
-  title: string;
-  icon: string;
-  cover: string;
-  href: string;
-  submenus?: SubmenuProps[];
-}
+// export interface SubmenuProps {
+//   id: number;
+//   title: string;
+//   href: string;
+//   categoryId: number;
+//   items: SubmenuItemProps[];
+// }
 
-export interface ProductProps extends Product {
-  image?: Image[];
-  category?: CategoryProps;
-  color?: Colors[];
-  feature?: Feature[];
-  comment?: Comment[];
-  question?: Question[];
-}
+// export interface CategoryProps {
+//   id: number;
+//   title: string;
+//   icon: string;
+//   cover: string;
+//   href: string;
+//   submenus?: SubmenuProps[];
+// }
+
+// export interface ProductProps extends Product {
+//   image?: Image[];
+//   category?: CategoryProps;
+//   color?: Colors[];
+//   feature?: Feature[];
+//   comment?: Comment[];
+//   question?: Question[];
+// }

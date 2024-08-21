@@ -1,60 +1,99 @@
 "use client";
 
+import { signin } from "@/app/admin/users/action";
 import Logo from "@/components/Logo";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { signIn, useSession } from "next-auth/react";
+import { LoginSchema, LoginSchemaType } from "@/lib/validation";
+import { LoginFormState } from "@/types/types";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { redirect, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { useFormStatus } from "react-dom";
 import toast from "react-hot-toast";
-import { z } from "zod";
 
-const loginSchema = z.object({
-  email: z.string().email("ایمیل نامعتبر است."),
-  password: z.string().min(5, "رمز عبور باید حداقل 5 کاراکتر باشد."),
-});
-
-type LoginForm = z.infer<typeof loginSchema>;
-
+const initialState: LoginFormState = {
+  errors: {},
+  success: false,
+};
 export default function Login() {
+  const [state, setState] = useState<LoginFormState>(initialState);
+
   const params = useSearchParams();
   const redirectedLogin = params.size === 1;
 
-  const [errors, setErrors] = useState<{ email?: string; password?: string }>(
-    {}
-  );
+  const validateForm = (formData: FormData) => {
+    const formObject = Object.fromEntries(
+      formData.entries()
+    ) as LoginSchemaType;
+    const validation = LoginSchema.safeParse(formObject);
 
-  const onSubmitHandler = async (formData: FormData) => {
-    const result = loginSchema.safeParse(
-      Object.fromEntries(formData.entries())
-    );
-
-    if (!result.success) {
-      const errorMessages: { email?: string; password?: string } = {};
-      result.error.errors.forEach((error) => {
-        errorMessages[error.path[0] as keyof LoginForm] = error.message;
+    if (validation.success) {
+      return {}; // No errors
+    } else {
+      const errors: Partial<LoginFormState["errors"]> = {};
+      validation.error.errors.forEach((error) => {
+        errors[error.path[0]] = [error.message];
       });
-      setErrors(errorMessages);
+      return errors;
+    }
+  };
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget);
+    const validationErrors = validateForm(formData);
+    if (Object.keys(validationErrors).length > 0) {
+      setState((prevState) => ({
+        ...prevState,
+        errors: validationErrors,
+        success: false,
+      }));
       return;
     }
+    try {
+      const result = await signin(state, formData);
 
-    setErrors({});
-
-    const data = result.data;
-
-    await signIn("credentials", {
-      email: data.email,
-      password: data.password,
-      redirect: false,
-    }).then(({ error }: any) => {
-      if (error) {
-        toast.error("ایمیل یا رمز کاربری نادرست است.");
+      if (result.success) {
+        toast.success("خوشحالیم که میبینیمت :)");
+        redirect("/");
       } else {
-        toast.success("از دیدنت خوشحالیم!");
+        setState((prevState) => ({
+          ...prevState,
+          errors: result.errors,
+          success: false,
+        }));
       }
-    });
+    } catch (error) {
+      console.error("Error during signup:", error);
+      setState((prevState) => ({
+        ...prevState,
+        errors: {
+          general: ["An unexpected error occurred. Please try again."],
+        },
+        success: false,
+      }));
+    }
+
+    // const result = loginSchema.safeParse(
+    //   Object.fromEntries(formData.entries())
+    // );
+
+    // if (!result.success) {
+    //   const errorMessages: { email?: string; password?: string } = {};
+    //   result.error.errors.forEach((error) => {
+    //     errorMessages[error.path[0] as keyof LoginForm] = error.message;
+    //   });
+    //   setErrors(errorMessages);
+    //   return;
+    // }
+
+    // setErrors({});
+
+    // const data = result.data;
+
+    // await signin(data);
   };
 
   const session = useSession();
@@ -95,18 +134,22 @@ export default function Login() {
             </Link>
           </p>
           <p className="text-xs text-right mt-5">سلام!</p>
-          <form action={onSubmitHandler} className="flex flex-col gap-2 w-full">
+          <form onSubmit={handleSubmit} className="flex flex-col gap-2 w-full">
             <label htmlFor="name" className="text-xs">
               لطفا ایمیل خود را وارد کنید
             </label>
             <Input
-              type="email"
+              type="text"
               id="email"
               name="email"
-              className="bg-transparent py-5 border rounded-lg"
+              className={`bg-transparent py-5 border rounded-lg ${
+                state.errors.email ? "border-red-500" : ""
+              }`}
             />
-            {errors.email && (
-              <div className="text-destructive text-xs">{errors.email}</div>
+            {state.errors.email && (
+              <div className="text-destructive text-xs">
+                {state.errors.email}
+              </div>
             )}
             <label htmlFor="password" className="text-xs">
               لطفا پسورد خود را وارد کنید
@@ -115,10 +158,14 @@ export default function Login() {
               type="password"
               id="password"
               name="password"
-              className="bg-transparent py-5 border rounded-lg"
+              className={`bg-transparent py-5 border rounded-lg ${
+                state.errors.password ? "border-red-500" : ""
+              }`}
             />
-            {errors.password && (
-              <div className="text-destructive text-xs">{errors.password}</div>
+            {state.errors.password && (
+              <div className="text-destructive text-xs">
+                {state.errors.password}
+              </div>
             )}
             <SubmitButton />
           </form>

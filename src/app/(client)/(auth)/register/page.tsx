@@ -4,8 +4,8 @@ import { signup } from "@/app/admin/users/action";
 import Logo from "@/components/Logo";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { UserFormData, UserSchema } from "@/lib/validation";
-import { UserFormState } from "@/types/types";
+import { RegisterSchemaType, RegisterSchema } from "@/lib/validation";
+import { RegisterFormState } from "@/types/types";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
@@ -13,25 +13,27 @@ import { useState } from "react";
 import { useFormStatus } from "react-dom";
 import toast from "react-hot-toast";
 
-const initialState: UserFormState = {
+const initialState: RegisterFormState = {
   errors: {},
   success: false,
 };
 
 export default function Register() {
-  const [state, setState] = useState<UserFormState>(initialState);
+  const [state, setState] = useState<RegisterFormState>(initialState);
   const { status } = useSession();
 
   if (status === "authenticated") redirect("/");
 
   const validateForm = (formData: FormData) => {
-    const formObject = Object.fromEntries(formData.entries()) as UserFormData;
-    const validation = UserSchema.safeParse(formObject);
+    const formObject = Object.fromEntries(
+      formData.entries()
+    ) as RegisterSchemaType;
+    const validation = RegisterSchema.safeParse(formObject);
 
     if (validation.success) {
       return {}; // No errors
     } else {
-      const errors: Partial<UserFormState["errors"]> = {};
+      const errors: Partial<RegisterFormState["errors"]> = {};
       validation.error.errors.forEach((error) => {
         errors[error.path[0]] = [error.message];
       });

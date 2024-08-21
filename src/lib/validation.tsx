@@ -6,7 +6,7 @@ export const avatarSchema = z
     message: "The file must be a non-empty image.",
   });
 
-export const UserSchema = z.object({
+export const RegisterSchema = z.object({
   name: z.coerce
     .string({ required_error: "لطفا نام و نام خانوادگی را وارد کنید." })
     .min(5, { message: "نام و نام خانوادگی باید حداقل 5 کاراکتر باشد." }),
@@ -20,8 +20,18 @@ export const UserSchema = z.object({
     .min(5, { message: "رمز کاربری باید حداقل 5 کاراکتر باشد." }),
   avatar: avatarSchema.optional(),
 });
-export type UserFormData = z.infer<typeof UserSchema>;
+export type RegisterSchemaType = z.infer<typeof RegisterSchema>;
 
+export const LoginSchema = z.object({
+  email: z
+    .string()
+    .min(1, { message: "لطفا ایمیل را وارد کنید." })
+    .email("ایمیل معتبر نیست."),
+  password: z
+    .string({ required_error: "لطفا رمز کاربری را وارد کنید." })
+    .min(5, { message: "رمز کاربری باید حداقل 5 کاراکتر باشد." }),
+});
+export type LoginSchemaType = z.infer<typeof LoginSchema>;
 
 export const UserupdateSchema = z.object({
   name: z.coerce

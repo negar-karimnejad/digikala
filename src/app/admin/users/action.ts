@@ -1,17 +1,19 @@
 "use server";
 
-import { UserSchema } from "@/lib/validation";
-import { UserFormState } from "@/types/types";
+import { LoginSchema, RegisterSchema } from "@/lib/validation";
+import { RegisterFormState } from "@/types/types";
 import { generateAccessToken } from "@/utils/auth";
 import { roles } from "@/utils/constants";
 import bcrypt from "bcryptjs";
 import UserModel from "models/User";
 
 export async function signup(
-  state: UserFormState,
+  state: RegisterFormState,
   formData: FormData
-): Promise<UserFormState> {
-  const result = UserSchema.safeParse(Object.fromEntries(formData.entries()));
+): Promise<RegisterFormState> {
+  const result = RegisterSchema.safeParse(
+    Object.fromEntries(formData.entries())
+  );
 
   if (!result.success) {
     return {
@@ -62,13 +64,43 @@ export async function signup(
     };
   }
 }
-
 // headers: { "Set-Cookie": `token=${accessToken};path=/;httpOnly=true` },
 
+export async function signin(
+  state: RegisterFormState,
+  formData: FormData
+): Promise<RegisterFormState> {
+  const result = LoginSchema.safeParse(Object.fromEntries(formData.entries()));
+
+  if (!result.success) {
+    return {
+      ...state,
+      errors: result.error.formErrors.fieldErrors,
+      success: false,
+    };
+  }
+
+  const { email, password } = result.data;
+  const user = await UserModel.findOne({ email });
+
+  if (user) {
+    const unhashedPassword = await bcrypt.compare(password, user.password);
+    console.log("user🎁", unhashedPassword);
+    // ساین این کن
+    return { ...state, errors: {}, email, success: true };
+  }
+
+  return {
+    ...state,
+    errors: { general: ["ایمیل یا رمز کاربری اشتباه است."] },
+    success: false,
+  };
+}
+
 // export async function updateUser(
-//   state: UserFormState,
+//   state: RegisterFormState,
 //   formData: FormData
-// ): Promise<UserFormState> {
+// ): Promise<RegisterFormState> {
 //   const id = formData.get("id");
 //   const numericId = Number(id);
 
