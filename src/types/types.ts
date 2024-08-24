@@ -53,8 +53,6 @@ export interface RegisterFormState {
     general?: string[];
   };
   success: boolean;
-  accessToken: string;
-  headers: {};
 }
 export interface LoginFormState {
   errors: {
@@ -63,8 +61,6 @@ export interface LoginFormState {
     general?: string[];
   };
   success: boolean;
-  accessToken: string;
-  headers: {};
 }
 
 // export interface CategoryFormState {

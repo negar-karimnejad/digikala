@@ -11,6 +11,7 @@ import { roles } from "@/utils/constants";
 import bcrypt from "bcryptjs";
 import connectToDB from "configs/db";
 import UserModel from "models/User";
+import { cookies } from "next/headers";
 
 export async function signup(
   state: RegisterFormState,
@@ -59,14 +60,16 @@ export async function signup(
       role: users.length > 0 ? roles.USER : roles.ADMIN,
     });
 
+    cookies().set("token", accessToken, {
+      httpOnly: true,
+      secure: true,
+      path: "/",
+    });
+
     return {
       ...state,
       errors: null,
       success: true,
-      accessToken,
-      headers: {
-        "Set-Cookie": `token=${accessToken}; Path=/; HttpOnly;`,
-      },
     };
   } catch (error) {
     console.log("Error ->", error);
@@ -123,10 +126,6 @@ export async function signin(
       ...state,
       errors: null,
       success: true,
-      accessToken,
-      headers: {
-        "Set-Cookie": `token=${accessToken}; Path=/; HttpOnly;`,
-      },
     };
   } catch (error) {
     console.log("Error ->", error);

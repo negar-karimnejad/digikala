@@ -16,8 +16,6 @@ import toast from "react-hot-toast";
 const initialState: LoginFormState = {
   errors: {},
   success: false,
-  accessToken: "",
-  headers: {},
 };
 
 export default function Login() {
