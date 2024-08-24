@@ -8,7 +8,7 @@ import { RegisterSchemaType, RegisterSchema } from "@/lib/validation";
 import { RegisterFormState } from "@/types/types";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
-import { redirect } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import { useState } from "react";
 import { useFormStatus } from "react-dom";
 import toast from "react-hot-toast";
@@ -16,13 +16,16 @@ import toast from "react-hot-toast";
 const initialState: RegisterFormState = {
   errors: {},
   success: false,
+  accessToken: "",
+  headers: {},
 };
 
 export default function Register() {
+  const router = useRouter();
   const [state, setState] = useState<RegisterFormState>(initialState);
   const { status } = useSession();
 
-  if (status === "authenticated") redirect("/");
+  if (status === "authenticated") router.push("/");
 
   const validateForm = (formData: FormData) => {
     const formObject = Object.fromEntries(
@@ -61,7 +64,7 @@ export default function Register() {
 
       if (result.success) {
         toast.success("ثبت نام با موفقیت انجام شد.");
-        redirect("/login");
+        router.push("/login");
       } else {
         setState((prevState) => ({
           ...prevState,

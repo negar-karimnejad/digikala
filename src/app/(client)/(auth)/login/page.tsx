@@ -8,7 +8,7 @@ import { LoginSchema, LoginSchemaType } from "@/lib/validation";
 import { LoginFormState } from "@/types/types";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
-import { redirect, useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { useFormStatus } from "react-dom";
 import toast from "react-hot-toast";
@@ -16,8 +16,12 @@ import toast from "react-hot-toast";
 const initialState: LoginFormState = {
   errors: {},
   success: false,
+  accessToken: "",
+  headers: {},
 };
+
 export default function Login() {
+  const router = useRouter();
   const [state, setState] = useState<LoginFormState>(initialState);
 
   const params = useSearchParams();
@@ -57,7 +61,7 @@ export default function Login() {
 
       if (result.success) {
         toast.success("خوشحالیم که میبینیمت :)");
-        redirect("/");
+        router.push("/");
       } else {
         setState((prevState) => ({
           ...prevState,
@@ -99,9 +103,9 @@ export default function Login() {
   const session = useSession();
 
   if (session.status === "authenticated" && redirectedLogin) {
-    redirect("/admin");
+    router.push("/admin");
   } else if (session.status === "authenticated" && !redirectedLogin) {
-    redirect("/");
+    router.push("/");
   }
 
   return (

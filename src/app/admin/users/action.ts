@@ -1,52 +1,56 @@
 "use server";
 
 import { LoginSchema, RegisterSchema } from "@/lib/validation";
-import { RegisterFormState } from "@/types/types";
-import { generateAccessToken } from "@/utils/auth";
+import { LoginFormState, RegisterFormState } from "@/types/types";
+import {
+  generateAccessToken,
+  generateRefreshToken,
+  verifyPassword,
+} from "@/utils/auth";
 import { roles } from "@/utils/constants";
 import bcrypt from "bcryptjs";
+import connectToDB from "configs/db";
 import UserModel from "models/User";
 
 export async function signup(
   state: RegisterFormState,
   formData: FormData
 ): Promise<RegisterFormState> {
-  const result = RegisterSchema.safeParse(
-    Object.fromEntries(formData.entries())
-  );
-
-  if (!result.success) {
-    return {
-      ...state,
-      errors: result.error.formErrors.fieldErrors,
-      success: false,
-    };
-  }
-
-  const { name, email, phone, password } = result.data;
-
-  const isUserExist = await UserModel.findOne({
-    $or: [{ name }, { email }, { phone }],
-  });
-
-  if (isUserExist) {
-    return {
-      ...state,
-      errors: {
-        name: ["The username already exists."],
-        email: ["The email already exists."],
-        phone: ["The phone number already exists."],
-      },
-      success: false,
-    };
-  }
-
-  const hashedPassword = bcrypt.hashSync(password, 10);
-  const accessToken = generateAccessToken({ name });
-
-  const users = await UserModel.find({});
-
   try {
+    connectToDB();
+    const result = RegisterSchema.safeParse(
+      Object.fromEntries(formData.entries())
+    );
+
+    if (!result.success) {
+      return {
+        ...state,
+        errors: result.error.formErrors.fieldErrors,
+        success: false,
+      };
+    }
+
+    const { name, email, phone, password } = result.data;
+
+    const isUserExist = await UserModel.findOne({
+      $or: [{ name }, { email }, { phone }],
+    });
+
+    if (isUserExist) {
+      return {
+        ...state,
+        errors: {
+          general: ["The username or email or phone exists already!!"],
+        },
+        success: false,
+      };
+    }
+
+    const hashedPassword = bcrypt.hashSync(password, 10);
+    const accessToken = generateAccessToken({ name });
+
+    const users = await UserModel.find({});
+
     await UserModel.create({
       name,
       email,
@@ -55,46 +59,83 @@ export async function signup(
       role: users.length > 0 ? roles.USER : roles.ADMIN,
     });
 
-    return { ...state, errors: {}, email, success: true };
-  } catch (error: any) {
     return {
       ...state,
-      errors: { general: ["An unexpected error occurred. Please try again."] },
+      errors: null,
+      success: true,
+      accessToken,
+      headers: {
+        "Set-Cookie": `token=${accessToken}; Path=/; HttpOnly;`,
+      },
+    };
+  } catch (error) {
+    console.log("Error ->", error);
+    return {
+      ...state,
+      errors: { general: [error] },
       success: false,
     };
   }
 }
-// headers: { "Set-Cookie": `token=${accessToken};path=/;httpOnly=true` },
 
 export async function signin(
-  state: RegisterFormState,
+  state: LoginFormState,
   formData: FormData
-): Promise<RegisterFormState> {
-  const result = LoginSchema.safeParse(Object.fromEntries(formData.entries()));
+): Promise<LoginFormState> {
+  try {
+    connectToDB();
+    const result = LoginSchema.safeParse(
+      Object.fromEntries(formData.entries())
+    );
 
-  if (!result.success) {
+    if (!result.success) {
+      return {
+        ...state,
+        errors: result.error.formErrors.fieldErrors,
+        success: false,
+      };
+    }
+
+    const { email, password } = result.data;
+    const user = await UserModel.findOne({ email });
+
+    if (!user) {
+      return {
+        ...state,
+        errors: { general: ["User not found"] },
+        success: false,
+      };
+    }
+
+    const isCorrectPasswordWithHash = verifyPassword(password, user.password);
+    if (!isCorrectPasswordWithHash) {
+      return {
+        ...state,
+        errors: { general: ["Email or password is not correct"] },
+        success: false,
+      };
+    }
+
+    const accessToken = generateAccessToken({ email });
+    const refreshToken = generateRefreshToken({ email });
+
     return {
       ...state,
-      errors: result.error.formErrors.fieldErrors,
+      errors: null,
+      success: true,
+      accessToken,
+      headers: {
+        "Set-Cookie": `token=${accessToken}; Path=/; HttpOnly;`,
+      },
+    };
+  } catch (error) {
+    console.log("Error ->", error);
+    return {
+      ...state,
+      errors: { general: [error] },
       success: false,
     };
   }
-
-  const { email, password } = result.data;
-  const user = await UserModel.findOne({ email });
-
-  if (user) {
-    const unhashedPassword = await bcrypt.compare(password, user.password);
-    console.log("user🎁", unhashedPassword);
-    // ساین این کن
-    return { ...state, errors: {}, email, success: true };
-  }
-
-  return {
-    ...state,
-    errors: { general: ["ایمیل یا رمز کاربری اشتباه است."] },
-    success: false,
-  };
 }
 
 // export async function updateUser(
