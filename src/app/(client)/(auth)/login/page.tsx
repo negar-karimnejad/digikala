@@ -54,6 +54,7 @@ export default function Login() {
       }));
       return;
     }
+
     try {
       const result = await signin(state, formData);
 
@@ -67,6 +68,7 @@ export default function Login() {
           success: false,
         }));
       }
+      toast.error(result.errors.general[0]);
     } catch (error) {
       console.error("Error during signup:", error);
       setState((prevState) => ({

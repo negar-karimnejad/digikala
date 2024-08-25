@@ -6,11 +6,6 @@ const hashPassword = async (password: string) => {
   return hashedPassword;
 };
 
-const verifyPassword = async (password: string, hashedPassword: string) => {
-  const isValid = await compare(password, hashedPassword);
-  return isValid;
-};
-
 const generateAccessToken = (data) => {
   const token = sign({ ...data }, process.env.AccessTokenSecretKey, {
     expiresIn: "60s",
@@ -54,7 +49,6 @@ export {
   generateRefreshToken,
   hashPassword,
   verifyAccessToken,
-  verifyPassword,
   validateEmail,
   validatePassword,
   validatePhone,

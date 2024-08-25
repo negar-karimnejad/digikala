@@ -25,10 +25,12 @@ import toast from "react-hot-toast";
 import { Avatar, AvatarFallback, AvatarImage } from "./avatar";
 import { Button } from "./button";
 
-export default function ProfileButton() {
-  const { data } = useSession();
+export default function ProfileButton({ isLogin }) {
   const router = useRouter();
-
+  console.log(isLogin);
+  if (!isLogin) return null;
+  
+  const { name, email, phone } = isLogin;
   const signoutHandler = () => {
     toast(
       (t) => (
@@ -63,10 +65,10 @@ export default function ProfileButton() {
 
   return (
     <>
-      {data?.user ? (
+      {isLogin ? (
         <DropdownMenu dir="rtl">
           <DropdownMenuTrigger asChild>
-            {data?.user?.image ? (
+            {/* {isLogin.user?.image ? (
               <div className="relative ml-2">
                 <Avatar className="h-9 w-9">
                   <AvatarImage src={data.user.image} className="object-cover" />
@@ -86,7 +88,8 @@ export default function ProfileButton() {
                   size={15}
                 />
               </div>
-            )}
+            )} */}
+            5
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-60 p-0">
             <DropdownMenuLabel className="border-b w-full px-4 py-5 hover:bg-gray-100 text-base font-medium text-gray-700">
@@ -94,7 +97,7 @@ export default function ProfileButton() {
                 className="w-full text-left flex justify-between items-center transition-all duration-500"
                 href="/profile"
               >
-                {data?.user?.name}
+                {name}
                 <ChevronLeft size={18} />
               </Link>
             </DropdownMenuLabel>

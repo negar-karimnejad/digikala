@@ -2,13 +2,9 @@
 
 import { LoginSchema, RegisterSchema } from "@/lib/validation";
 import { LoginFormState, RegisterFormState } from "@/types/types";
-import {
-  generateAccessToken,
-  generateRefreshToken,
-  verifyPassword,
-} from "@/utils/auth";
+import { generateAccessToken, generateRefreshToken } from "@/utils/auth";
 import { roles } from "@/utils/constants";
-import bcrypt from "bcryptjs";
+import bcrypt, { compare } from "bcryptjs";
 import connectToDB from "configs/db";
 import UserModel from "models/User";
 import { cookies } from "next/headers";
@@ -105,22 +101,38 @@ export async function signin(
     if (!user) {
       return {
         ...state,
-        errors: { general: ["User not found"] },
+        errors: { general: ["کاربری با این مشخصات یافت نشد."] },
         success: false,
       };
     }
 
-    const isCorrectPasswordWithHash = verifyPassword(password, user.password);
+    const isCorrectPasswordWithHash = await compare(password, user.password);
+
     if (!isCorrectPasswordWithHash) {
       return {
         ...state,
-        errors: { general: ["Email or password is not correct"] },
+        errors: { general: ["ایمیل یا رمز کاربری اشتباه است."] },
         success: false,
       };
     }
 
     const accessToken = generateAccessToken({ email });
     const refreshToken = generateRefreshToken({ email });
+
+    cookies().set("token", accessToken, {
+      httpOnly: true,
+      secure: true,
+      path: "/",
+    });
+
+    await UserModel.findOneAndUpdate(
+      { email },
+      {
+        $set: {
+          refreshToken,
+        },
+      }
+    );
 
     return {
       ...state,
