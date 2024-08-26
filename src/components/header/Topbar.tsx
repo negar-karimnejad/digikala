@@ -9,7 +9,7 @@ import { DarkMode } from "../ui/DarkMode";
 import ProfileButton from "../ui/ProfileButton";
 import Searchbar from "./Searchbar";
 
-export default function Topbar({ isLogin }) {
+export default function Topbar({ user }) {
   const { isVisible } = useScroll();
 
   return (
@@ -37,7 +37,7 @@ export default function Topbar({ isLogin }) {
             <Searchbar />
           </div>
           <div className="flex items-center gap-2">
-            <ProfileButton isLogin={isLogin} />
+            <ProfileButton user={user} />
             <div className="w-[0.5px] h-6 bg-gray-300 mr-2"></div>
             <div className="mx-2">
               <Link href="/checkout/cart/">

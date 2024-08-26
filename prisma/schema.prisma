@@ -32,10 +32,13 @@ model Product {
   voter               Int        @default(0)
   comment             Comment[]
   question            Question[]
-  sizes               String
-  thumbnail           String
   feature             Feature[]
   color               Colors[]
+  order               Order[]
+  image               Image[]
+  category            Category?  @relation(fields: [categoryId], references: [id])
+  sizes               String
+  thumbnail           String
   price               Float
   discount            Float?
   discount_price      Float?
@@ -45,12 +48,9 @@ model Product {
   likes               Float      @default(0)
   createdAt           DateTime   @default(now())
   updatedAt           DateTime   @updatedAt
-  category            Category?  @relation(fields: [categoryId], references: [id])
   categoryId          Int?
   submenuId           Int?
   submenuItemId       Int?
-  order               Order[]
-  image               Image[]
 }
 
 model Image {

@@ -18,19 +18,18 @@ import {
   ShoppingBag,
   User2,
 } from "lucide-react";
-import { signOut, useSession } from "next-auth/react";
+import { signOut } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { Avatar, AvatarFallback, AvatarImage } from "./avatar";
 import { Button } from "./button";
 
-export default function ProfileButton({ isLogin }) {
+export default function ProfileButton({ user }) {
   const router = useRouter();
-  console.log(isLogin);
-  if (!isLogin) return null;
-  
-  const { name, email, phone } = isLogin;
+  if (!user) return null;
+
+  const { name, email, phone } = user;
   const signoutHandler = () => {
     toast(
       (t) => (
@@ -65,16 +64,16 @@ export default function ProfileButton({ isLogin }) {
 
   return (
     <>
-      {isLogin ? (
+      {user ? (
         <DropdownMenu dir="rtl">
-          <DropdownMenuTrigger asChild>
-            {/* {isLogin.user?.image ? (
+          <DropdownMenuTrigger asChild className="cursor-pointer">
+            {user.image ? (
               <div className="relative ml-2">
                 <Avatar className="h-9 w-9">
-                  <AvatarImage src={data.user.image} className="object-cover" />
+                  <AvatarImage src={user?.image} className="object-cover" />
                   <AvatarFallback className="text-red-500 p-0.5">
-                    {data.user.name?.split(" ")[0].slice(0, 1)}{" "}
-                    {data.user.name?.split(" ")[1].slice(0, 1)}
+                    {user.name.split(" ")[0].slice(0, 1)}{" "}
+                    {user.name.split(" ")[1].slice(0, 1)}
                   </AvatarFallback>
                   <span className="sr-only">Toggle user menu</span>
                 </Avatar>
@@ -88,8 +87,7 @@ export default function ProfileButton({ isLogin }) {
                   size={15}
                 />
               </div>
-            )} */}
-            5
+            )}
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-60 p-0">
             <DropdownMenuLabel className="border-b w-full px-4 py-5 hover:bg-gray-100 text-base font-medium text-gray-700">
