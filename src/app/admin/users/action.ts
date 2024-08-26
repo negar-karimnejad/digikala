@@ -128,10 +128,11 @@ export async function signin(
     await UserModel.findOneAndUpdate(
       { email },
       {
-        $set: {
+        $push: {
           refreshToken,
         },
-      }
+      },
+      { new: true }
     );
 
     return {

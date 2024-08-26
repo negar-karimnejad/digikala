@@ -220,7 +220,7 @@ export default function AdminTable({
             ))}
           {categories &&
             categories.map((category) => (
-              <TableRow key={category.id}>
+              <TableRow key={category._id}>
                 <TableCell>
                   <div className="w-20">
                     <Image
@@ -261,14 +261,14 @@ export default function AdminTable({
                         <DropdownMenuItem asChild>
                           <Link
                             className="flex w-full justify-end items-center"
-                            href={`/admin/categories/${category.id}/edit`}
+                            href={`/admin/categories/${category._id}/edit`}
                           >
                             ویرایش
                             <Edit2 size={15} className="text-gray-400 mx-4" />
                           </Link>
                         </DropdownMenuItem>
                         <DropdownMenuSeparator />
-                        <DeleteDropdownItem categoryId={category.id} />
+                        <DeleteDropdownItem categoryId={category._id} />
                       </DropdownMenuContent>
                     </DropdownMenu>
                   </Dialog>
