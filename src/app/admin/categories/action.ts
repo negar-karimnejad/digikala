@@ -1,118 +1,134 @@
 "use server";
 
-import CategoryModel from "models/Category";
 import {
   categoryEditSchema,
   CategorySchema,
   CategorySubmenuItemSchema,
   CategorySubmenusSchema,
 } from "@/lib/validation";
+import connectToDB from "configs/db";
 import fs from "fs/promises";
+import CategoryModel from "models/Category";
+import submenuModal from "models/Submenu";
 import { revalidatePath } from "next/cache";
 import { notFound, redirect } from "next/navigation";
 
 export async function addCategory(_state, formData: FormData) {
-  const entries = Object.fromEntries(formData.entries());
+  try {
+    connectToDB();
+    const entries = Object.fromEntries(formData.entries());
 
-  const parsedEntries = {
-    ...entries,
-    id: Number(entries.id),
-  };
+    const parsedEntries = {
+      ...entries,
+      id: Number(entries.id),
+    };
 
-  const result = CategorySchema.safeParse(parsedEntries);
+    const result = CategorySchema.safeParse(parsedEntries);
 
-  if (result.success === false) {
-    return result.error.formErrors.fieldErrors;
-  }
+    if (result.success === false) {
+      return result.error.formErrors.fieldErrors;
+    }
 
-  const data = result.data;
+    const data = result.data;
 
-  await fs.mkdir("public/categories", { recursive: true });
-  const coverPath = `/categories/${crypto.randomUUID()}-${data.cover.name}`;
-  await fs.writeFile(
-    `public${coverPath}`,
-    Buffer.from(await data.cover.arrayBuffer())
-  );
-
-  await fs.mkdir("public/categories", { recursive: true });
-  const iconPath = `/categories/${crypto.randomUUID()}-${data.icon.name}`;
-  await fs.writeFile(
-    `public${iconPath}`,
-    Buffer.from(await data.icon.arrayBuffer())
-  );
-
-  await CategoryModel.create({
-    title: data.title,
-    cover: coverPath,
-    icon: iconPath,
-    href: data.href,
-  });
-
-  revalidatePath("/");
-  revalidatePath("/categories");
-
-  redirect("/admin/categories");
-}
-
-export async function updateCategory(state: any, formData: FormData) {
-  const entries = Object.fromEntries(formData.entries());
-
-  const parsedEntries = {
-    ...entries,
-    id: Number(entries.id),
-  };
-
-  const result = categoryEditSchema.safeParse(parsedEntries);
-
-  if (result.success === false) {
-    return result.error.formErrors.fieldErrors;
-  }
-
-  const data = result.data;
-
-  const category = await db.category.findUnique({ where: { id: data.id } });
-
-  if (category == null) return notFound();
-
-  let coverPath = category.cover;
-  let iconPath = category.icon;
-
-  if (data.cover != null && data.cover.size > 0) {
-    await fs.unlink(`public${category.cover}`);
-    coverPath = `/categories/${crypto.randomUUID()}-${data.cover.name}`;
+    await fs.mkdir("public/categories", { recursive: true });
+    const coverPath = `/categories/${crypto.randomUUID()}-${data.cover.name}`;
     await fs.writeFile(
       `public${coverPath}`,
       Buffer.from(await data.cover.arrayBuffer())
     );
-  }
 
-  if (data.icon != null && data.icon.size > 0) {
-    await fs.unlink(`public${category.icon}`);
-    iconPath = `/categories/${crypto.randomUUID()}-${data.icon.name}`;
+    await fs.mkdir("public/categories", { recursive: true });
+    const iconPath = `/categories/${crypto.randomUUID()}-${data.icon.name}`;
     await fs.writeFile(
       `public${iconPath}`,
       Buffer.from(await data.icon.arrayBuffer())
     );
-  }
 
-  await db.category.update({
-    where: { id: data.id },
-    data: {
+    await CategoryModel.create({
       title: data.title,
       cover: coverPath,
       icon: iconPath,
       href: data.href,
-    },
-  });
+    });
 
-  revalidatePath("/");
-  revalidatePath("/categories");
+    revalidatePath("/");
+    revalidatePath("/categories");
 
-  redirect("/admin/categories");
+    redirect("/admin/categories");
+  } catch (error) {
+    console.log("Error ->", error);
+    throw new Error(error);
+  }
+}
+
+export async function updateCategory(state: any, formData: FormData) {
+  try {
+    connectToDB();
+    const entries = Object.fromEntries(formData.entries());
+
+    const parsedEntries = {
+      ...entries,
+      id: Number(entries.id),
+    };
+
+    const result = categoryEditSchema.safeParse(parsedEntries);
+
+    if (result.success === false) {
+      return result.error.formErrors.fieldErrors;
+    }
+
+    const data = result.data;
+
+    const category = await CategoryModel.findOne({ id: data.id });
+
+    if (category == null) return notFound();
+
+    let coverPath = category.cover;
+    let iconPath = category.icon;
+
+    if (data.cover != null && data.cover.size > 0) {
+      await fs.unlink(`public${category.cover}`);
+      coverPath = `/categories/${crypto.randomUUID()}-${data.cover.name}`;
+      await fs.writeFile(
+        `public${coverPath}`,
+        Buffer.from(await data.cover.arrayBuffer())
+      );
+    }
+
+    if (data.icon != null && data.icon.size > 0) {
+      await fs.unlink(`public${category.icon}`);
+      iconPath = `/categories/${crypto.randomUUID()}-${data.icon.name}`;
+      await fs.writeFile(
+        `public${iconPath}`,
+        Buffer.from(await data.icon.arrayBuffer())
+      );
+    }
+
+    await CategoryModel.findOneAndUpdate(
+      { id: data.id },
+      {
+        $set: {
+          title: data.title,
+          cover: coverPath,
+          icon: iconPath,
+          href: data.href,
+        },
+      }
+    );
+
+    revalidatePath("/");
+    revalidatePath("/categories");
+
+    redirect("/admin/categories");
+  } catch (error) {
+    console.log("Error ->", error);
+    throw new Error(error);
+  }
 }
 
 export async function deleteCategory(id: number) {
-  const category = await db.category.delete({ where: { id } });
+  const category = await CategoryModel.delete({ id });
 
   if (category == null) return notFound();
 
@@ -145,30 +161,31 @@ export async function addSubmenu(formData: FormData) {
   const data = result.data;
 
   // Create the new submenu
-  const newSubmenu = await db.submenu.create({
-    data: {
-      title: data.title,
-      href: data.href,
-      categoryId: data.categoryId,
-    },
+  const newSubmenu = await submenuModal.create({
+    title: data.title,
+    href: data.href,
+    categoryId: data.categoryId,
   });
 
   // Update the category to include the new submenu
-  await db.category.update({
-    where: { id: data.categoryId },
-    data: {
-      submenus: {
-        connect: { id: newSubmenu.id },
+
+  await CategoryModel.findOneAndUpdate(
+    { id: data.categoryId },
+    {
+      $set: {
+        submenus: {
+          connect: { id: newSubmenu.id },
+        },
       },
-    },
-    include: { submenus: true },
-  });
+    }
+    // include: { submenus: true },
+  );
 
   // Verify the category update
-  await db.category.findUnique({
-    where: { id: data.categoryId },
-    include: { submenus: true },
-  });
+  await CategoryModel.findOne(
+    { id: data.categoryId },
+    { include: { submenus: true } }
+  );
 
   revalidatePath("/");
   revalidatePath("/categories/submenu");

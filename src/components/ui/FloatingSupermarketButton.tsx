@@ -1,3 +1,5 @@
+"use client";
+
 import { ChevronLeft, Clock, ShoppingBasket, Truck, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";

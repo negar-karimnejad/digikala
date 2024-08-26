@@ -23,14 +23,6 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import {
-  Category,
-  Product,
-  Story,
-  Submenu,
-  SubmenuItem,
-  User,
-} from "@prisma/client";
 import { Edit2, Eye, MoreVertical } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -44,12 +36,12 @@ export default function AdminTable({
   submenuItems,
   stories,
 }: {
-  products?: Product[] | null;
-  users?: User[] | null;
-  categories?: Category[] | null;
-  submenus?: Submenu[] | null;
-  submenuItems?: SubmenuItem[] | null;
-  stories?: Story[] | null;
+  products?;
+  users?;
+  categories?;
+  submenus?;
+  submenuItems?;
+  stories?;
 }) {
   return (
     <div>
