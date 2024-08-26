@@ -1,13 +1,13 @@
 import AdminTable from "@/components/admin/AdminTable";
 import PageHeader from "@/components/admin/PageHeader";
-import db from "@/db/db";
+import StoryModel from "models/Story";
 
 export default function StoriesPage() {
   return <StoriesTable />;
 }
 
 async function StoriesTable() {
-  const stories = await db.story.findMany({ orderBy: { title: "asc" } });
+  const stories = await StoryModel.find({});
 
   return (
     <>

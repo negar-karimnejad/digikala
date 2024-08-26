@@ -1,11 +1,13 @@
-import db from "@/db/db";
+import CategoryModel from "models/Category";
 import { NextResponse } from "next/server";
 
 export async function GET() {
   try {
-    const categories = await db.category.findMany({
-      orderBy: { id: "asc" },
-      include: { submenus: { include: { items: true } } },
+    const categories = await CategoryModel.find({}).populate({
+      path: "submenus",
+      populate: {
+        path: "items",
+      },
     });
 
     return NextResponse.json(categories);

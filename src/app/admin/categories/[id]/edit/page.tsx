@@ -1,13 +1,13 @@
 import CategoryForm from "@/components/admin/CategoryForm";
 import PageHeader from "@/components/admin/PageHeader";
-import db from "@/db/db";
+import CategoryModel from "models/Category";
 
 export default async function EditProductPage({
   params: { id },
 }: {
-  params: { id: number };
+  params: { id: string };
 }) {
-  const category = await db.category.findUnique({ where: { id: Number(id) } });
+  const category = await CategoryModel.findOne({ _id: id });
 
   return (
     <>

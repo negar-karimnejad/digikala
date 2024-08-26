@@ -1,7 +1,6 @@
 import BreadcrumbContainer from "@/components/product/BreadcrumbContainer";
 import ProductMain from "@/components/product/ProductMain";
-import db from "@/db/db";
-
+import ProductModel from "models/Product";
 
 import { Megaphone, Store } from "lucide-react";
 import Link from "next/link";
@@ -13,15 +12,19 @@ export default async function ProductPage({
 }) {
   const productId = parseInt(id, 10);
 
-  const product = await db.product.findUnique({
-    where: { id: productId },
-    include: {
-      image: true,
-      color: true,
-      feature: true,
-      category: { include: { submenus: { include: { items: true } } } },
-    },
-  });
+  const product = await ProductModel.findOne({ _id: productId })
+    .populate("image")
+    .populate("color")
+    .populate("feature")
+    .populate({
+      path: "category",
+      populate: {
+        path: "submenus",
+        populate: {
+          path: "items",
+        },
+      },
+    });
 
   const category = product.category;
   const submenu = category.submenus.find(

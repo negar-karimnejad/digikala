@@ -1,10 +1,9 @@
-import CategoryForm from "@/components/admin/CategoryForm";
 import CategorySubmenuForm from "@/components/admin/CategorySubmenuForm";
 import PageHeader from "@/components/admin/PageHeader";
-import db from "@/db/db";
+import CategoryModel from "models/Submenu";
 
 export default async function NewSubmenuPage() {
-  const categories = await db.category.findMany({ orderBy: { id: "asc" } });
+  const categories = await CategoryModel.find({});
   return (
     <>
       <PageHeader title="افزودن زیر مجموعه دسته‌بندی" />

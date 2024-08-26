@@ -1,13 +1,13 @@
 import PageHeader from "@/components/admin/PageHeader";
 import UserUpdateForm from "@/components/admin/UserUpdateForm";
-import db from "@/db/db";
+import UserModel from "models/User";
 
 export default async function EditProductPage({
   params: { id },
 }: {
-  params: { id: number };
+  params: { id };
 }) {
-  const user = await db.user.findUnique({ where: { id: Number(id) } });
+  const user = await UserModel.findOne({ _id: id });
   if (!user) return <p>کاربر یافت نشد.</p>;
 
   return (

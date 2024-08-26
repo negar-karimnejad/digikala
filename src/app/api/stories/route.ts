@@ -1,11 +1,10 @@
-import db from "@/db/db";
+import StoryModel from "models/Story";
+
 import { NextResponse } from "next/server";
 
 export async function GET() {
   try {
-    const stories = await db.story.findMany({
-      orderBy: { id: "asc" },
-    });
+    const stories = await StoryModel.find({});
 
     return NextResponse.json(stories);
   } catch (error) {

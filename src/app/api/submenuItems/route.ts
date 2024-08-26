@@ -1,9 +1,10 @@
-import db from "@/db/db";
+import SubmenuItemModel from "models/SubmenuItem";
+
 import { NextResponse } from "next/server";
 
 export async function GET() {
   try {
-    const submenuItems = await db.submenuItem.findMany();
+    const submenuItems = await SubmenuItemModel.find({});
 
     return NextResponse.json(submenuItems);
   } catch (error) {

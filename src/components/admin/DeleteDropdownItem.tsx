@@ -6,6 +6,7 @@ import {
   deleteSubmenuItem,
 } from "@/app/admin/categories/action";
 import { deleteProduct } from "@/app/admin/products/action";
+import { deleteStory } from "@/app/admin/stories/action";
 import { deleteUser } from "@/app/admin/users/action";
 import { Trash2 } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -13,7 +14,6 @@ import { useTransition } from "react";
 import toast from "react-hot-toast";
 import { Button } from "../ui/button";
 import { DropdownMenuItem } from "../ui/dropdown-menu";
-import { deleteStory } from "@/app/admin/stories/action";
 
 export function DeleteDropdownItem({
   categoryId,
@@ -23,12 +23,12 @@ export function DeleteDropdownItem({
   itemId,
   storyId,
 }: {
-  categoryId?: number;
-  productId?: number;
-  userId?: number;
-  submenuId?: number;
-  itemId?: number;
-  storyId?: number;
+  categoryId?;
+  productId?;
+  userId?;
+  submenuId?;
+  itemId?;
+  storyId?;
 }) {
   const [isPending, startTransition] = useTransition();
   const router = useRouter();

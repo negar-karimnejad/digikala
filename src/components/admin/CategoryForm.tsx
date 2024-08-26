@@ -34,9 +34,7 @@ export default function CategoryForm({ category }: { category? }) {
     const formData = new FormData(event.currentTarget);
 
     if (category != null) {
-      formData.append("id", String(category.id));
-    } else {
-      formData.append("id", String(Math.floor(Math.random() * 1000000)));
+      formData.append("_id", category._id);
     }
 
     if (coverFile) {

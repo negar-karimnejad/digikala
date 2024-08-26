@@ -1,11 +1,9 @@
 import CategorySubmenuItemForm from "@/components/admin/CategorySubmenuItemForm";
 import PageHeader from "@/components/admin/PageHeader";
-import db from "@/db/db";
+import SubmenuModel from "models/Submenu";
 
 export default async function NewSubmenuPage() {
-  const submenus = await db.submenu.findMany({
-    orderBy: { id: "asc" },
-  });
+  const submenus = await SubmenuModel.find({});
 
   return (
     <>

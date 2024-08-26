@@ -1,12 +1,10 @@
-import db from "@/db/db";
+import SubmenuModel from "models/Submenu";
+
 import { NextResponse } from "next/server";
 
 export async function GET() {
   try {
-    const submenus = await db.submenu.findMany({
-      orderBy: { id: "asc" },
-      include: { items: true },
-    });
+    const submenus = await SubmenuModel.find({}).populate("items");
 
     return NextResponse.json(submenus);
   } catch (error) {

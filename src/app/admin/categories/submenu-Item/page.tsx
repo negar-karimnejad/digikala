@@ -2,16 +2,14 @@
 
 import AdminTable from "@/components/admin/AdminTable";
 import PageHeader from "@/components/admin/PageHeader";
-import db from "@/db/db";
+import SubmenuItemModel from "models/SubmenuItem";
 
 export default function SubmenuItemPage() {
   return <SubmenuItemTable />;
 }
 
 async function SubmenuItemTable() {
-  const submenuItems = await db.submenuItem.findMany({
-    orderBy: { title: "asc" },
-  });
+  const submenuItems = await SubmenuItemModel.find({});
 
   return (
     <>

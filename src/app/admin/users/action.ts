@@ -7,7 +7,10 @@ import { roles } from "@/utils/constants";
 import bcrypt, { compare } from "bcryptjs";
 import connectToDB from "configs/db";
 import UserModel from "models/User";
+import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
+import { notFound } from "next/navigation";
+import fs from "fs/promises";
 
 export async function signup(
   state: RegisterFormState,
@@ -204,15 +207,15 @@ export async function signin(
 //   redirect("/admin/users");
 // }
 
-// export async function deleteUser(id: number) {
-//   const user = await db.user.delete({ where: { id } });
+export async function deleteUser(id) {
+  const user = await UserModel.delete({ id });
 
-//   if (user == null) return notFound();
+  if (user == null) return notFound();
 
-//   if (user.avatar) {
-//     await fs.unlink(`public${user.avatar}`);
-//   }
+  if (user.avatar) {
+    await fs.unlink(`public${user.avatar}`);
+  }
 
-//   revalidatePath("/");
-//   revalidatePath("/users");
-// }
+  revalidatePath("/");
+  revalidatePath("/users");
+}

@@ -1,6 +1,5 @@
 "use server";
 
-import db from "@/db/db";
 import { productEditSchema, ProductSchema } from "@/lib/validation";
 import fs from "fs/promises";
 import ColorModel from "models/Color";

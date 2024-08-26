@@ -1,20 +1,16 @@
-import db from "@/db/db";
+import ProductModel from "models/Product";
 import { NextResponse } from "next/server";
 
 export async function GET() {
   try {
-    const products = await db.product.findMany({
-      orderBy: { createdAt: "desc" },
-      include: {
-        category: true,
-        color: true,
-        comment: true,
-        feature: true,
-        image: true,
-        order: true,
-        question: true,
-      },
-    });
+    const products = await ProductModel.find({})
+      .populate("category")
+      .populate("color")
+      .populate("comment")
+      .populate("feature")
+      .populate("image")
+      .populate("order")
+      .populate("question");
 
     return NextResponse.json(products);
   } catch (error) {

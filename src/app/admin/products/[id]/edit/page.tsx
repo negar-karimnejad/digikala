@@ -1,16 +1,16 @@
 import PageHeader from "@/components/admin/PageHeader";
 import ProductForm from "@/components/admin/ProductForm";
-import db from "@/db/db";
+import ProductModel from "models/Product";
 
 export default async function EditProductPage({
   params: { id },
 }: {
-  params: { id: number };
+  params: { id };
 }) {
-  const product = await db.product.findUnique({
-    where: { id: Number(id) },
-    include: { image: true, feature: true, color: true },
-  });
+  const product = await ProductModel.findOne({ _id: id })
+    .populate("image")
+    .populate("feature")
+    .populate("color");
 
   return (
     <>

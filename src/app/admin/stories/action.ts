@@ -1,6 +1,6 @@
 "use server";
 
-import db from "@/db/db";
+import StoryModel from "models/Story";
 import { StorySchema } from "@/lib/validation";
 import fs from "fs/promises";
 import { revalidatePath } from "next/cache";
@@ -36,12 +36,10 @@ export async function addStory(state, formData: FormData) {
     Buffer.from(await data.post.arrayBuffer())
   );
 
-  await db.story.create({
-    data: {
-      title: data.title,
-      cover: coverPath,
-      post: postPath,
-    },
+  await StoryModel.create({
+    title: data.title,
+    cover: coverPath,
+    post: postPath,
   });
 
   revalidatePath("/");
@@ -50,8 +48,8 @@ export async function addStory(state, formData: FormData) {
   redirect("/admin/stories");
 }
 
-export async function deleteStory(id: number) {
-  const story = await db.story.delete({ where: { id } });
+export async function deleteStory(id) {
+  const story = await StoryModel.delete({ id });
 
   if (story == null) return notFound();
 

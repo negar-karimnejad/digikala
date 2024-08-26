@@ -15,16 +15,11 @@ import { revalidatePath } from "next/cache";
 import { notFound, redirect } from "next/navigation";
 
 export async function addCategory(_state, formData: FormData) {
-  // try {
   connectToDB();
-  const entries = Object.fromEntries(formData.entries());
 
-  const parsedEntries = {
-    ...entries,
-    id: Number(entries.id),
-  };
-
-  const result = CategorySchema.safeParse(parsedEntries);
+  const result = CategorySchema.safeParse(
+    Object.fromEntries(formData.entries())
+  );
 
   if (result.success === false) {
     return result.error.formErrors.fieldErrors;
@@ -57,77 +52,64 @@ export async function addCategory(_state, formData: FormData) {
   revalidatePath("/categories");
 
   redirect("/admin/categories");
-
-  // } catch (error) {
-  //   console.log("Error ->", error);
-  //   throw new Error(error);
-  // }
 }
 
 export async function updateCategory(state: any, formData: FormData) {
-  try {
-    connectToDB();
-    const entries = Object.fromEntries(formData.entries());
+  connectToDB(); 
 
-    const parsedEntries = {
-      ...entries,
-      id: Number(entries.id),
-    };
+  const result = categoryEditSchema.safeParse(
+    Object.fromEntries(formData.entries())
+  );
 
-    const result = categoryEditSchema.safeParse(parsedEntries);
-
-    if (result.success === false) {
-      return result.error.formErrors.fieldErrors;
-    }
-
-    const data = result.data;
-
-    const category = await CategoryModel.findOne({ id: data.id });
-
-    if (category == null) return notFound();
-
-    let coverPath = category.cover;
-    let iconPath = category.icon;
-
-    if (data.cover != null && data.cover.size > 0) {
-      await fs.unlink(`public${category.cover}`);
-      coverPath = `/categories/${crypto.randomUUID()}-${data.cover.name}`;
-      await fs.writeFile(
-        `public${coverPath}`,
-        Buffer.from(await data.cover.arrayBuffer())
-      );
-    }
-
-    if (data.icon != null && data.icon.size > 0) {
-      await fs.unlink(`public${category.icon}`);
-      iconPath = `/categories/${crypto.randomUUID()}-${data.icon.name}`;
-      await fs.writeFile(
-        `public${iconPath}`,
-        Buffer.from(await data.icon.arrayBuffer())
-      );
-    }
-
-    await CategoryModel.findOneAndUpdate(
-      { _id: data.id },
-      {
-        $push: {
-          title: data.title,
-          cover: coverPath,
-          icon: iconPath,
-          href: data.href,
-        },
-      },
-      { new: true }
-    );
-
-    revalidatePath("/");
-    revalidatePath("/categories");
-
-    redirect("/admin/categories");
-  } catch (error) {
-    console.log("Error ->", error);
-    throw new Error(error);
+  if (result.success === false) {
+    console.log("🎁", result.error.formErrors.fieldErrors);
+    return result.error.formErrors.fieldErrors;
   }
+
+  const data = result.data;
+
+  const category = await CategoryModel.findOne({ _id: data._id });
+
+  if (category == null) return notFound();
+
+  let coverPath = category.cover;
+  let iconPath = category.icon;
+
+  if (data.cover != null && data.cover.size > 0) {
+    await fs.unlink(`public${category.cover}`);
+    coverPath = `/categories/${crypto.randomUUID()}-${data.cover.name}`;
+    await fs.writeFile(
+      `public${coverPath}`,
+      Buffer.from(await data.cover.arrayBuffer())
+    );
+  }
+
+  if (data.icon != null && data.icon.size > 0) {
+    await fs.unlink(`public${category.icon}`);
+    iconPath = `/categories/${crypto.randomUUID()}-${data.icon.name}`;
+    await fs.writeFile(
+      `public${iconPath}`,
+      Buffer.from(await data.icon.arrayBuffer())
+    );
+  }
+
+  await CategoryModel.findOneAndUpdate(
+    { _id: data._id },
+    {
+      $push: {
+        title: data.title,
+        cover: coverPath,
+        icon: iconPath,
+        href: data.href,
+      },
+    },
+    { new: true }
+  );
+
+  revalidatePath("/");
+  revalidatePath("/categories");
+
+  redirect("/admin/categories");
 }
 
 export async function deleteCategory(id: number) {
