@@ -1,146 +1,146 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
-generator client {
-  provider = "prisma-client-js"
-}
+// generator client {
+//   provider = "prisma-client-js"
+// }
 
-datasource db {
-  provider = "sqlite"
-  url      = env("DATABASE_URL")
-}
+// datasource db {
+//   provider = "sqlite"
+//   url      = env("DATABASE_URL")
+// }
 
-model User {
-  id        Int        @id @default(autoincrement())
-  email     String     @unique
-  name      String
-  avatar    String?
-  password  String
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
-  role      String     @default("USER")
-  comment   Comment[]
-  question  Question[]
-  order     Order[]
-}
+// model User {
+//   id        Int        @id @default(autoincrement())
+//   email     String     @unique
+//   name      String
+//   avatar    String?
+//   password  String
+//   createdAt DateTime   @default(now())
+//   updatedAt DateTime   @updatedAt
+//   role      String     @default("USER")
+//   comment   Comment[]
+//   question  Question[]
+//   order     Order[]
+// }
 
-model Product {
-  id                  Int        @id @default(autoincrement())
-  title               String
-  en_title            String     @default("")
-  rating              Float?
-  voter               Int        @default(0)
-  comment             Comment[]
-  question            Question[]
-  feature             Feature[]
-  color               Colors[]
-  order               Order[]
-  image               Image[]
-  category            Category?  @relation(fields: [categoryId], references: [id])
-  sizes               String
-  thumbnail           String
-  price               Float
-  discount            Float?
-  discount_price      Float?
-  description         String
-  recommended_percent Float?
-  guarantee           String?
-  likes               Float      @default(0)
-  createdAt           DateTime   @default(now())
-  updatedAt           DateTime   @updatedAt
-  categoryId          Int?
-  submenuId           Int?
-  submenuItemId       Int?
-}
+// model Product {
+//   id                  Int        @id @default(autoincrement())
+//   title               String
+//   en_title            String     @default("")
+//   rating              Float?
+//   voter               Int        @default(0)
+//   comment             Comment[]
+//   question            Question[]
+//   feature             Feature[]
+//   color               Colors[]
+//   order               Order[]
+//   image               Image[]
+//   category            Category?  @relation(fields: [categoryId], references: [id])
+//   sizes               String
+//   thumbnail           String
+//   price               Float
+//   discount            Float?
+//   discount_price      Float?
+//   description         String
+//   recommended_percent Float?
+//   guarantee           String?
+//   likes               Float      @default(0)
+//   createdAt           DateTime   @default(now())
+//   updatedAt           DateTime   @updatedAt
+//   categoryId          Int?
+//   submenuId           Int?
+//   submenuItemId       Int?
+// }
 
-model Image {
-  id        Int     @id @default(autoincrement())
-  url       String
-  product   Product @relation(fields: [productId], references: [id])
-  productId Int
-}
+// model Image {
+//   id        Int     @id @default(autoincrement())
+//   url       String
+//   product   Product @relation(fields: [productId], references: [id])
+//   productId Int
+// }
 
-model Colors {
-  id        Int      @id @default(autoincrement())
-  name      String
-  hex       String
-  product   Product? @relation(fields: [productId], references: [id])
-  productId Int?
-}
+// model Colors {
+//   id        Int      @id @default(autoincrement())
+//   name      String
+//   hex       String
+//   product   Product? @relation(fields: [productId], references: [id])
+//   productId Int?
+// }
 
-model Feature {
-  id        Int     @id @default(autoincrement())
-  key       String
-  value     String
-  productId Int
-  product   Product @relation(fields: [productId], references: [id])
-}
+// model Feature {
+//   id        Int     @id @default(autoincrement())
+//   key       String
+//   value     String
+//   productId Int
+//   product   Product @relation(fields: [productId], references: [id])
+// }
 
-model Category {
-  id       Int       @id @default(autoincrement())
-  title    String
-  icon     String?
-  cover    String
-  href     String
-  submenus Submenu[]
-  Product  Product[]
-}
+// model Category {
+//   id       Int       @id @default(autoincrement())
+//   title    String
+//   icon     String?
+//   cover    String
+//   href     String
+//   submenus Submenu[]
+//   Product  Product[]
+// }
 
-model Submenu {
-  id         Int           @id @default(autoincrement())
-  title      String
-  href       String
-  categoryId Int
-  category   Category      @relation(fields: [categoryId], references: [id])
-  items      SubmenuItem[]
-}
+// model Submenu {
+//   id         Int           @id @default(autoincrement())
+//   title      String
+//   href       String
+//   categoryId Int
+//   category   Category      @relation(fields: [categoryId], references: [id])
+//   items      SubmenuItem[]
+// }
 
-model SubmenuItem {
-  id        Int     @id @default(autoincrement())
-  title     String
-  href      String
-  submenuId Int
-  submenu   Submenu @relation(fields: [submenuId], references: [id])
-}
+// model SubmenuItem {
+//   id        Int     @id @default(autoincrement())
+//   title     String
+//   href      String
+//   submenuId Int
+//   submenu   Submenu @relation(fields: [submenuId], references: [id])
+// }
 
-model Comment {
-  id        Int      @id @default(autoincrement())
-  content   String
-  author    User     @relation(fields: [authorId], references: [id])
-  authorId  Int
-  product   Product  @relation(fields: [productId], references: [id])
-  productId Int
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
+// model Comment {
+//   id        Int      @id @default(autoincrement())
+//   content   String
+//   author    User     @relation(fields: [authorId], references: [id])
+//   authorId  Int
+//   product   Product  @relation(fields: [productId], references: [id])
+//   productId Int
+//   createdAt DateTime @default(now())
+//   updatedAt DateTime @updatedAt
+// }
 
-model Question {
-  id        Int      @id @default(autoincrement())
-  content   String
-  author    User     @relation(fields: [authorId], references: [id])
-  authorId  Int
-  product   Product  @relation(fields: [productId], references: [id])
-  productId Int
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
+// model Question {
+//   id        Int      @id @default(autoincrement())
+//   content   String
+//   author    User     @relation(fields: [authorId], references: [id])
+//   authorId  Int
+//   product   Product  @relation(fields: [productId], references: [id])
+//   productId Int
+//   createdAt DateTime @default(now())
+//   updatedAt DateTime @updatedAt
+// }
 
-model Order {
-  id          Int      @id @default(autoincrement())
-  orderDate   DateTime @default(now())
-  totalAmount Float
-  status      String
-  user        User     @relation(fields: [userId], references: [id])
-  userId      Int
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  product     Product? @relation(fields: [productId], references: [id])
-  productId   Int?
-}
+// model Order {
+//   id          Int      @id @default(autoincrement())
+//   orderDate   DateTime @default(now())
+//   totalAmount Float
+//   status      String
+//   user        User     @relation(fields: [userId], references: [id])
+//   userId      Int
+//   createdAt   DateTime @default(now())
+//   updatedAt   DateTime @updatedAt
+//   product     Product? @relation(fields: [productId], references: [id])
+//   productId   Int?
+// }
 
-model Story {
-  id    Int    @id @default(autoincrement())
-  title String
-  cover String
-  post  String
-}
+// model Story {
+//   id    Int    @id @default(autoincrement())
+//   title String
+//   cover String
+//   post  String
+// }

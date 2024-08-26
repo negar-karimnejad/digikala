@@ -1,21 +1,21 @@
 const mongoose = require("mongoose");
-require("./Product");
+require("./Submenu");
 
 const schema = new mongoose.Schema({
-  name: {
+  title: {
     type: String,
     required: true,
   },
-  hex: {
+  href: {
     type: String,
     required: true,
   },
-  product: {
+  submenu: {
     type: mongoose.Types.ObjectId,
-    ref: "Product",
+    ref: "Submenu",
   },
 });
 
-const model = mongoose.models.Color || mongoose.model("Color", schema);
+const model = mongoose.models.Submenu || mongoose.model("Submenu", schema);
 
 export default model;

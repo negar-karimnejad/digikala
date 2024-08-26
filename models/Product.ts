@@ -1,4 +1,11 @@
 const mongoose = require("mongoose");
+require("./Comment");
+require("./Question");
+require("./Feature");
+require("./Color");
+require("./Order");
+require("./Image");
+require("./Category");
 
 const schema = new mongoose.Schema({
   title: {

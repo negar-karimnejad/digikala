@@ -1,21 +1,20 @@
 const mongoose = require("mongoose");
-require("./Product");
 
 const schema = new mongoose.Schema({
-  name: {
+  title: {
     type: String,
     required: true,
   },
-  hex: {
+  post: {
     type: String,
     required: true,
   },
-  product: {
-    type: mongoose.Types.ObjectId,
-    ref: "Product",
+  cover: {
+    type: String,
+    required: true,
   },
 });
 
-const model = mongoose.models.Color || mongoose.model("Color", schema);
+const model = mongoose.models.Story || mongoose.model("Story", schema);
 
 export default model;
