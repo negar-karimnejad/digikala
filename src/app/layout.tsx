@@ -1,7 +1,5 @@
 import { ThemeProvider } from "@/components/ui/theme-provider";
-import { AuthProvider } from "@/lib/AuthProvider";
 import { cn } from "@/lib/utils";
-import { getServerSession } from "next-auth";
 import localFont from "next/font/local";
 import { Toaster } from "react-hot-toast";
 import "./globals.css";
@@ -22,8 +20,6 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const session = await getServerSession();
-
   return (
     <html lang="en" dir="rtl">
       <body
@@ -32,17 +28,15 @@ export default async function RootLayout({
           iranSans.className
         )}
       >
-        <AuthProvider session={session}>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-            {children}
-            <Toaster position="top-center" reverseOrder={false} />
-          </ThemeProvider>
-        </AuthProvider>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          {children}
+          <Toaster position="top-center" reverseOrder={false} />
+        </ThemeProvider>
       </body>
     </html>
   );

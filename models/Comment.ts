@@ -23,7 +23,7 @@ const schema = new mongoose.Schema({
     default: () => Date.now(),
     immutable: false,
   },
-  product: {
+  productId: {
     type: mongoose.Types.ObjectId,
     ref: "Product",
   },

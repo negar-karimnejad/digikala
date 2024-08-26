@@ -1,5 +1,3 @@
-"use client";
-
 import {
   FirstBanner,
   LastBanner,
@@ -19,20 +17,10 @@ import Services from "@/components/home/Services";
 import StorySlider from "@/components/home/StorySlider";
 import FloatingSupermarketButton from "@/components/ui/FloatingSupermarketButton";
 import FloatingSupportButton from "@/components/ui/FloatingSupportButton";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 export default function Home() {
-  const queryClient = new QueryClient({
-    defaultOptions: {
-      queries: {
-        // staleTime: 60 * 1000,
-        staleTime: 0,
-      },
-    },
-  });
   return (
-    <QueryClientProvider client={queryClient}>
-      {/* <ReactQueryDevtools initialIsOpen={false} /> */}
+    <>
       <StorySlider />
       <Hero />
       <Services />
@@ -53,6 +41,6 @@ export default function Home() {
       <Mag />
       <FloatingSupportButton />
       <FloatingSupermarketButton />
-    </QueryClientProvider>
+    </>
   );
 }

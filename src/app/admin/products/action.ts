@@ -2,8 +2,11 @@
 
 import db from "@/db/db";
 import { productEditSchema, ProductSchema } from "@/lib/validation";
-import { Colors } from "@prisma/client";
 import fs from "fs/promises";
+import ColorModel from "models/Color";
+import FeatureModel from "models/Feature";
+import ImageModel from "models/Image";
+import ProductModel from "models/Product";
 import { revalidatePath } from "next/cache";
 import { notFound, redirect } from "next/navigation";
 import path from "path";
@@ -42,36 +45,32 @@ export async function addProduct(_state: any, formData: FormData) {
     Buffer.from(await data.thumbnail.arrayBuffer())
   );
 
-  const product = await db.product.create({
-    data: {
-      title: data.title,
-      en_title: data.en_title,
-      rating: data.rating,
-      voter: data.voter,
-      sizes: data.sizes,
-      thumbnail: imagePath,
-      price: data.price,
-      discount: data.discount,
-      discount_price: data.discount_price,
-      description: data.description,
-      recommended_percent: data.recommended_percent,
-      guarantee: data.guarantee,
-      likes: data.likes,
-      categoryId: data.categoryId,
-      submenuId: data.submenuId,
-      submenuItemId: data.submenuItemId,
-    },
+  const product = await ProductModel.create({
+    title: data.title,
+    en_title: data.en_title,
+    rating: data.rating,
+    voter: data.voter,
+    sizes: data.sizes,
+    thumbnail: imagePath,
+    price: data.price,
+    discount: data.discount,
+    discount_price: data.discount_price,
+    description: data.description,
+    recommended_percent: data.recommended_percent,
+    guarantee: data.guarantee,
+    likes: data.likes,
+    categoryId: data.categoryId,
+    submenuId: data.submenuId,
+    submenuItemId: data.submenuItemId,
   });
 
   if (featureArray.length > 0) {
     await Promise.all(
       featureArray.map((feature) =>
-        db.feature.create({
-          data: {
-            key: feature.key,
-            value: feature.value,
-            productId: product.id,
-          },
+        FeatureModel.create({
+          key: feature.key,
+          value: feature.value,
+          productId: product.id,
         })
       )
     );
@@ -79,13 +78,11 @@ export async function addProduct(_state: any, formData: FormData) {
 
   if (colorArray.length > 0) {
     await Promise.all(
-      colorArray.map((color:Colors) =>
-        db.colors.create({
-          data: {
-            name: color.name,
-            hex: color.hex,
-            productId: product.id,
-          },
+      colorArray.map((color) =>
+        ColorModel.create({
+          name: color.name,
+          hex: color.hex,
+          productId: product.id,
         })
       )
     );
@@ -103,11 +100,9 @@ export async function addProduct(_state: any, formData: FormData) {
           Buffer.from(await image.arrayBuffer())
         );
 
-        await db.image.create({
-          data: {
-            url: imagePath,
-            productId: product.id,
-          },
+        await ImageModel.create({
+          url: imagePath,
+          productId: product.id,
         });
       } else {
         console.warn("Duplicate image detected:", image);

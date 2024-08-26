@@ -16,11 +16,11 @@ const schema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  product: {
+  productId: {
     type: mongoose.Types.ObjectId,
     ref: "Product",
   },
-  user: {
+  userId: {
     type: mongoose.Types.ObjectId,
     ref: "User",
   },

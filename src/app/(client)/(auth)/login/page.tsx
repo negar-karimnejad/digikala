@@ -6,7 +6,6 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { LoginSchema, LoginSchemaType } from "@/lib/validation";
 import { LoginFormState } from "@/types/types";
-import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
@@ -80,25 +79,6 @@ export default function Login() {
       }));
     }
 
-    // const result = loginSchema.safeParse(
-    //   Object.fromEntries(formData.entries())
-    // );
-
-    // if (!result.success) {
-    //   const errorMessages: { email?: string; password?: string } = {};
-    //   result.error.errors.forEach((error) => {
-    //     errorMessages[error.path[0] as keyof LoginForm] = error.message;
-    //   });
-    //   setErrors(errorMessages);
-    //   return;
-    // }
-
-    // setErrors({});
-
-    // const data = result.data;
-
-    // await signin(data);
-  };
 
   const session = useSession();
 

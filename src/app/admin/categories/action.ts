@@ -1,6 +1,6 @@
 "use server";
 
-import db from "@/db/db";
+import CategoryModel from "models/Category";
 import {
   categoryEditSchema,
   CategorySchema,
@@ -41,13 +41,11 @@ export async function addCategory(_state, formData: FormData) {
     Buffer.from(await data.icon.arrayBuffer())
   );
 
-  await db.category.create({
-    data: {
-      title: data.title,
-      cover: coverPath,
-      icon: iconPath,
-      href: data.href,
-    },
+  await CategoryModel.create({
+    title: data.title,
+    cover: coverPath,
+    icon: iconPath,
+    href: data.href,
   });
 
   revalidatePath("/");

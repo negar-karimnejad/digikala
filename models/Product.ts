@@ -69,7 +69,6 @@ const schema = new mongoose.Schema({
       },
     ],
   },
-
   questions: {
     type: [
       {

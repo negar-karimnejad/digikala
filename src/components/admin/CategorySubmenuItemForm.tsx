@@ -2,14 +2,9 @@
 
 import { addSubmenuItem } from "@/app/admin/categories/action";
 import { Button } from "@/components/ui/button";
-import { Submenu } from "@prisma/client";
 import { useFormStatus } from "react-dom";
 
-export default function CategorySubmenuItemForm({
-  submenus,
-}: {
-  submenus: Submenu[];
-}) {
+export default function CategorySubmenuItemForm({ submenus }) {
   return (
     <form action={addSubmenuItem}>
       <input

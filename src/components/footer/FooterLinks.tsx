@@ -8,20 +8,17 @@ import {
 } from "@/components/ui/accordion";
 import { footerLinks } from "@/data/data";
 import { Instagram, Linkedin, Twitter } from "lucide-react";
-import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { FormEvent, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
-export default function FooterLinks() {
+export default function FooterLinks({ user }) {
   const [email, setEmail] = useState("");
   const [isValidEmail, setIsValidEmail] = useState(false);
 
-  const session = useSession();
-
   const submitHandler = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!session?.data?.user) {
+    if (!user) {
       toast.error("برای ثبت ایمیل، ابتدا باید وارد حساب کاربری خود شوید.");
     } else {
       toast.success("ایمیل شما با موفقیت ثبت شد.");

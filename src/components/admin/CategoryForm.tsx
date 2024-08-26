@@ -2,25 +2,19 @@
 
 import { addCategory, updateCategory } from "@/app/admin/categories/action";
 import { Button } from "@/components/ui/button";
-import { categoryInitialState } from "@/types/types";
-import { Category } from "@prisma/client";
 import { UploadCloud } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useFormState, useFormStatus } from "react-dom";
 import toast from "react-hot-toast";
 
-export default function CategoryForm({
-  category,
-}: {
-  category?: Category | null;
-}) {
+export default function CategoryForm({ category }: { category? }) {
   const [iconFile, setIconFile] = useState<File | null>(null);
   const [coverFile, setCoverFile] = useState<File | null>(null);
 
   const [state, formAction] = useFormState(
     category == null ? addCategory : updateCategory,
-    categoryInitialState
+    {}
   );
 
   const handleCoverFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {

@@ -1,21 +1,16 @@
 import AdminTable from "@/components/admin/AdminTable";
 import PageHeader from "@/components/admin/PageHeader";
-import { Button } from "@/components/ui/button";
-import db from "@/db/db";
-import { Plus } from "lucide-react";
+import CategoryModel from "models/Category";
+import SubmenuModel from "models/Submenu";
 
 export default function AdminCategoriesPage() {
   return <ProductTable />;
 }
 
 async function ProductTable() {
-  const categories = await db.category.findMany({
-    include: { submenus: true },
-  });
-  const submenus = await db.submenu.findMany({
-    include: { items: true },
-  });
-
+  const categories = await CategoryModel.find({}).populate("submenus");
+  // const submenus = await SubmenuModel.find({}).populate("items");
+  // const categories = [];
   return (
     <>
       <PageHeader href="/admin/categories/new" title="دسته‌بندی ها" />

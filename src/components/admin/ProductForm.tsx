@@ -5,24 +5,19 @@ import { Button } from "@/components/ui/button";
 import useCategories from "@/hooks/useCategories";
 import useSubmenuItems from "@/hooks/useSubmenuItems";
 import useSubmenus from "@/hooks/useSubmenus";
-import { ProductProps } from "@/types/types";
 import { LucideUploadCloud, X } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
 import { useFormState, useFormStatus } from "react-dom";
 import toast from "react-hot-toast";
 
-const initialState = (product: ProductProps) => ({
+const initialState = (product) => ({
   ...product,
   errors: {},
   success: false,
 });
 
-export default function ProductForm({
-  product,
-}: {
-  product?: ProductProps | null;
-}) {
+export default function ProductForm({ product }: { product? }) {
   const { categories } = useCategories();
   const { submenus } = useSubmenus();
   const { submenuItems } = useSubmenuItems();

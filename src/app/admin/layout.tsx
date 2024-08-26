@@ -1,6 +1,6 @@
 import Sidebar from "@/components/admin/Sidebar";
 import Container from "@/components/ui/container";
-import { getServerSession } from "next-auth";
+import { authUser } from "@/utils/auth";
 import { notFound, redirect } from "next/navigation";
 import React from "react";
 
@@ -9,11 +9,7 @@ export default async function AdminLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const session = await getServerSession();
-
-  // if (!session?.user) redirect("/login?redirectTo=/admin");
-  // if (session?.user?.email !== "negar.karimnejad@gmail.com") return notFound();
-
+  const user = await authUser();
   return (
     <div>
       <Container>

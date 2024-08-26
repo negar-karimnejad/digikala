@@ -8,8 +8,10 @@ import FooterFaq from "./FooterFaq";
 import FooterLinks from "./FooterLinks";
 import MobileSizeApp from "./MobileSizeApp";
 import ScrollUp from "./ScrollUp";
+import { authUser } from "@/utils/auth";
 
-export default function Footer() {
+export default async function Footer() {
+  const user = await authUser();
   return (
     <>
       <div className="border-t px-3 pt-5 border-gray-100 dark:border-gray-800">
@@ -58,7 +60,7 @@ export default function Footer() {
         <div className="my-10">
           <FooterFaq vertical={true} />
         </div>
-        <FooterLinks />
+        <FooterLinks user={user} />
         <App />
         <div className="max-lg:hidden my-10 w-full border-b bg-gray-400"></div>
         <div className="grid grid-cols-12 w-full gap-7">

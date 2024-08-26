@@ -1,14 +1,15 @@
 import AdminTable from "@/components/admin/AdminTable";
 import PageHeader from "@/components/admin/PageHeader";
-import db from "@/db/db";
+import ProductModel from "models/Product";
 
 export default function AdminProductsPage() {
   return <ProductTable />;
 }
 
 async function ProductTable() {
-  const products = await db.product.findMany({ orderBy: { title: "asc" } });
-
+  // const products = await ProductModel.find({});
+  const products = [];
+  
   return (
     <>
       <PageHeader href="/admin/products/new" title="محصولات" />

@@ -10,7 +10,7 @@ const schema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  submenu: {
+  submenuId: {
     type: mongoose.Types.ObjectId,
     ref: "Submenu",
   },
