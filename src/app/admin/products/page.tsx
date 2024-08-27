@@ -1,5 +1,6 @@
 import AdminTable from "@/components/admin/AdminTable";
 import PageHeader from "@/components/admin/PageHeader";
+import connectToDB from "configs/db";
 import ProductModel from "models/Product";
 
 export default function AdminProductsPage() {
@@ -7,9 +8,9 @@ export default function AdminProductsPage() {
 }
 
 async function ProductTable() {
-  // const products = await ProductModel.find({});
-  const products = [];
-  
+  connectToDB();
+  const products = await ProductModel.find({});
+
   return (
     <>
       <PageHeader href="/admin/products/new" title="محصولات" />

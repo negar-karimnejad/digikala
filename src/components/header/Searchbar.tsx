@@ -7,7 +7,6 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { Product } from "@prisma/client";
 import {
   ChevronLeft,
   Flame,
@@ -19,7 +18,6 @@ import Link from "next/link";
 import { ChangeEvent, useEffect, useRef, useState } from "react";
 import { Card, CardContent } from "../ui/card";
 import SearchSkeleton from "./SearchSkeleton";
-import axios, { AxiosResponse } from "axios";
 
 const popularSearches = [
   "گوشی سامسونگ s22",
@@ -32,15 +30,19 @@ const popularSearches = [
 export default function Searchbar({ placeholder }: { placeholder?: string }) {
   const [isShowSearchMenu, setIsShowSearchMenu] = useState(false);
   const searchRef = useRef<HTMLLabelElement>(null);
-  const [products, setProducts] = useState<Product[]>([]);
+  const [products, setProducts] = useState([]);
   const [search, setSearch] = useState("");
-  const [searchResult, setSearchResult] = useState<Product[]>([]);
+  const [searchResult, setSearchResult] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
   async function getProducts() {
     try {
-      const response: AxiosResponse = await axios.get("/api/products");
-      setProducts(response.data);
+      const response = await fetch("/api/products");
+      if (!response.ok) {
+        throw new Error("Error fetching products");
+      }
+      const data = await response.json(); 
+      setProducts(data);
     } catch (error) {
       console.error("Error fetching products:", error);
     }

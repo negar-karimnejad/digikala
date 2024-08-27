@@ -68,7 +68,6 @@ export async function updateCategory(state: any, formData: FormData) {
   );
 
   if (result.success === false) {
-    console.log("🎁", result.error.formErrors.fieldErrors);
     return result.error.formErrors.fieldErrors;
   }
 
@@ -135,8 +134,6 @@ export async function deleteCategory(id: string) {
 // Submenu Actions
 export async function addSubmenu(formData: FormData) {
   connectToDB();
-  // Convert FormData entries to a plain object
-
   const result = CategorySubmenusSchema.safeParse(
     Object.fromEntries(formData.entries())
   );
@@ -155,13 +152,10 @@ export async function addSubmenu(formData: FormData) {
   });
 
   // Update the category to include the new submenu
-  await CategoryModel.findOneAndUpdate(
+
+  await SubmenuModel.findOneAndUpdate(
     { _id: data.categoryId },
-    {
-      $set: {
-        category: newSubmenu._id,
-      },
-    },
+    { $push: { submenus: newSubmenu._id } },
     { new: true }
   ).populate("submenus");
 
@@ -207,8 +201,7 @@ export async function addSubmenuItem(formData: FormData) {
     { _id: data.submenuId },
     { $push: { items: newSubmenuItem._id } },
     { new: true }
-  ).populate("items", null, null, { strictPopulate: false });
-  
+  ).populate("items");
 
   revalidatePath("/");
   revalidatePath("/categories/submenu-Item");

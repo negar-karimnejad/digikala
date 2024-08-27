@@ -17,11 +17,7 @@ export async function addProduct(_state: any, formData: FormData) {
 
   const parsedEntries = {
     ...entries,
-    id: Number(entries.id),
     rating: Number(entries.rating),
-    categoryId: Number(entries.categoryId),
-    submenuId: Number(entries.submenuId),
-    submenuItemId: Number(entries.submenuItemId),
     voter: Number(entries.voter),
     price: Number(entries.price),
     discount: Number(entries.discount),
@@ -32,6 +28,7 @@ export async function addProduct(_state: any, formData: FormData) {
 
   const result = ProductSchema.safeParse(parsedEntries);
   if (!result.success) {
+    console.log("❌❌❌", result.error.formErrors.fieldErrors);
     return result.error.formErrors.fieldErrors;
   }
 
@@ -69,7 +66,7 @@ export async function addProduct(_state: any, formData: FormData) {
         FeatureModel.create({
           key: feature.key,
           value: feature.value,
-          productId: product.id,
+          productId: product._id,
         })
       )
     );
@@ -81,7 +78,7 @@ export async function addProduct(_state: any, formData: FormData) {
         ColorModel.create({
           name: color.name,
           hex: color.hex,
-          productId: product.id,
+          productId: product._id,
         })
       )
     );
@@ -101,7 +98,7 @@ export async function addProduct(_state: any, formData: FormData) {
 
         await ImageModel.create({
           url: imagePath,
-          productId: product.id,
+          productId: product._id,
         });
       } else {
         console.warn("Duplicate image detected:", image);
@@ -117,13 +114,11 @@ export async function addProduct(_state: any, formData: FormData) {
 
 export async function updateProduct(_state: any, formData: FormData) {
   try {
-    const id = formData.get("id");
-    const numericId = Number(id);
+    const _id = formData.get("_id");
     const entries = Object.fromEntries(formData.entries());
 
     const parsedEntries = {
       ...entries,
-      id: Number(entries.id),
       rating: Number(entries.rating),
       categoryId: Number(entries.categoryId),
       voter: Number(entries.voter),
@@ -141,7 +136,7 @@ export async function updateProduct(_state: any, formData: FormData) {
 
     const data = result.data;
 
-    const product = await db.product.findUnique({ where: { id: numericId } });
+    const product = await ProductModel.findOne({ _id });
     if (product == null) return notFound();
 
     let imagePath = product.thumbnail;
@@ -155,28 +150,28 @@ export async function updateProduct(_state: any, formData: FormData) {
       );
     }
 
-    await db.product.update({
-      where: { id: numericId },
-      data: {
-        title: data.title,
-        description: data.description,
-        price: data.price,
-        discount: data.discount,
-        thumbnail: imagePath,
-      },
-    });
+    await ProductModel.findOneAndUpdate(
+      { _id },
+      {
+        $set: {
+          title: data.title,
+          description: data.description,
+          price: data.price,
+          discount: data.discount,
+          thumbnail: imagePath,
+        },
+      }
+    );
 
     const features = data.features ? JSON.parse(data.features as string) : [];
     if (features.length > 0) {
-      await db.feature.deleteMany({ where: { productId: numericId } });
+      await FeatureModel.deleteMany({ productId: _id });
       await Promise.all(
         features.map((feature: { key: string; value: string }) =>
-          db.feature.create({
-            data: {
-              key: feature.key,
-              value: feature.value,
-              productId: numericId,
-            },
+          FeatureModel.create({
+            key: feature.key,
+            value: feature.value,
+            productId: _id,
           })
         )
       );
@@ -184,15 +179,13 @@ export async function updateProduct(_state: any, formData: FormData) {
 
     const colors = data.colors ? JSON.parse(data.colors as string) : [];
     if (colors.length > 0) {
-      await db.colors.deleteMany({ where: { productId: numericId } });
+      await ColorModel.deleteMany({ productId: _id });
       await Promise.all(
         colors.map((color: { name: string; hex: string }) =>
-          db.colors.create({
-            data: {
-              name: color.name,
-              hex: color.hex,
-              productId: numericId,
-            },
+          ColorModel.create({
+            name: color.name,
+            hex: color.hex,
+            productId: _id,
           })
         )
       );
@@ -200,7 +193,7 @@ export async function updateProduct(_state: any, formData: FormData) {
 
     // if (formData.has("image")) {
     // Remove all existing images
-    await db.image.deleteMany({ where: { productId: numericId } });
+    await ImageModel.deleteMany({ productId: _id });
 
     const images = formData.getAll("image");
 
@@ -215,11 +208,9 @@ export async function updateProduct(_state: any, formData: FormData) {
             Buffer.from(await image.arrayBuffer())
           );
 
-          await db.image.create({
-            data: {
-              url: imagePath,
-              productId: numericId,
-            },
+          await ImageModel.create({
+            url: imagePath,
+            productId: _id,
           });
         } else {
           console.warn("Duplicate image detected:", image);
@@ -238,13 +229,10 @@ export async function updateProduct(_state: any, formData: FormData) {
   }
 }
 
-export async function deleteProduct(id:string) {
-  const productWithImages = await db.product.findUnique({
-    where: { id },
-    include: {
-      image: true,
-    },
-  });
+export async function deleteProduct(id: string) {
+  const productWithImages = await ProductModel.findOne({ _id: id }).populate(
+    "image"
+  );
 
   if (!productWithImages) return notFound();
 
@@ -272,10 +260,10 @@ export async function deleteProduct(id:string) {
 
   // Delete related records from the database
   await Promise.all([
-    db.image.deleteMany({ where: { productId: id } }),
-    db.feature.deleteMany({ where: { productId: id } }),
-    db.colors.deleteMany({ where: { productId: id } }),
-    db.product.delete({ where: { id } }),
+    ImageModel.deleteMany({ productId: id }),
+    FeatureModel.deleteMany({ productId: id }),
+    ColorModel.deleteMany({ productId: id }),
+    ProductModel.findOneAndDelete({ _id: id }),
   ]);
 
   revalidatePath("/");

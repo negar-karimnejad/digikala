@@ -12,13 +12,11 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
 import Modal from "../ui/Modal";
-import useStories from "@/hooks/useStories";
 
 export default function StorySlider() {
   const [isShowStory, setIsShowStory] = useState(false);
   const [selectedStory, setSelectedStory] = useState<Story>();
 
-  const { stories, error, loading } = useStories();
 
   const closeModalHandler = () => setIsShowStory(false);
 

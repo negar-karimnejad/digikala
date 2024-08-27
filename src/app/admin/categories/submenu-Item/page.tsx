@@ -1,5 +1,6 @@
 import AdminTable from "@/components/admin/AdminTable";
 import PageHeader from "@/components/admin/PageHeader";
+import connectToDB from "configs/db";
 import SubmenuItemModel from "models/SubmenuItem";
 
 export default function SubmenuItemPage() {
@@ -7,6 +8,7 @@ export default function SubmenuItemPage() {
 }
 
 async function SubmenuItemTable() {
+  connectToDB();
   const submenuItems = await SubmenuItemModel.find({});
 
   return (

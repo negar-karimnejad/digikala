@@ -7,8 +7,13 @@ import Topbar from "./Topbar";
 export default async function Header() {
   connectToDB();
   const user = await authUser();
-  const categories = await CategoryModel.find({}).populate("submenus");
-  console.log("🥼🥼🥼", categories);
+  const categories = await CategoryModel.find({}).populate({
+    path: "submenus",
+    populate: {
+      path: "items",
+    },
+  });
+
 
   return (
     <>

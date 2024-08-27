@@ -21,7 +21,6 @@ import s_image8 from "@/../public/services/afb3c938fd3149d7587b59919bfc500a46169
 import s_image9 from "@/../public/services/bb03641a188f3a74ec493d0790da87074492f64b_1708970740.png";
 import s_image10 from "@/../public/services/d0dc0edf879e963e9cff31fd57b3f101743ddac8_1707297619.png";
 
-import { FooterLinksProps } from "@/types/types";
 
 export const partners = [
   {
@@ -850,7 +849,7 @@ export const partners = [
   },
 ];
 
-export const footerLinks: FooterLinksProps[] = [
+export const footerLinks = [
   {
     id: 1,
     title: "با دیجی‌کالا",

@@ -1,10 +1,12 @@
 import AdminTable from "@/components/admin/AdminTable";
 import PageHeader from "@/components/admin/PageHeader";
+import connectToDB from "configs/db";
 import UserModel from "models/User";
 
 import React from "react";
 
 export default async function AdminUsersPage() {
+  connectToDB();
   const users = await UserModel.find({});
 
   return (

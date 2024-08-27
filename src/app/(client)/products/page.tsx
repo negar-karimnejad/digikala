@@ -1,14 +1,9 @@
-"use client";
-
-import useProducts from "@/hooks/useProducts";
 import Image from "next/image";
 import Link from "next/link";
+import ProductModel from "models/Product";
 
-export default function ProductsPage() {
-  const { products, error, loading } = useProducts();
-
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>{error}</p>;
+export default async function ProductsPage() {
+  const products = await ProductModel.find({});
 
   return (
     <div>

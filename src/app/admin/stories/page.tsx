@@ -1,5 +1,6 @@
 import AdminTable from "@/components/admin/AdminTable";
 import PageHeader from "@/components/admin/PageHeader";
+import connectToDB from "configs/db";
 import StoryModel from "models/Story";
 
 export default function StoriesPage() {
@@ -7,6 +8,7 @@ export default function StoriesPage() {
 }
 
 async function StoriesTable() {
+  connectToDB();
   const stories = await StoryModel.find({});
 
   return (

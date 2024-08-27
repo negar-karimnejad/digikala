@@ -137,13 +137,13 @@ export default function Navbar({ categories }) {
                   <div className="bg-neutral-100 dark:bg-neutral-800 max-h-[25.5rem] overflow-y-auto col-span-2">
                     {categories.map((category) => (
                       <div
-                        onMouseEnter={() => hoverHandler(category.id)}
-                        key={category.id}
+                        onMouseEnter={() => hoverHandler(category._id)}
+                        key={category._id}
                       >
                         <Link
                           href={category.href}
                           className={`transition-all px-2 py-5 border dark:border-neutral-900 border-neutral-100 hover:border-neutral-200 hover:font-irsansb hover:text-red-500 hover:bg-white text-neutral-600 dark:text-neutral-100 flex items-center gap-2 text-xs font-irsansb ${
-                            selectedCategory?.id === category.id
+                            selectedCategory?._id === category._id
                               ? "border-neutral-200 font-irsansb text-red-500 dark:text-red-500 bg-white dark:bg-neutral-900"
                               : ""
                           }`}

@@ -2,9 +2,6 @@
 
 import { addProduct, updateProduct } from "@/app/admin/products/action";
 import { Button } from "@/components/ui/button";
-import useCategories from "@/hooks/useCategories";
-import useSubmenuItems from "@/hooks/useSubmenuItems";
-import useSubmenus from "@/hooks/useSubmenus";
 import { LucideUploadCloud, X } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
@@ -17,11 +14,13 @@ const initialState = (product) => ({
   success: false,
 });
 
-export default function ProductForm({ product }: { product? }) {
-  const { categories } = useCategories();
-  const { submenus } = useSubmenus();
-  const { submenuItems } = useSubmenuItems();
-
+export default function ProductForm({
+  product,
+  categories,
+}: {
+  product?;
+  categories?;
+}) {
   const [selectedCategory, setSelectedCategory] = useState(
     product?.categoryId ? String(product.categoryId) : ""
   );
@@ -33,12 +32,14 @@ export default function ProductForm({ product }: { product? }) {
   );
 
   // Filtered submenus and submenu items
-  const filteredSubmenus = submenus.filter(
-    (submenu) => submenu.categoryId === Number(selectedCategory)
-  );
-  const filteredSubmenuItems = submenuItems.filter(
-    (item) => item.submenuId === Number(selectedSubmenu)
-  );
+  const filteredSubmenus =
+    categories.find((category) => category._id === selectedCategory)
+      ?.submenus || [];
+
+  const filteredSubmenuItems =
+    filteredSubmenus.find((submenu) => submenu._id === selectedSubmenu)
+      ?.items || [];
+  console.log("filteredSubmenus===>", categories);
 
   const [thumbnailFile, setThumbnailFile] = useState<File | null>(null);
   const [additionalFiles, setAdditionalFiles] = useState<File[]>([]);

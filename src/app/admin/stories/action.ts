@@ -5,17 +5,11 @@ import { StorySchema } from "@/lib/validation";
 import fs from "fs/promises";
 import { revalidatePath } from "next/cache";
 import { notFound, redirect } from "next/navigation";
+import connectToDB from "configs/db";
 
 export async function addStory(state, formData: FormData) {
-  const entries = Object.fromEntries(formData.entries());
-
-  // Parse and validate entries
-  const parsedEntries = {
-    ...entries,
-    id: Number(entries.id),
-  };
-
-  const result = StorySchema.safeParse(parsedEntries);
+  connectToDB();
+  const result = StorySchema.safeParse(Object.fromEntries(formData.entries()));
 
   if (result.success === false) {
     return result.error.formErrors.fieldErrors;
@@ -48,8 +42,9 @@ export async function addStory(state, formData: FormData) {
   redirect("/admin/stories");
 }
 
-export async function deleteStory(id) {
-  const story = await StoryModel.delete({ id });
+export async function deleteStory(id: string) {
+  connectToDB();
+  const story = await StoryModel.delete({ _id: id });
 
   if (story == null) return notFound();
 

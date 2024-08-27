@@ -23,10 +23,12 @@ const schema = new mongoose.Schema({
     type: mongoose.Types.ObjectId,
     ref: "Product",
   },
-  submenus: {
-    type: mongoose.Types.ObjectId,
-    ref: "Submenu",
-  },
+  submenus: [
+    {
+      type: mongoose.Types.ObjectId,
+      ref: "Submenu",
+    },
+  ],
 });
 
 const model = mongoose.models.Category || mongoose.model("Category", schema);

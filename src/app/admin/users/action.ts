@@ -207,8 +207,9 @@ export async function signin(
 //   redirect("/admin/users");
 // }
 
-export async function deleteUser(id) {
-  const user = await UserModel.delete({ id });
+export async function deleteUser(id: string) {
+  connectToDB();
+  const user = await UserModel.delete({ _id: id });
 
   if (user == null) return notFound();
 
