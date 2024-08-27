@@ -1,8 +1,8 @@
-import { authUser } from "@/utils/auth";
 import connectToDB from "configs/db";
 import CategoryModel from "models/Category";
 import Navbar from "./Navbar";
 import Topbar from "./Topbar";
+import authUser from "@/app/api/authUser";
 
 export default async function Header() {
   connectToDB();

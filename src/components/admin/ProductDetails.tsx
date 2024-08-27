@@ -1,4 +1,4 @@
-import { Product } from "@prisma/client";
+import { Product } from "@/types/types";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 
