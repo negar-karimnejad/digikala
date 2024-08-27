@@ -1,15 +1,12 @@
 "use client";
 
-import useProduct from "@/hooks/useProduct";
 import Image from "next/image";
 import { useState } from "react";
 import FullSizeImage from "./FullSizeImage";
 import ProductSlider from "./ProductSlider";
 
-export default function ProductImage({ productId }: { productId: number }) {
+export default function ProductImage({ product }) {
   const [isOpen, setIsOpen] = useState(-1);
-
-  const { product } = useProduct(productId);
 
   const closeModal = () => {
     setIsOpen(-1);

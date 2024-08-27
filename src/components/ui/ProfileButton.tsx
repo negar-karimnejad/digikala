@@ -23,6 +23,7 @@ import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { Avatar, AvatarFallback, AvatarImage } from "./avatar";
 import { Button } from "./button";
+import { signOut } from "@/app/admin/users/action";
 
 export default function ProfileButton({ user }) {
   const router = useRouter();

@@ -3,16 +3,16 @@ import {
   CarouselContent,
   CarouselItem,
 } from "@/components/ui/carousel";
-import useProducts from "@/hooks/useProducts";
 import { ArrowLeft, ChevronLeft } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import OfferSkeleton from "../skeleton/OfferSkeleton";
 import { Card, CardContent } from "../ui/card";
-import CountdownTimer from "../ui/CountdownTimer ";
+import CountdownTimer from "../ui/CountdownTimer";
+import ProductModel from "models/Product";
 
-export default function Offers() {
-  const { products, loading } = useProducts();
+export default async function Offers() {
+  const products = await ProductModel.find({});
 
   const offerProducts = products
     ?.slice()
@@ -244,7 +244,7 @@ export default function Offers() {
               <ChevronLeft size={18} />
             </Link>
           </div>
-          {loading && (
+          {/* {loading && (
             <>
               {Array.from({ length: 7 }).map((_, index) => (
                 <CarouselItem
@@ -255,7 +255,7 @@ export default function Offers() {
                 </CarouselItem>
               ))}
             </>
-          )}
+          )} */}
           {offerProducts?.map((product) => (
             <CarouselItem
               key={product.id}

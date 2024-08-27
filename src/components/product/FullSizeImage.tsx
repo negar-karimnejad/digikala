@@ -1,6 +1,5 @@
 "use client";
 
-import { Image as productImage } from "@prisma/client";
 import { ChevronLeft, ChevronRight, LayoutGrid } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
@@ -11,12 +10,17 @@ import "swiper/css/thumbs";
 import { FreeMode, Navigation, Thumbs } from "swiper/modules";
 import { Swiper, SwiperClass, SwiperSlide } from "swiper/react";
 
+type ProductImage = {
+  id: number;
+  url: string;
+};
+
 function FullSizeImage({
   image,
   isOpen,
   closeModal,
 }: {
-  image: productImage[];
+  image: ProductImage[];
   isOpen: number;
   closeModal: () => void;
 }) {

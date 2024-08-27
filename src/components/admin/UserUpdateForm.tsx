@@ -9,17 +9,16 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { initialState } from "@/types/types";
-import { User } from "@prisma/client";
+import { roles } from "@/utils/constants";
 import Image from "next/image";
 import { useState } from "react";
 import { useFormState, useFormStatus } from "react-dom";
 import toast from "react-hot-toast";
 import { Button } from "../ui/button";
 
-export default function UserUpdateForm({ user }: { user: User }) {
-  const [state, formAction] = useFormState(updateUser, initialState);
-  const [role, setRole] = useState(user.role || "USER");
+export default function UserUpdateForm({ user }) {
+  const [state, formAction] = useFormState(updateUser, {});
+  const [role, setRole] = useState(user.role || roles.USER);
   const [file, setFile] = useState<File | null>(null);
 
   const handleAvatarChange = (e: React.ChangeEvent<HTMLInputElement>) => {

@@ -1,5 +1,4 @@
 "use client";
-import { Product, Image as productImage } from "@prisma/client";
 import Image from "next/image";
 import "swiper/css";
 import "swiper/css/pagination";
@@ -7,8 +6,20 @@ import { Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import OfferSkeleton from "../skeleton/OfferSkeleton";
 
+interface ProductImage {
+  productId: string;
+  url: string;
+}
+
+interface Product {
+  _id: string;
+  title: string;
+  price: number;
+  // Add other properties based on your schema
+}
+
 interface ProductSliderProps {
-  productImages: productImage[];
+  productImages: ProductImage[];
   product: Product;
 }
 
@@ -41,11 +52,11 @@ export default function ProductSlider({
         )}
         {productImages.map((image) => (
           <SwiperSlide
-            key={image.id}
+            key={image.productId}
             className="!flex items-center py-5 justify-center w-full"
           >
             <Image
-              alt={`Product Image ${image.id}`}
+              alt={`Product Image ${image.productId}`}
               width={300}
               height={300}
               src={image.url}

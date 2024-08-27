@@ -17,11 +17,14 @@ import Services from "@/components/home/Services";
 import StorySlider from "@/components/home/StorySlider";
 import FloatingSupermarketButton from "@/components/ui/FloatingSupermarketButton";
 import FloatingSupportButton from "@/components/ui/FloatingSupportButton";
+import StoryModel from "models/Story";
 
-export default function Home() {
+export default async function Home() {
+  const stories = await StoryModel.find({});
+
   return (
     <>
-      <StorySlider />
+      <StorySlider stories={stories} />
       <Hero />
       <Services />
       <Offers />

@@ -1,14 +1,11 @@
-import useCategories from "@/hooks/useCategories";
+import CategoryModel from "models/Category";
 import Image from "next/image";
 import Link from "next/link";
 import "swiper/css";
 import { Swiper, SwiperSlide } from "swiper/react";
 
-export default function Categories() {
-  const { categories, loading, error } = useCategories();
-
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>{error}</div>;
+export default async function Categories() {
+  const categories = await CategoryModel.find({});
 
   return (
     <div className="lg:mx-3 my-12 group relative">

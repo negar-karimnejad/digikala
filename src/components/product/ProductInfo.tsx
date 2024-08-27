@@ -6,21 +6,23 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import useProduct from "@/hooks/useProduct";
 import { Check, ChevronLeft, Info, Sparkle, ThumbsUp } from "lucide-react";
 import { RefObject, useEffect, useState } from "react";
 import { Button } from "../ui/button";
-import { Colors } from "@prisma/client";
+
+type Colors = {
+  name: string;
+  hex: string;
+  productId: string;
+};
 
 export default function ProductInfo({
-  productId,
+  product,
   featureRef,
 }: {
-  productId: number;
+  product;
   featureRef: RefObject<HTMLDivElement>;
 }) {
-  const { product } = useProduct(productId);
-
   const [sizeValue, setSizeValue] = useState(product?.sizes);
   const [chosenColor, setChosenColor] = useState<Colors>();
 
@@ -137,7 +139,9 @@ export default function ProductInfo({
               key={item.id}
               onClick={() => setChosenColor(item)}
               className={`flex w-fit gap-2 p-0.5 border-2 items-center rounded-full ${
-                chosenColor?.id === item.id ? "border-blue-500 border-4" : ""
+                chosenColor?.productId === item.productId
+                  ? "border-blue-500 border-4"
+                  : ""
               }`}
             >
               <span
@@ -146,7 +150,7 @@ export default function ProductInfo({
                   backgroundColor: item.hex,
                 }}
               >
-                {chosenColor?.id === item.id && (
+                {chosenColor?.productId === item.productId && (
                   <Check size={20} className="text-neutral-700" />
                 )}
               </span>

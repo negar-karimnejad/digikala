@@ -4,10 +4,10 @@ import { signup } from "@/app/admin/users/action";
 import Logo from "@/components/Logo";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { RegisterSchemaType, RegisterSchema } from "@/lib/validation";
+import { RegisterSchema, RegisterSchemaType } from "@/lib/validation";
 import { RegisterFormState } from "@/types/types";
 import Link from "next/link";
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useFormStatus } from "react-dom";
 import toast from "react-hot-toast";
@@ -20,9 +20,9 @@ const initialState: RegisterFormState = {
 export default function Register() {
   const router = useRouter();
   const [state, setState] = useState<RegisterFormState>(initialState);
-  const { status } = useSession();
+  // const { status } = useSession();
 
-  if (status === "authenticated") router.push("/");
+  // if (status === "authenticated") router.push("/");
 
   const validateForm = (formData: FormData) => {
     const formObject = Object.fromEntries(

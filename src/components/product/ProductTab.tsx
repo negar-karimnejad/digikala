@@ -1,6 +1,4 @@
 "use client";
-
-import useProduct from "@/hooks/useProduct";
 import useScroll from "@/hooks/useScroll";
 import {
   ChevronLeft,
@@ -13,7 +11,7 @@ import Link from "next/link";
 import { useRef, useState } from "react";
 import { Button } from "../ui/button";
 
-export default function ProductTab({ productId }: { productId: number }) {
+export default function ProductTab({ product }) {
   const introductionRef = useRef<HTMLDivElement>(null);
   const featureRef = useRef<HTMLDivElement>(null);
   const questionRef = useRef<HTMLDivElement>(null);
@@ -26,7 +24,6 @@ export default function ProductTab({ productId }: { productId: number }) {
     { title: "پرسش‌ها", ref: questionRef },
   ];
 
-  const { product } = useProduct(productId);
   const { isVisible } = useScroll();
 
   const [activeTab, setActiveTab] = useState(productTabs[0].title);

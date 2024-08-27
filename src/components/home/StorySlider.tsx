@@ -7,23 +7,32 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { Story } from "@/types/types";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
 import Modal from "../ui/Modal";
 
-export default function StorySlider() {
-  const [isShowStory, setIsShowStory] = useState(false);
-  const [selectedStory, setSelectedStory] = useState<Story>();
+interface Story {
+  _id: string;
+  title: string;
+  cover: string;
+  post: string;
+}
 
+interface StorySliderProps {
+  stories: Story[];
+}
+
+export default function StorySlider({ stories }: StorySliderProps) {
+  const [isShowStory, setIsShowStory] = useState(false);
+  const [selectedStory, setSelectedStory] = useState<Story | undefined>();
 
   const closeModalHandler = () => setIsShowStory(false);
 
   const nextStoryHandler = () => {
     if (selectedStory) {
       const currentIndex = stories.findIndex(
-        (story) => story.id === selectedStory.id
+        (story) => story._id === selectedStory._id
       );
       const nextIndex = (currentIndex + 1) % stories.length;
       setSelectedStory(stories[nextIndex]);
@@ -33,7 +42,7 @@ export default function StorySlider() {
   const prevStoryHandler = () => {
     if (selectedStory) {
       const currentIndex = stories.findIndex(
-        (story) => story.id === selectedStory.id
+        (story) => story._id === selectedStory._id
       );
       const prevIndex = (currentIndex - 1 + stories.length) % stories.length;
       setSelectedStory(stories[prevIndex]);
@@ -53,7 +62,7 @@ export default function StorySlider() {
           <CarouselContent>
             {stories.map((story) => (
               <CarouselItem
-                key={story.id}
+                key={story._id}
                 className="cursor-pointer basis-auto p-0 mx-2"
                 onClick={() => {
                   setSelectedStory(story);

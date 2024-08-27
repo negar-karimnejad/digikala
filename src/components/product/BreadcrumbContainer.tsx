@@ -6,14 +6,13 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
-import { Category, Product, Submenu, SubmenuItem } from "@prisma/client";
 import { SlashIcon } from "lucide-react";
 
 interface BreadcrumbContainerProps {
-  category: Category;
-  submenu: Submenu;
-  item: SubmenuItem;
-  product: Product;
+  category;
+  submenu;
+  item;
+  product;
 }
 
 export default function BreadcrumbContainer({

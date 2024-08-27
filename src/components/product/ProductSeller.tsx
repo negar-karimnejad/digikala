@@ -6,7 +6,6 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import useProduct from "@/hooks/useProduct";
 import {
   ChevronLeft,
   Info,
@@ -20,11 +19,9 @@ import { useState } from "react";
 import { Button } from "../ui/button";
 import Modal from "../ui/Modal";
 
-export default function ProductSeller({ productId }: { productId: number }) {
+export default function ProductSeller({ product }) {
   const [isShowModal, setIsShowModal] = useState(false);
   const closeModal = () => setIsShowModal(false);
-
-  const { product } = useProduct(productId);
 
   const AddToCartButton = () => {
     return <Button className="w-full">افزودن به سبد</Button>;

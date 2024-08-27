@@ -6,11 +6,11 @@ import { generateAccessToken, generateRefreshToken } from "@/utils/auth";
 import { roles } from "@/utils/constants";
 import bcrypt, { compare } from "bcryptjs";
 import connectToDB from "configs/db";
+import fs from "fs/promises";
 import UserModel from "models/User";
 import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
 import { notFound } from "next/navigation";
-import fs from "fs/promises";
 
 export async function signup(
   state: RegisterFormState,
@@ -150,6 +150,14 @@ export async function signin(
       errors: { general: [error] },
       success: false,
     };
+  }
+}
+
+export async function signOut() {
+  try {
+    cookies().delete("token");
+  } catch (error) {
+    console.log("Error ->", error);
   }
 }
 
