@@ -81,25 +81,25 @@ export const productEditSchema = ProductSchema.extend({
 });
 
 export const CategorySubmenuItemSchema = z.object({
-  id: z.number(),
+  _id: z.string(),
   title: z
     .string()
     .min(3, { message: "لطفا عنوان زیرمجموعه دسته‌بندی را وارد نمایید" }),
   href: z
     .string()
     .min(5, { message: "لطفا آدرس لینک زیرمجموعه دسته‌بندی را وارد نمایید" }),
-  submenuId: z.number(),
+  submenuId: z.string(),
 });
 
 export const CategorySubmenusSchema = z.object({
-  id: z.number(),
+  _id: z.string(),
   title: z
     .string()
     .min(3, { message: "لطفا عنوان زیرمجموعه دسته‌بندی را وارد نمایید" }),
   href: z
     .string()
     .min(5, { message: "لطفا آدرس لینک زیرمجموعه دسته‌بندی را وارد نمایید" }),
-  categoryId: z.number(),
+  categoryId: z.string(),
   items: z.array(CategorySubmenuItemSchema).optional(),
 });
 
@@ -120,7 +120,7 @@ export const categoryEditSchema = CategorySchema.extend({
 });
 
 export const StorySchema = z.object({
-  id: z.number(),
+  _id: z.string(),
   title: z.string().min(5, { message: "لطفا عنوان داستان را وارد نمایید" }),
   cover: imageSchema.refine((file) => file.size > 0, "Required"),
   post: imageSchema.refine((file) => file.size > 0, "Required"),

@@ -3,7 +3,7 @@
 import { cities, province } from "@/data/data";
 import useCategories from "@/hooks/useCategories";
 import useScroll from "@/hooks/useScroll";
-import { CategoryProps, City, Location } from "@/types/types";
+import { City, Location } from "@/types/types";
 import {
   ArrowRight,
   BadgePercent,
@@ -33,9 +33,7 @@ const links = [
   { label: "پرفروش ترین ها ", href: "/", icon: <Flame size={18} /> },
 ];
 
-export default function Navbar() {
-  const { categories } = useCategories();
-
+export default function Navbar({ categories }) {
   // const [userProvince, setUserProvince] = useState("");
   const [provincecities, setProvinceCities] = useState<City[]>([]);
   const [isShowMenu, setIsShowMenu] = useState(false);
@@ -43,10 +41,9 @@ export default function Navbar() {
   const [isShowCityModal, setIsShowCityModal] = useState(false);
   const [location, setLocation] = useState<Location | null>(null);
   const [userCity, setUserCity] = useState<City | null>(null);
-  const [selectedCategory, setSelectedCategory] =
-    useState<CategoryProps | null>(
-      categories?.find((category) => category.title === "موبایل") || null
-    );
+  const [selectedCategory, setSelectedCategory] = useState(
+    categories?.find((category) => category.title === "موبایل") || null
+  );
 
   const { isVisible } = useScroll();
 
@@ -65,9 +62,7 @@ export default function Navbar() {
   }, [userCity]);
 
   const hoverHandler = (categoryId: number) => {
-    const category = categories.find(
-      (category: CategoryProps) => category.id === categoryId
-    );
+    const category = categories.find((category) => category._id === categoryId);
     if (category) {
       setSelectedCategory(category);
     }

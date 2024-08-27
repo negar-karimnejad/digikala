@@ -2,7 +2,6 @@ import AdminTable from "@/components/admin/AdminTable";
 import PageHeader from "@/components/admin/PageHeader";
 import connectToDB from "configs/db";
 import CategoryModel from "models/Category";
-import SubmenuModel from "models/Submenu";
 
 export default function AdminCategoriesPage() {
   return <ProductTable />;
@@ -11,8 +10,7 @@ export default function AdminCategoriesPage() {
 async function ProductTable() {
   connectToDB();
   const categories = await CategoryModel.find({});
-  // const submenus = await SubmenuModel.find({}).populate("items");
-  // const categories = [];
+
   return (
     <>
       <PageHeader href="/admin/categories/new" title="دسته‌بندی ها" />

@@ -1,5 +1,3 @@
-// deleteSubmenu
-
 import AdminTable from "@/components/admin/AdminTable";
 import PageHeader from "@/components/admin/PageHeader";
 import SubmenuItemModel from "models/SubmenuItem";

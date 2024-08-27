@@ -1,18 +1,15 @@
-"use client";
-
 import { addSubmenuItem } from "@/app/admin/categories/action";
 import { Button } from "@/components/ui/button";
-import { useFormStatus } from "react-dom";
+import connectToDB from "configs/db";
+import SubmenuModel from "models/Submenu";
 
-export default function CategorySubmenuItemForm({ submenus }) {
+export default async function CategorySubmenuItemForm() {
+  connectToDB();
+  const submenus = await SubmenuModel.find({});
+
   return (
     <form action={addSubmenuItem}>
-      <input
-        type="number"
-        hidden
-        name="id"
-        value={Math.floor(Math.random() * 1000000)}
-      />
+      <input type="string" hidden name="_id" value={crypto.randomUUID()} />
       <div className="h-20 relative">
         <input
           type="text"
@@ -55,31 +52,25 @@ export default function CategorySubmenuItemForm({ submenus }) {
       >
         <option value="-1">دسته‌بندی مورد نظر را انتخاب کنید</option>
         {submenus.map((submenu) => (
-          <option key={submenu.id} value={submenu.id}>
+          <option key={submenu._id} value={submenu._id}>
             {submenu.title}
           </option>
         ))}
       </select>
-      <SubmitButton />
+      <Button
+        type="submit"
+        variant="destructive"
+        className="my-5 w-full text-lg font-medium"
+        // disabled={pending}
+      >
+        <div className="flex items-center justify-center gap-2">
+          افزودن آیتم زیرمجموعه
+          {/* <span>{pending ? `در حال افزودن ...` : `افزودن آیتم زیرمجموعه`}</span>
+        {pending && (
+          <div className="h-5 w-5 animate-spin rounded-full border-2 border-dotted border-gray-800"></div>
+        )} */}
+        </div>
+      </Button>
     </form>
   );
 }
-
-const SubmitButton = () => {
-  const { pending } = useFormStatus();
-  return (
-    <Button
-      type="submit"
-      variant="destructive"
-      className="my-5 w-full text-lg font-medium"
-      disabled={pending}
-    >
-      <div className="flex items-center justify-center gap-2">
-        <span>{pending ? `در حال افزودن ...` : `افزودن آیتم زیرمجموعه`}</span>
-        {pending && (
-          <div className="h-5 w-5 animate-spin rounded-full border-2 border-dotted border-gray-800"></div>
-        )}
-      </div>
-    </Button>
-  );
-};

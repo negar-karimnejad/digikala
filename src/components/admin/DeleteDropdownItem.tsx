@@ -23,12 +23,12 @@ export function DeleteDropdownItem({
   itemId,
   storyId,
 }: {
-  categoryId?;
-  productId?;
-  userId?;
-  submenuId?;
-  itemId?;
-  storyId?;
+  categoryId?: string;
+  productId?: string;
+  userId?: string;
+  submenuId?: string;
+  itemId?: string;
+  storyId?: string;
 }) {
   const [isPending, startTransition] = useTransition();
   const router = useRouter();

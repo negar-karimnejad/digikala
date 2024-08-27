@@ -35,6 +35,9 @@ export default function CategoryForm({ category }: { category? }) {
 
     if (category != null) {
       formData.append("_id", category._id);
+    }else{
+      formData.append("_id", crypto.randomUUID());
+
     }
 
     if (coverFile) {

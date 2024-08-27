@@ -228,7 +228,7 @@ export default function AdminTable({
                       height={100}
                       width={100}
                       className="rounded-full w-16 h-16 object-cover"
-                      src={category.cover}
+                      src={category.cover[0]}
                     />
                   </div>
                 </TableCell>

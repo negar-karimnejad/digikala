@@ -15,10 +15,10 @@ const schema = new mongoose.Schema({
     type: mongoose.Types.ObjectId,
     ref: "Category",
   },
-  items: {
+  items: [{
     type: mongoose.Types.ObjectId,
-    ref: "SubmenuItem",
-  },
+    ref: "SubmenuItem", // Ensure this matches the model name
+  }],
 });
 
 const model = mongoose.models.Submenu || mongoose.model("Submenu", schema);

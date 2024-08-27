@@ -238,7 +238,7 @@ export async function updateProduct(_state: any, formData: FormData) {
   }
 }
 
-export async function deleteProduct(id: number) {
+export async function deleteProduct(id:string) {
   const productWithImages = await db.product.findUnique({
     where: { id },
     include: {

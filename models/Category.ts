@@ -12,7 +12,7 @@ const schema = new mongoose.Schema({
     required: false,
   },
   cover: {
-    type: String,
+    type: [String],
     required: true,
   },
   href: {

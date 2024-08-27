@@ -7,16 +7,21 @@ import {
   CategorySubmenusSchema,
 } from "@/lib/validation";
 import connectToDB from "configs/db";
-import fs from "fs/promises";
+import { promises as fs, unlink, writeFile } from "fs";
 import CategoryModel from "models/Category";
-import submenuModal from "models/Submenu";
+import SubmenuModel from "models/Submenu";
 import SubmenuItemModel from "models/SubmenuItem";
 import { revalidatePath } from "next/cache";
 import { notFound, redirect } from "next/navigation";
+import { promisify } from "util";
+
+const unlinkAsync = promisify(unlink);
+const writeFileAsync = promisify(writeFile);
 
 export async function addCategory(_state, formData: FormData) {
   connectToDB();
 
+  // Safely parse the data
   const result = CategorySchema.safeParse(
     Object.fromEntries(formData.entries())
   );
@@ -28,19 +33,20 @@ export async function addCategory(_state, formData: FormData) {
   const data = result.data;
 
   await fs.mkdir("public/categories", { recursive: true });
+
   const coverPath = `/categories/${crypto.randomUUID()}-${data.cover.name}`;
   await fs.writeFile(
     `public${coverPath}`,
     Buffer.from(await data.cover.arrayBuffer())
   );
 
-  await fs.mkdir("public/categories", { recursive: true });
   const iconPath = `/categories/${crypto.randomUUID()}-${data.icon.name}`;
   await fs.writeFile(
     `public${iconPath}`,
     Buffer.from(await data.icon.arrayBuffer())
   );
 
+  // Save category to the database
   await CategoryModel.create({
     title: data.title,
     cover: coverPath,
@@ -55,7 +61,7 @@ export async function addCategory(_state, formData: FormData) {
 }
 
 export async function updateCategory(state: any, formData: FormData) {
-  connectToDB(); 
+  connectToDB();
 
   const result = categoryEditSchema.safeParse(
     Object.fromEntries(formData.entries())
@@ -76,18 +82,19 @@ export async function updateCategory(state: any, formData: FormData) {
   let iconPath = category.icon;
 
   if (data.cover != null && data.cover.size > 0) {
-    await fs.unlink(`public${category.cover}`);
+    // if (fs.existsSync(`public${category.cover}`)) {
+    await unlinkAsync(`public${category.cover}`);
     coverPath = `/categories/${crypto.randomUUID()}-${data.cover.name}`;
-    await fs.writeFile(
+    await writeFileAsync(
       `public${coverPath}`,
       Buffer.from(await data.cover.arrayBuffer())
     );
   }
 
   if (data.icon != null && data.icon.size > 0) {
-    await fs.unlink(`public${category.icon}`);
+    await unlinkAsync(`public${category.icon}`);
     iconPath = `/categories/${crypto.randomUUID()}-${data.icon.name}`;
-    await fs.writeFile(
+    await writeFileAsync(
       `public${iconPath}`,
       Buffer.from(await data.icon.arrayBuffer())
     );
@@ -96,11 +103,11 @@ export async function updateCategory(state: any, formData: FormData) {
   await CategoryModel.findOneAndUpdate(
     { _id: data._id },
     {
-      $push: {
+      $set: {
         title: data.title,
+        href: data.href,
         cover: coverPath,
         icon: iconPath,
-        href: data.href,
       },
     },
     { new: true }
@@ -112,9 +119,9 @@ export async function updateCategory(state: any, formData: FormData) {
   redirect("/admin/categories");
 }
 
-export async function deleteCategory(id: number) {
+export async function deleteCategory(id: string) {
   connectToDB();
-  const category = await CategoryModel.delete({ id });
+  const category = await CategoryModel.findOneAndDelete({ _id: id });
 
   if (category == null) return notFound();
 
@@ -122,136 +129,98 @@ export async function deleteCategory(id: number) {
   await fs.unlink(`public${category.icon}`);
 
   revalidatePath("/");
-  revalidatePath("/categories");
+  revalidatePath("/admin/categories");
 }
 
 // Submenu Actions
 export async function addSubmenu(formData: FormData) {
-  try {
-    connectToDB();
-    // Convert FormData entries to a plain object
-    const entries = Object.fromEntries(formData.entries());
+  connectToDB();
+  // Convert FormData entries to a plain object
 
-    // Parse and validate entries
-    const parsedEntries = {
-      ...entries,
-      categoryId: Number(entries.categoryId),
-      id: Number(entries.id),
-    };
+  const result = CategorySubmenusSchema.safeParse(
+    Object.fromEntries(formData.entries())
+  );
 
-    const result = CategorySubmenusSchema.safeParse(parsedEntries);
-
-    if (!result.success) {
-      console.log("❌❌❌", result.error.formErrors.fieldErrors);
-      return result.error.formErrors.fieldErrors;
-    }
-
-    const data = result.data;
-
-    // Create the new submenu
-    const newSubmenu = await submenuModal.create({
-      title: data.title,
-      href: data.href,
-      categoryId: data.categoryId,
-    });
-
-    // Update the category to include the new submenu
-
-    await CategoryModel.findOneAndUpdate(
-      { _id: data.categoryId },
-      {
-        $push: {
-          submenus: newSubmenu.id,
-        },
-      },
-      { new: true }
-    ).populate("submenus");
-
-    // Verify the category update
-    await CategoryModel.findOne(
-      { id: data.categoryId },
-      { include: { submenus: true } }
-    );
-
-    revalidatePath("/");
-    revalidatePath("/categories/submenu");
-    redirect("/admin/categories/submenu");
-  } catch (error) {
-    console.log("Error ->", error);
-    throw new Error(error);
+  if (!result.success) {
+    return result.error.formErrors.fieldErrors;
   }
+
+  const data = result.data;
+
+  // Create the new submenu
+  const newSubmenu = await SubmenuModel.create({
+    title: data.title,
+    href: data.href,
+    categoryId: data.categoryId,
+  });
+
+  // Update the category to include the new submenu
+  await CategoryModel.findOneAndUpdate(
+    { _id: data.categoryId },
+    {
+      $set: {
+        category: newSubmenu._id,
+      },
+    },
+    { new: true }
+  ).populate("submenus");
+
+  revalidatePath("/");
+  revalidatePath("/categories/submenu");
+  redirect("/admin/categories/submenu");
 }
 
-export async function deleteSubmenu(id: number) {
+export async function deleteSubmenu(id: string) {
   connectToDB();
-  const submenu = await submenuModal.delete({ id });
+  const submenu = await SubmenuModel.findOneAndDelete({ _id: id });
 
   if (submenu == null) return notFound();
 
   revalidatePath("/");
-  revalidatePath("/categories");
+  redirect("/admin/categories/submenu");
 }
 
 // Submenu-Item Actions
 export async function addSubmenuItem(formData: FormData) {
-  try {
-    connectToDB();
-    // Convert FormData entries to a plain object
-    const entries = Object.fromEntries(formData.entries());
+  connectToDB();
+  // Convert FormData entries to a plain object
+  const result = CategorySubmenuItemSchema.safeParse(
+    Object.fromEntries(formData.entries())
+  );
 
-    // Parse and validate entries
-    const parsedEntries = {
-      ...entries,
-      submenuId: Number(entries.submenuId),
-      id: Number(entries.id),
-    };
-
-    const result = CategorySubmenuItemSchema.safeParse(parsedEntries);
-
-    if (!result.success) {
-      console.error("Validation Errors:", result.error.formErrors.fieldErrors);
-      return result.error.formErrors.fieldErrors;
-    }
-
-    const data = result.data;
-
-    // Create the new submenu
-    const newSubmenuItem = await SubmenuItemModel.create({
-      title: data.title,
-      href: data.href,
-      submenuId: data.submenuId,
-    });
-
-    // Update the category to include the new submenu
-    await submenuModal
-      .findOneAndUpdate(
-        { _id: data.submenuId },
-
-        {
-          $push: { submenus: newSubmenuItem.id }, // `$push` is used to add the submenu ID to the `submenus` array
-        },
-        { new: true }
-      )
-      .populate("items");
-
-    // Verify the category update
-    await submenuModal.findOne({ _id: data.submenuId }).populate("items");
-
-    revalidatePath("/");
-    revalidatePath("/categories/submenu-Item");
-    redirect("/admin/categories/submenu-Item");
-  } catch (error) {
-    console.log("Error ->", error);
-    throw new Error(error);
+  if (!result.success) {
+    console.error("Validation Errors:", result.error.formErrors.fieldErrors);
+    return result.error.formErrors.fieldErrors;
   }
+
+  const data = result.data;
+
+  // Create the new submenu
+  const newSubmenuItem = await SubmenuItemModel.create({
+    title: data.title,
+    href: data.href,
+    submenuId: data.submenuId,
+  });
+
+  // Update the category to include the new submenu
+  await SubmenuModel.findOneAndUpdate(
+    { _id: data.submenuId },
+    { $push: { items: newSubmenuItem._id } },
+    { new: true }
+  ).populate("items", null, null, { strictPopulate: false });
+  
+
+  revalidatePath("/");
+  revalidatePath("/categories/submenu-Item");
+  redirect("/admin/categories/submenu-Item");
 }
 
-export async function deleteSubmenuItem(id: number) {
+export async function deleteSubmenuItem(id: string) {
   connectToDB();
-  const submenuItem = await SubmenuItemModel.delete({ id });
+  const submenuItem = await SubmenuItemModel.findOneAndDelete({ _id: id });
 
   if (submenuItem == null) return notFound();
 
   revalidatePath("/");
-  revalidatePath("/categories");
+  redirect("/admin/categories/submenu-Item");
 }
