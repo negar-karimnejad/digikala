@@ -17,13 +17,13 @@ export async function addStory(state, formData: FormData) {
 
   const data = result.data;
 
-  await fs.mkdir("public/stories", { recursive: true });
+  await fs.mkdir("public/stories");
   const coverPath = `/stories/${crypto.randomUUID()}-${data.cover.name}`;
   await fs.writeFile(
     `public${coverPath}`,
     Buffer.from(await data.cover.arrayBuffer())
   );
-  await fs.mkdir("public/stories", { recursive: true });
+  await fs.mkdir("public/stories");
   const postPath = `/stories/${crypto.randomUUID()}-${data.post.name}`;
   await fs.writeFile(
     `public${postPath}`,

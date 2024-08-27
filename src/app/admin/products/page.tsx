@@ -8,17 +8,17 @@ export default function AdminProductsPage() {
 }
 
 async function ProductTable() {
-  connectToDB();
-  const products = await ProductModel.find({});
+  // connectToDB();
+  // const products = await ProductModel.find({});
 
   return (
     <>
       <PageHeader href="/admin/products/new" title="محصولات" />
-      {products.length ? (
+      {/* {products.length ? (
         <AdminTable products={products} />
       ) : (
         <div className="text-neutral-500">آیتمی برای نمایش وجود ندارد.</div>
-      )}
+      )} */}
     </>
   );
 }

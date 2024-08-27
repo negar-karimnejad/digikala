@@ -32,7 +32,7 @@ export async function addCategory(_state, formData: FormData) {
 
   const data = result.data;
 
-  await fs.mkdir("public/categories", { recursive: true });
+  await fs.mkdir("public/categories");
 
   const coverPath = `/categories/${crypto.randomUUID()}-${data.cover.name}`;
   await fs.writeFile(
