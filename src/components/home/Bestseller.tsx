@@ -1,13 +1,12 @@
-import useProducts from "@/hooks/useProducts";
-import { Product } from "@prisma/client";
+import { Product } from "@/types/types";
 import { Flame } from "lucide-react";
+import ProductModel from "models/Product";
 import Image from "next/image";
 import Link from "next/link";
 import { Swiper, SwiperSlide } from "swiper/react";
-import OfferSkeleton from "../skeleton/OfferSkeleton";
 
-export default function Bestseller({ title }: { title: string }) {
-  const { products, loading } = useProducts();
+export default async function Bestseller({ title }: { title: string }) {
+  const products = await ProductModel.find({});
 
   return (
     <div className="border rounded-xl my-5 p-5 mx-3">
@@ -51,7 +50,7 @@ export default function Bestseller({ title }: { title: string }) {
           },
         }}
       >
-        {loading && (
+        {/* {loading && (
           <>
             {Array.from({ length: 6 }).map((_, index) => (
               <SwiperSlide key={index}>
@@ -59,11 +58,14 @@ export default function Bestseller({ title }: { title: string }) {
               </SwiperSlide>
             ))}
           </>
-        )}
+        )} */}
         {products?.slice(0, 6).map((product: Product, index: number) => (
-          <SwiperSlide key={product.id} className="flex flex-col gap-5">
+          <SwiperSlide
+            key={product._id.toString()}
+            className="flex flex-col gap-5"
+          >
             <Link
-              href={`/products/${product.id}-${product.title.replaceAll(
+              href={`/products/${product._id}-${product.title.replaceAll(
                 " ",
                 "-"
               )}`}
@@ -105,7 +107,10 @@ export default function Bestseller({ title }: { title: string }) {
         }}
       >
         {products?.slice(6, 12).map((product: Product, index: number) => (
-          <SwiperSlide key={product.id} className="flex flex-col gap-5">
+          <SwiperSlide
+            key={product._id.toString()}
+            className="flex flex-col gap-5"
+          >
             <Link
               href={`/products/${product.title.replaceAll(" ", "-")}`}
               className="flex items-center gap-4"
@@ -146,7 +151,10 @@ export default function Bestseller({ title }: { title: string }) {
         }}
       >
         {products?.slice(12, 18).map((product: Product, index: number) => (
-          <SwiperSlide key={product.id} className="flex flex-col gap-5">
+          <SwiperSlide
+            key={product._id.toString()}
+            className="flex flex-col gap-5"
+          >
             <Link
               href={`/products/${product.title.replaceAll(" ", "-")}`}
               className="flex items-center gap-4"

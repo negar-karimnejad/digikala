@@ -1,5 +1,6 @@
 "use client";
 
+import { ProductImage } from "@/types/types";
 import { ChevronLeft, ChevronRight, LayoutGrid } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
@@ -9,11 +10,6 @@ import "swiper/css/navigation";
 import "swiper/css/thumbs";
 import { FreeMode, Navigation, Thumbs } from "swiper/modules";
 import { Swiper, SwiperClass, SwiperSlide } from "swiper/react";
-
-type ProductImage = {
-  id: number;
-  url: string;
-};
 
 function FullSizeImage({
   image,
@@ -35,7 +31,7 @@ function FullSizeImage({
   };
 
   // Determine the initial slide index based on the `isOpen` prop
-  const initialSlideIndex = image.findIndex((img) => img.id === isOpen);
+  const initialSlideIndex = image.findIndex((img) => img._id === isOpen);
 
   useEffect(() => {
     if (swiperInstance && initialSlideIndex >= 0) {
@@ -140,7 +136,7 @@ function FullSizeImage({
           >
             <div className="!mx-10">
               {image.map((img, index) => (
-                <SwiperSlide key={img.id}>
+                <SwiperSlide key={img._id}>
                   <Image
                     width={150}
                     height={150}
@@ -177,7 +173,7 @@ function FullSizeImage({
                 </div>
                 {image.map((img) => (
                   <Image
-                    key={img.id}
+                    key={img._id}
                     alt="Product Image"
                     width={350}
                     height={350}

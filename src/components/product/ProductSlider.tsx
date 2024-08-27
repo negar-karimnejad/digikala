@@ -5,18 +5,9 @@ import "swiper/css/pagination";
 import { Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import OfferSkeleton from "../skeleton/OfferSkeleton";
+import { Product, ProductImage } from "@/types/types";
 
-interface ProductImage {
-  productId: string;
-  url: string;
-}
 
-interface Product {
-  _id: string;
-  title: string;
-  price: number;
-  // Add other properties based on your schema
-}
 
 interface ProductSliderProps {
   productImages: ProductImage[];
@@ -52,7 +43,7 @@ export default function ProductSlider({
         )}
         {productImages.map((image) => (
           <SwiperSlide
-            key={image.productId}
+            key={image._id.toString()}
             className="!flex items-center py-5 justify-center w-full"
           >
             <Image
