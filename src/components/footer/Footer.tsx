@@ -8,7 +8,7 @@ import FooterFaq from "./FooterFaq";
 import FooterLinks from "./FooterLinks";
 import MobileSizeApp from "./MobileSizeApp";
 import ScrollUp from "./ScrollUp";
-import authUser from "@/app/api/authUser";
+import { authUser } from "@/utils/auth";
 
 export default async function Footer() {
   const user = await authUser();

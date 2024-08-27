@@ -1,10 +1,10 @@
 import Sidebar from "@/components/admin/Sidebar";
 import Header from "@/components/header/Header";
 import Container from "@/components/ui/container";
+import { authUser } from "@/utils/auth";
 import connectToDB from "configs/db";
 import { notFound, redirect } from "next/navigation";
 import React from "react";
-import authUser from "../api/authUser";
 
 export default async function AdminLayout({
   children,

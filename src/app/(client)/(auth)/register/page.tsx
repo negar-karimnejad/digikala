@@ -1,12 +1,12 @@
 "use client";
 
 import { signup } from "@/app/admin/users/action";
-import authUser from "@/app/api/authUser";
 import Logo from "@/components/Logo";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { RegisterSchema, RegisterSchemaType } from "@/lib/validation";
 import { RegisterFormState } from "@/types/types";
+import { authUser } from "@/utils/auth";
 import connectToDB from "configs/db";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
