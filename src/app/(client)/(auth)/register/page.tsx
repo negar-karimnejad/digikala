@@ -6,9 +6,11 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { RegisterSchema, RegisterSchemaType } from "@/lib/validation";
 import { RegisterFormState } from "@/types/types";
+import { authUser } from "@/utils/auth";
+import connectToDB from "configs/db";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useFormStatus } from "react-dom";
 import toast from "react-hot-toast";
 
@@ -20,9 +22,17 @@ const initialState: RegisterFormState = {
 export default function Register() {
   const router = useRouter();
   const [state, setState] = useState<RegisterFormState>(initialState);
-  // const { status } = useSession();
 
-  // if (status === "authenticated") router.push("/");
+  useEffect(() => {
+    // Connect to DB and check user authentication when the component mounts
+    async function initialize() {
+      connectToDB();
+      const user = await authUser();
+      if (user) router.push("/");
+    }
+
+    initialize();
+  }, [router]);
 
   const validateForm = (formData: FormData) => {
     const formObject = Object.fromEntries(
