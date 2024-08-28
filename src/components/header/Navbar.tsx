@@ -2,7 +2,7 @@
 
 import { cities, province } from "@/data/data";
 import useScroll from "@/hooks/useScroll";
-import { City, Location } from "@/types/types";
+import { Category, City, Location } from "@/types/types";
 import {
   ArrowRight,
   BadgePercent,
@@ -32,7 +32,7 @@ const links = [
   { label: "پرفروش ترین ها ", href: "/", icon: <Flame size={18} /> },
 ];
 
-export default function Navbar({ categories }) {
+export default function Navbar({ categories }: { categories: Category[] }) {
   // const [userProvince, setUserProvince] = useState("");
   const [provincecities, setProvinceCities] = useState<City[]>([]);
   const [isShowMenu, setIsShowMenu] = useState(false);
@@ -43,6 +43,7 @@ export default function Navbar({ categories }) {
   const [selectedCategory, setSelectedCategory] = useState(
     categories?.find((category) => category.title === "موبایل") || null
   );
+  console.log("categories==>", categories);
 
   const { isVisible } = useScroll();
 
@@ -60,8 +61,10 @@ export default function Navbar({ categories }) {
     }
   }, [userCity]);
 
-  const hoverHandler = (categoryId: number) => {
-    const category = categories.find((category) => category._id === categoryId);
+  const hoverHandler = (categoryId: string) => {
+    const category = categories.find(
+      (category) => category._id.toString() === categoryId
+    );
     if (category) {
       setSelectedCategory(category);
     }
@@ -136,8 +139,10 @@ export default function Navbar({ categories }) {
                   <div className="bg-neutral-100 dark:bg-neutral-800 max-h-[25.5rem] overflow-y-auto col-span-2">
                     {categories.map((category) => (
                       <div
-                        onMouseEnter={() => hoverHandler(category._id)}
-                        key={category._id}
+                        onMouseEnter={() =>
+                          hoverHandler(category._id.toString())
+                        }
+                        key={category._id.toString()}
                       >
                         <Link
                           href={category.href}
@@ -170,7 +175,7 @@ export default function Navbar({ categories }) {
                       </Link>
                     </h2>
                     <div className="mt-5 grid grid-cols-12 gap-y-7">
-                      {selectedCategory?.submenus ? (
+                      {/* {selectedCategory?.submenus ? (
                         selectedCategory?.submenus.map((menu) => (
                           <div key={menu.title} className="col-span-3">
                             <h3 className="text-sm text-neutral-700 font-irsansb dark:hover:text-red-500 dark:text-white flex items-center hover:text-red-500 transition-all">
@@ -205,7 +210,7 @@ export default function Navbar({ categories }) {
                             وجود ندارد.
                           </p>
                         </div>
-                      )}
+                      )} */}
                     </div>
                   </div>
                 </div>

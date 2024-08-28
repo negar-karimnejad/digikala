@@ -152,12 +152,11 @@ export async function addSubmenu(formData: FormData) {
   });
 
   // Update the category to include the new submenu
-
-  await SubmenuModel.findOneAndUpdate(
+  await CategoryModel.findOneAndUpdate(
     { _id: data.categoryId },
-    { $push: { submenus: newSubmenu._id } },
+    { $push: [{ submenus: newSubmenu._id }] },
     { new: true }
-  ).populate("submenus");
+  )
 
   revalidatePath("/");
   revalidatePath("/categories/submenu");
