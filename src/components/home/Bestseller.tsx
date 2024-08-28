@@ -1,13 +1,16 @@
 import { Product } from "@/types/types";
 import { Flame } from "lucide-react";
-import ProductModel from "models/Product";
 import Image from "next/image";
 import Link from "next/link";
 import { Swiper, SwiperSlide } from "swiper/react";
 
-export default async function Bestseller({ title }: { title: string }) {
-  const products = await ProductModel.find({});
-
+export default async function Bestseller({
+  title,
+  products,
+}: {
+  title: string;
+  products: Product[];
+}) {
   return (
     <div className="border rounded-xl my-5 p-5 mx-3">
       {title.includes("پرفروش") ? (
@@ -59,7 +62,7 @@ export default async function Bestseller({ title }: { title: string }) {
             ))}
           </>
         )} */}
-        {products?.slice(0, 6).map((product: Product, index: number) => (
+        {products.slice(0, 6).map((product: Product, index: number) => (
           <SwiperSlide
             key={product._id.toString()}
             className="flex flex-col gap-5"
@@ -106,7 +109,7 @@ export default async function Bestseller({ title }: { title: string }) {
           },
         }}
       >
-        {products?.slice(6, 12).map((product: Product, index: number) => (
+        {products.slice(6, 12).map((product: Product, index: number) => (
           <SwiperSlide
             key={product._id.toString()}
             className="flex flex-col gap-5"
@@ -150,7 +153,7 @@ export default async function Bestseller({ title }: { title: string }) {
           },
         }}
       >
-        {products?.slice(12, 18).map((product: Product, index: number) => (
+        {products.slice(12, 18).map((product: Product, index: number) => (
           <SwiperSlide
             key={product._id.toString()}
             className="flex flex-col gap-5"

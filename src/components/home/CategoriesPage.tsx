@@ -1,11 +1,12 @@
+import { Category } from "@/types/types";
 import CategoryModel from "models/Category";
 import Image from "next/image";
 import Link from "next/link";
 import "swiper/css";
 import { Swiper, SwiperSlide } from "swiper/react";
 
-export default async function Categories() {
-  const categories = await CategoryModel.find({});
+export default async function CategoriesPage() {
+  const categories: Category[] = await CategoryModel.find({});
 
   return (
     <div className="lg:mx-3 my-12 group relative">
@@ -14,7 +15,7 @@ export default async function Categories() {
           خرید بر اساس دسته‌بندی
         </h2>
         <div className="relative">
-          <Swiper
+          {/* <Swiper
             className="mt-10"
             spaceBetween={250}
             breakpoints={{
@@ -40,18 +41,26 @@ export default async function Categories() {
               },
             }}
           >
-            {categories.slice(0, 8).map((category) => (
-              <SwiperSlide key={category.id} className="flex flex-col gap-5">
+            {categories?.slice(0, 8).map((category) => (
+              <SwiperSlide
+                key={category._id.toString()}
+                className="flex flex-col gap-5"
+              >
                 <Link
                   href={category.href}
                   className="flex items-center flex-col"
                 >
-                  <Image alt="" width={100} height={100} src={category.cover} />
+                  <Image
+                    alt=""
+                    width={100}
+                    height={100}
+                    src={category.cover[0]}
+                  />
                   <p className="text-xs font-irsansb">{category.title}</p>
                 </Link>
               </SwiperSlide>
             ))}
-          </Swiper>
+          </Swiper>*/}
           <Swiper
             className="mt-10"
             spaceBetween={250}
@@ -78,13 +87,21 @@ export default async function Categories() {
               },
             }}
           >
-            {categories.slice(8, 16).map((category) => (
-              <SwiperSlide key={category.id} className="flex flex-col gap-5">
+            {categories?.map((category) => (
+              <SwiperSlide
+                key={category._id.toString()}
+                className="flex flex-col gap-5"
+              >
                 <Link
                   href={category.href}
                   className="flex items-center flex-col"
                 >
-                  <Image alt="" width={100} height={100} src={category.cover} />
+                  <Image
+                    alt=""
+                    width={100}
+                    height={100}
+                    src={category.cover[0]}
+                  />
                   <p className="text-xs font-irsansb">{category.title}</p>
                 </Link>
               </SwiperSlide>

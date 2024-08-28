@@ -9,7 +9,7 @@ export default async function RootLayout({
 }) {
   return (
     <>
-      <Header />
+      {/* <Header /> */}
       {children}
       <Footer />
       <MobileFooter />
