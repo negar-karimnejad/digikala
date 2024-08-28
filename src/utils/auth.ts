@@ -1,3 +1,5 @@
+"use server";
+
 import { hash } from "bcryptjs";
 import { sign, verify } from "jsonwebtoken";
 import UserModel from "models/User";
