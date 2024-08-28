@@ -5,8 +5,8 @@ import Link from "next/link";
 import "swiper/css";
 import { Swiper, SwiperSlide } from "swiper/react";
 
-export default async function CategoriesPage() {
-  const categories: Category[] = await CategoryModel.find({});
+export default function CategoriesPage() {
+  const categories: Category[] = [];
 
   return (
     <div className="lg:mx-3 my-12 group relative">
