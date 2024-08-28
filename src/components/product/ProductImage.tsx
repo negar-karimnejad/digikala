@@ -6,10 +6,10 @@ import FullSizeImage from "./FullSizeImage";
 import ProductSlider from "./ProductSlider";
 
 export default function ProductImage({ product }) {
-  const [isOpen, setIsOpen] = useState(-1);
+  const [isOpen, setIsOpen] = useState("");
 
   const closeModal = () => {
-    setIsOpen(-1);
+    setIsOpen("");
   };
 
   if (!product) return null;
@@ -29,8 +29,8 @@ export default function ProductImage({ product }) {
             .slice(0, product.image.length > 5 ? 5 : product.image.length)
             .map((img, index) => (
               <div
-                key={img.id}
-                onClick={() => setIsOpen(img.id)}
+                key={img._id}
+                onClick={() => setIsOpen(img._id)}
                 className="cursor-pointer relative border rounded-lg overflow-hidden"
               >
                 <div

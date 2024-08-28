@@ -17,7 +17,7 @@ function FullSizeImage({
   closeModal,
 }: {
   image: ProductImage[];
-  isOpen: number;
+  isOpen: string;
   closeModal: () => void;
 }) {
   const [showAllImages, setShowAllImages] = useState(false);
@@ -31,7 +31,9 @@ function FullSizeImage({
   };
 
   // Determine the initial slide index based on the `isOpen` prop
-  const initialSlideIndex = image.findIndex((img) => img._id === isOpen);
+  const initialSlideIndex = image.findIndex(
+    (img) => img._id.toString() === isOpen
+  );
 
   useEffect(() => {
     if (swiperInstance && initialSlideIndex >= 0) {
@@ -46,14 +48,14 @@ function FullSizeImage({
   return (
     <div
       className={`fixed right-0 top-0 z-50 h-full w-full cursor-default flex-col items-center bg-neutral-950 transition-all duration-500 ${
-        isOpen >= 0 ? "visible opacity-100" : "invisible opacity-0"
+        isOpen ? "visible opacity-100" : "invisible opacity-0"
       }`}
       onClick={closeModal}
     >
       <div
         onClick={(e) => e.stopPropagation()}
         className={`h-full flex flex-col justify-between pb-5 w-screen transition-all ${
-          isOpen >= 0 ? "scale-100" : "scale-0"
+          isOpen ? "scale-100" : "scale-0"
         }`}
       >
         <button
@@ -136,7 +138,7 @@ function FullSizeImage({
           >
             <div className="!mx-10">
               {image.map((img, index) => (
-                <SwiperSlide key={img._id}>
+                <SwiperSlide key={img._id.toString()}>
                   <Image
                     width={150}
                     height={150}
@@ -173,7 +175,7 @@ function FullSizeImage({
                 </div>
                 {image.map((img) => (
                   <Image
-                    key={img._id}
+                    key={img._id.toString()}
                     alt="Product Image"
                     width={350}
                     height={350}

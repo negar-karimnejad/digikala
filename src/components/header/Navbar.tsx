@@ -1,7 +1,6 @@
 "use client";
 
 import { cities, province } from "@/data/data";
-import useCategories from "@/hooks/useCategories";
 import useScroll from "@/hooks/useScroll";
 import { City, Location } from "@/types/types";
 import {
