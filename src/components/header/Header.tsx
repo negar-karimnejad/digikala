@@ -7,13 +7,12 @@ import { authUser } from "@/utils/auth";
 export default async function Header() {
   connectToDB();
   const user = await authUser();
-
   const categories = await CategoryModel.find({}).populate({
     path: "submenus",
     populate: {
       path: "items",
     },
-  });
+  }).lean()
 
   return (
     <>

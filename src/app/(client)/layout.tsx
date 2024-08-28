@@ -9,8 +9,8 @@ export default async function RootLayout({
 }) {
   return (
     <>
-      {/* <Header /> */}
-      {/* {children} */}
+      <Header />
+      {children}
       <Footer />
       <MobileFooter />
     </>

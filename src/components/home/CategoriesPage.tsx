@@ -1,13 +1,15 @@
+"use client";
 import { Category } from "@/types/types";
-import CategoryModel from "models/Category";
 import Image from "next/image";
 import Link from "next/link";
 import "swiper/css";
 import { Swiper, SwiperSlide } from "swiper/react";
 
-export default function CategoriesPage() {
-  const categories: Category[] = [];
-
+export default function CategoriesPage({
+  categories,
+}: {
+  categories: Category[];
+}) {
   return (
     <div className="lg:mx-3 my-12 group relative">
       <div className="w-full">
@@ -15,7 +17,7 @@ export default function CategoriesPage() {
           خرید بر اساس دسته‌بندی
         </h2>
         <div className="relative">
-          {/* <Swiper
+          <Swiper
             className="mt-10"
             spaceBetween={250}
             breakpoints={{
@@ -60,7 +62,7 @@ export default function CategoriesPage() {
                 </Link>
               </SwiperSlide>
             ))}
-          </Swiper>*/}
+          </Swiper>
           <Swiper
             className="mt-10"
             spaceBetween={250}
@@ -87,7 +89,7 @@ export default function CategoriesPage() {
               },
             }}
           >
-            {categories?.map((category) => (
+            {categories?.slice(8, 16).map((category) => (
               <SwiperSlide
                 key={category._id.toString()}
                 className="flex flex-col gap-5"

@@ -1,10 +1,12 @@
+"use client";
+
 import { Product } from "@/types/types";
 import { Flame } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { Swiper, SwiperSlide } from "swiper/react";
 
-export default async function Bestseller({
+export default function Bestseller({
   title,
   products,
 }: {
