@@ -17,6 +17,7 @@ import toast from "react-hot-toast";
 import Logo from "../Logo";
 import { Button } from "../ui/button";
 import { DarkMode } from "../ui/DarkMode";
+import { signOut } from "@/app/admin/users/action";
 
 const sidebarMenu = [
   { label: "محصولات", icon: <PackageOpen />, href: "/admin/products" },

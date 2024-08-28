@@ -1,6 +1,10 @@
 "use server";
 
-import { LoginSchema, RegisterSchema } from "@/lib/validation";
+import {
+  LoginSchema,
+  RegisterSchema,
+  UserupdateSchema,
+} from "@/lib/validation";
 import { LoginFormState, RegisterFormState } from "@/types/types";
 import { generateAccessToken, generateRefreshToken } from "@/utils/auth";
 import { roles } from "@/utils/constants";
@@ -10,7 +14,7 @@ import fs from "fs/promises";
 import UserModel from "models/User";
 import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 
 export async function signup(
   state: RegisterFormState,
@@ -161,59 +165,61 @@ export async function signOut() {
   }
 }
 
-// export async function updateUser(
-//   state: RegisterFormState,
-//   formData: FormData
-// ): Promise<RegisterFormState> {
-//   const id = formData.get("id");
-//   const numericId = Number(id);
+export async function updateUser(
+  state: RegisterFormState,
+  formData: FormData
+): Promise<RegisterFormState> {
+  connectToDB();
+  const id = formData.get("_id");
 
-//   if (!id) throw new Error("User ID is required");
+  if (!id) throw new Error("User ID is required");
 
-//   const result = UserupdateSchema.safeParse(
-//     Object.fromEntries(formData.entries())
-//   );
+  const result = UserupdateSchema.safeParse(
+    Object.fromEntries(formData.entries())
+  );
 
-//   if (result.success === false) {
-//     return {
-//       ...state,
-//       errors: result.error.formErrors.fieldErrors,
-//     };
-//   }
+  if (result.success === false) {
+    return {
+      ...state,
+      errors: result.error.formErrors.fieldErrors,
+    };
+  }
 
-//   const data = result.data;
+  const data = result.data;
 
-//   const user = await db.user.findUnique({ where: { id: numericId } });
+  const user = await UserModel.findOne({ _id: id });
 
-//   if (user == null) return notFound();
+  if (user == null) return notFound();
 
-//   let avatarPath = user.avatar;
+  let avatarPath = user.avatar;
 
-//   if (data.avatar != null && data.avatar.size > 0) {
-//     if (user.avatar) {
-//       await fs.unlink(`public${user.avatar}`);
-//     }
-//     avatarPath = `/users/${crypto.randomUUID()}-${data.avatar.name}`;
-//     await fs.writeFile(
-//       `public${avatarPath}`,
-//       Buffer.from(await data.avatar.arrayBuffer())
-//     );
-//   }
+  if (data.avatar != null && data.avatar.size > 0) {
+    if (user.avatar) {
+      await fs.unlink(`public${user.avatar}`);
+    }
+    avatarPath = `/users/${crypto.randomUUID()}-${data.avatar.name}`;
+    await fs.writeFile(
+      `public${avatarPath}`,
+      Buffer.from(await data.avatar.arrayBuffer())
+    );
+  }
 
-//   await db.user.update({
-//     where: { id: numericId },
-//     data: {
-//       name: data.name,
-//       role: data.role,
-//       avatar: avatarPath,
-//     },
-//   });
+  await UserModel.findOneAndUpdate(
+    { _id: id },
+    {
+      $push: {
+        name: data.name,
+        role: data.role,
+        avatar: avatarPath,
+      },
+    }
+  );
 
-//   revalidatePath("/");
-//   revalidatePath("/users");
+  revalidatePath("/");
+  revalidatePath("/users");
 
-//   redirect("/admin/users");
-// }
+  redirect("/admin/users");
+}
 
 export async function deleteUser(id: string) {
   connectToDB();

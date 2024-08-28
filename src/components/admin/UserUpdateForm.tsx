@@ -16,8 +16,9 @@ import { useFormState, useFormStatus } from "react-dom";
 import toast from "react-hot-toast";
 import { Button } from "../ui/button";
 
+
 export default function UserUpdateForm({ user }) {
-  const [state, formAction] = useFormState(updateUser, {});
+  // const [state, formAction] = useFormState(updateUser,{});
   const [role, setRole] = useState(user.role || roles.USER);
   const [file, setFile] = useState<File | null>(null);
 
@@ -27,23 +28,26 @@ export default function UserUpdateForm({ user }) {
     }
   };
 
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    // const formData = new FormData(e.currentTarget);
+    // formData.append("_id", String(user._id));
+    // if (file) {
+    //   formData.append("avatar", file);
+    // }
+    // formData.append("role", role);
+
+    // try {
+    //   await formAction();
+    //   toast.success("کاربر با موفقیت به روزرسانی شد.");
+    // } catch (errors) {
+    //   console.log(errors);
+    // }
+  };
+
   return (
-    <form
-      action={async (formData) => {
-        formData.append("id", String(user.id));
-        if (file) {
-          formData.append("avatar", file);
-        }
-        formData.append("role", role);
-        await formAction(formData);
-        if (state.errors) {
-          console.log(state.errors);
-          return;
-        } else {
-          return toast.success("کاربر با موفقیت به روزرسانی شد.");
-        }
-      }}
-    >
+    <form onSubmit={handleSubmit}>
       <div className="h-20 relative">
         <input
           type="text"
@@ -52,9 +56,9 @@ export default function UserUpdateForm({ user }) {
           defaultValue={user?.name}
           className="peer block w-full appearance-none rounded-t-lg border-0 border-b-2 border-gray-300 bg-gray-50 px-2.5 pb-2.5 pt-5 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0 dark:border-gray-600 dark:bg-gray-900 dark:text-white dark:focus:border-blue-500"
         />
-        {state.errors.name && (
+        {/* {state.errors.name && (
           <div className="text-destructive text-xs">{state.errors.name}</div>
-        )}
+        )} */}
         <label
           htmlFor="name"
           className="absolute right-2.5 top-4 z-10 origin-[0] -translate-y-4 scale-75 transform text-sm text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:text-blue-600 dark:text-gray-400 peer-focus:dark:text-blue-500"
@@ -72,9 +76,9 @@ export default function UserUpdateForm({ user }) {
             defaultValue={user?.email}
             className="disabled:cursor-not-allowed disabled:opacity-80 peer max-h-20 block w-full appearance-none rounded-t-lg border-0 border-b-2 border-gray-300 bg-gray-50 px-2.5 pb-2.5 pt-5 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0 dark:border-gray-600 dark:bg-gray-900 dark:text-white dark:focus:border-blue-500"
           />
-          {state.errors.email && (
+          {/* {state.errors.email && (
             <div className="text-destructive text-xs">{state.errors.email}</div>
-          )}
+          )} */}
           <label
             htmlFor="email"
             className="absolute right-2.5 top-4 z-10 origin-[0] -translate-y-4 scale-75 transform text-sm text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:text-blue-600 dark:text-gray-400 peer-focus:dark:text-blue-500"

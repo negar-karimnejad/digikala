@@ -42,6 +42,7 @@ export const UserupdateSchema = z.object({
     .min(1, { message: "لطفا ایمیل را وارد کنید." })
     .email("ایمیل معتبر نیست.")
     .optional(),
+  phone: z.string().min(11, { message: "لطفا شماره تماس را وارد کنید." }),
   password: z
     .string({ required_error: "لطفا رمز کاربری را وارد کنید." })
     .min(5, { message: "رمز کاربری باید حداقل 5 کاراکتر باشد." })
