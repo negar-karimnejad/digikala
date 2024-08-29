@@ -155,7 +155,7 @@ export async function addSubmenu(formData: FormData) {
   // Update the category to include the new submenu
   await CategoryModel.findOneAndUpdate(
     { _id: data.categoryId },
-    { $push: { submenus: newSubmenu._id } }, // Correctly pushing ObjectId to the array
+    { $push: { submenus: newSubmenu._id } }, 
     { new: true }
   ).populate("submenus");
 

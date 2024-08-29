@@ -1,9 +1,9 @@
 "use client";
-
 import { addProduct, updateProduct } from "@/app/admin/products/action";
 import { Button } from "@/components/ui/button";
-import { Category, Product } from "@/types/types";
+import { Category, Product, Submenu, SubmenuItem } from "@/types/types";
 import { LucideUploadCloud, X } from "lucide-react";
+// import { ObjectId } from "mongodb";
 import Image from "next/image";
 import { useState } from "react";
 import { useFormState, useFormStatus } from "react-dom";
@@ -23,14 +23,19 @@ export default function ProductForm({
   categories?: Category[];
 }) {
   const [selectedCategory, setSelectedCategory] = useState(
-    product?.categories ? String(product.categories) : ""
+    product?.categories ? product.categories : ""
   );
+
   const [selectedSubmenu, setSelectedSubmenu] = useState(
-    product?.submenu ? String(product.submenu) : ""
+    product ? product.categories.submenus : []
   );
   const [selectedSubmenuItem, setSelectedSubmenuItem] = useState(
-    product?.submenuItem ? String(product.submenuItem) : ""
+    product ? selectedSubmenu.submenuItem : ""
   );
+
+  const isSubmenu = (submenu: Submenu): submenu is Submenu => {
+    return (submenu as Submenu).items !== undefined;
+  };
 
   // Filtered submenus and submenu items
   const filteredSubmenus =
@@ -38,17 +43,15 @@ export default function ProductForm({
       ?.submenus || [];
 
   const filteredSubmenuItems =
-    filteredSubmenus.find(
-      (submenu) => submenu._id.toString() === selectedSubmenu
-    )?.items || [];
-  console.log("filteredSubmenus===>", categories);
+    filteredSubmenus
+      .filter(isSubmenu) // Narrow down to Submenu type
+      .find((submenu) => submenu._id.toString() === selectedSubmenu)?.items ||
+    [];
 
   const [thumbnailFile, setThumbnailFile] = useState<File | null>(null);
   const [additionalFiles, setAdditionalFiles] = useState<File[]>([]);
-  const [colors, setColors] = useState<{ name: string; hex: string }[]>(
-    product?.colors ? product.colors : []
-  );
-  const [features, setFeatures] = useState<{ key: string; value: string }[]>(
+  const [colors, setColors] = useState(product?.colors ? product.colors : []);
+  const [features, setFeatures] = useState(
     product?.features ? product.features : []
   );
 
@@ -80,7 +83,17 @@ export default function ProductForm({
   };
 
   const addFeature = () => {
-    setFeatures((prev) => [...prev, { key: "", value: "" }]);
+    setFeatures((prev) => [
+      ...prev,
+      { key: "", value: "", productId: product?._id },
+    ]);
+  };
+
+  const addColor = () => {
+    setColors((prev) => [
+      ...prev,
+      { name: "", hex: "", productId: product?._id },
+    ]);
   };
 
   const handleFeatureChange = (
@@ -103,10 +116,6 @@ export default function ProductForm({
 
   const handleRemoveImage = (index: number) => {
     setAdditionalFiles(additionalFiles.filter((_, i) => i !== index));
-  };
-
-  const addColor = () => {
-    setColors((prev) => [...prev, { name: "", hex: "" }]);
   };
 
   const handleColorChange = (
@@ -277,15 +286,18 @@ export default function ProductForm({
           required
           name="categoryId"
           id="categoryId"
-          value={selectedCategory}
+          value={selectedCategory.toString()}
           onChange={(e) => {
             setSelectedCategory(e.target.value);
             setSelectedSubmenu("");
           }}
         >
           <option value="">دسته‌بندی مورد نظر را انتخاب کنید</option>
-          {categories.map((category) => (
-            <option key={category._id.toString()} value={category._id}>
+          {categories.map((category: Category) => (
+            <option
+              key={category._id.toString()}
+              value={category._id.toString()}
+            >
               {category.title}
             </option>
           ))}
@@ -306,8 +318,8 @@ export default function ProductForm({
           onChange={(e) => setSelectedSubmenu(e.target.value)}
         >
           <option value="">زیرمجموعه دسته‌بندی مورد نظر را انتخاب کنید</option>
-          {filteredSubmenus.map((submenu) => (
-            <option key={submenu._id.toString()} value={submenu._id}>
+          {filteredSubmenus.map((submenu: Submenu) => (
+            <option key={submenu._id.toString()} value={submenu._id.toString()}>
               {submenu.title}
             </option>
           ))}
@@ -334,8 +346,11 @@ export default function ProductForm({
           <option value="">
             آیتم های زیرمجموعه دسته‌بندی مورد نظر را انتخاب کنید
           </option>
-          {filteredSubmenuItems.map((submenuItem) => (
-            <option key={submenuItem.id} value={submenuItem.id}>
+          {filteredSubmenuItems.map((submenuItem: SubmenuItem) => (
+            <option
+              key={submenuItem._id.toString()}
+              value={submenuItem._id.toString()}
+            >
               {submenuItem.title}
             </option>
           ))}
