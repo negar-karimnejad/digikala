@@ -9,8 +9,8 @@ import { LoginFormState } from "@/types/types";
 import { authUser } from "@/utils/auth";
 import connectToDB from "configs/db";
 import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
-import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
 const initialState: LoginFormState = {
@@ -22,8 +22,12 @@ export default function Login() {
   const router = useRouter();
   const [state, setState] = useState<LoginFormState>(initialState);
 
-  const params = useSearchParams();
-  const redirectedLogin = params.size === 1;
+  const [redirectedLogin, setRedirectedLogin] = useState(false);
+
+  useEffect(() => {
+    const searchParams = new URLSearchParams(window.location.search);
+    setRedirectedLogin(searchParams.has("redirected")); // Set the state based on the presence of "redirected" parameter
+  }, []);
 
   const validateForm = (formData: FormData) => {
     const formObject = Object.fromEntries(
