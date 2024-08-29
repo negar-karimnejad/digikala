@@ -1,7 +1,7 @@
 "use server";
 
 import { productEditSchema, ProductSchema } from "@/lib/validation";
-import { Color, Feature } from "@/types/types";
+import { Color, Feature, ProductImage } from "@/types/types";
 import fs from "fs/promises";
 import ColorModel from "models/Color";
 import FeatureModel from "models/Feature";
@@ -252,12 +252,14 @@ export async function updateProduct(_state: any, formData: FormData) {
 
 export async function deleteProduct(id: string) {
   const productWithImages = await ProductModel.findOne({ _id: id }).populate(
-    "image"
+    "images"
   );
 
   if (!productWithImages) return notFound();
 
-  const imagePaths = productWithImages.image.map((img) => img.url);
+  const imagePaths = productWithImages.images.map(
+    (img: ProductImage) => img.url
+  );
   const allImagePaths = [productWithImages.thumbnail, ...imagePaths].filter(
     Boolean
   ); // Remove any falsy values (like null or undefined)

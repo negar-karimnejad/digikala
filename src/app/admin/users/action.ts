@@ -223,7 +223,7 @@ export async function updateUser(
 
 export async function deleteUser(id: string) {
   connectToDB();
-  const user = await UserModel.delete({ _id: id });
+  const user = await UserModel.findOneAndDelete({ _id: id });
 
   if (user == null) return notFound();
 
