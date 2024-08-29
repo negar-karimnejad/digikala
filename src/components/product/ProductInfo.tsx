@@ -22,7 +22,7 @@ export default function ProductInfo({
   const [chosenColor, setChosenColor] = useState<Color>();
 
   useEffect(() => {
-    return setChosenColor(product.colors);
+    return setChosenColor(product.colors[0]);
   }, [product?.colors]);
 
   if (!product) return null;
@@ -122,13 +122,16 @@ export default function ProductInfo({
       <div className="mb-5">
         <div className="flex items-center justify-between">
           {product.colors.length > 0 && (
-            <h4 className="text-lg font-irsansb mb-2">
-              رنگ: {chosenColor?.name}
-            </h4>
+            <>
+              <h4 className="text-lg font-irsansb mb-2">
+                رنگ: {chosenColor?.name}
+              </h4>
+
+              <p className="text-neutral-600 text-sm">
+                {product.colors.length} رنگ
+              </p>
+            </>
           )}
-          <p className="text-neutral-600 text-sm">
-            {product.colors.length} رنگ
-          </p>
         </div>
         <div className="flex items-center gap-2 flex-wrap">
           {product.colors.map((item: Color) => (
@@ -174,41 +177,44 @@ export default function ProductInfo({
           </select>
         </div>
       )}
-      <div className="max-lg:hidden">
-        <h4 className="text-lg font-irsansb mb-4">ویژگی‌ها</h4>
-        <div className="flex gap-3 flex-wrap">
-          {product.features?.slice(0, 4).map((item: Feature) => (
-            <div
-              key={item.value}
-              className="w-32 bg-neutral-100 dark:bg-neutral-800 flex flex-col gap-2 p-3 rounded-lg"
-            >
-              <span className="overflow-hidden text-ellipsis whitespace-nowrap text-xs text-neutral-500">
-                {item.key}
-              </span>
-              <span className="overflow-hidden text-ellipsis whitespace-nowrap text-sm">
-                {item.value}
-              </span>
+      {product.features?.length > 0 && (
+        <>
+          <div className="max-lg:hidden">
+            <h4 className="text-lg font-irsansb mb-4">ویژگی‌ها</h4>
+            <div className="flex gap-3 flex-wrap">
+              {product.features?.slice(0, 4).map((item: Feature) => (
+                <div
+                  key={item.value}
+                  className="w-32 bg-neutral-100 dark:bg-neutral-800 flex flex-col gap-2 p-3 rounded-lg"
+                >
+                  <span className="overflow-hidden text-ellipsis whitespace-nowrap text-xs text-neutral-500">
+                    {item.key}
+                  </span>
+                  <span className="overflow-hidden text-ellipsis whitespace-nowrap text-sm">
+                    {item.value}
+                  </span>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
-      </div>
-      <div className="max-lg:hidden mt-5 flex items-center gap-5">
-        <hr className="grow" />
-        <Button
-          variant="outline"
-          className="hover:bg-transparent"
-          onClick={() =>
-            featureRef.current.scrollIntoView({
-              behavior: "smooth",
-              block: "start",
-            })
-          }
-        >
-          مشاهده همه ویژگی‌ها <ChevronLeft size={18} />
-        </Button>
-        <hr className="grow" />
-      </div>
-
+          </div>
+          <div className="max-lg:hidden mt-5 flex items-center gap-5">
+            <hr className="grow" />
+            <Button
+              variant="outline"
+              className="hover:bg-transparent"
+              onClick={() =>
+                featureRef.current.scrollIntoView({
+                  behavior: "smooth",
+                  block: "start",
+                })
+              }
+            >
+              مشاهده همه ویژگی‌ها <ChevronLeft size={18} />
+            </Button>
+            <hr className="grow" />
+          </div>
+        </>
+      )}
       <div className="bg-white dark:bg-neutral-800  border pt-5 rounded-lg text-xs mt-5 mb-3">
         <p className="px-5 flex items-center gap-3 text-fuchsia-800 dark:text-fuchsia-500">
           <Sparkle

@@ -10,8 +10,9 @@ import {
 import Link from "next/link";
 import { useRef, useState } from "react";
 import { Button } from "../ui/button";
+import { Feature, Product, Question } from "@/types/types";
 
-export default function ProductTab({ product }) {
+export default function ProductTab({ product }: { product: Product }) {
   const introductionRef = useRef<HTMLDivElement>(null);
   const featureRef = useRef<HTMLDivElement>(null);
   const questionRef = useRef<HTMLDivElement>(null);
@@ -98,7 +99,7 @@ export default function ProductTab({ product }) {
           <button
             onClick={() => setShowAllFeatures((prev) => !prev)}
             className={`text-xs text-blue-400 flex items-center ${
-              product.feature.length <= 5 && "hidden"
+              product.features?.length <= 5 && "hidden"
             }`}
           >
             {showAllFeatures ? "بستن" : "مشاهده بیشتر"}
@@ -106,10 +107,10 @@ export default function ProductTab({ product }) {
           </button>
         </div>
         <div className="col-span-9">
-          {product.feature
-            .slice(0, showAllFeatures ? undefined : 5)
-            .map((item) => (
-              <div key={item.id} className="flex py-4">
+          {product.features
+            ?.slice(0, showAllFeatures ? undefined : 5)
+            .map((item: Feature) => (
+              <div key={item.value} className="flex py-4">
                 <p className="text-sm w-52 text-neutral-400">{item.key}</p>
                 <p className="text-sm border-b pb-5 w-full">{item.value}</p>
               </div>
@@ -154,10 +155,10 @@ export default function ProductTab({ product }) {
           </div>
         </div>
         <div className="col-span-9 flex flex-col justify-between h-full items-start">
-          {product.comment?.length ? (
+          {product.comments?.length ? (
             <div className="max-lg:hidden">
-              {product.comment
-                .slice(0, showAllFeatures ? undefined : 4)
+              {/* {product.comments
+                ?.slice(0, showAllFeatures ? undefined : 4)
                 .map((item) => (
                   <div key={item.id} className="flex py-4">
                     <p className="text-sm w-44 text-neutral-400">
@@ -167,11 +168,11 @@ export default function ProductTab({ product }) {
                       {item.content}
                     </p>
                   </div>
-                ))}
+                ))} */}
               <button
                 onClick={() => setShowAllFeatures((prev) => !prev)}
                 className={`text-xs text-blue-400 flex items-center ${
-                  product.feature.length <= 3 && "hidden"
+                  product.features?.length <= 3 && "hidden"
                 }`}
               >
                 {showAllFeatures ? "بستن" : "مشاهده بیشتر"}
@@ -211,24 +212,22 @@ export default function ProductTab({ product }) {
           </h3>
         </div>
         <div className="col-span-9 max-lg:col-span-12 flex flex-col justify-between h-full items-start">
-          {product.question?.length ? (
+          {product.questions?.length ? (
             <>
-              {product.question
-                .slice(0, showAllFeatures ? undefined : 4)
-                .map((item) => (
-                  <div key={item.id} className="flex py-4">
+              {product.questions
+                ?.slice(0, showAllFeatures ? undefined : 4)
+                .map((item: Question) => (
+                  <div key={item._id.toString()} className="flex py-4">
                     <p className="text-sm w-44 text-neutral-400">
-                      {item.authorId}
+                      {item.username}
                     </p>
-                    <p className="text-sm border-b pb-5 w-full">
-                      {item.content}
-                    </p>
+                    <p className="text-sm border-b pb-5 w-full">{item.body}</p>
                   </div>
                 ))}
               <button
                 onClick={() => setShowAllFeatures((prev) => !prev)}
                 className={`text-xs text-blue-400 flex items-center ${
-                  product.feature.length <= 3 && "hidden"
+                  product.features?.length <= 3 && "hidden"
                 }`}
               >
                 {showAllFeatures ? "بستن" : "مشاهده بیشتر"}
