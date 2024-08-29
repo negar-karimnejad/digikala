@@ -2,13 +2,14 @@
 
 import { addProduct, updateProduct } from "@/app/admin/products/action";
 import { Button } from "@/components/ui/button";
+import { Category, Product } from "@/types/types";
 import { LucideUploadCloud, X } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
 import { useFormState, useFormStatus } from "react-dom";
 import toast from "react-hot-toast";
 
-const initialState = (product) => ({
+const initialState = (product: Product) => ({
   ...product,
   errors: {},
   success: false,
@@ -18,36 +19,37 @@ export default function ProductForm({
   product,
   categories,
 }: {
-  product?;
-  categories?;
+  product?: Product;
+  categories?: Category[];
 }) {
   const [selectedCategory, setSelectedCategory] = useState(
-    product?.categoryId ? String(product.categoryId) : ""
+    product?.categories ? String(product.categories) : ""
   );
   const [selectedSubmenu, setSelectedSubmenu] = useState(
-    product?.submenuId ? String(product.submenuId) : ""
+    product?.submenu ? String(product.submenu) : ""
   );
   const [selectedSubmenuItem, setSelectedSubmenuItem] = useState(
-    product?.submenuItemId ? String(product.submenuItemId) : ""
+    product?.submenuItem ? String(product.submenuItem) : ""
   );
 
   // Filtered submenus and submenu items
   const filteredSubmenus =
-    categories.find((category) => category._id === selectedCategory)
+    categories.find((category) => category._id.toString() === selectedCategory)
       ?.submenus || [];
 
   const filteredSubmenuItems =
-    filteredSubmenus.find((submenu) => submenu._id === selectedSubmenu)
-      ?.items || [];
+    filteredSubmenus.find(
+      (submenu) => submenu._id.toString() === selectedSubmenu
+    )?.items || [];
   console.log("filteredSubmenus===>", categories);
 
   const [thumbnailFile, setThumbnailFile] = useState<File | null>(null);
   const [additionalFiles, setAdditionalFiles] = useState<File[]>([]);
   const [colors, setColors] = useState<{ name: string; hex: string }[]>(
-    product?.color ? product.color : []
+    product?.colors ? product.colors : []
   );
   const [features, setFeatures] = useState<{ key: string; value: string }[]>(
-    product?.feature ? product.feature : []
+    product?.features ? product.features : []
   );
 
   const [state, formAction] = useFormState(
@@ -124,10 +126,7 @@ export default function ProductForm({
     // Append additional fields and files
     formData.append("colors", JSON.stringify(colors));
     formData.append("features", JSON.stringify(features));
-    formData.append(
-      "id",
-      product ? String(product.id) : String(Math.floor(Math.random() * 1000000))
-    );
+    formData.append("_id", product ? String(product._id) : crypto.randomUUID());
 
     if (thumbnailFile) {
       formData.append("thumbnail", thumbnailFile);
@@ -286,7 +285,7 @@ export default function ProductForm({
         >
           <option value="">دسته‌بندی مورد نظر را انتخاب کنید</option>
           {categories.map((category) => (
-            <option key={category.id} value={category.id}>
+            <option key={category._id.toString()} value={category._id}>
               {category.title}
             </option>
           ))}
@@ -308,7 +307,7 @@ export default function ProductForm({
         >
           <option value="">زیرمجموعه دسته‌بندی مورد نظر را انتخاب کنید</option>
           {filteredSubmenus.map((submenu) => (
-            <option key={submenu.id} value={submenu.id}>
+            <option key={submenu._id.toString()} value={submenu._id}>
               {submenu.title}
             </option>
           ))}

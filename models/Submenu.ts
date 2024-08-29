@@ -18,7 +18,7 @@ const schema = new mongoose.Schema({
   items: [
     {
       type: mongoose.Types.ObjectId,
-      ref: "SubmenuItem", 
+      ref: "SubmenuItem",
     },
   ],
 });

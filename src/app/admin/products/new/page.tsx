@@ -5,12 +5,14 @@ import CategoryModel from "models/Category";
 
 export default async function NewProductPage() {
   connectToDB();
-  const categories = await CategoryModel.find({}).populate({
-    path: "submenus",
-    populate: {
-      path: "items",
-    },
-  });
+  const categories = await CategoryModel.find({})
+    .populate({
+      path: "submenus",
+      populate: {
+        path: "items",
+      },
+    })
+    .lean();
 
   return (
     <>

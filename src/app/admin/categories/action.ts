@@ -52,6 +52,7 @@ export async function addCategory(_state, formData: FormData) {
     cover: coverPath,
     icon: iconPath,
     href: data.href,
+    submenus: [],
   });
 
   revalidatePath("/");
@@ -154,9 +155,9 @@ export async function addSubmenu(formData: FormData) {
   // Update the category to include the new submenu
   await CategoryModel.findOneAndUpdate(
     { _id: data.categoryId },
-    { $push: [{ submenus: newSubmenu._id }] },
+    { $push: { submenus: newSubmenu._id } }, // Correctly pushing ObjectId to the array
     { new: true }
-  )
+  ).populate("submenus");
 
   revalidatePath("/");
   revalidatePath("/categories/submenu");
@@ -198,8 +199,8 @@ export async function addSubmenuItem(formData: FormData) {
   // Update the category to include the new submenu
   await SubmenuModel.findOneAndUpdate(
     { _id: data.submenuId },
-    { $push: { items: newSubmenuItem._id } },
-    { new: true }
+    { $push: { items: newSubmenuItem._id } }, // Corrected $push usage
+    { new: true } // Option to return the updated document
   ).populate("items");
 
   revalidatePath("/");

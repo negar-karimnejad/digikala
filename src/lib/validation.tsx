@@ -59,9 +59,9 @@ export const imageSchema = fileSchema.refine(
 export const ProductSchema = z.object({
   title: z.string().min(5, { message: "لطفا عنوان محصول را وارد کنید" }),
   en_title: z.string(),
-  categoryId: z.number(),
-  submenuId: z.number(),
-  submenuItemId: z.number(),
+  categoryId: z.string(),
+  submenuId: z.string(),
+  submenuItemId: z.string(),
   rating: z.number(),
   voter: z.number().default(0),
   thumbnail: imageSchema.refine((file) => file.size > 0, "Required"),

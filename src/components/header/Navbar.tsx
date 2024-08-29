@@ -2,7 +2,7 @@
 
 import { cities, province } from "@/data/data";
 import useScroll from "@/hooks/useScroll";
-import { Category, City, Location } from "@/types/types";
+import { Category, City, Location, Submenu, SubmenuItem } from "@/types/types";
 import {
   ArrowRight,
   BadgePercent,
@@ -40,10 +40,10 @@ export default function Navbar({ categories }: { categories: Category[] }) {
   const [isShowCityModal, setIsShowCityModal] = useState(false);
   const [location, setLocation] = useState<Location | null>(null);
   const [userCity, setUserCity] = useState<City | null>(null);
-  const [selectedCategory, setSelectedCategory] = useState(
+  const [selectedCategory, setSelectedCategory] = useState<Category | null>(
     categories?.find((category) => category.title === "موبایل") || null
   );
-  console.log("categories==>", categories);
+  console.log("categories==>", selectedCategory);
 
   const { isVisible } = useScroll();
 
@@ -175,8 +175,8 @@ export default function Navbar({ categories }: { categories: Category[] }) {
                       </Link>
                     </h2>
                     <div className="mt-5 grid grid-cols-12 gap-y-7">
-                      {/* {selectedCategory?.submenus ? (
-                        selectedCategory?.submenus.map((menu) => (
+                      {selectedCategory?.submenus ? (
+                        selectedCategory?.submenus.map((menu: Submenu) => (
                           <div key={menu.title} className="col-span-3">
                             <h3 className="text-sm text-neutral-700 font-irsansb dark:hover:text-red-500 dark:text-white flex items-center hover:text-red-500 transition-all">
                               <span className="text-red-500 ml-2">|</span>
@@ -189,7 +189,7 @@ export default function Navbar({ categories }: { categories: Category[] }) {
                               </Link>
                             </h3>
                             <div className="space-y-4 mt-5">
-                              {menu.items?.map((item) => (
+                              {menu.items?.map((item: SubmenuItem) => (
                                 <div
                                   className="text-neutral-500 dark:text-neutral-300 text-sm hover:text-red-500 dark:hover:text-red-500 transition-all"
                                   key={item.title}
@@ -210,7 +210,7 @@ export default function Navbar({ categories }: { categories: Category[] }) {
                             وجود ندارد.
                           </p>
                         </div>
-                      )} */}
+                      )}
                     </div>
                   </div>
                 </div>
