@@ -3,6 +3,7 @@ import connectToDB from "configs/db";
 import CategoryModel from "models/Category";
 import Navbar from "./Navbar";
 import Topbar from "./Topbar";
+import { serializeDoc } from "@/utils/serializeDoc";
 
 export default async function Header() {
   connectToDB();
@@ -16,10 +17,12 @@ export default async function Header() {
     })
     .lean();
 
+  const serializedCategories = serializeDoc(categories);
+
   return (
     <>
       <Topbar user={user} />
-      <Navbar categories={categories} />
+      <Navbar categories={serializedCategories} />
     </>
   );
 }

@@ -9,11 +9,9 @@ import Link from "next/link";
 import OfferSkeleton from "../skeleton/OfferSkeleton";
 import { Card, CardContent } from "../ui/card";
 import CountdownTimer from "../ui/CountdownTimer";
-import ProductModel from "models/Product";
+import { Product } from "@/types/types";
 
-export default async function Offers() {
-  const products = await ProductModel.find({});
-
+export default async function Offers({ products }: { products: Product[] }) {
   const offerProducts = products
     ?.slice()
     .sort((a, b) => b.discount - a.discount)
@@ -256,9 +254,9 @@ export default async function Offers() {
               ))}
             </>
           )} */}
-          {offerProducts?.map((product) => (
+          {offerProducts?.map((product:Product) => (
             <CarouselItem
-              key={product.id}
+              key={product._id.toString()}
               className="pl-1 basis-44 max-lg:basis-36"
             >
               <div>
@@ -266,9 +264,7 @@ export default async function Offers() {
                   <CardContent className="p-0">
                     <div className="flex flex-col items-center justify-center p-2">
                       <Link
-                        href={`/products/${
-                          product.id
-                        }-${product.title.replaceAll(" ", "-")}`}
+                        href={`/products/${product._id}`}
                         className="relative mb-5"
                       >
                         <Image
@@ -286,18 +282,14 @@ export default async function Offers() {
                         </span>
                       </Link>
                       <Link
-                        href={`/products/${
-                          product.id
-                        }-${product.title.replaceAll(" ", "-")}`}
+                        href={`/products/${product._id}`}
                         className="max-lg:hidden h-10 text-[13px] text-gray-600 dark:text-gray-100 mb-5"
                       >
                         {product.title.slice(0, 36)}
                         {product.title.length > 36 ? "..." : ""}
                       </Link>
                       <Link
-                        href={`/products/${
-                          product.id
-                        }-${product.title.replaceAll(" ", "-")}`}
+                        href={`/products/${product._id}`}
                         className="lg:hidden h-10 text-[13px] text-gray-600 dark:text-gray-100 mb-5"
                       >
                         {product.title.slice(0, 30)}

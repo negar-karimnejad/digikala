@@ -41,10 +41,6 @@ function FullSizeImage({
     }
   }, [initialSlideIndex, swiperInstance]);
 
-  useEffect(() => {
-    console.log("showAllImages", showAllImages);
-  }, [showAllImages]);
-
   return (
     <div
       className={`fixed right-0 top-0 z-50 h-full w-full cursor-default flex-col items-center bg-neutral-950 transition-all duration-500 ${

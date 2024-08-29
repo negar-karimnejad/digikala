@@ -64,24 +64,26 @@ export default function Bestseller({
             ))}
           </>
         )} */}
-        {products.slice(0, 6).map((product: Product, index: number) => (
+        {products?.slice(0, 6).map((product: Product, index: number) => (
           <SwiperSlide
-            key={product._id.toString()}
+            key={product._id?.toString()}
             className="flex flex-col gap-5"
           >
             <Link
-              href={`/products/${product._id}-${product.title.replaceAll(
-                " ",
-                "-"
-              )}`}
+              href={`/products/${product._id}`}
               className="flex items-center gap-4"
             >
-              <Image alt="" width={100} height={100} src={product.thumbnail} />
+              <Image
+                alt={product.title}
+                width={100}
+                height={100}
+                src={product.thumbnail}
+              />
               <div className="flex items-center gap-4">
                 <p className="text-sky-500 text-2xl font-bold">{index + 1}</p>
                 <p className="text-xs leading-6 h-20 border-b pb-7 text-gray-500 dark:text-gray-200">
-                  {product.title.slice(0, 50)}
-                  {product.title.length > 50 ? "..." : ""}
+                  {product.title?.slice(0, 50)}
+                  {product.title?.length > 50 ? "..." : ""}
                 </p>
               </div>
             </Link>
@@ -111,13 +113,13 @@ export default function Bestseller({
           },
         }}
       >
-        {products.slice(6, 12).map((product: Product, index: number) => (
+        {products?.slice(6, 12).map((product: Product, index: number) => (
           <SwiperSlide
             key={product._id.toString()}
             className="flex flex-col gap-5"
           >
             <Link
-              href={`/products/${product.title.replaceAll(" ", "-")}`}
+              href={`/products/${product._id}`}
               className="flex items-center gap-4"
             >
               <Image alt="" width={100} height={100} src={product.thumbnail} />
@@ -155,20 +157,20 @@ export default function Bestseller({
           },
         }}
       >
-        {products.slice(12, 18).map((product: Product, index: number) => (
+        {products?.slice(12, 18).map((product: Product, index: number) => (
           <SwiperSlide
             key={product._id.toString()}
             className="flex flex-col gap-5"
           >
             <Link
-              href={`/products/${product.title.replaceAll(" ", "-")}`}
+              href={`/products/${product._id}`}
               className="flex items-center gap-4"
             >
               <Image alt="" width={100} height={100} src={product.thumbnail} />
               <div className="flex items-center gap-4">
                 <p className="text-sky-500 text-2xl font-bold">{index + 13}</p>
                 <p className="text-xs leading-6 border-b pb-7 text-gray-500 dark:text-gray-200">
-                  {product.title.slice(0, 50)}
+                  {product.title?.slice(0, 50)}
                   {product.title.length > 50 ? "..." : ""}
                 </p>
               </div>

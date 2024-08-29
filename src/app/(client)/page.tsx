@@ -21,32 +21,54 @@ import connectToDB from "configs/db";
 import StoryModel from "models/Story";
 import ProductModel from "models/Product";
 import CategoryModel from "models/Category";
+import { serializeDoc } from "@/utils/serializeDoc";
 
 export default async function Home() {
   connectToDB();
-  const stories = await StoryModel.find({});
-  const products = await ProductModel.find({});
-  const categories = await CategoryModel.find({});
+  const stories = await StoryModel.find({}).lean(); // Fetching as plain objects
+  const categories = await CategoryModel.find({}).lean();
+  const products = await ProductModel.find({})
+    .populate("images")
+    .populate("colors")
+    .populate("features")
+    .populate({
+      path: "category",
+      populate: {
+        path: "submenus",
+        populate: {
+          path: "items",
+        },
+      },
+    })
+    .lean();
+
+  // Serialize data before passing to client
+  const serializedStories = serializeDoc(stories);
+  const serializedCategories = serializeDoc(categories);
+  const serializedProducts = serializeDoc(products);
 
   return (
     <>
-      <StorySlider stories={stories} />
+      <StorySlider stories={serializedStories} />
       <Hero />
       <Services />
-      <Offers />
+      <Offers products={serializedProducts} />
       <MarketOffers />
       <FirstBanner />
-      <CategoriesPage categories={categories} />
+      <CategoriesPage categories={serializedCategories} />
       <MiddleBanner />
       <Brands />
       <LastBanner />
       <ProductsCard />
       <Digiclub />
-      <Bestseller products={products} title="پرفروش‌ترین کالاها" />
+      <Bestseller products={serializedProducts} title="پرفروش‌ترین کالاها" />
       <ProductsCard />
       <div className="bg-[url('/banner/hotdog-banner.webp')] bg-cover bg-left bg-no-repeat h-40 rounded-2xl mx-3 my-5"></div>
       <SelectedProducts />
-      <Bestseller products={products} title="داغ ترین چند ساعت گذشته" />
+      <Bestseller
+        products={serializedProducts}
+        title="داغ ترین چند ساعت گذشته"
+      />
       <Mag />
       <FloatingSupportButton />
       <FloatingSupermarketButton />

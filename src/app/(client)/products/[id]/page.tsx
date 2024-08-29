@@ -2,6 +2,7 @@ import ProductMain from "@/components/product/ProductMain";
 import ProductModel from "models/Product";
 
 import { Category, Product, Submenu } from "@/types/types";
+import { serializeDoc } from "@/utils/serializeDoc";
 import { Megaphone, Store } from "lucide-react";
 import Link from "next/link";
 
@@ -15,19 +16,23 @@ export default async function ProductPage({
     .populate("colors")
     .populate("features")
     .populate({
-      path: "categories",
+      path: "category",
       populate: {
         path: "submenus",
         populate: {
           path: "items",
         },
       },
-    });
+    })
+    .lean();
 
-  const category: Category = product.category;
-  const submenu = category?.submenus.find((submenu: Submenu) =>
+  const serializedProduct = serializeDoc(product);
+  const category: Category = serializedProduct.category;
+  const submenus = category?.submenus?.find((submenu: Submenu) =>
     console.log("submenu====>🎃", submenu)
   );
+  console.log(submenus);
+
   // const item = submenu?.items.find(
   //   (item: SubmenuItem) => item._id === product.submenuItemId
   // );

@@ -468,7 +468,7 @@ fill="none"
     gradientUnits="userSpaceOnUse"
   >
     <stop />
-    <stop offset="0.720744" stopColor="#C4C4C4" stop-opacity="0" />
+    <stop offset="0.720744" stopColor="#C4C4C4" stopOpacity="0" />
   </linearGradient>
   <clipPath id="clip0">
     <rect
