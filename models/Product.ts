@@ -109,7 +109,7 @@ const schema = new mongoose.Schema({
       },
     ],
   },
-  categories: {
+  category: {
     type: [
       {
         type: mongoose.Types.ObjectId,

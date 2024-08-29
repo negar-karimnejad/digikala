@@ -1,7 +1,7 @@
-import BreadcrumbContainer from "@/components/product/BreadcrumbContainer";
 import ProductMain from "@/components/product/ProductMain";
 import ProductModel from "models/Product";
 
+import { Category, Product, Submenu } from "@/types/types";
 import { Megaphone, Store } from "lucide-react";
 import Link from "next/link";
 
@@ -10,14 +10,12 @@ export default async function ProductPage({
 }: {
   params: { id: string };
 }) {
-  const productId = parseInt(id, 10);
-
-  const product = await ProductModel.findOne({ _id: productId })
-    .populate("image")
-    .populate("color")
-    .populate("feature")
+  const product: Product = await ProductModel.findOne({ _id: id })
+    .populate("images")
+    .populate("colors")
+    .populate("features")
     .populate({
-      path: "category",
+      path: "categories",
       populate: {
         path: "submenus",
         populate: {
@@ -26,11 +24,13 @@ export default async function ProductPage({
       },
     });
 
-  const category = product.category;
-  const submenu = category.submenus.find(
-    (submenu) => submenu.id === product.submenuId
+  const category: Category = product.category;
+  const submenu = category?.submenus.find((submenu: Submenu) =>
+    console.log("submenu====>🎃", submenu)
   );
-  const item = submenu?.items.find((item) => item.id === product.submenuItemId);
+  // const item = submenu?.items.find(
+  //   (item: SubmenuItem) => item._id === product.submenuItemId
+  // );
 
   if (!product) return null;
 
@@ -39,12 +39,12 @@ export default async function ProductPage({
       <div className="flex justify-between items-center ">
         <nav className="grow min-w-0">
           <div className="breadcrumb-container flex overflow-x-auto overflow-y-hidden hide-scrollbar">
-            <BreadcrumbContainer
+            {/* <BreadcrumbContainer
               category={category}
               submenu={submenu}
               item={item}
               product={product}
-            />
+            /> */}
           </div>
         </nav>
         <div className="flex gap-5 items-center max-lg:hidden">

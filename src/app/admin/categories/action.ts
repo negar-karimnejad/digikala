@@ -150,6 +150,7 @@ export async function addSubmenu(formData: FormData) {
     title: data.title,
     href: data.href,
     categoryId: data.categoryId,
+    items: [],
   });
 
   // Update the category to include the new submenu

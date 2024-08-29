@@ -57,18 +57,18 @@ export interface Product {
   recommended_percent?: number;
   guarantee?: string;
   likes?: number;
-  comments?: ObjectId[] | Comment[];
-  questions?: ObjectId[] | Question[];
-  features?: ObjectId[] | Feature[];
-  colors?: ObjectId[] | Color[];
-  orders?: ObjectId[] | Order[];
-  images?: ObjectId[] | ProductImage[];
-  categories?: ObjectId[] | Category[];
+  comments?: Comment[];
+  questions?: Question[];
+  features?: Feature[];
+  colors?: Color[];
+  orders?: Order[];
+  images?: ProductImage[];
+  category: Category;
 }
 export interface ProductImage {
   _id: ObjectId;
   url: string;
-  productId?: ObjectId | Product;
+  productId?: ObjectId;
 }
 export interface Category {
   _id: ObjectId;
@@ -76,21 +76,21 @@ export interface Category {
   icon?: string;
   cover: string[];
   href: string;
-  product?: ObjectId | Product;
-  submenus: (ObjectId | Submenu)[];
+  product?: Product;
+  submenus: Submenu[];
 }
 export interface Submenu {
   _id: ObjectId;
   title: string;
   href: string;
-  categoryId?: ObjectId | Category;
-  items: (ObjectId | SubmenuItem)[];
+  categoryId?: ObjectId;
+  items: SubmenuItem[];
 }
 export interface SubmenuItem {
   _id: ObjectId;
   title: string;
   href: string;
-  submenuId?: ObjectId | Submenu;
+  submenuId?: ObjectId;
 }
 export interface Question {
   _id: ObjectId;
@@ -101,13 +101,11 @@ export interface Question {
   productId: ObjectId;
 }
 export interface Feature {
-  _id: ObjectId;
   key: string;
   value: string;
   productId: ObjectId;
 }
 export interface Color {
-  _id: ObjectId;
   name: string;
   hex: string;
   productId: ObjectId;

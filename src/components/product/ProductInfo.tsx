@@ -9,26 +9,21 @@ import {
 import { Check, ChevronLeft, Info, Sparkle, ThumbsUp } from "lucide-react";
 import { RefObject, useEffect, useState } from "react";
 import { Button } from "../ui/button";
-
-type Colors = {
-  name: string;
-  hex: string;
-  productId: string;
-};
+import { Color, Feature, Product } from "@/types/types";
 
 export default function ProductInfo({
   product,
   featureRef,
 }: {
-  product;
+  product: Product;
   featureRef: RefObject<HTMLDivElement>;
 }) {
   const [sizeValue, setSizeValue] = useState(product?.sizes);
-  const [chosenColor, setChosenColor] = useState<Colors>();
+  const [chosenColor, setChosenColor] = useState<Color>();
 
   useEffect(() => {
-    setChosenColor(product?.color[0]);
-  }, [product?.color]);
+    return setChosenColor(product.colors);
+  }, [product?.colors]);
 
   if (!product) return null;
 
@@ -102,9 +97,9 @@ export default function ProductInfo({
 
       <div className="grow min-w-0 lg:hidden">
         <div className="flex overflow-x-auto overflow-y-hidden gap-2 px-2 breadcrumb-container">
-          {product.feature.slice(0, 5).map((item) => (
+          {product.features?.slice(0, 5).map((item: Feature) => (
             <div
-              key={item.id}
+              key={item.value}
               className="w-fit max-w-42 bg-neutral-100 dark:bg-neutral-800 flex flex-col gap-1 p-1 rounded-lg"
             >
               <span className="overflow-hidden text-ellipsis whitespace-nowrap text-xs text-neutral-500">
@@ -115,7 +110,7 @@ export default function ProductInfo({
               </span>
             </div>
           ))}
-          {product.feature.length > 5 && (
+          {product.features?.length > 5 && (
             <div className="w-fit max-w-42 items-center bg-sky-200 text-sky-600 dark:bg-sky-800 flex gap-2 p-2 rounded-lg text-xs whitespace-nowrap">
               مشاهده همه <ChevronLeft size={18} />
             </div>
@@ -126,17 +121,19 @@ export default function ProductInfo({
       <hr className="my-2 lg:hidden" />
       <div className="mb-5">
         <div className="flex items-center justify-between">
-          {product.color.length > 0 && (
+          {product.colors.length > 0 && (
             <h4 className="text-lg font-irsansb mb-2">
               رنگ: {chosenColor?.name}
             </h4>
           )}
-          <p className="text-neutral-600 text-sm">{product.color.length} رنگ</p>
+          <p className="text-neutral-600 text-sm">
+            {product.colors.length} رنگ
+          </p>
         </div>
         <div className="flex items-center gap-2 flex-wrap">
-          {product.color.map((item) => (
+          {product.colors.map((item: Color) => (
             <div
-              key={item.id}
+              key={item.hex}
               onClick={() => setChosenColor(item)}
               className={`flex w-fit gap-2 p-0.5 border-2 items-center rounded-full ${
                 chosenColor?.productId === item.productId
@@ -150,7 +147,7 @@ export default function ProductInfo({
                   backgroundColor: item.hex,
                 }}
               >
-                {chosenColor?.productId === item.productId && (
+                {chosenColor.productId == item.productId && (
                   <Check size={20} className="text-neutral-700" />
                 )}
               </span>
@@ -180,9 +177,9 @@ export default function ProductInfo({
       <div className="max-lg:hidden">
         <h4 className="text-lg font-irsansb mb-4">ویژگی‌ها</h4>
         <div className="flex gap-3 flex-wrap">
-          {product.feature.slice(0, 4).map((item) => (
+          {product.features?.slice(0, 4).map((item: Feature) => (
             <div
-              key={item.id}
+              key={item.value}
               className="w-32 bg-neutral-100 dark:bg-neutral-800 flex flex-col gap-2 p-3 rounded-lg"
             >
               <span className="overflow-hidden text-ellipsis whitespace-nowrap text-xs text-neutral-500">

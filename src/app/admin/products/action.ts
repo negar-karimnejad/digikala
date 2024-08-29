@@ -1,6 +1,7 @@
 "use server";
 
 import { productEditSchema, ProductSchema } from "@/lib/validation";
+import { Color, Feature } from "@/types/types";
 import fs from "fs/promises";
 import ColorModel from "models/Color";
 import FeatureModel from "models/Feature";
@@ -9,6 +10,7 @@ import ProductModel from "models/Product";
 import { revalidatePath } from "next/cache";
 import { notFound, redirect } from "next/navigation";
 import path from "path";
+import crypto from "crypto";
 
 export async function addProduct(_state: any, formData: FormData) {
   const entries = Object.fromEntries(formData.entries());
@@ -34,13 +36,28 @@ export async function addProduct(_state: any, formData: FormData) {
 
   const data = result.data;
 
-  await fs.mkdir("public/products");
+  // Define the directory path
+  const productDir = path.join(process.cwd(), "public/products");
+
+  // Check if the directory exists and create it if it does not
+  try {
+    await fs.access(productDir);
+  } catch (error) {
+    if (error.code === "ENOENT") {
+      await fs.mkdir(productDir, { recursive: true });
+    } else {
+      throw error;
+    }
+  }
+
+  // Handle thumbnail image
   const imagePath = `/products/${crypto.randomUUID()}-${data.thumbnail.name}`;
   await fs.writeFile(
-    `public${imagePath}`,
+    path.join(process.cwd(), "public", imagePath),
     Buffer.from(await data.thumbnail.arrayBuffer())
   );
 
+  // Create the product record
   const product = await ProductModel.create({
     title: data.title,
     en_title: data.en_title,
@@ -60,9 +77,10 @@ export async function addProduct(_state: any, formData: FormData) {
     submenuItemId: data.submenuItemId,
   });
 
+  // Handle features
   if (featureArray.length > 0) {
     await Promise.all(
-      featureArray.map((feature) =>
+      featureArray.map((feature: Feature) =>
         FeatureModel.create({
           key: feature.key,
           value: feature.value,
@@ -72,9 +90,10 @@ export async function addProduct(_state: any, formData: FormData) {
     );
   }
 
+  // Handle colors
   if (colorArray.length > 0) {
     await Promise.all(
-      colorArray.map((color) =>
+      colorArray.map((color: Color) =>
         ColorModel.create({
           name: color.name,
           hex: color.hex,
@@ -84,11 +103,12 @@ export async function addProduct(_state: any, formData: FormData) {
     );
   }
 
+  // Handle additional images
   const images = formData.getAll("image");
   const imagePaths = new Set();
   const imagePromises = (images as File[]).map(async (image) => {
     if (image instanceof File) {
-      const imagePath = `/products/${image.name}`;
+      const imagePath = `/products/${crypto.randomUUID()}-${image.name}`;
       if (!imagePaths.has(imagePath)) {
         imagePaths.add(imagePath);
         await fs.writeFile(
@@ -107,6 +127,7 @@ export async function addProduct(_state: any, formData: FormData) {
   });
   await Promise.all(imagePromises);
 
+  // Revalidate paths and redirect
   revalidatePath("/");
   revalidatePath("/products");
   redirect("/admin/products");

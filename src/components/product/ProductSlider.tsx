@@ -41,7 +41,7 @@ export default function ProductSlider({
             ))}
           </>
         )}
-        {productImages.map((image) => (
+        {productImages?.map((image) => (
           <SwiperSlide
             key={image._id.toString()}
             className="!flex items-center py-5 justify-center w-full"

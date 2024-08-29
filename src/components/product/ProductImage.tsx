@@ -4,8 +4,9 @@ import Image from "next/image";
 import { useState } from "react";
 import FullSizeImage from "./FullSizeImage";
 import ProductSlider from "./ProductSlider";
+import { Product } from "@/types/types";
 
-export default function ProductImage({ product }) {
+export default function ProductImage({ product }: { product: Product }) {
   const [isOpen, setIsOpen] = useState("");
 
   const closeModal = () => {
@@ -25,12 +26,12 @@ export default function ProductImage({ product }) {
           className="object-cover mb-5 rounded-lg w-full"
         />
         <div className="flex items-center gap-2">
-          {product.image
-            .slice(0, product.image.length > 5 ? 5 : product.image.length)
+          {product.images
+            ?.slice(0, product.images.length > 5 ? 5 : product.images.length)
             .map((img, index) => (
               <div
-                key={img._id}
-                onClick={() => setIsOpen(img._id)}
+                key={img._id.toString()}
+                onClick={() => setIsOpen(img._id.toString())}
                 className="cursor-pointer relative border rounded-lg overflow-hidden"
               >
                 <div
@@ -52,7 +53,7 @@ export default function ProductImage({ product }) {
                   </div>
                 </div>
                 <Image
-                  alt={`Product Image ${img.id}`}
+                  alt={`Product Image ${img._id}`}
                   src={img.url}
                   width={75}
                   height={75}
@@ -63,11 +64,11 @@ export default function ProductImage({ product }) {
         </div>
       </div>
       <div className="lg:hidden w-full">
-        <ProductSlider product={product} productImages={product.image} />
+        <ProductSlider product={product} productImages={product.images} />
       </div>
       <div>
         <FullSizeImage
-          image={product.image}
+          image={product.images}
           isOpen={isOpen}
           closeModal={closeModal}
         />

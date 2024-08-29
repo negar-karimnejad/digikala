@@ -1,9 +1,15 @@
 "use client";
 import { addProduct, updateProduct } from "@/app/admin/products/action";
 import { Button } from "@/components/ui/button";
-import { Category, Product, Submenu, SubmenuItem } from "@/types/types";
+import {
+  Category,
+  Color,
+  Feature,
+  Product,
+  Submenu,
+  SubmenuItem,
+} from "@/types/types";
 import { LucideUploadCloud, X } from "lucide-react";
-// import { ObjectId } from "mongodb";
 import Image from "next/image";
 import { useState } from "react";
 import { useFormState, useFormStatus } from "react-dom";
@@ -23,15 +29,14 @@ export default function ProductForm({
   categories?: Category[];
 }) {
   const [selectedCategory, setSelectedCategory] = useState(
-    product?.categories ? product.categories : ""
+    product?.category ? product.category : ""
   );
-
-  const [selectedSubmenu, setSelectedSubmenu] = useState(
-    product ? product.categories.submenus : []
+  const [selectedSubmenu, setSelectedSubmenu] = useState<string | undefined>(
+    undefined
   );
-  const [selectedSubmenuItem, setSelectedSubmenuItem] = useState(
-    product ? selectedSubmenu.submenuItem : ""
-  );
+  const [selectedSubmenuItem, setSelectedSubmenuItem] = useState<
+    string | undefined
+  >(undefined);
 
   const isSubmenu = (submenu: Submenu): submenu is Submenu => {
     return (submenu as Submenu).items !== undefined;
@@ -50,8 +55,10 @@ export default function ProductForm({
 
   const [thumbnailFile, setThumbnailFile] = useState<File | null>(null);
   const [additionalFiles, setAdditionalFiles] = useState<File[]>([]);
-  const [colors, setColors] = useState(product?.colors ? product.colors : []);
-  const [features, setFeatures] = useState(
+  const [colors, setColors] = useState<Color[]>(
+    product?.colors ? product.colors : []
+  );
+  const [features, setFeatures] = useState<Feature[]>(
     product?.features ? product.features : []
   );
 
@@ -85,7 +92,11 @@ export default function ProductForm({
   const addFeature = () => {
     setFeatures((prev) => [
       ...prev,
-      { key: "", value: "", productId: product?._id },
+      {
+        key: "",
+        value: "",
+        productId: product?._id,
+      },
     ]);
   };
 
@@ -289,7 +300,7 @@ export default function ProductForm({
           value={selectedCategory.toString()}
           onChange={(e) => {
             setSelectedCategory(e.target.value);
-            setSelectedSubmenu("");
+            setSelectedSubmenu(null);
           }}
         >
           <option value="">دسته‌بندی مورد نظر را انتخاب کنید</option>
@@ -338,10 +349,6 @@ export default function ProductForm({
           id="submenuItemId"
           value={selectedSubmenuItem}
           onChange={(e) => setSelectedSubmenuItem(e.target.value)}
-
-          // defaultValue={
-          //   product?.submenuItemId ? String(product.submenuItemId) : ""
-          // }
         >
           <option value="">
             آیتم های زیرمجموعه دسته‌بندی مورد نظر را انتخاب کنید
