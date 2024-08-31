@@ -1,7 +1,9 @@
 "use server";
 
 import { productEditSchema, ProductSchema } from "@/lib/validation";
-import { Color, Feature, ProductImage } from "@/types/types";
+import { ProductImage } from "@/types/types";
+import connectToDB from "configs/db";
+import crypto from "crypto";
 import fs from "fs/promises";
 import ColorModel from "models/Color";
 import FeatureModel from "models/Feature";
@@ -10,9 +12,9 @@ import ProductModel from "models/Product";
 import { revalidatePath } from "next/cache";
 import { notFound, redirect } from "next/navigation";
 import path from "path";
-import crypto from "crypto";
 
 export async function addProduct(_state: any, formData: FormData) {
+  connectToDB();
   const entries = Object.fromEntries(formData.entries());
   const featureArray = JSON.parse(entries.features as string);
   const colorArray = JSON.parse(entries.colors as string);
@@ -29,8 +31,6 @@ export async function addProduct(_state: any, formData: FormData) {
   };
 
   const result = ProductSchema.safeParse(parsedEntries);
-  console.log("🎟🎟🎑",result);
-  
   if (!result.success) {
     console.log("❌❌❌", result.error.formErrors.fieldErrors);
     return result.error.formErrors.fieldErrors;
@@ -77,35 +77,39 @@ export async function addProduct(_state: any, formData: FormData) {
     categoryId: data.categoryId,
     submenuId: data.submenuId,
     submenuItemId: data.submenuItemId,
+    images: [],
+    colors: [],
+    features: [],
   });
 
   // Handle features
+  const featureIds = [];
   if (featureArray.length > 0) {
-    await Promise.all(
-      featureArray.map((feature: Feature) =>
-        FeatureModel.create({
-          key: feature.key,
-          value: feature.value,
-          productId: product._id,
-        })
-      )
-    );
+    for (const feature of featureArray) {
+      const newFeature = await FeatureModel.create({
+        key: feature.key,
+        value: feature.value,
+        productId: product._id,
+      });
+      featureIds.push(newFeature._id);
+    }
   }
 
   // Handle colors
+  const colorIds = [];
   if (colorArray.length > 0) {
-    await Promise.all(
-      colorArray.map((color: Color) =>
-        ColorModel.create({
-          name: color.name,
-          hex: color.hex,
-          productId: product._id,
-        })
-      )
-    );
+    for (const color of colorArray) {
+      const newColor = await ColorModel.create({
+        name: color.name,
+        hex: color.hex,
+        productId: product._id,
+      });
+      colorIds.push(newColor._id);
+    }
   }
 
   // Handle additional images
+  const imageIds = [];
   const images = formData.getAll("image");
   const imagePaths = new Set();
   const imagePromises = (images as File[]).map(async (image) => {
@@ -118,10 +122,11 @@ export async function addProduct(_state: any, formData: FormData) {
           Buffer.from(await image.arrayBuffer())
         );
 
-        await ImageModel.create({
+        const newImage = await ImageModel.create({
           url: imagePath,
           productId: product._id,
         });
+        imageIds.push(newImage._id);
       } else {
         console.warn("Duplicate image detected:", image);
       }
@@ -129,6 +134,13 @@ export async function addProduct(_state: any, formData: FormData) {
   });
   await Promise.all(imagePromises);
 
+  await ProductModel.findByIdAndUpdate(product._id, {
+    $set: {
+      images: imageIds,
+      colors: colorIds,
+      features: featureIds,
+    },
+  });
   // Revalidate paths and redirect
   revalidatePath("/");
   revalidatePath("/products");
@@ -136,6 +148,7 @@ export async function addProduct(_state: any, formData: FormData) {
 }
 
 export async function updateProduct(_state: any, formData: FormData) {
+  connectToDB();
   try {
     const _id = formData.get("_id");
     const entries = Object.fromEntries(formData.entries());
@@ -253,6 +266,7 @@ export async function updateProduct(_state: any, formData: FormData) {
 }
 
 export async function deleteProduct(id: string) {
+  connectToDB();
   const productWithImages = await ProductModel.findOne({ _id: id }).populate(
     "images"
   );

@@ -27,6 +27,7 @@ import { Edit2, Eye, MoreVertical } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import avatar from "./../../../public/users/avatar1.png";
+import { Product } from "@/types/types";
 
 export default function AdminTable({
   products,
@@ -100,15 +101,15 @@ export default function AdminTable({
         </TableHeader>
         <TableBody>
           {products &&
-            products.map((product) => (
-              <TableRow key={product.id}>
+            products.map((product: Product) => (
+              <TableRow key={product._id.toString()}>
                 <TableCell>
                   <div className="w-20">
                     <Image
                       alt={product.title}
                       height={100}
                       width={100}
-                      className="rounded-full w-16 h-16 object-cover"
+                      className="w-16 h-16 object-cover"
                       src={product.thumbnail}
                     />
                   </div>
@@ -146,14 +147,14 @@ export default function AdminTable({
                         <DropdownMenuItem asChild>
                           <Link
                             className="flex w-full justify-end items-center"
-                            href={`/admin/products/${product.id}/edit`}
+                            href={`/admin/products/${product._id}/edit`}
                           >
                             ویرایش
                             <Edit2 size={15} className="text-gray-400 mx-4" />
                           </Link>
                         </DropdownMenuItem>
                         <DropdownMenuSeparator />
-                        <DeleteDropdownItem productId={product.id} />
+                        <DeleteDropdownItem productId={product._id.toString()} />
                       </DropdownMenuContent>
                     </DropdownMenu>
                     <DialogContent>

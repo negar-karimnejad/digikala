@@ -26,7 +26,6 @@ export default function ProductInfo({
   }, [product?.colors]);
 
   if (!product) return null;
-
   return (
     <div className="col-span-5 max-lg:col-span-12">
       <h1 className="lg:text-xl font-irsansb text-neutral-700 dark:text-neutral-50">
@@ -150,7 +149,7 @@ export default function ProductInfo({
                   backgroundColor: item.hex,
                 }}
               >
-                {chosenColor.productId == item.productId && (
+                {chosenColor?.productId == item.productId && (
                   <Check size={20} className="text-neutral-700" />
                 )}
               </span>

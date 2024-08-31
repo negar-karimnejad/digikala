@@ -1,17 +1,19 @@
 import ProductMain from "@/components/product/ProductMain";
 import ProductModel from "models/Product";
-
 import { Category, Product, Submenu } from "@/types/types";
 import { serializeDoc } from "@/utils/serializeDoc";
 import { Megaphone, Store } from "lucide-react";
 import Link from "next/link";
+import connectToDB from "configs/db";
 
 export default async function ProductPage({
   params: { id },
 }: {
   params: { id: string };
 }) {
-  const product: Product = await ProductModel.findOne({ _id: id })
+  
+  connectToDB();
+  const product = await ProductModel.findOne({ _id: id })
     .populate("images")
     .populate("colors")
     .populate("features")
@@ -26,12 +28,12 @@ export default async function ProductPage({
     })
     .lean();
 
-  const serializedProduct = serializeDoc(product);
-  const category: Category = serializedProduct.category;
-  const submenus = category?.submenus?.find((submenu: Submenu) =>
-    console.log("submenu====>🎃", submenu)
-  );
-  console.log(submenus);
+    
+    const serializedProduct = serializeDoc(product);
+    const category: Category = serializedProduct.category;
+  // const submenus = category?.submenus?.find((submenu: Submenu) =>
+  //   console.log("submenu====>🎃", submenu)
+  // );
 
   // const item = submenu?.items.find(
   //   (item: SubmenuItem) => item._id === product.submenuItemId
@@ -39,6 +41,7 @@ export default async function ProductPage({
 
   if (!product) return null;
 
+  console.log("product====>🎃", serializedProduct);
   return (
     <div className="px-4 flex flex-col gap-10 py-4">
       <div className="flex justify-between items-center ">

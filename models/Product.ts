@@ -77,43 +77,15 @@ const schema = new mongoose.Schema({
       },
     ],
   },
-  features: {
-    type: [
-      {
-        type: mongoose.Types.ObjectId,
-        ref: "Feature",
-      },
-    ],
-  },
-  colors: {
-    type: [
-      {
-        type: mongoose.Types.ObjectId,
-        ref: "Color",
-      },
-    ],
-  },
+  images: [{ type: mongoose.Types.ObjectId, ref: "Image" }],
+  colors: [{ type: mongoose.Types.ObjectId, ref: "Color" }],
+  features: [{ type: mongoose.Types.ObjectId, ref: "Feature" }],
+  category: { type: mongoose.Types.ObjectId, ref: "Category" },
   orders: {
     type: [
       {
         type: mongoose.Types.ObjectId,
         ref: "Order",
-      },
-    ],
-  },
-  images: {
-    type: [
-      {
-        type: mongoose.Types.ObjectId,
-        ref: "Image",
-      },
-    ],
-  },
-  category: {
-    type: [
-      {
-        type: mongoose.Types.ObjectId,
-        ref: "Category",
       },
     ],
   },
