@@ -19,12 +19,9 @@ export default function ProductInfo({
   featureRef: RefObject<HTMLDivElement>;
 }) {
   const [sizeValue, setSizeValue] = useState(product?.sizes);
-  const [chosenColor, setChosenColor] = useState<Color>();
+  const [chosenColor, setChosenColor] = useState<Color>(product.colors[0]);
 
-  useEffect(() => {
-    return setChosenColor(product.colors[0]);
-  }, [product?.colors]);
-
+  console.log(product);
   if (!product) return null;
   return (
     <div className="col-span-5 max-lg:col-span-12">
@@ -133,14 +130,12 @@ export default function ProductInfo({
           )}
         </div>
         <div className="flex items-center gap-2 flex-wrap">
-          {product.colors.map((item: Color) => (
+          {product.colors.map((item: Color, index) => (
             <div
-              key={item.hex}
+              key={index}
               onClick={() => setChosenColor(item)}
-              className={`flex w-fit gap-2 p-0.5 border-2 items-center rounded-full ${
-                chosenColor?.productId === item.productId
-                  ? "border-blue-500 border-4"
-                  : ""
+              className={`flex cursor-pointer w-fit gap-2 p-0.5 border-2 items-center rounded-full ${
+                chosenColor?.hex === item.hex ? "border-blue-500 border-4" : ""
               }`}
             >
               <span
@@ -149,8 +144,8 @@ export default function ProductInfo({
                   backgroundColor: item.hex,
                 }}
               >
-                {chosenColor?.productId == item.productId && (
-                  <Check size={20} className="text-neutral-700" />
+                {chosenColor?.hex == item.hex && (
+                  <Check size={20} className="text-neutral-500" />
                 )}
               </span>
               <span className="lg:hidden pl-1 text-xs">{item.name}</span>
@@ -176,44 +171,44 @@ export default function ProductInfo({
           </select>
         </div>
       )}
-      {product.features?.length > 0 && (
-        <>
-          <div className="max-lg:hidden">
-            <h4 className="text-lg font-irsansb mb-4">ویژگی‌ها</h4>
-            <div className="flex gap-3 flex-wrap">
-              {product.features?.slice(0, 4).map((item: Feature) => (
-                <div
-                  key={item.value}
-                  className="w-32 bg-neutral-100 dark:bg-neutral-800 flex flex-col gap-2 p-3 rounded-lg"
-                >
-                  <span className="overflow-hidden text-ellipsis whitespace-nowrap text-xs text-neutral-500">
-                    {item.key}
-                  </span>
-                  <span className="overflow-hidden text-ellipsis whitespace-nowrap text-sm">
-                    {item.value}
-                  </span>
-                </div>
-              ))}
-            </div>
+      {/* {product.features.length > 0 && ( */}
+      <>
+        <div className="max-lg:hidden">
+          <h4 className="text-lg font-irsansb mb-4">ویژگی‌ها</h4>
+          <div className="flex gap-3 flex-wrap">
+            {product.features?.slice(0, 4).map((item: Feature) => (
+              <div
+                key={item.value}
+                className="w-32 bg-neutral-100 dark:bg-neutral-800 flex flex-col gap-2 p-3 rounded-lg"
+              >
+                <span className="overflow-hidden text-ellipsis whitespace-nowrap text-xs text-neutral-500">
+                  {item.key}
+                </span>
+                <span className="overflow-hidden text-ellipsis whitespace-nowrap text-sm">
+                  {item.value}
+                </span>
+              </div>
+            ))}
           </div>
-          <div className="max-lg:hidden mt-5 flex items-center gap-5">
-            <hr className="grow" />
-            <Button
-              variant="outline"
-              className="hover:bg-transparent"
-              onClick={() =>
-                featureRef.current.scrollIntoView({
-                  behavior: "smooth",
-                  block: "start",
-                })
-              }
-            >
-              مشاهده همه ویژگی‌ها <ChevronLeft size={18} />
-            </Button>
-            <hr className="grow" />
-          </div>
-        </>
-      )}
+        </div>
+        <div className="max-lg:hidden mt-5 flex items-center gap-5">
+          <hr className="grow" />
+          <Button
+            variant="outline"
+            className="hover:bg-transparent"
+            onClick={() =>
+              featureRef.current.scrollIntoView({
+                behavior: "smooth",
+                block: "start",
+              })
+            }
+          >
+            مشاهده همه ویژگی‌ها <ChevronLeft size={18} />
+          </Button>
+          <hr className="grow" />
+        </div>
+      </>
+      {/* )} */}
       <div className="bg-white dark:bg-neutral-800  border pt-5 rounded-lg text-xs mt-5 mb-3">
         <p className="px-5 flex items-center gap-3 text-fuchsia-800 dark:text-fuchsia-500">
           <Sparkle

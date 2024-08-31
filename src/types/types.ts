@@ -64,6 +64,8 @@ export interface Product {
   orders?: Order[];
   images?: ProductImage[];
   category: Category;
+  submenuId: string;
+  submenuItemId: string;
 }
 export interface ProductImage {
   _id: ObjectId;

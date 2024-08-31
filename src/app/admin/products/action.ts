@@ -14,7 +14,7 @@ import { notFound, redirect } from "next/navigation";
 import path from "path";
 
 export async function addProduct(_state: any, formData: FormData) {
-  connectToDB();
+  await connectToDB();
   const entries = Object.fromEntries(formData.entries());
   const featureArray = JSON.parse(entries.features as string);
   const colorArray = JSON.parse(entries.colors as string);
@@ -40,8 +40,6 @@ export async function addProduct(_state: any, formData: FormData) {
 
   // Define the directory path
   const productDir = path.join(process.cwd(), "public/products");
-
-  // Check if the directory exists and create it if it does not
   try {
     await fs.access(productDir);
   } catch (error) {
@@ -74,12 +72,12 @@ export async function addProduct(_state: any, formData: FormData) {
     recommended_percent: data.recommended_percent,
     guarantee: data.guarantee,
     likes: data.likes,
-    categoryId: data.categoryId,
-    submenuId: data.submenuId,
-    submenuItemId: data.submenuItemId,
     images: [],
     colors: [],
     features: [],
+    category: data.categoryId,
+    submenuId: data.submenuId,
+    submenuItemId: data.submenuItemId,
   });
 
   // Handle features
@@ -141,6 +139,7 @@ export async function addProduct(_state: any, formData: FormData) {
       features: featureIds,
     },
   });
+
   // Revalidate paths and redirect
   revalidatePath("/");
   revalidatePath("/products");

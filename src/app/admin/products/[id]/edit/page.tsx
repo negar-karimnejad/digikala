@@ -1,23 +1,36 @@
 import PageHeader from "@/components/admin/PageHeader";
 import ProductForm from "@/components/admin/ProductForm";
+import { serializeDoc } from "@/utils/serializeDoc";
 import connectToDB from "configs/db";
 import ProductModel from "models/Product";
 
 export default async function EditProductPage({
   params: { id },
 }: {
-  params: { id };
+  params: { id: string };
 }) {
   connectToDB();
   const product = await ProductModel.findOne({ _id: id })
-    .populate("image")
-    .populate("feature")
-    .populate("color");
+    .populate("images")
+    .populate("colors")
+    .populate("features")
+    .populate({
+      path: "category",
+      populate: {
+        path: "submenus",
+        populate: {
+          path: "items",
+        },
+      },
+    })
+    .lean();
+
+  const serializedProduct = serializeDoc(product);
 
   return (
     <>
       <PageHeader title="ویرایش محصول" />
-      <ProductForm product={product} />
+      <ProductForm product={serializedProduct} />
     </>
   );
 }

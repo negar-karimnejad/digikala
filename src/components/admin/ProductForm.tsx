@@ -29,14 +29,14 @@ export default function ProductForm({
   categories?: Category[];
 }) {
   const [selectedCategory, setSelectedCategory] = useState(
-    product?.category ? product.category : ""
+    product?.category?._id?.toString() || ""
   );
   const [selectedSubmenu, setSelectedSubmenu] = useState<string | undefined>(
-    undefined
+    product?.submenuId
   );
   const [selectedSubmenuItem, setSelectedSubmenuItem] = useState<
     string | undefined
-  >(undefined);
+  >(product?.submenuItemId);
 
   const isSubmenu = (submenu: Submenu): submenu is Submenu => {
     return (submenu as Submenu).items !== undefined;
@@ -44,7 +44,7 @@ export default function ProductForm({
 
   // Filtered submenus and submenu items
   const filteredSubmenus =
-    categories.find((category) => category._id.toString() === selectedCategory)
+    categories?.find((category) => category._id.toString() === selectedCategory)
       ?.submenus || [];
 
   const filteredSubmenuItems =
@@ -288,6 +288,7 @@ export default function ProductForm({
         </select>
       </div>
 
+      {/* Select Category */}
       <div>
         <label htmlFor="categoryId" className="block text-gray-800 mb-2">
           دسته‌بندی مورد نظر را انتخاب کنید:
@@ -297,10 +298,11 @@ export default function ProductForm({
           required
           name="categoryId"
           id="categoryId"
-          value={selectedCategory.toString()}
+          value={selectedCategory}
           onChange={(e) => {
             setSelectedCategory(e.target.value);
-            setSelectedSubmenu(null);
+            setSelectedSubmenu(undefined);
+            setSelectedSubmenuItem(undefined);
           }}
         >
           <option value="">دسته‌بندی مورد نظر را انتخاب کنید</option>
@@ -315,6 +317,7 @@ export default function ProductForm({
         </select>
       </div>
 
+      {/* Select Submenu */}
       <div>
         <label htmlFor="submenuId" className="block text-gray-800 mb-2">
           زیرمجموعه دسته‌بندی مورد نظر را انتخاب کنید:
@@ -322,11 +325,14 @@ export default function ProductForm({
         <select
           className="disabled:cursor-not-allowed disabled:opacity-50 block w-full rounded-lg border-2 border-gray-300 bg-gray-50 px-3 py-2 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0 dark:border-gray-600 dark:bg-gray-900 dark:text-white dark:focus:border-blue-500"
           required
-          disabled={filteredSubmenus.length === 0}
+          disabled={!filteredSubmenus.length}
           name="submenuId"
           id="submenuId"
           value={selectedSubmenu}
-          onChange={(e) => setSelectedSubmenu(e.target.value)}
+          onChange={(e) => {
+            setSelectedSubmenu(e.target.value);
+            setSelectedSubmenuItem(undefined); // Reset submenu item
+          }}
         >
           <option value="">زیرمجموعه دسته‌بندی مورد نظر را انتخاب کنید</option>
           {filteredSubmenus.map((submenu: Submenu) => (
@@ -337,6 +343,7 @@ export default function ProductForm({
         </select>
       </div>
 
+      {/* Select Submenu Item */}
       <div>
         <label htmlFor="submenuItemId" className="block text-gray-800 mb-2">
           آیتم های زیرمجموعه دسته‌بندی مورد نظر را انتخاب کنید:
@@ -344,7 +351,7 @@ export default function ProductForm({
         <select
           className="disabled:cursor-not-allowed disabled:opacity-50 block w-full rounded-lg border-2 border-gray-300 bg-gray-50 px-3 py-2 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0 dark:border-gray-600 dark:bg-gray-900 dark:text-white dark:focus:border-blue-500"
           required
-          disabled={filteredSubmenuItems.length === 0}
+          disabled={!filteredSubmenuItems.length}
           name="submenuItemId"
           id="submenuItemId"
           value={selectedSubmenuItem}
@@ -555,26 +562,6 @@ export default function ProductForm({
           </p>
         </div>
       </div>
-
-      {/* <div className="mt-4 flex flex-wrap gap-3">
-        {existingImages.map((image) => (
-          <div key={image.id} className="relative">
-            <Image
-              src={image.url}
-              height={50}
-              width={50}
-              alt={`Uploaded image ${image.id}`}
-              className="object-cover border rounded-lg"
-            />
-            <span
-              onClick={() => handleRemoveImage(image.id)}
-              className="absolute w-4 h-4 flex items-center justify-center -right-2 -top-2 bg-red-500 rounded-full text-white text-xs cursor-pointer"
-            >
-              <X size={16} />
-            </span>
-          </div>
-        ))}
-      </div> */}
 
       <div className="mt-4 flex flex-wrap gap-3">
         {additionalFiles.map((file, index) => (

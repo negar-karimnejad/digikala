@@ -1,3 +1,5 @@
+"use clent";
+
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -6,31 +8,31 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
+import { Product, Submenu, SubmenuItem } from "@/types/types";
 import { SlashIcon } from "lucide-react";
 
 interface BreadcrumbContainerProps {
-  category;
-  submenu;
-  item;
-  product;
+  submenu: Submenu;
+  item: SubmenuItem;
+  product: Product;
 }
 
 export default function BreadcrumbContainer({
-  category,
   submenu,
   item,
   product,
 }: BreadcrumbContainerProps) {
-  const breadcrumbs = [
-    { label: "دیجی‌کالا", href: "/" },
-    { label: category.title, href: category.href },
-    { label: submenu.title, href: submenu.href },
-    { label: item.title, href: item.href },
-  ];
+  console.log("🧧🧧🧧", product);
 
+  // const breadcrumbs = [
+  //   { label: "دیجی‌کالا", href: "/" },
+  //   { label: product.category.title, href: product.category.href },
+  //   { label: submenu.title, href: submenu.href },
+  //   { label: item.title, href: item.href },
+  // ];
   return (
     <Breadcrumb>
-      <BreadcrumbList>
+      {/* <BreadcrumbList>
         {breadcrumbs.map((breadcrumb, index) => (
           <>
             <BreadcrumbItem key={index}>
@@ -46,7 +48,7 @@ export default function BreadcrumbContainer({
         <BreadcrumbItem>
           <BreadcrumbPage>{product.title}</BreadcrumbPage>
         </BreadcrumbItem>
-      </BreadcrumbList>
+      </BreadcrumbList> */}
     </Breadcrumb>
   );
 }

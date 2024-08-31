@@ -13,8 +13,6 @@ import { Product, ProductImage } from "@/types/types";
 // }
 
 export default function ProductSlider({ product }: { product: Product }) {
-  console.log("productImages==>", product);
-
   const loading = false;
   return (
     <div className="relative">

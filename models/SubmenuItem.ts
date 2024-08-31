@@ -16,6 +16,7 @@ const schema = new mongoose.Schema({
   },
 });
 
-const model = mongoose.models.SubmenuItem || mongoose.model("SubmenuItem", schema);
+const model =
+  mongoose.models.SubmenuItem || mongoose.model("SubmenuItem", schema);
 
 export default model;
