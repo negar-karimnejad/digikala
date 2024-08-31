@@ -64,7 +64,7 @@ export default function ProductImage({ product }: { product: Product }) {
         </div>
       </div>
       <div className="lg:hidden w-full">
-        <ProductSlider product={product} productImages={product.images} />
+        <ProductSlider product={product} />
       </div>
       <div>
         <FullSizeImage

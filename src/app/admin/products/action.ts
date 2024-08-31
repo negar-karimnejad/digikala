@@ -29,6 +29,8 @@ export async function addProduct(_state: any, formData: FormData) {
   };
 
   const result = ProductSchema.safeParse(parsedEntries);
+  console.log("🎟🎟🎑",result);
+  
   if (!result.success) {
     console.log("❌❌❌", result.error.formErrors.fieldErrors);
     return result.error.formErrors.fieldErrors;

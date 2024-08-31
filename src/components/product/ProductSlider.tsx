@@ -7,17 +7,14 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import OfferSkeleton from "../skeleton/OfferSkeleton";
 import { Product, ProductImage } from "@/types/types";
 
+// interface ProductSliderProps {
+//   productImages: ProductImage[];
+//   product: Product;
+// }
 
+export default function ProductSlider({ product }: { product: Product }) {
+  console.log("productImages==>", product);
 
-interface ProductSliderProps {
-  productImages: ProductImage[];
-  product: Product;
-}
-
-export default function ProductSlider({
-  product,
-  productImages,
-}: ProductSliderProps) {
   const loading = false;
   return (
     <div className="relative">
@@ -41,7 +38,7 @@ export default function ProductSlider({
             ))}
           </>
         )}
-        {productImages?.map((image) => (
+        {product.images?.map((image: ProductImage) => (
           <SwiperSlide
             key={image._id.toString()}
             className="!flex items-center py-5 justify-center w-full"
