@@ -70,7 +70,7 @@ export async function addProduct(_state: any, formData: FormData) {
     price: data.price,
     discount: data.discount,
     discount_price: data.discount_price,
-    description: data?.description,
+    description: data.description || "",
     recommended_percent: data.recommended_percent,
     guarantee: data.guarantee,
     likes: data.likes,
@@ -195,7 +195,7 @@ export async function updateProduct(_state: any, formData: FormData) {
       {
         $set: {
           title: data.title,
-          description: data?.description,
+          description: data.description || "",
           price: data.price,
           discount: data.discount,
           thumbnail: imagePath,
