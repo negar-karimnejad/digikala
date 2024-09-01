@@ -3,6 +3,7 @@ import ProductForm from "@/components/admin/ProductForm";
 import { serializeDoc } from "@/utils/serializeDoc";
 import connectToDB from "configs/db";
 import ProductModel from "models/Product";
+import CategoryModel from "models/Category";
 
 export default async function EditProductPage({
   params: { id },
@@ -25,12 +26,25 @@ export default async function EditProductPage({
     })
     .lean();
 
+  const categories = await CategoryModel.find({})
+    .populate({
+      path: "submenus",
+      populate: {
+        path: "items",
+      },
+    })
+    .lean();
+    
   const serializedProduct = serializeDoc(product);
+  const serializedCategories = serializeDoc(categories);
 
   return (
     <>
       <PageHeader title="ویرایش محصول" />
-      <ProductForm product={serializedProduct} />
+      <ProductForm
+        product={serializedProduct}
+        categories={serializedCategories}
+      />
     </>
   );
 }

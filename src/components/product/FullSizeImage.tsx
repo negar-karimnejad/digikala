@@ -176,7 +176,7 @@ function FullSizeImage({
                     width={350}
                     height={350}
                     src={img.url}
-                    className="lg:col-span-4 col-span-6 border rounded-lg"
+                    className="lg:col-span-4 h-80 object-cover col-span-6 border rounded-lg"
                   />
                 ))}
               </div>

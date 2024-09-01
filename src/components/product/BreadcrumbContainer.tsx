@@ -34,17 +34,15 @@ export default function BreadcrumbContainer({
       <BreadcrumbList>
         {breadcrumbs.map((breadcrumb, index) => (
           <React.Fragment key={index}>
-            <BreadcrumbItem>
+            <BreadcrumbItem className="text-xs">
               <BreadcrumbLink href={breadcrumb.href}>
                 {breadcrumb.label}
               </BreadcrumbLink>
             </BreadcrumbItem>
-            <BreadcrumbSeparator>
-              <SlashIcon />
-            </BreadcrumbSeparator>
+            <BreadcrumbSeparator />
           </React.Fragment>
         ))}
-        <BreadcrumbItem>
+        <BreadcrumbItem className="text-xs">
           <BreadcrumbPage>{title}</BreadcrumbPage>
         </BreadcrumbItem>
       </BreadcrumbList>

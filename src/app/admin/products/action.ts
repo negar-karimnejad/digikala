@@ -70,7 +70,7 @@ export async function addProduct(_state: any, formData: FormData) {
     price: data.price,
     discount: data.discount,
     discount_price: data.discount_price,
-    description: data.description,
+    description: data?.description,
     recommended_percent: data.recommended_percent,
     guarantee: data.guarantee,
     likes: data.likes,
@@ -157,17 +157,20 @@ export async function updateProduct(_state: any, formData: FormData) {
     const parsedEntries = {
       ...entries,
       rating: Number(entries.rating),
-      categoryId: Number(entries.categoryId),
       voter: Number(entries.voter),
       price: Number(entries.price),
       discount: Number(entries.discount),
       discount_price: Number(entries.discount_price),
       recommended_percent: Number(entries.recommended_percent),
       likes: Number(entries.likes),
+      categoryId: entries.categoryId?.toString() || "",
+      submenuId: entries.submenuId?.toString() || "",
+      submenuItemId: entries.submenuItemId?.toString() || "",
     };
 
     const result = productEditSchema.safeParse(parsedEntries);
     if (!result.success) {
+      console.log("❌❌❌", result.error.formErrors.fieldErrors);
       return result.error.formErrors.fieldErrors;
     }
 
@@ -192,7 +195,7 @@ export async function updateProduct(_state: any, formData: FormData) {
       {
         $set: {
           title: data.title,
-          description: data.description,
+          description: data?.description,
           price: data.price,
           discount: data.discount,
           thumbnail: imagePath,
@@ -228,7 +231,6 @@ export async function updateProduct(_state: any, formData: FormData) {
       );
     }
 
-    // if (formData.has("image")) {
     // Remove all existing images
     await ImageModel.deleteMany({ productId: _id });
 
@@ -255,7 +257,6 @@ export async function updateProduct(_state: any, formData: FormData) {
       }
     });
     await Promise.all(imagePromises);
-    // }
 
     revalidatePath("/");
     revalidatePath("/products");

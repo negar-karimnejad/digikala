@@ -36,16 +36,14 @@ export default function ProductImage({ product }: { product: Product }) {
               >
                 <div
                   className={`${
-                    index === 4
-                      ? "absolute z-10 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
-                      : "hidden"
+                    index === 4 ? "w-full h-full absolute z-10 top-3" : "hidden"
                   }`}
                 >
-                  <div className="flex">
+                  <div className="flex items-center justify-center">
                     {Array.from({ length: 3 }).map((_, index) => (
                       <span
                         key={index}
-                        className="text-3xl text-neutral-700 rounded-full"
+                        className="text-3xl text-neutral-500 rounded-full"
                       >
                         .
                       </span>
@@ -57,7 +55,9 @@ export default function ProductImage({ product }: { product: Product }) {
                   src={img.url}
                   width={75}
                   height={75}
-                  className={`${index === 4 ? " blur-sm" : ""}`}
+                  className={`h-16 object-cover ${
+                    index === 4 ? " blur-sm" : ""
+                  }`}
                 />
               </div>
             ))}

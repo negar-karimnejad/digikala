@@ -86,7 +86,7 @@ export const ProductSchema = z.object({
   price: z.number().min(0, { message: "قیمت نمی تواند خالی یا عدد منفی باشد" }),
   discount: z.number().optional(),
   discount_price: z.number().optional(),
-  description: z.string().min(10, { message: "توضیحات محصول را وارد کنید" }),
+  description: z.string(),
   recommended_percent: z.number(),
   guarantee: z.string(),
   sizes: z.string(),

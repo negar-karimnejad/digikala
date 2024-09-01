@@ -47,7 +47,7 @@ const schema = new mongoose.Schema({
   },
   description: {
     type: String,
-    required: true,
+    required: false,
   },
   recommended_percent: {
     type: Number,

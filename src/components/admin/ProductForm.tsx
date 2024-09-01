@@ -26,10 +26,10 @@ export default function ProductForm({
   categories,
 }: {
   product?: Product;
-  categories?: Category[];
+  categories: Category[];
 }) {
   const [selectedCategory, setSelectedCategory] = useState(
-    product?.category?._id?.toString() || ""
+    product?.category._id.toString() || ""
   );
   const [selectedSubmenu, setSelectedSubmenu] = useState<string | undefined>(
     product?.submenuId
@@ -306,7 +306,7 @@ export default function ProductForm({
           }}
         >
           <option value="">دسته‌بندی مورد نظر را انتخاب کنید</option>
-          {categories.map((category: Category) => (
+          {categories?.map((category: Category) => (
             <option
               key={category._id.toString()}
               value={category._id.toString()}

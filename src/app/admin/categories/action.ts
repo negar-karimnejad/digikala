@@ -13,6 +13,7 @@ import SubmenuModel from "models/Submenu";
 import SubmenuItemModel from "models/SubmenuItem";
 import { revalidatePath } from "next/cache";
 import { notFound, redirect } from "next/navigation";
+import path from "path";
 import { promisify } from "util";
 
 const unlinkAsync = promisify(unlink);
@@ -32,17 +33,27 @@ export async function addCategory(_state, formData: FormData) {
 
   const data = result.data;
 
-  await fs.mkdir("public/categories");
+  // Define the directory path
+  const categoryDir = path.join(process.cwd(), "public/categories");
+  try {
+    await fs.access(categoryDir);
+  } catch (error) {
+    if (error.code === "ENOENT") {
+      await fs.mkdir(categoryDir, { recursive: true });
+    } else {
+      throw error;
+    }
+  }
 
   const coverPath = `/categories/${crypto.randomUUID()}-${data.cover.name}`;
   await fs.writeFile(
-    `public${coverPath}`,
+    path.join(process.cwd(), "public", coverPath),
     Buffer.from(await data.cover.arrayBuffer())
   );
 
   const iconPath = `/categories/${crypto.randomUUID()}-${data.icon.name}`;
   await fs.writeFile(
-    `public${iconPath}`,
+    path.join(process.cwd(), "public", iconPath),
     Buffer.from(await data.icon.arrayBuffer())
   );
 
@@ -156,7 +167,7 @@ export async function addSubmenu(formData: FormData) {
   // Update the category to include the new submenu
   await CategoryModel.findOneAndUpdate(
     { _id: data.categoryId },
-    { $push: { submenus: newSubmenu._id } }, 
+    { $push: { submenus: newSubmenu._id } },
     { new: true }
   ).populate("submenus");
 

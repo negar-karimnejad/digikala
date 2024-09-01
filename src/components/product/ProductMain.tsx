@@ -12,7 +12,7 @@ export default function ProductMain({ product }) {
 
   return (
     <>
-      <div className="grid grid-cols-12 gap-5 ">
+      <div className="grid grid-cols-12 gap-5">
         <ProductImage product={product} />
         <ProductInfo product={product} featureRef={featureRef} />
         <ProductSeller product={product} />
