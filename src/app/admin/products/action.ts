@@ -28,6 +28,8 @@ export async function addProduct(_state: any, formData: FormData) {
     discount_price: Number(entries.discount_price),
     recommended_percent: Number(entries.recommended_percent),
     likes: Number(entries.likes),
+    submenuId: entries.submenuId?.toString() || "",
+    submenuItemId: entries.submenuItemId?.toString() || "",
   };
 
   const result = ProductSchema.safeParse(parsedEntries);

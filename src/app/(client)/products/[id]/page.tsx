@@ -29,7 +29,8 @@ export default async function ProductPage({
     .lean();
 
   const serializedProduct = serializeDoc(product);
-  const submenu = product.category?.submenus?.find(
+  const category = serializedProduct.category;
+  const submenu = category.submenus?.find(
     (submenu: Submenu) => submenu._id.toString() === product.submenuId
   );
 
@@ -38,13 +39,15 @@ export default async function ProductPage({
   );
 
   if (!product) return null;
+
   return (
     <div className="px-4 flex flex-col gap-10 py-4">
       <div className="flex justify-between items-center ">
         <nav className="grow min-w-0">
           <div className="breadcrumb-container flex overflow-x-auto overflow-y-hidden hide-scrollbar">
             <BreadcrumbContainer
-              product={serializedProduct}
+              title={serializedProduct.title}
+              category={category}
               submenu={submenu}
               item={item}
             />

@@ -21,7 +21,6 @@ export default function ProductInfo({
   const [sizeValue, setSizeValue] = useState(product?.sizes);
   const [chosenColor, setChosenColor] = useState<Color>(product.colors[0]);
 
-  console.log(product);
   if (!product) return null;
   return (
     <div className="col-span-5 max-lg:col-span-12">
