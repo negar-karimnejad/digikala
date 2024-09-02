@@ -4,7 +4,6 @@ import { productEditSchema, ProductSchema } from "@/lib/validation";
 import { ProductImage } from "@/types/types";
 import connectToDB from "configs/db";
 import crypto from "crypto";
-import fs from "fs/promises";
 import ColorModel from "models/Color";
 import FeatureModel from "models/Feature";
 import ImageModel from "models/Image";
@@ -12,6 +11,11 @@ import ProductModel from "models/Product";
 import { revalidatePath } from "next/cache";
 import { notFound, redirect } from "next/navigation";
 import path from "path";
+import { promisify } from "util";
+import { promises as fs, unlink, writeFile } from "fs";
+
+const unlinkAsync = promisify(unlink);
+const writeFileAsync = promisify(writeFile);
 
 export async function addProduct(_state: any, formData: FormData) {
   await connectToDB();
@@ -148,100 +152,103 @@ export async function addProduct(_state: any, formData: FormData) {
   redirect("/admin/products");
 }
 
+
 export async function updateProduct(_state: any, formData: FormData) {
   connectToDB();
-  try {
-    const _id = formData.get("_id");
-    const entries = Object.fromEntries(formData.entries());
 
-    const parsedEntries = {
-      ...entries,
-      rating: Number(entries.rating),
-      voter: Number(entries.voter),
-      price: Number(entries.price),
-      discount: Number(entries.discount),
-      discount_price: Number(entries.discount_price),
-      recommended_percent: Number(entries.recommended_percent),
-      likes: Number(entries.likes),
-      categoryId: entries.categoryId?.toString() || "",
-      submenuId: entries.submenuId?.toString() || "",
-      submenuItemId: entries.submenuItemId?.toString() || "",
-    };
+  const _id = formData.get("_id");
+  const entries = Object.fromEntries(formData.entries());
 
-    const result = productEditSchema.safeParse(parsedEntries);
-    if (!result.success) {
-      console.log("❌❌❌", result.error.formErrors.fieldErrors);
-      return result.error.formErrors.fieldErrors;
-    }
+  const parsedEntries = {
+    ...entries,
+    rating: Number(entries.rating),
+    voter: Number(entries.voter),
+    price: Number(entries.price),
+    discount: Number(entries.discount),
+    discount_price: Number(entries.discount_price),
+    recommended_percent: Number(entries.recommended_percent),
+    likes: Number(entries.likes),
+    categoryId: entries.categoryId?.toString() || "",
+    submenuId: entries.submenuId?.toString() || "",
+    submenuItemId: entries.submenuItemId?.toString() || "",
+  };
 
-    const data = result.data;
+  const result = productEditSchema.safeParse(parsedEntries);
+  if (!result.success) {
+    console.log("❌❌❌", result.error.formErrors.fieldErrors);
+    return result.error.formErrors.fieldErrors;
+  }
 
-    const product = await ProductModel.findOne({ _id });
-    if (product == null) return notFound();
+  const data = result.data;
+  const product = await ProductModel.findOne({ _id });
+  if (product == null) return notFound();
 
-    let imagePath = product.thumbnail;
+  let imagePath = product.thumbnail;
 
-    if (data.thumbnail && data.thumbnail.size > 0) {
-      await fs.unlink(`public${product.thumbnail}`);
-      imagePath = `/products/${crypto.randomUUID()}-${data.thumbnail.name}`;
-      await fs.writeFile(
-        `public${imagePath}`,
-        Buffer.from(await data.thumbnail.arrayBuffer())
-      );
-    }
-
-    await ProductModel.findOneAndUpdate(
-      { _id },
-      {
-        $set: {
-          title: data.title,
-          description: data.description || "",
-          price: data.price,
-          discount: data.discount,
-          thumbnail: imagePath,
-        },
-      }
+  if (data.thumbnail != null && data.thumbnail.size > 0) {
+    await unlinkAsync(`public${product.thumbnail}`);
+    imagePath = `/products/${crypto.randomUUID()}-${data.thumbnail.name}`;
+    await writeFileAsync(
+      `public${imagePath}`,
+      Buffer.from(await data.thumbnail.arrayBuffer())
     );
+  }
 
-    const features = data.features ? JSON.parse(data.features as string) : [];
-    if (features.length > 0) {
-      await FeatureModel.deleteMany({ productId: _id });
-      await Promise.all(
-        features.map((feature: { key: string; value: string }) =>
-          FeatureModel.create({
-            key: feature.key,
-            value: feature.value,
-            productId: _id,
-          })
-        )
-      );
+  await ProductModel.findOneAndUpdate(
+    { _id },
+    {
+      $set: {
+        title: data.title,
+        description: data.description || "",
+        price: data.price,
+        discount: data.discount,
+        thumbnail: imagePath,
+      },
     }
+  );
 
-    const colors = data.colors ? JSON.parse(data.colors as string) : [];
-    if (colors.length > 0) {
-      await ColorModel.deleteMany({ productId: _id });
-      await Promise.all(
-        colors.map((color: { name: string; hex: string }) =>
-          ColorModel.create({
-            name: color.name,
-            hex: color.hex,
-            productId: _id,
-          })
-        )
-      );
-    }
+  const features = data.features ? JSON.parse(data.features as string) : [];
+  if (features.length > 0) {
+    await FeatureModel.deleteMany({ productId: _id });
+    await Promise.all(
+      features.map((feature: { key: string; value: string }) =>
+        FeatureModel.create({
+          key: feature.key,
+          value: feature.value,
+          productId: _id,
+        })
+      )
+    );
+  }
 
-    // Remove all existing images
-    await ImageModel.deleteMany({ productId: _id });
+  const colors = data.colors ? JSON.parse(data.colors as string) : [];
+  if (colors.length > 0) {
+    await ColorModel.deleteMany({ productId: _id });
+    await Promise.all(
+      colors.map((color: { name: string; hex: string }) =>
+        ColorModel.create({
+          name: color.name,
+          hex: color.hex,
+          productId: _id,
+        })
+      )
+    );
+  }
 
-    const images = formData.getAll("image");
+  // Remove all existing images
+  await ImageModel.deleteMany({ productId: _id });
 
-    const imagePaths = new Set();
-    const imagePromises = (images as File[]).map(async (image) => {
-      if (image instanceof File) {
-        const imagePath = `/products/${image.name}`;
-        if (!imagePaths.has(imagePath)) {
-          imagePaths.add(imagePath);
+  const images = formData.getAll("image") as File[];
+  const imagePaths = new Set();
+
+  const imagePromises = images.map(async (image) => {
+    if (image instanceof File) {
+      const uniqueName = `${crypto.randomUUID()}-${image.name}`;
+      const imagePath = `/products/${uniqueName}`;
+
+      if (!imagePaths.has(imagePath)) {
+        imagePaths.add(imagePath);
+        try {
           await fs.writeFile(
             path.join(process.cwd(), "public", imagePath),
             Buffer.from(await image.arrayBuffer())
@@ -251,20 +258,20 @@ export async function updateProduct(_state: any, formData: FormData) {
             url: imagePath,
             productId: _id,
           });
-        } else {
-          console.warn("Duplicate image detected:", image);
+        } catch (writeError) {
+          console.error(`Failed to write image ${image.name}:`, writeError);
         }
+      } else {
+        console.warn("Duplicate image detected:", image);
       }
-    });
-    await Promise.all(imagePromises);
+    }
+  });
+  await Promise.all(imagePromises);
 
-    revalidatePath("/");
-    revalidatePath("/products");
-    redirect("/admin/products");
-  } catch (error) {
-    console.error("Error in updateProduct:", error);
-    throw error;
-  }
+  // Revalidate paths
+  await Promise.all([revalidatePath("/"), revalidatePath("/products")]);
+  // Redirect after all operations are complete
+  return redirect("/admin/products");
 }
 
 export async function deleteProduct(id: string) {

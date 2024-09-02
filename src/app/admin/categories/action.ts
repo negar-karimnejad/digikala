@@ -84,16 +84,13 @@ export async function updateCategory(state: any, formData: FormData) {
   }
 
   const data = result.data;
-
   const category = await CategoryModel.findOne({ _id: data._id });
-
   if (category == null) return notFound();
 
   let coverPath = category.cover;
   let iconPath = category.icon;
 
   if (data.cover != null && data.cover.size > 0) {
-    // if (fs.existsSync(`public${category.cover}`)) {
     await unlinkAsync(`public${category.cover}`);
     coverPath = `/categories/${crypto.randomUUID()}-${data.cover.name}`;
     await writeFileAsync(

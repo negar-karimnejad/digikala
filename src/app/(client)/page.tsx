@@ -62,6 +62,7 @@ export default async function Home() {
       <Brands />
       <LastBanner />
       <ProductsCard
+        cardNum={"first"}
         products={serializedProducts}
         categories={serializedCategories}
         submenus={submenus}
@@ -69,6 +70,7 @@ export default async function Home() {
       <Digiclub />
       <Bestseller products={serializedProducts} title="پرفروش‌ترین کالاها" />
       <ProductsCard
+        cardNum={"last"}
         products={serializedProducts}
         categories={serializedCategories}
         submenus={submenus}
