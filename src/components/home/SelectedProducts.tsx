@@ -3,9 +3,16 @@ import Image from "next/image";
 import Link from "next/link";
 import OfferSkeleton from "../skeleton/OfferSkeleton";
 import ProductModel from "models/Product";
+import { Product } from "@/types/types";
 
-export default async function SelectedProducts() {
-  const products = await ProductModel.find({});
+export default async function SelectedProducts({
+  products,
+}: {
+  products: Product[];
+}) {
+  const SelectedAllProducts = products.filter(
+    (product) => product.discount > 0
+  );
 
   return (
     <div className="border rounded-xl my-5 pt-5 mx-3 overflow-hidden">
@@ -26,16 +33,13 @@ export default async function SelectedProducts() {
             ))}
           </>
         )} */}
-        {products?.slice(0, 18).map((product) => (
+        {SelectedAllProducts?.slice(0, 18).map((product) => (
           <div
-            key={product.id}
+            key={product._id.toString()}
             className="xl:col-span-2 lg:col-span-3 md:col-span-4 col-span-6 border border-t-0 border-neutral-100 dark:border-neutral-800 p-2"
           >
             <Link
-              href={`/products/${product.id}-${product.title.replaceAll(
-                " ",
-                "-"
-              )}`}
+              href={`/products/${product._id}`}
               className="flex items-center justify-center flex-col gap-4"
             >
               <Image alt="" width={150} height={150} src={product.thumbnail} />

@@ -21,12 +21,14 @@ import connectToDB from "configs/db";
 import StoryModel from "models/Story";
 import ProductModel from "models/Product";
 import CategoryModel from "models/Category";
+import SubmenuModel from "models/Submenu";
 import { serializeDoc } from "@/utils/serializeDoc";
 
 export default async function Home() {
   connectToDB();
   const stories = await StoryModel.find({}).lean(); // Fetching as plain objects
   const categories = await CategoryModel.find({}).lean();
+  const submenus = await SubmenuModel.find({}).lean();
   const products = await ProductModel.find({})
     .populate("images")
     .populate("colors")
@@ -59,12 +61,20 @@ export default async function Home() {
       <MiddleBanner />
       <Brands />
       <LastBanner />
-      <ProductsCard />
+      <ProductsCard
+        products={serializedProducts}
+        categories={serializedCategories}
+        submenus={submenus}
+      />
       <Digiclub />
       <Bestseller products={serializedProducts} title="پرفروش‌ترین کالاها" />
-      <ProductsCard />
+      <ProductsCard
+        products={serializedProducts}
+        categories={serializedCategories}
+        submenus={submenus}
+      />
       <div className="bg-[url('/banner/hotdog-banner.webp')] bg-cover bg-left bg-no-repeat h-40 rounded-2xl mx-3 my-5"></div>
-      <SelectedProducts />
+      <SelectedProducts products={serializedProducts} />
       <Bestseller
         products={serializedProducts}
         title="داغ ترین چند ساعت گذشته"

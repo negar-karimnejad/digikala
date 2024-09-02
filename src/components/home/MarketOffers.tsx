@@ -1,8 +1,37 @@
+import { Category, Product } from "@/types/types";
+import connectToDB from "configs/db";
 import { ArrowLeft } from "lucide-react";
+import CategoryModel from "models/Category";
+import ProductModel from "models/Product";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function MarketOffers() {
+export default async function MarketOffers() {
+  connectToDB();
+  // Get Category by title
+  const category: Category = await CategoryModel.findOne({
+    title: "کالای خوراکی و اساسی",
+  }).populate({
+    path: "submenus",
+    populate: {
+      path: "items",
+    },
+  });
+
+  const supermarketProducts: Product[] = await ProductModel.find({
+    category: category._id,
+  })
+    .populate("images")
+    .populate("colors")
+    .populate("features")
+    .lean();
+
+  // Get products that have discount and sort them
+  const DiscountProducts = supermarketProducts
+    .filter((product) => product.discount > 0)
+    .slice()
+    .sort((a, b) => b.discount - a.discount);
+
   return (
     <div className="bg-gray-200 dark:bg-stone-800 rounded-2xl py-4 lg:px-10 px-5 mx-3 mt-5 bg-[url('/../../../../offer-pattern.svg')] bg-left bg-no-repeat">
       <div className="flex max-lg:flex-col lg:items-center items-start justify-between gap-5 w-full">
@@ -105,28 +134,27 @@ export default function MarketOffers() {
             </svg>
           </div>
           <div className="bg-green-600 whitespace-nowrap rounded-full text-white text-sm px-2 py-1">
-            تا 39% تخفیف
+            تا {DiscountProducts[0].discount}% تخفیف
           </div>
         </Link>
         <div className="flex items-center max-lg:w-full max-lg:justify-between gap-2">
           <div className="flex items-center gap-1.5">
-            {Array.from({ length: 3 }).map((_, index) => (
+            {DiscountProducts.slice(0, 4).map((product, index) => (
               <div
                 key={index}
                 className="relative bg-white w-[4.5rem] h-[4.5rem] rounded-full flex items-center justify-center"
               >
-                {/* TODO: تایتل محصول رو بنویس */}
-                <Link href={`/products/${"تایتل محصول رو بنویس"}`}>
+                <Link href={`/products/${product._id}`}>
                   <Image
                     width={50}
                     height={50}
                     alt="digikala"
                     className="rounded-full w-14 h-14 object-contain"
-                    src="/rice.webp"
+                    src={product.thumbnail}
                   />
                 </Link>
                 <div className="absolute right-0 bottom-0 z-10 bg-red-600 text-white rounded-full px-1 py-0.5 text-xs">
-                  39٪
+                  {product.discount}٪
                 </div>
               </div>
             ))}
@@ -135,7 +163,9 @@ export default function MarketOffers() {
             href="/fresh/incredible-offers"
             className="bg-white whitespace-nowrap rounded-full text-green-700 text-[13px] p-3 flex items-center gap-3"
           >
-            <span className="max-lg:hidden">بیش از 30 کالا</span>
+            <span className="max-lg:hidden">
+              بیش از {DiscountProducts.length - 1} کالا
+            </span>
             <ArrowLeft size={20} />
           </Link>
         </div>
