@@ -152,13 +152,12 @@ export async function addProduct(_state: any, formData: FormData) {
   redirect("/admin/products");
 }
 
-
 export async function updateProduct(_state: any, formData: FormData) {
-  connectToDB();
-
-  const _id = formData.get("_id");
+  await connectToDB();
   const entries = Object.fromEntries(formData.entries());
-
+  const featureArray = JSON.parse(entries.features as string);
+  const colorArray = JSON.parse(entries.colors as string);
+  
   const parsedEntries = {
     ...entries,
     rating: Number(entries.rating),
@@ -168,110 +167,144 @@ export async function updateProduct(_state: any, formData: FormData) {
     discount_price: Number(entries.discount_price),
     recommended_percent: Number(entries.recommended_percent),
     likes: Number(entries.likes),
-    categoryId: entries.categoryId?.toString() || "",
     submenuId: entries.submenuId?.toString() || "",
     submenuItemId: entries.submenuItemId?.toString() || "",
   };
 
-  const result = productEditSchema.safeParse(parsedEntries);
+  const result = ProductSchema.safeParse(parsedEntries);
   if (!result.success) {
     console.log("❌❌❌", result.error.formErrors.fieldErrors);
     return result.error.formErrors.fieldErrors;
   }
 
   const data = result.data;
-  const product = await ProductModel.findOne({ _id });
-  if (product == null) return notFound();
+  const productId = data._id;
 
-  let imagePath = product.thumbnail;
+  // Fetch the existing product
+  const product = await ProductModel.findById(productId);
+  if (!product) {
+    throw new Error(`Product with id ${productId} not found`);
+  }
 
-  if (data.thumbnail != null && data.thumbnail.size > 0) {
-    await unlinkAsync(`public${product.thumbnail}`);
-    imagePath = `/products/${crypto.randomUUID()}-${data.thumbnail.name}`;
-    await writeFileAsync(
-      `public${imagePath}`,
+  // Define the directory path
+  const productDir = path.join(process.cwd(), "public/products");
+  try {
+    await fs.access(productDir);
+  } catch (error) {
+    if (error.code === "ENOENT") {
+      await fs.mkdir(productDir, { recursive: true });
+    } else {
+      throw error;
+    }
+  }
+
+  // Handle thumbnail image update
+  let thumbnailPath = product.thumbnail;
+  if (data.thumbnail) {
+    thumbnailPath = `/products/${crypto.randomUUID()}-${data.thumbnail.name}`;
+    await fs.writeFile(
+      path.join(process.cwd(), "public", thumbnailPath),
       Buffer.from(await data.thumbnail.arrayBuffer())
     );
   }
 
-  await ProductModel.findOneAndUpdate(
-    { _id },
-    {
-      $set: {
-        title: data.title,
-        description: data.description || "",
-        price: data.price,
-        discount: data.discount,
-        thumbnail: imagePath,
-      },
-    }
+  // Update the product record
+  await ProductModel.findByIdAndUpdate(productId, {
+    title: data.title,
+    en_title: data.en_title,
+    rating: data.rating,
+    voter: data.voter,
+    sizes: data.sizes,
+    thumbnail: thumbnailPath,
+    price: data.price,
+    discount: data.discount,
+    discount_price: data.discount_price,
+    description: data.description || "",
+    recommended_percent: data.recommended_percent,
+    guarantee: data.guarantee,
+    likes: data.likes,
+    category: data.categoryId,
+    submenuId: data.submenuId,
+    submenuItemId: data.submenuItemId,
+  });
+
+  // Update features
+  const existingFeatureIds = await FeatureModel.find({ productId }).distinct(
+    "_id"
   );
-
-  const features = data.features ? JSON.parse(data.features as string) : [];
-  if (features.length > 0) {
-    await FeatureModel.deleteMany({ productId: _id });
-    await Promise.all(
-      features.map((feature: { key: string; value: string }) =>
-        FeatureModel.create({
-          key: feature.key,
-          value: feature.value,
-          productId: _id,
-        })
-      )
+  const newFeatureIds = [];
+  for (const feature of featureArray) {
+    const existingFeature = await FeatureModel.findOneAndUpdate(
+      { productId, key: feature.key },
+      { value: feature.value },
+      { new: true, upsert: true }
     );
+    newFeatureIds.push(existingFeature._id);
   }
+  await FeatureModel.deleteMany({
+    _id: {
+      $in: existingFeatureIds.filter((id) => !newFeatureIds.includes(id)),
+    },
+  });
 
-  const colors = data.colors ? JSON.parse(data.colors as string) : [];
-  if (colors.length > 0) {
-    await ColorModel.deleteMany({ productId: _id });
-    await Promise.all(
-      colors.map((color: { name: string; hex: string }) =>
-        ColorModel.create({
-          name: color.name,
-          hex: color.hex,
-          productId: _id,
-        })
-      )
+  // Update colors
+  const existingColorIds = await ColorModel.find({ productId }).distinct("_id");
+  const newColorIds = [];
+  for (const color of colorArray) {
+    const existingColor = await ColorModel.findOneAndUpdate(
+      { productId, name: color.name },
+      { hex: color.hex },
+      { new: true, upsert: true }
     );
+    newColorIds.push(existingColor._id);
   }
+  await ColorModel.deleteMany({
+    _id: { $in: existingColorIds.filter((id) => !newColorIds.includes(id)) },
+  });
 
-  // Remove all existing images
-  await ImageModel.deleteMany({ productId: _id });
-
-  const images = formData.getAll("image") as File[];
-  const imagePaths = new Set();
-
-  const imagePromises = images.map(async (image) => {
+  // Update additional images
+  const existingImageIds = await ImageModel.find({ productId }).distinct("_id");
+  const newImageIds = [];
+  const images = formData.getAll("image");
+  const imagePaths = new Set(product.images.map((image) => image.url)); // Keep track of existing paths to avoid duplicates
+  const imagePromises = (images as File[]).map(async (image) => {
     if (image instanceof File) {
-      const uniqueName = `${crypto.randomUUID()}-${image.name}`;
-      const imagePath = `/products/${uniqueName}`;
-
+      const imagePath = `/products/${crypto.randomUUID()}-${image.name}`;
       if (!imagePaths.has(imagePath)) {
         imagePaths.add(imagePath);
-        try {
-          await fs.writeFile(
-            path.join(process.cwd(), "public", imagePath),
-            Buffer.from(await image.arrayBuffer())
-          );
+        await fs.writeFile(
+          path.join(process.cwd(), "public", imagePath),
+          Buffer.from(await image.arrayBuffer())
+        );
 
-          await ImageModel.create({
-            url: imagePath,
-            productId: _id,
-          });
-        } catch (writeError) {
-          console.error(`Failed to write image ${image.name}:`, writeError);
-        }
+        const newImage = await ImageModel.create({
+          url: imagePath,
+          productId: product._id,
+        });
+        newImageIds.push(newImage._id);
       } else {
         console.warn("Duplicate image detected:", image);
       }
     }
   });
   await Promise.all(imagePromises);
+  await ImageModel.deleteMany({
+    _id: { $in: existingImageIds.filter((id) => !newImageIds.includes(id)) },
+  });
 
-  // Revalidate paths
-  await Promise.all([revalidatePath("/"), revalidatePath("/products")]);
-  // Redirect after all operations are complete
-  return redirect("/admin/products");
+  // Update product with new associated data
+  await ProductModel.findByIdAndUpdate(product._id, {
+    $set: {
+      images: newImageIds,
+      colors: newColorIds,
+      features: newFeatureIds,
+    },
+  });
+
+  // Revalidate paths and redirect
+  revalidatePath("/");
+  revalidatePath("/products");
+  redirect("/admin/products");
 }
 
 export async function deleteProduct(id: string) {
