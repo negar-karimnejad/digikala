@@ -10,7 +10,7 @@ export default function SubmenuItemPage() {
 
 async function SubmenuItemTable() {
   connectToDB();
-  const submenuItems = await SubmenuItemModel.find({});
+  const submenuItems = await SubmenuItemModel.find({}).lean();
   const serializedSubmenuItems = serializeDoc(submenuItems);
 
   return (

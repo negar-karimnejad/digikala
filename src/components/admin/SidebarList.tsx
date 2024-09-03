@@ -8,8 +8,10 @@ import {
   LogOut,
   MessagesSquare,
   PackageOpen,
+  Paperclip,
   ShoppingBasket,
-  Users2
+  Users2,
+  Newspaper,
 } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -41,7 +43,7 @@ const sidebarMenu = [
 
   { label: "داستان ها", icon: <CircleFadingPlus />, href: "/admin/stories" },
   { label: "کاربران", icon: <Users2 />, href: "/admin/users" },
-  { label: "دیدگاه ها", icon: <MessagesSquare />, href: "/admin/reviews" },
+  { label: "مقالات", icon: <Newspaper />, href: "/admin/articles" },
 ];
 
 export default function SidebarList({
@@ -85,7 +87,7 @@ export default function SidebarList({
 
   return (
     <div className="flex flex-col justify-between h-full">
-      <div className="py-5 mb-3 flex items-center justify-center gap-2">
+      <div className="py-4 mb-2 flex items-center justify-center gap-2">
         <DarkMode />
         <h1 onClick={closeSheet}>
           <Logo />
@@ -101,7 +103,7 @@ export default function SidebarList({
             >
               <Link
                 href={item.href}
-                className="flex items-center border-t py-[1.1rem] justify-between"
+                className="flex items-center border-t py-[1rem] justify-between"
               >
                 <div className="flex items-center gap-4">
                   <span className="text-neutral-500">{item.icon}</span>

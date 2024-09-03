@@ -23,11 +23,18 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import {
+  Category,
+  Product,
+  Story,
+  Submenu,
+  SubmenuItem,
+  User,
+} from "@/types/types";
 import { Edit2, Eye, MoreVertical } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import avatar from "./../../../public/users/avatar1.png";
-import { Product } from "@/types/types";
 
 export default function AdminTable({
   products,
@@ -36,13 +43,15 @@ export default function AdminTable({
   submenus,
   submenuItems,
   stories,
+  articles,
 }: {
-  products?;
-  users?;
-  categories?;
-  submenus?;
-  submenuItems?;
-  stories?;
+  products?: Product[];
+  users?: User[];
+  categories?: Category[];
+  submenus?: Submenu[];
+  submenuItems?: SubmenuItem[];
+  stories?: Story[];
+  articles?;
 }) {
   return (
     <div>
@@ -154,7 +163,9 @@ export default function AdminTable({
                           </Link>
                         </DropdownMenuItem>
                         <DropdownMenuSeparator />
-                        <DeleteDropdownItem productId={product._id.toString()} />
+                        <DeleteDropdownItem
+                          productId={product._id.toString()}
+                        />
                       </DropdownMenuContent>
                     </DropdownMenu>
                     <DialogContent>
@@ -173,7 +184,7 @@ export default function AdminTable({
             ))}
           {users &&
             users.map((user) => (
-              <TableRow key={user.id}>
+              <TableRow key={user._id.toString()}>
                 <TableCell>
                   <div className="w-20">
                     <Image
@@ -205,14 +216,14 @@ export default function AdminTable({
                         <DropdownMenuItem asChild>
                           <Link
                             className="flex w-full justify-end items-center"
-                            href={`/admin/users/${user.id}/edit`}
+                            href={`/admin/users/${user._id}/edit`}
                           >
                             ویرایش
                             <Edit2 size={15} className="text-gray-400 mx-4" />
                           </Link>
                         </DropdownMenuItem>
                         <DropdownMenuSeparator />
-                        <DeleteDropdownItem userId={user.id} />
+                        <DeleteDropdownItem userId={user._id.toString()} />
                       </DropdownMenuContent>
                     </DropdownMenu>
                   </Dialog>
@@ -221,7 +232,7 @@ export default function AdminTable({
             ))}
           {categories &&
             categories.map((category) => (
-              <TableRow key={category._id}>
+              <TableRow key={category._id.toString()}>
                 <TableCell>
                   <div className="w-20">
                     <Image
@@ -269,7 +280,9 @@ export default function AdminTable({
                           </Link>
                         </DropdownMenuItem>
                         <DropdownMenuSeparator />
-                        <DeleteDropdownItem categoryId={category._id} />
+                        <DeleteDropdownItem
+                          categoryId={category._id.toString()}
+                        />
                       </DropdownMenuContent>
                     </DropdownMenu>
                   </Dialog>
@@ -278,7 +291,7 @@ export default function AdminTable({
             ))}
           {submenus &&
             submenus.map((submenu) => (
-              <TableRow key={submenu.id}>
+              <TableRow key={submenu._id.toString()}>
                 <TableCell>
                   <p className="whitespace-nowrap">{submenu.title}</p>
                 </TableCell>
@@ -293,7 +306,9 @@ export default function AdminTable({
                         <span className="sr-only">Actions</span>
                       </DropdownMenuTrigger>
                       <DropdownMenuContent>
-                        <DeleteDropdownItem submenuId={submenu.id} />
+                        <DeleteDropdownItem
+                          submenuId={submenu._id.toString()}
+                        />
                       </DropdownMenuContent>
                     </DropdownMenu>
                   </Dialog>
@@ -302,7 +317,7 @@ export default function AdminTable({
             ))}
           {submenuItems &&
             submenuItems.map((item) => (
-              <TableRow key={item.id}>
+              <TableRow key={item._id.toString()}>
                 <TableCell>
                   <p className="whitespace-nowrap">{item.title}</p>
                 </TableCell>
@@ -317,7 +332,7 @@ export default function AdminTable({
                         <span className="sr-only">Actions</span>
                       </DropdownMenuTrigger>
                       <DropdownMenuContent>
-                        <DeleteDropdownItem itemId={item.id} />
+                        <DeleteDropdownItem itemId={item._id.toString()} />
                       </DropdownMenuContent>
                     </DropdownMenu>
                   </Dialog>
@@ -326,7 +341,7 @@ export default function AdminTable({
             ))}
           {stories &&
             stories.map((story) => (
-              <TableRow key={story.id}>
+              <TableRow key={story._id.toString()}>
                 <TableCell>
                   <p className="whitespace-nowrap">{story.title}</p>
                 </TableCell>
@@ -360,7 +375,7 @@ export default function AdminTable({
                         <span className="sr-only">Actions</span>
                       </DropdownMenuTrigger>
                       <DropdownMenuContent>
-                        <DeleteDropdownItem storyId={story.id} />
+                        <DeleteDropdownItem storyId={story._id} />
                       </DropdownMenuContent>
                     </DropdownMenu>
                   </Dialog>

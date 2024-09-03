@@ -1,5 +1,14 @@
 import { ObjectId } from "mongodb";
 
+export interface User {
+  _id: ObjectId;
+  name: string;
+  avatar: string;
+  email: string;
+  phone: string;
+  password: string;
+  role: "USER" | "ADMIN";
+}
 export interface RegisterFormState {
   errors: {
     name?: string[];
