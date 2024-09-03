@@ -1,5 +1,6 @@
 import { addSubmenu } from "@/app/admin/categories/action";
 import { Button } from "@/components/ui/button";
+import { Category } from "@/types/types";
 import connectToDB from "configs/db";
 import CategoryModel from "models/Category";
 
@@ -50,8 +51,8 @@ export default async function CategorySubmenuForm() {
         id="categoryId"
       >
         <option value="-1">دسته‌بندی مورد نظر را انتخاب کنید</option>
-        {categories.map((category) => (
-          <option key={category._id} value={category._id}>
+        {categories.map((category: Category) => (
+          <option key={category._id.toString()} value={category._id.toString()}>
             {category.title}
           </option>
         ))}

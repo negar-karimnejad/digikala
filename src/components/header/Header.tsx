@@ -18,10 +18,11 @@ export default async function Header() {
     .lean();
 
   const serializedCategories = serializeDoc(categories);
+  const serializedUser = serializeDoc(user);
 
   return (
     <>
-      <Topbar user={user} />
+      <Topbar user={serializedUser} />
       <Navbar categories={serializedCategories} />
     </>
   );

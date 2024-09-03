@@ -1,5 +1,6 @@
 import AdminTable from "@/components/admin/AdminTable";
 import PageHeader from "@/components/admin/PageHeader";
+import { serializeDoc } from "@/utils/serializeDoc";
 import connectToDB from "configs/db";
 import CategoryModel from "models/Category";
 
@@ -18,11 +19,13 @@ async function ProductTable() {
     })
     .lean();
 
+  const serializedCategories = serializeDoc(categories);
+
   return (
     <>
       <PageHeader href="/admin/categories/new" title="دسته‌بندی ها" />
       {categories.length ? (
-        <AdminTable categories={categories} />
+        <AdminTable categories={serializedCategories} />
       ) : (
         <div className="text-neutral-500">آیتمی برای نمایش وجود ندارد.</div>
       )}

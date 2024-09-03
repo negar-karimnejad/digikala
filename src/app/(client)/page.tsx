@@ -8,7 +8,7 @@ import Brands from "@/components/home/Brands";
 import CategoriesPage from "@/components/home/CategoriesPage";
 import Digiclub from "@/components/home/Digiclub";
 import Hero from "@/components/home/Hero";
-import Mag from "@/components/home/Mag";
+import Articles from "@/components/home/Articles";
 import MarketOffers from "@/components/home/MarketOffers";
 import Offers from "@/components/home/Offers";
 import ProductsCard from "@/components/home/ProductsCard";
@@ -82,7 +82,7 @@ export default async function Home() {
         products={serializedProducts}
         title="داغ ترین چند ساعت گذشته"
       />
-      <Mag />
+      <Articles />
       <FloatingSupportButton />
       <FloatingSupermarketButton />
     </>
