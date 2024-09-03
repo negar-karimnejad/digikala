@@ -3,13 +3,12 @@ import {
   CarouselContent,
   CarouselItem,
 } from "@/components/ui/carousel";
+import { Product } from "@/types/types";
 import { ArrowLeft, ChevronLeft } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import OfferSkeleton from "../skeleton/OfferSkeleton";
 import { Card, CardContent } from "../ui/card";
 import CountdownTimer from "../ui/CountdownTimer";
-import { Product } from "@/types/types";
 
 export default async function Offers({ products }: { products: Product[] }) {
   const discountProducts = products.filter((product) => product.discount > 0);
@@ -307,10 +306,7 @@ export default async function Offers({ products }: { products: Product[] }) {
 
                         <div className="text-right">
                           <div className="text-sm font-bold dark:font-normal text-gray-800 dark:text-white flex gap-1 items-center">
-                            {(
-                              product.price -
-                              (product.price * product.discount) / 100
-                            ).toLocaleString()}
+                            {product.discount_price.toLocaleString()}
                             <svg
                               width="18"
                               height="18"

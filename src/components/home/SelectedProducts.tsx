@@ -1,9 +1,7 @@
+import { Product } from "@/types/types";
 import { BadgePercent } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import OfferSkeleton from "../skeleton/OfferSkeleton";
-import ProductModel from "models/Product";
-import { Product } from "@/types/types";
 
 export default async function SelectedProducts({
   products,
@@ -53,10 +51,7 @@ export default async function SelectedProducts({
                 </span>
                 <div>
                   <div className="text-sm font-bold dark:font-normal text-neutral-800 dark:text-white flex gap-1 items-center">
-                    {(
-                      product.price -
-                      (product.price * product.discount) / 100
-                    ).toLocaleString()}
+                    {product.discount_price.toLocaleString()}
                     <svg
                       width="18"
                       height="18"
