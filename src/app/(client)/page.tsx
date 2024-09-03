@@ -26,7 +26,7 @@ import SubmenuModel from "models/Submenu";
 
 export default async function Home() {
   connectToDB();
-  const stories = await StoryModel.find({}).lean(); // Fetching as plain objects
+  const stories = await StoryModel.find({}).lean();
   const categories = await CategoryModel.find({}).lean();
   const submenus = await SubmenuModel.find({}).lean();
   const products = await ProductModel.find({})

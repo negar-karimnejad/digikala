@@ -142,7 +142,7 @@ export const categoryEditSchema = CategorySchema.extend({
 });
 
 export const StorySchema = z.object({
-  _id: z.string(),
+  // _id: z.string(),
   title: z.string().min(5, { message: "لطفا عنوان داستان را وارد نمایید" }),
   cover: imageSchema.refine((file) => file.size > 0, "Required"),
   post: imageSchema.refine((file) => file.size > 0, "Required"),
