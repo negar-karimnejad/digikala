@@ -5,7 +5,7 @@ export function FirstBanner() {
   return (
     <div className="mx-3 mt-5 grid grid-cols-12 gap-4">
       <div className="col-span-3 max-lg:col-span-6">
-        <Link href="/category/motorbike">
+        <Link href="/category/vehicles-spare-parts/motorbike">
           <Image
             width={500}
             height={500}
@@ -27,7 +27,7 @@ export function FirstBanner() {
         </Link>
       </div>
       <div className="col-span-3 max-lg:col-span-6">
-        <Link href="/search/detergent/softlan">
+        <Link href="/category/detergent/softlan">
           <Image
             width={500}
             height={500}
@@ -38,7 +38,7 @@ export function FirstBanner() {
         </Link>
       </div>
       <div className="col-span-3 max-lg:col-span-6">
-        <Link href="/search/skin-care/sunscreen-cream">
+        <Link href="/category/personal-appliance/skin-care/sunscreen-cream">
           <Image
             width={500}
             height={500}
@@ -56,7 +56,7 @@ export function MiddleBanner() {
   return (
     <div className="mx-3 mt-5 flex max-lg:flex-col gap-4">
       <div className="w-full">
-        <Link href="/search/personal-appliance/sanitary-pad">
+        <Link href="/category/personal-appliance/sanitary-pad">
           <Image
             width={500}
             height={500}
@@ -67,7 +67,7 @@ export function MiddleBanner() {
         </Link>
       </div>
       <div className="w-full">
-        <Link href="/search/home-appliance/hadron">
+        <Link href="/category/home-appliance/hadron">
           <Image
             width={500}
             height={500}

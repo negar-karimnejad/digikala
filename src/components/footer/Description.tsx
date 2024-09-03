@@ -69,7 +69,7 @@ export default function Description() {
           انواع گوشی موبایل از برندهای مختلفی مثل آیفون، &nbsp;
           <Link
             className="text-sky-500"
-            href="/search/mobile-brands/samsung"
+            href="/category/mobile/mobile-brands/samsung"
             target="_blank"
           >
             گوشی سامسونگ
@@ -77,7 +77,7 @@ export default function Description() {
           ،&nbsp;
           <Link
             className="text-sky-500"
-            href="/search/mobile-brands/nokia"
+            href="/category/mobile/mobile-brands/nokia"
             target="_blank"
           >
             گوشی نوکیا
@@ -85,7 +85,7 @@ export default function Description() {
           ،&nbsp;
           <Link
             className="text-sky-500"
-            href="/search/mobile-brands/xiaomi"
+            href="/category/mobile/mobile-brands/xiaomi"
             target="_blank"
           >
             گوشی شیائومی
@@ -93,7 +93,7 @@ export default function Description() {
           ،&nbsp;
           <Link
             className="text-sky-500"
-            href="/search/mobile-brands/huawei"
+            href="/category/mobile/mobile-brands/huawei"
             target="_blank"
           >
             گوشی هواوی
@@ -101,7 +101,7 @@ export default function Description() {
           ، و...، انواع کنسول بازی ps4 و ps5، انواع تبلت‌های پرطرفدار مثل&nbsp;
           <Link
             className="text-sky-500"
-            href="/search/tablet-brands/samsung"
+            href="/category/mobile/mobile-brands/samsung"
             target="_blank"
           >
             تبلت سامسونگ
@@ -109,26 +109,34 @@ export default function Description() {
           &nbsp;نوت 10، انواع هندزفری مثل&nbsp;
           <Link
             className="text-sky-500"
-            href="/search/headphone"
+            href="/category/electronic-devices/headphone"
             target="_blank"
           >
             هندزفری بی سیم
           </Link>
           ،&nbsp;
-          <Link className="text-sky-500" href="/search/tv" target="_blank">
+          <Link
+            className="text-sky-500"
+            href="/category/home-appliance/video-audio-entertainment/tv"
+            target="_blank"
+          >
             تلوزیون
           </Link>
           &nbsp;از برندهای مختلف مثل تلویزیون سامسونگ، سونی و...، انواع مانیتور،
           کیس، کیبورد، مودم از برندهای مختلف مثل&nbsp;
           <Link
             className="text-sky-500"
-            href="/search/3g-4g-and-5g-modem-Router/mtn-irancell"
+            href="/category/electronic-devices/modem"
             target="_blank"
           >
             مودم ایرانسل
           </Link>
           ،&nbsp;
-          <Link className="text-sky-500" href="/search/antenna" target="_blank">
+          <Link
+            className="text-sky-500"
+            href="/category/electronic-devices/antenna"
+            target="_blank"
+          >
             آنتن
           </Link>
           &nbsp;و ... تنها بخشی از محصولاتی هستند که زیر مجموعه کالای دیجیتال در
@@ -144,7 +152,7 @@ export default function Description() {
           لوازم مصرفی خودرو مثل&nbsp;
           <Link
             className="text-sky-500"
-            href="/search/car-coating/sana-3d"
+            href="/category/vehicles-spare-parts/car-coating/sana-3d"
             target="_blank"
           >
             کفپوش سانا
@@ -167,11 +175,19 @@ export default function Description() {
         <p>
           در این دسته از کالاهای دیجی‌کالا، انواع لوازم بهداشتی و حمام کودک و
           نوزاد، انواع پوشاک و کفش،&nbsp;
-          <Link className="text-sky-500" href="/search/tablet" target="_blank">
+          <Link
+            className="text-sky-500"
+            href="/category/electronic-devices/tablet"
+            target="_blank"
+          >
             تبلت
           </Link>
           ،&nbsp;
-          <Link className="text-sky-500" href="/search/toys" target="_blank">
+          <Link
+            className="text-sky-500"
+            href="/category/mother-and-child"
+            target="_blank"
+          >
             اسباب‌بازی
           </Link>
           ، لوازم اتاق خواب کودک، لوازم ایمنی، لوازم شخصی و غذا خوری و ... قرار
@@ -184,7 +200,7 @@ export default function Description() {
           هر چیزی از مواد خوراکی که به آن نیاز دارید، در&nbsp;
           <Link
             className="text-sky-500"
-            href="/search/food-beverage"
+            href="/category/category/food-beverage"
             target="_blank"
           >
             سوپرمارکت
@@ -192,7 +208,7 @@ export default function Description() {
           &nbsp;دیجی‌کالا پیدا می‌شود، محصولات پرطرفداری مثل&nbsp;
           <Link
             className="text-sky-500"
-            href="/search/food-beverage/peanut-butter"
+            href="/category/category/food-beverage/peanut-butter"
             target="_blank"
           >
             کره بادام‌زمینی
@@ -200,7 +216,7 @@ export default function Description() {
           ،&nbsp;
           <Link
             className="text-sky-500"
-            href="/search/food-beverage/honey"
+            href="/category/category/food-beverage/honey"
             target="_blank"
           >
             عسل
@@ -208,7 +224,7 @@ export default function Description() {
           ،&nbsp;
           <Link
             className="text-sky-500"
-            href="/search/food-beverage/sauce"
+            href="/category/category/food-beverage/sauce"
             target="_blank"
           >
             سس
@@ -216,7 +232,7 @@ export default function Description() {
           ،&nbsp;
           <Link
             className="text-sky-500"
-            href="/search/food-beverage/coffee"
+            href="/category/category/food-beverage/coffee"
             target="_blank"
           >
             قهوه
@@ -224,7 +240,7 @@ export default function Description() {
           ،&nbsp;
           <Link
             className="text-sky-500"
-            href="/search/food-beverage/saffron"
+            href="/category/category/food-beverage/saffron"
             target="_blank"
           >
             زعفران
@@ -232,7 +248,7 @@ export default function Description() {
           ، شکلات، انواع نان و ... از برندهای معتبر و معروفی مثل&nbsp;
           <Link
             className="text-sky-500"
-            href="/search/food-beverage/nestle"
+            href="/category/category/food-beverage/nestle"
             target="_blank"
           >
             نستله
@@ -249,7 +265,7 @@ export default function Description() {
           کرم،&nbsp;
           <Link
             className="text-sky-500"
-            href="/search/skin-care/face-masque"
+            href="/category/personal-appliance/skin-care/face-masque"
             target="_blank"
           >
             ماسک صورت
@@ -257,7 +273,7 @@ export default function Description() {
           ، ضد تعریق،&nbsp;
           <Link
             className="text-sky-500"
-            href="/search/hair-care/hair-mask"
+            href="/category/personal-appliance/hair-care/hair-mask"
             target="_blank"
           >
             ماسک مو
@@ -266,7 +282,7 @@ export default function Description() {
           انواع زیورآلات طلا و نقره مثل&nbsp;
           <Link
             className="text-sky-500"
-            href="/search/women-gold-jewelry/set"
+            href="/category/category/gold-jewelry/women-gold-jewelry/set"
             target="_blank"
           >
             سرویس طلا
