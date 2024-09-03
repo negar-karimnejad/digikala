@@ -38,6 +38,9 @@ export default function ProductsCard({
   const homeCategory = categories.find(
     (category) => category.title === "خانه و آشپزخانه"
   );
+  const apparelCategory = categories.find(
+    (category) => category.title === "مد و پوشاک"
+  );
 
   // First ProductCard=> Filter Products by Submenu
   const mobileProducts = products.filter(
@@ -65,6 +68,10 @@ export default function ProductsCard({
   );
   const homeProducts = products.filter(
     (product) => product.category._id.toString() === homeCategory._id.toString()
+  );
+  const apparelProducts = products.filter(
+    (product) =>
+      product.category._id.toString() === apparelCategory._id.toString()
   );
 
   const firstProductscard = [
@@ -98,18 +105,18 @@ export default function ProductsCard({
     },
     {
       title: "لپ تاپ و کالای دیجیتال",
-      href: "/category/mobile/mobile-accessories",
+      href: "/category/electronic-devices",
       products: electronicProducts,
     },
     {
-      title: "ابزار آشپزی و دکوراسیون",
-      href: "/category/mobile/wearable-gadget",
+      title: "خانه و آشپزخانه",
+      href: "/category/home-and-kitchen",
       products: homeProducts,
     },
     {
-      title: "لوازم تحریر",
-      href: "/category/book-and-media",
-      products: supermarketProducts,
+      title: "مد و پوشاک",
+      href: "/category/apparel",
+      products: apparelProducts,
     },
   ];
 

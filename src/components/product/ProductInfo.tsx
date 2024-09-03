@@ -6,10 +6,10 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { Check, ChevronLeft, Info, Sparkle, ThumbsUp } from "lucide-react";
-import { RefObject, useEffect, useState } from "react";
-import { Button } from "../ui/button";
 import { Color, Feature, Product } from "@/types/types";
+import { Check, ChevronLeft, Info, Sparkle, ThumbsUp } from "lucide-react";
+import { RefObject, useState } from "react";
+import { Button } from "../ui/button";
 
 export default function ProductInfo({
   product,
@@ -139,6 +139,7 @@ export default function ProductInfo({
             >
               <span
                 className="w-7 h-7 flex items-center justify-center rounded-full border"
+                title={item.name}
                 style={{
                   backgroundColor: item.hex,
                 }}

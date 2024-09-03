@@ -1,9 +1,10 @@
 "use server";
 
-import { productEditSchema, ProductSchema } from "@/lib/validation";
+import { ProductSchema } from "@/lib/validation";
 import { ProductImage } from "@/types/types";
 import connectToDB from "configs/db";
 import crypto from "crypto";
+import fs from "fs/promises";
 import ColorModel from "models/Color";
 import FeatureModel from "models/Feature";
 import ImageModel from "models/Image";
@@ -11,11 +12,6 @@ import ProductModel from "models/Product";
 import { revalidatePath } from "next/cache";
 import { notFound, redirect } from "next/navigation";
 import path from "path";
-import { promisify } from "util";
-import { promises as fs, unlink, writeFile } from "fs";
-
-const unlinkAsync = promisify(unlink);
-const writeFileAsync = promisify(writeFile);
 
 export async function addProduct(_state: any, formData: FormData) {
   await connectToDB();
@@ -157,7 +153,7 @@ export async function updateProduct(_state: any, formData: FormData) {
   const entries = Object.fromEntries(formData.entries());
   const featureArray = JSON.parse(entries.features as string);
   const colorArray = JSON.parse(entries.colors as string);
-  
+
   const parsedEntries = {
     ...entries,
     rating: Number(entries.rating),

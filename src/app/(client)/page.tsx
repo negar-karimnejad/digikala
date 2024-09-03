@@ -17,12 +17,12 @@ import Services from "@/components/home/Services";
 import StorySlider from "@/components/home/StorySlider";
 import FloatingSupermarketButton from "@/components/ui/FloatingSupermarketButton";
 import FloatingSupportButton from "@/components/ui/FloatingSupportButton";
-import connectToDB from "configs/db";
-import StoryModel from "models/Story";
-import ProductModel from "models/Product";
-import CategoryModel from "models/Category";
-import SubmenuModel from "models/Submenu";
 import { serializeDoc } from "@/utils/serializeDoc";
+import connectToDB from "configs/db";
+import CategoryModel from "models/Category";
+import ProductModel from "models/Product";
+import StoryModel from "models/Story";
+import SubmenuModel from "models/Submenu";
 
 export default async function Home() {
   connectToDB();
@@ -48,6 +48,7 @@ export default async function Home() {
   const serializedStories = serializeDoc(stories);
   const serializedCategories = serializeDoc(categories);
   const serializedProducts = serializeDoc(products);
+  const serializedSubmenus = serializeDoc(submenus);
 
   return (
     <>
@@ -65,7 +66,7 @@ export default async function Home() {
         cardNum={"first"}
         products={serializedProducts}
         categories={serializedCategories}
-        submenus={submenus}
+        submenus={serializedSubmenus}
       />
       <Digiclub />
       <Bestseller products={serializedProducts} title="پرفروش‌ترین کالاها" />
@@ -73,7 +74,7 @@ export default async function Home() {
         cardNum={"last"}
         products={serializedProducts}
         categories={serializedCategories}
-        submenus={submenus}
+        submenus={serializedSubmenus}
       />
       <div className="bg-[url('/banner/hotdog-banner.webp')] bg-cover bg-left bg-no-repeat h-40 rounded-2xl mx-3 my-5"></div>
       <SelectedProducts products={serializedProducts} />

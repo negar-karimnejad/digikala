@@ -1,11 +1,11 @@
 "use server";
 
-import StoryModel from "models/Story";
 import { StorySchema } from "@/lib/validation";
+import connectToDB from "configs/db";
 import fs from "fs/promises";
+import StoryModel from "models/Story";
 import { revalidatePath } from "next/cache";
 import { notFound, redirect } from "next/navigation";
-import connectToDB from "configs/db";
 
 export async function addStory(state, formData: FormData) {
   connectToDB();
