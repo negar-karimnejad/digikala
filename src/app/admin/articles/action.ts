@@ -64,6 +64,7 @@ export async function addArticle(_state, formData: FormData) {
     readingTime: data.readingTime,
     publishedAt: new Date(),
     cover: coverPath,
+    comment: [],
   });
 
   revalidatePath("/");

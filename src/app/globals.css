@@ -6,6 +6,10 @@
   font-family: "irsansb";
   src: url("../fonts/IranianSansB.ttf");
 }
+@font-face {
+  font-family: "irsans";
+  src: url("../fonts/IranianSans.ttf");
+}
 
 @layer base {
   :root {

@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+require("./ArticleComment");
 
 const schema = new mongoose.Schema({
   title: {
@@ -40,10 +41,12 @@ const schema = new mongoose.Schema({
     type: String,
   },
 
-  comment: {
-    type: mongoose.Types.ObjectId,
-    ref: "ArticleComment",
-  },
+  comment: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "ArticleComment",
+    },
+  ],
 });
 
 const model = mongoose.models.Article || mongoose.model("Article", schema);

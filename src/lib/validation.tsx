@@ -147,17 +147,6 @@ export const StorySchema = z.object({
   post: imageSchema.refine((file) => file.size > 0, "Required"),
 });
 
-export const ArticleSchema = z.object({
-  title: z.string(),
-  content: z.string(),
-  author: z.string(),
-  publishedAt: z.date().optional(),
-  tags: z.array(z.string()),
-  source: z.string(),
-  readingTime: z.string(),
-  cover: imageSchema.refine((file) => file.size > 0, "Required"),
-});
-
 export const ArticleCommentSchema = z.object({
   author: z.string(),
   date: z.date(), // Date must be a valid Date object
@@ -167,4 +156,16 @@ export const ArticleCommentSchema = z.object({
     .min(1, "Content cannot be empty")
     .max(2000, "Content must be less than 2000 characters long"), // Ensure valid length
   articleId: z.string().nonempty("Article ID is required"), // Ensure article ID is not empty
+});
+
+export const ArticleSchema = z.object({
+  title: z.string(),
+  content: z.string(),
+  author: z.string(),
+  publishedAt: z.date().optional(),
+  tags: z.array(z.string()),
+  source: z.string(),
+  readingTime: z.string(),
+  cover: imageSchema.refine((file) => file.size > 0, "Required"),
+  comment: z.array(ArticleCommentSchema).optional(),
 });

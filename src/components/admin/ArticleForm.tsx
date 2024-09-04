@@ -224,6 +224,7 @@ export default function ArticleForm({ article }: { article?: Article }) {
           ],
           toolbar:
             "undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat",
+          font_family_formats: "irsans",
           tinycomments_mode: "embedded",
           tinycomments_author: "Author name",
           mergetags_list: [

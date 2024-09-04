@@ -46,17 +46,7 @@ export default async function ArticlePage({
         </span>
       </div>
 
-      <div className="mb-6">
-        <Image
-          src={article.cover}
-          alt={article.title}
-          width={800}
-          height={400}
-          className="object-cover rounded-lg"
-        />
-      </div>
-
-      <div className="prose prose-lg dark:prose-invert max-w-none">
+      <div className="w-[58%] font-irsansb prose prose-lg dark:prose-invert max-w-none">
         {parse(article.content)} {/* Render content with base64 images */}
       </div>
 
