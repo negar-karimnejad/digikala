@@ -41,9 +41,9 @@ const sidebarMenu = [
     href: "/admin/categories/submenu-Item",
   },
 
+  { label: "مقالات", icon: <Newspaper />, href: "/admin/articles" },
   { label: "داستان ها", icon: <CircleFadingPlus />, href: "/admin/stories" },
   { label: "کاربران", icon: <Users2 />, href: "/admin/users" },
-  { label: "مقالات", icon: <Newspaper />, href: "/admin/articles" },
 ];
 
 export default function SidebarList({

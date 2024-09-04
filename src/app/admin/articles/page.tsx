@@ -4,15 +4,18 @@ import { serializeDoc } from "@/utils/serializeDoc";
 import connectToDB from "configs/db";
 import ArticleModel from "models/Article";
 
+export default function AdminArticlesPage() {
+  return <ArticleTable />;
+}
 
-export default async function AdminArticlesPage() {
+async function ArticleTable() {
   connectToDB();
   const articles = await ArticleModel.find({}).lean();
   const serializedArticles = serializeDoc(articles);
 
   return (
     <>
-      <PageHeader title="مقالات" />
+      <PageHeader href="/admin/articles/new" title="مقالات" />
       {articles.length ? (
         <AdminTable articles={serializedArticles} />
       ) : (

@@ -2,13 +2,14 @@
 
 import { addCategory, updateCategory } from "@/app/admin/categories/action";
 import { Button } from "@/components/ui/button";
+import { Category } from "@/types/types";
 import { UploadCloud } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useFormState, useFormStatus } from "react-dom";
 import toast from "react-hot-toast";
 
-export default function CategoryForm({ category }: { category? }) {
+export default function CategoryForm({ category }: { category?: Category }) {
   const [iconFile, setIconFile] = useState<File | null>(null);
   const [coverFile, setCoverFile] = useState<File | null>(null);
 
@@ -34,7 +35,7 @@ export default function CategoryForm({ category }: { category? }) {
     const formData = new FormData(event.currentTarget);
 
     if (category != null) {
-      formData.append("_id", category._id);
+      formData.append("_id", category._id.toString());
     } else {
       formData.append("_id", crypto.randomUUID());
     }
@@ -122,7 +123,7 @@ export default function CategoryForm({ category }: { category? }) {
           </label>
           {category != null && (
             <Image
-              src={category.cover}
+              src={category.cover[0]}
               height={70}
               width={70}
               alt="Product Image"

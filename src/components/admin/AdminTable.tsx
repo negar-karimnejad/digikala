@@ -24,6 +24,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import {
+  Article,
   Category,
   Product,
   Story,
@@ -51,7 +52,7 @@ export default function AdminTable({
   submenus?: Submenu[];
   submenuItems?: SubmenuItem[];
   stories?: Story[];
-  articles?;
+  articles?: Article[];
 }) {
   return (
     <div>
@@ -104,6 +105,18 @@ export default function AdminTable({
               <TableHead className="text-right">نام</TableHead>
               <TableHead className="text-right">کاور</TableHead>
               <TableHead className="text-right">تصویر</TableHead>
+              <TableHead className="text-right"></TableHead>
+            </TableRow>
+          )}
+          {articles && (
+            <TableRow>
+              <TableHead className="text-right">کاور</TableHead>
+              <TableHead className="text-right">عنوان</TableHead>
+              <TableHead className="text-right">نویسنده</TableHead>
+              <TableHead className="text-right">منبع</TableHead>
+              <TableHead className="text-right whitespace-nowrap">
+                زمان مطالعه
+              </TableHead>
               <TableHead className="text-right"></TableHead>
             </TableRow>
           )}
@@ -376,6 +389,49 @@ export default function AdminTable({
                       </DropdownMenuTrigger>
                       <DropdownMenuContent>
                         <DeleteDropdownItem storyId={story._id} />
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                  </Dialog>
+                </TableCell>
+              </TableRow>
+            ))}
+          {articles &&
+            articles.map((article) => (
+              <TableRow key={article._id.toString()}>
+                <TableCell>
+                  <div className="w-20">
+                    <Image
+                      alt={article.title}
+                      height={100}
+                      width={100}
+                      className="w-16 h-16 object-cover"
+                      src={article.cover}
+                    />
+                  </div>
+                </TableCell>
+                <TableCell>
+                  <p className="whitespace-nowrap">{article.title}</p>
+                </TableCell>
+                <TableCell>
+                  <p className="whitespace-nowrap">{article.author}</p>
+                </TableCell>
+                <TableCell>
+                  <p className="whitespace-nowrap">{article.source}</p>
+                </TableCell>
+                <TableCell>
+                  <p className="whitespace-nowrap">
+                    {article.readingTime} دقیقه
+                  </p>
+                </TableCell>
+                <TableCell>
+                  <Dialog>
+                    <DropdownMenu>
+                      <DropdownMenuTrigger>
+                        <MoreVertical />
+                        <span className="sr-only">Actions</span>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent>
+                        <DeleteDropdownItem articleId={article._id.toString()} />
                       </DropdownMenuContent>
                     </DropdownMenu>
                   </Dialog>

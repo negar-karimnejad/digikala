@@ -142,8 +142,30 @@ export const categoryEditSchema = CategorySchema.extend({
 });
 
 export const StorySchema = z.object({
-  // _id: z.string(),
   title: z.string().min(5, { message: "لطفا عنوان داستان را وارد نمایید" }),
   cover: imageSchema.refine((file) => file.size > 0, "Required"),
   post: imageSchema.refine((file) => file.size > 0, "Required"),
+});
+
+export const ArticleSchema = z.object({
+  title: z.string(),
+  content: z.string(),
+  author: z.string(),
+  publishedAt: z.date().optional(),
+  tags: z.array(z.string()),
+  source: z.string(),
+  readingTime: z.string(),
+  cover: imageSchema.refine((file) => file.size > 0, "Required"),
+  // images: z.array(ImagesSchema).optional(),
+});
+
+export const ArticleCommentSchema = z.object({
+  author: z.string(),
+  date: z.date(), // Date must be a valid Date object
+  likes: z.number().nonnegative("Likes cannot be negative"), // Ensure likes is not negative
+  content: z
+    .string()
+    .min(1, "Content cannot be empty")
+    .max(2000, "Content must be less than 2000 characters long"), // Ensure valid length
+  articleId: z.string().nonempty("Article ID is required"), // Ensure article ID is not empty
 });

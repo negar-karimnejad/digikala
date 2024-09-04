@@ -1,3 +1,4 @@
+import Articles from "@/components/home/Articles";
 import {
   FirstBanner,
   LastBanner,
@@ -8,7 +9,6 @@ import Brands from "@/components/home/Brands";
 import CategoriesPage from "@/components/home/CategoriesPage";
 import Digiclub from "@/components/home/Digiclub";
 import Hero from "@/components/home/Hero";
-import Articles from "@/components/home/Articles";
 import MarketOffers from "@/components/home/MarketOffers";
 import Offers from "@/components/home/Offers";
 import ProductsCard from "@/components/home/ProductsCard";
@@ -19,6 +19,7 @@ import FloatingSupermarketButton from "@/components/ui/FloatingSupermarketButton
 import FloatingSupportButton from "@/components/ui/FloatingSupportButton";
 import { serializeDoc } from "@/utils/serializeDoc";
 import connectToDB from "configs/db";
+import ArticleModel from "models/Article";
 import CategoryModel from "models/Category";
 import ProductModel from "models/Product";
 import StoryModel from "models/Story";
@@ -26,6 +27,7 @@ import SubmenuModel from "models/Submenu";
 
 export default async function Home() {
   connectToDB();
+  const articles = await ArticleModel.find({}).lean();
   const stories = await StoryModel.find({}).lean();
   const categories = await CategoryModel.find({}).lean();
   const submenus = await SubmenuModel.find({}).lean();
@@ -49,6 +51,7 @@ export default async function Home() {
   const serializedCategories = serializeDoc(categories);
   const serializedProducts = serializeDoc(products);
   const serializedSubmenus = serializeDoc(submenus);
+  const serializedArticles = serializeDoc(articles);
 
   return (
     <>
@@ -82,7 +85,7 @@ export default async function Home() {
         products={serializedProducts}
         title="داغ ترین چند ساعت گذشته"
       />
-      <Articles />
+      <Articles articles={serializedArticles} />
       <FloatingSupportButton />
       <FloatingSupermarketButton />
     </>

@@ -129,3 +129,14 @@ export interface Order {
   productId: ObjectId;
   userId: ObjectId;
 }
+export interface Article {
+  _id: ObjectId;
+  title: string;
+  content: string;
+  author: string;
+  publishedAt: Date;
+  tags: string[];
+  source: string;
+  readingTime: string;
+  cover: string;
+}
