@@ -159,6 +159,7 @@ export const ArticleCommentSchema = z.object({
 });
 
 export const ArticleSchema = z.object({
+  _id: z.string(),
   title: z.string(),
   content: z.string(),
   author: z.string(),

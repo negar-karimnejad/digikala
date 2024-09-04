@@ -431,7 +431,18 @@ export default function AdminTable({
                         <span className="sr-only">Actions</span>
                       </DropdownMenuTrigger>
                       <DropdownMenuContent>
-                        <DeleteDropdownItem articleId={article._id.toString()} />
+                        <DropdownMenuItem asChild>
+                          <Link
+                            className="flex w-full justify-end items-center"
+                            href={`/admin/articles/${article._id}/edit`}
+                          >
+                            ویرایش
+                            <Edit2 size={15} className="text-gray-400 mx-4" />
+                          </Link>
+                        </DropdownMenuItem>
+                        <DeleteDropdownItem
+                          articleId={article._id.toString()}
+                        />
                       </DropdownMenuContent>
                     </DropdownMenu>
                   </Dialog>

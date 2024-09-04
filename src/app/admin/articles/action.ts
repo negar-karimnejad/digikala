@@ -73,59 +73,75 @@ export async function addArticle(_state, formData: FormData) {
   redirect("/admin/articles");
 }
 
-export async function updateArticle(state: any, formData: FormData) {
+export async function updateArticle(_state, formData: FormData) {
   connectToDB();
+  const entries = Object.fromEntries(formData.entries());
 
-  const result = categoryEditSchema.safeParse(
-    Object.fromEntries(formData.entries())
-  );
+  // Parse tags if they are sent as a string
+  if (typeof entries.tags === "string") {
+    try {
+      entries.tags = JSON.parse(entries.tags);
+    } catch (error) {
+      console.error("Failed to parse tags:", error);
+      return { tags: ["Invalid tags format"] };
+    }
+  }
+
+  const result = ArticleSchema.safeParse(entries);
 
   if (result.success === false) {
+    console.log("❌ Validation errors:", result.error.formErrors.fieldErrors);
     return result.error.formErrors.fieldErrors;
   }
 
   const data = result.data;
-  const category = await CategoryModel.findOne({ _id: data._id });
-  if (category == null) return notFound();
+  const articleId = data._id;
 
-  let coverPath = category.cover;
-  let iconPath = category.icon;
+  // Find the existing article by ID
+  const article = await ArticleModel.findById(articleId);
+  if (!article) {
+    notFound();
+    return;
+  }
 
-  if (data.cover != null && data.cover.size > 0) {
-    await unlinkAsync(`public${category.cover}`);
-    coverPath = `/categories/${crypto.randomUUID()}-${data.cover.name}`;
+  let coverPath = article.cover;
+
+  // Check if a new cover image is provided and update it
+  if (data.cover) {
+    // Remove the old cover image if it exists
+    if (coverPath) {
+      try {
+        await unlinkAsync(path.join(process.cwd(), "public", coverPath));
+      } catch (error) {
+        console.error("Failed to remove old cover:", error);
+      }
+    }
+
+    // Save the new cover image
+    coverPath = `/articles/${crypto.randomUUID()}-${data.cover.name}`;
     await writeFileAsync(
-      `public${coverPath}`,
+      path.join(process.cwd(), "public", coverPath),
       Buffer.from(await data.cover.arrayBuffer())
     );
   }
 
-  if (data.icon != null && data.icon.size > 0) {
-    await unlinkAsync(`public${category.icon}`);
-    iconPath = `/categories/${crypto.randomUUID()}-${data.icon.name}`;
-    await writeFileAsync(
-      `public${iconPath}`,
-      Buffer.from(await data.icon.arrayBuffer())
-    );
-  }
-
-  await CategoryModel.findOneAndUpdate(
-    { _id: data._id },
-    {
-      $set: {
-        title: data.title,
-        href: data.href,
-        cover: coverPath,
-        icon: iconPath,
-      },
-    },
-    { new: true }
-  );
+  // Update the article in the database
+  await ArticleModel.findByIdAndUpdate(articleId, {
+    title: data.title,
+    content: data.content,
+    author: data.author,
+    tags: data.tags,
+    source: data.source,
+    readingTime: data.readingTime,
+    publishedAt: data.publishedAt || article.publishedAt, // Preserve original published date if not changed
+    cover: coverPath,
+    comment: article.comment, // Keep existing comments
+  });
 
   revalidatePath("/");
-  revalidatePath("/categories");
+  revalidatePath("/articles");
 
-  redirect("/admin/categories");
+  redirect("/admin/articles");
 }
 
 export async function deleteArticle(id: string) {
