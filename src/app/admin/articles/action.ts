@@ -55,7 +55,7 @@ export async function addArticle(_state, formData: FormData) {
   );
 
   // Save category to the database
-  const newArticle = await ArticleModel.create({
+  await ArticleModel.create({
     title: data.title,
     content: data.content,
     author: data.author,
@@ -65,7 +65,6 @@ export async function addArticle(_state, formData: FormData) {
     publishedAt: new Date(),
     cover: coverPath,
   });
-console.log("👒👒",newArticle);
 
   revalidatePath("/");
   revalidatePath("/articles");

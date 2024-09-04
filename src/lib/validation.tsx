@@ -156,7 +156,6 @@ export const ArticleSchema = z.object({
   source: z.string(),
   readingTime: z.string(),
   cover: imageSchema.refine((file) => file.size > 0, "Required"),
-  // images: z.array(ImagesSchema).optional(),
 });
 
 export const ArticleCommentSchema = z.object({

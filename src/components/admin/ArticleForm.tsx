@@ -3,6 +3,7 @@
 import { addArticle, updateArticle } from "@/app/admin/articles/action";
 import { Button } from "@/components/ui/button";
 import { Article } from "@/types/types";
+import { Editor } from "@tinymce/tinymce-react";
 import { UploadCloud } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
@@ -13,6 +14,7 @@ import TagInput from "./TagInput";
 export default function ArticleForm({ article }: { article?: Article }) {
   const [coverFile, setCoverFile] = useState<File | null>(null);
   const [tags, setTags] = useState<string[]>(article?.tags || []);
+  const [content, setContent] = useState(article?.content || "");
 
   const [state, formAction] = useFormState(
     article == null ? addArticle : updateArticle,
@@ -32,6 +34,7 @@ export default function ArticleForm({ article }: { article?: Article }) {
     const formData = new FormData(event.currentTarget);
     // formData.append("publishedAt", default);
     formData.append("tags", JSON.stringify(tags));
+    formData.append("content", content);
 
     if (article != null) {
       formData.append("_id", article._id.toString());
@@ -158,7 +161,7 @@ export default function ArticleForm({ article }: { article?: Article }) {
         )}
       </div>
 
-      <div className="relative h-52">
+      {/* <div className="relative h-52">
         <textarea
           id="content"
           name="content"
@@ -176,7 +179,66 @@ export default function ArticleForm({ article }: { article?: Article }) {
         >
           متن مقاله
         </label>
-      </div>
+      </div> */}
+      <Editor
+        apiKey="z4oggj2jao6jpwd2i1afqow6yf3y09e06py00hn40e75tpks"
+        init={{
+          plugins: [
+            "anchor",
+            "autolink",
+            "charmap",
+            "codesample",
+            "emoticons",
+            "image",
+            "link",
+            "lists",
+            "media",
+            "searchreplace",
+            "table",
+            "visualblocks",
+            "wordcount",
+            "checklist",
+            "mediaembed",
+            "casechange",
+            "export",
+            "formatpainter",
+            "pageembed",
+            "a11ychecker",
+            "tinymcespellchecker",
+            "permanentpen",
+            "powerpaste",
+            "advtable",
+            "advcode",
+            "editimage",
+            "advtemplate",
+            "ai",
+            "mentions",
+            "tinycomments",
+            "tableofcontents",
+            "footnotes",
+            "mergetags",
+            "autocorrect",
+            "typography",
+            "inlinecss",
+            "markdown",
+          ],
+          toolbar:
+            "undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat",
+          tinycomments_mode: "embedded",
+          tinycomments_author: "Author name",
+          mergetags_list: [
+            { value: "First.Name", title: "First Name" },
+            { value: "Email", title: "Email" },
+          ],
+          ai_request: (request, respondWith) =>
+            respondWith.string(() =>
+              Promise.reject("See docs to implement AI Assistant")
+            ),
+        }}
+        initialValue={content}
+        onEditorChange={(newContent) => setContent(newContent)}
+      />
+
       <div className="flex flex-col gap-3 justify-between mt-5">
         <div className="flex items-center justify-between gap-2">
           <label

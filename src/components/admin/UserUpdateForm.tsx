@@ -1,6 +1,5 @@
 "use client";
 
-import { updateUser } from "@/app/admin/users/action";
 import {
   Select,
   SelectContent,
@@ -9,17 +8,14 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { roles } from "@/utils/constants";
 import Image from "next/image";
 import { useState } from "react";
-import { useFormState, useFormStatus } from "react-dom";
-import toast from "react-hot-toast";
+import { useFormStatus } from "react-dom";
 import { Button } from "../ui/button";
-
 
 export default function UserUpdateForm({ user }) {
   // const [state, formAction] = useFormState(updateUser,{});
-  const [role, setRole] = useState(user.role || roles.USER);
+  const [role, setRole] = useState(user.role || "USER");
   const [file, setFile] = useState<File | null>(null);
 
   const handleAvatarChange = (e: React.ChangeEvent<HTMLInputElement>) => {

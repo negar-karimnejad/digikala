@@ -1,5 +1,7 @@
 import { Article } from "@/types/types";
+import { formatDateToPersian } from "@/utils/PersianFormatter ";
 import connectToDB from "configs/db";
+import parse from "html-react-parser";
 import { Clock, Timer } from "lucide-react";
 import ArticleModel from "models/Article";
 import Image from "next/image";
@@ -10,7 +12,6 @@ export default async function ArticlePage({
   params: { id: string };
 }) {
   connectToDB();
-
   const article: Article = await ArticleModel.findOne({ _id: id });
 
   if (!article) {
@@ -25,7 +26,7 @@ export default async function ArticlePage({
         {article.title}
       </h1>
       <div className="text-sm text-neutral-600 mb-4 w-1/2 flex itece justify-between">
-        <div className="flex items-center gap-4 text-neutral-700">
+        <div className="flex items-center gap-4 text-neutral-600">
           <Image
             alt="default_author_profile"
             width={40}
@@ -35,11 +36,11 @@ export default async function ArticlePage({
           />
           {article.author}
         </div>
-        <span className="flex items-center text-neutral-400 gap-2">
+        <span className="flex items-center text-neutral-400 gap-1">
           <Clock size={14} />
-          {article.publishedAt.getDate()}
+          {formatDateToPersian(new Date(article.publishedAt))}
         </span>
-        <span className="text-neutral-400 flex items-center gap-2">
+        <span className="text-neutral-400 flex items-center gap-1">
           زمان مورد نیاز برای مطالعه: {article.readingTime} دقیقه
           <Timer size={14} />
         </span>
@@ -56,7 +57,7 @@ export default async function ArticlePage({
       </div>
 
       <div className="prose prose-lg dark:prose-invert max-w-none">
-        <p>{article.content}</p>
+        {parse(article.content)} {/* Render content with base64 images */}
       </div>
 
       <div className="mt-6 text-blue-600 hover:underline">

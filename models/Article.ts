@@ -32,10 +32,6 @@ const schema = new mongoose.Schema({
     required: true,
   },
 
-  images: {
-    type: [String],
-  },
-
   readingTime: {
     type: String,
   },

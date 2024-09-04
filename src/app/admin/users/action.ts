@@ -7,7 +7,6 @@ import {
 } from "@/lib/validation";
 import { LoginFormState, RegisterFormState } from "@/types/types";
 import { generateAccessToken, generateRefreshToken } from "@/utils/auth";
-import { roles } from "@/utils/constants";
 import bcrypt, { compare } from "bcryptjs";
 import connectToDB from "configs/db";
 import fs from "fs/promises";
@@ -60,7 +59,7 @@ export async function signup(
       email,
       phone,
       password: hashedPassword,
-      role: users.length > 0 ? roles.USER : roles.ADMIN,
+      role: users.length > 0 ? "USER" : "ADMIN",
     });
 
     cookies().set("token", accessToken, {
