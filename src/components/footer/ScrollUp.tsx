@@ -1,19 +1,48 @@
 "use client";
 
 import { ChevronUp } from "lucide-react";
+import { useEffect, useState } from "react";
 
-export default function ScrollUp() {
+export default function ScrollUp({
+  children,
+  title,
+  className,
+}: {
+  children?: React.ReactNode;
+  title?: string;
+  className?: string;
+}) {
   const scrollUp = () => {
     window.scrollTo(0, 0);
   };
+  const [showScrollUp, setShowScrollUp] = useState(false);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 500) {
+        setShowScrollUp(true);
+      } else {
+        setShowScrollUp(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
   return (
-    <button
-      onClick={scrollUp}
-      className="max-lg:text-sky-500 gap-3 max-lg:mx-auto lg:border rounded-md flex items-center px-5 py-3 text-gray-400 dark:text-gray-200 text-xs"
-    >
-      بازگشت به بالا
-      <ChevronUp size={18} />
-    </button>
+    <>
+      <button
+        className={`transition-all duration-700 ${className} ${
+          showScrollUp ? "opacity-100" : "opacity-0"
+        }`}
+        onClick={scrollUp}
+      >
+        {title}
+        {children ? children : <ChevronUp size={18} />}
+      </button>
+    </>
   );
 }

@@ -32,7 +32,6 @@ export default function ArticleForm({ article }: { article?: Article }) {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
-    // formData.append("publishedAt", default);
     formData.append("tags", JSON.stringify(tags));
     formData.append("content", content);
 
@@ -259,7 +258,7 @@ export default function ArticleForm({ article }: { article?: Article }) {
           </label>
           {article != null && (
             <Image
-              src={article.cover[0]}
+              src={article.cover}
               height={70}
               width={70}
               alt="Product Image"

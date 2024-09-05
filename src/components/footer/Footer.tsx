@@ -1,4 +1,5 @@
 import { partners } from "@/data/data";
+import { authUser } from "@/utils/auth";
 import { Headset } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -8,7 +9,6 @@ import FooterFaq from "./FooterFaq";
 import FooterLinks from "./FooterLinks";
 import MobileSizeApp from "./MobileSizeApp";
 import ScrollUp from "./ScrollUp";
-import { authUser } from "@/utils/auth";
 
 export default async function Footer() {
   const user = await authUser();
@@ -31,7 +31,12 @@ export default async function Footer() {
               fill="#EF394E"
             />
           </svg>
-          <ScrollUp />
+          <div className="max-lg:text-sky-500 max-lg:mx-auto lg:border rounded-md px-5 py-3 text-gray-400 dark:text-gray-200 text-xs">
+            <ScrollUp
+              className="flex items-center gap-3"
+              title="بازگشت به بالا"
+            />
+          </div>
         </div>
         <div className="max-lg:hidden flex gap-5 text-xs text-gray-700 dark:text-gray-200 mt-5">
           <span>تلفن پشتیبانی ۶۱۹۳۰۰۰۰ - ۰۲۱</span>
