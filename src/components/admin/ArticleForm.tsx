@@ -160,25 +160,6 @@ export default function ArticleForm({ article }: { article?: Article }) {
         )}
       </div>
 
-      {/* <div className="relative h-52">
-        <textarea
-          id="content"
-          name="content"
-          rows={8}
-          placeholder=""
-          defaultValue={article?.content || ""}
-          className="peer block w-full appearance-none rounded-t-lg border-0 border-b-2 border-gray-300 bg-gray-50 px-2.5 pb-2.5 pt-5 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0 dark:border-gray-600 dark:bg-gray-900 dark:text-white dark:focus:border-blue-500"
-        />
-        {state.errors?.content && (
-          <div className="text-red-600 text-xs">{state.errors?.content}</div>
-        )}
-        <label
-          htmlFor="content"
-          className="absolute right-3 top-2 text-gray-500 text-sm duration-300 transform -translate-y-4 scale-75 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:text-blue-600 dark:text-gray-400 dark:peer-focus:text-blue-500"
-        >
-          متن مقاله
-        </label>
-      </div> */}
       <Editor
         apiKey={process.env.NEXT_PUBLIC_TINYMCE_KEY}
         init={{
