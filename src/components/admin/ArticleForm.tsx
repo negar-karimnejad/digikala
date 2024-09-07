@@ -180,7 +180,7 @@ export default function ArticleForm({ article }: { article?: Article }) {
         </label>
       </div> */}
       <Editor
-        apiKey="z4oggj2jao6jpwd2i1afqow6yf3y09e06py00hn40e75tpks"
+        apiKey={process.env.NEXT_PUBLIC_TINYMCE_KEY}
         init={{
           plugins: [
             "anchor",
