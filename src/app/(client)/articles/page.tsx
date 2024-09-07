@@ -1,7 +1,17 @@
-import React from 'react'
+import { Article } from "@/types/types";
+import connectToDB from "configs/db";
+import ArticleModel from "models/Article";
 
-export default function ArticlesPage() {
+export default async function ArticlesPage() {
+  connectToDB();
+  const articles: Article[] = await ArticleModel.find({});
   return (
-    <div>ArticlesPage</div>
-  )
+    <div>
+      {articles.map((article) => (
+        <div key={article._id.toString()}>
+          <p>{article.title}</p>
+        </div>
+      ))}
+    </div>
+  );
 }
