@@ -36,3 +36,10 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+
+
+
+
+
+#  mongorestore --uri "mongodb+srv://negarkarimnjd:SvA79bkKsnLWtkPF@cluster0.euxs9.mongodb.net/" ./backup
