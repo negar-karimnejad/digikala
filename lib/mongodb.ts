@@ -1,6 +1,7 @@
 import { MongoClient, MongoClientOptions } from "mongodb";
 
 const uri = process.env.MONGODB_URI;
+
 const options: MongoClientOptions = {
   serverSelectionTimeoutMS: 20000,
   connectTimeoutMS: 20000,
@@ -33,6 +34,6 @@ export default async function connectToDB() {
     return { mongoClient, database };
   } catch (e) {
     console.error(e);
-    throw e; // Make sure to throw the error after logging it
+    throw e; 
   }
 }
