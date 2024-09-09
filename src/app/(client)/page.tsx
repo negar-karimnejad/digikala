@@ -18,12 +18,12 @@ import StorySlider from "@/components/home/StorySlider";
 import FloatingSupermarketButton from "@/components/ui/FloatingSupermarketButton";
 import FloatingSupportButton from "@/components/ui/FloatingSupportButton";
 import { serializeDoc } from "@/utils/serializeDoc";
-import connectToDB from "configs/db";
 import ArticleModel from "models/Article";
 import CategoryModel from "models/Category";
 import ProductModel from "models/Product";
 import StoryModel from "models/Story";
 import SubmenuModel from "models/Submenu";
+import connectToDB from "../api/lib/mongodb";
 
 export default async function Home() {
   connectToDB();

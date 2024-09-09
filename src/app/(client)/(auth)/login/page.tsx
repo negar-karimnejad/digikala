@@ -1,13 +1,13 @@
 "use client";
 
 import { signin } from "@/app/admin/users/action";
+import connectToDB from "@/app/api/lib/mongodb";
 import Logo from "@/components/Logo";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { LoginSchema, LoginSchemaType } from "@/lib/validation";
 import { LoginFormState } from "@/types/types";
 import { authUser } from "@/utils/auth";
-import connectToDB from "configs/db";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";

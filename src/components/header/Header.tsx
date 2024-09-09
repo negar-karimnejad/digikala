@@ -1,9 +1,9 @@
 import { authUser } from "@/utils/auth";
 import { serializeDoc } from "@/utils/serializeDoc";
-import connectToDB from "configs/db";
 import CategoryModel from "models/Category";
 import Navbar from "./Navbar";
 import Topbar from "./Topbar";
+import connectToDB from "@/app/api/lib/mongodb";
 
 export default async function Header() {
   connectToDB();

@@ -1,8 +1,8 @@
 "use server";
 
+import connectToDB from "@/app/api/lib/mongodb";
 import { ProductSchema } from "@/lib/validation";
 import { ProductImage } from "@/types/types";
-import connectToDB from "configs/db";
 import crypto from "crypto";
 import fs from "fs/promises";
 import ColorModel from "models/Color";

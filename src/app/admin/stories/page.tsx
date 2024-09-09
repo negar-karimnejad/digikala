@@ -1,7 +1,7 @@
+import connectToDB from "@/app/api/lib/mongodb";
 import AdminTable from "@/components/admin/AdminTable";
 import PageHeader from "@/components/admin/PageHeader";
 import { serializeDoc } from "@/utils/serializeDoc";
-import connectToDB from "configs/db";
 import StoryModel from "models/Story";
 
 export default function StoriesPage() {
@@ -10,7 +10,7 @@ export default function StoriesPage() {
 
 async function StoriesTable() {
   connectToDB();
-  const stories = await StoryModel.find({}).lean()
+  const stories = await StoryModel.find({}).lean();
   const serializedStories = serializeDoc(stories);
 
   return (

@@ -1,7 +1,7 @@
+import connectToDB from "@/app/api/lib/mongodb";
 import AdminTable from "@/components/admin/AdminTable";
 import PageHeader from "@/components/admin/PageHeader";
 import { serializeDoc } from "@/utils/serializeDoc";
-import connectToDB from "configs/db";
 import SubmenuItemModel from "models/SubmenuItem";
 
 export default function SubmenuItemPage() {

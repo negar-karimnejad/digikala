@@ -1,12 +1,12 @@
 "use server";
 
+import connectToDB from "@/app/api/lib/mongodb";
 import {
   categoryEditSchema,
   CategorySchema,
   CategorySubmenuItemSchema,
   CategorySubmenusSchema,
 } from "@/lib/validation";
-import connectToDB from "configs/db";
 import { promises as fs, unlink, writeFile } from "fs";
 import CategoryModel from "models/Category";
 import SubmenuModel from "models/Submenu";

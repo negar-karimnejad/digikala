@@ -1,14 +1,12 @@
+import connectToDB from "@/app/api/lib/mongodb";
 import AdminTable from "@/components/admin/AdminTable";
 import PageHeader from "@/components/admin/PageHeader";
 import { serializeDoc } from "@/utils/serializeDoc";
-import connectToDB from "configs/db";
 import UserModel from "models/User";
-
-import React from "react";
 
 export default async function AdminUsersPage() {
   connectToDB();
-  const users = await UserModel.find({}).lean()
+  const users = await UserModel.find({}).lean();
   const serializedUsers = serializeDoc(users);
 
   return (

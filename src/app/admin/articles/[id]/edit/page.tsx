@@ -1,7 +1,7 @@
+import connectToDB from "@/app/api/lib/mongodb";
 import ArticleForm from "@/components/admin/ArticleForm";
 import PageHeader from "@/components/admin/PageHeader";
 import { serializeDoc } from "@/utils/serializeDoc";
-import connectToDB from "configs/db";
 import ArticleModel from "models/Article";
 
 export default async function EditArticlePage({

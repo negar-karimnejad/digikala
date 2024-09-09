@@ -1,9 +1,9 @@
 import PageHeader from "@/components/admin/PageHeader";
 import ProductForm from "@/components/admin/ProductForm";
 import { serializeDoc } from "@/utils/serializeDoc";
-import connectToDB from "configs/db";
 import ProductModel from "models/Product";
 import CategoryModel from "models/Category";
+import connectToDB from "@/app/api/lib/mongodb";
 
 export default async function EditProductPage({
   params: { id },
@@ -34,7 +34,7 @@ export default async function EditProductPage({
       },
     })
     .lean();
-    
+
   const serializedProduct = serializeDoc(product);
   const serializedCategories = serializeDoc(categories);
 

@@ -1,9 +1,8 @@
 "use server";
 
-import { ArticleSchema, categoryEditSchema } from "@/lib/validation";
-import connectToDB from "configs/db";
+import connectToDB from "@/app/api/lib/mongodb";
+import { ArticleSchema } from "@/lib/validation";
 import { promises as fs, unlink, writeFile } from "fs";
-import CategoryModel from "models/Category";
 import ArticleModel from "models/Article";
 import { revalidatePath } from "next/cache";
 import { notFound, redirect } from "next/navigation";

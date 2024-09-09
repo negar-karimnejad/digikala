@@ -1,12 +1,12 @@
+import connectToDB from "@/app/api/lib/mongodb";
 import { Article } from "@/types/types";
-import connectToDB from "configs/db";
 import ArticleModel from "models/Article";
 import Image from "next/image";
 
 export default async function ArticlesPage() {
   connectToDB();
   const articles: Article[] = await ArticleModel.find({});
-  
+
   return (
     <div>
       {articles.map((article) => (

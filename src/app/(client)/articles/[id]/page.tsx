@@ -1,3 +1,4 @@
+import connectToDB from "@/app/api/lib/mongodb";
 import ArticleComment from "@/components/article/ArticleComment";
 import ScrollUp from "@/components/footer/ScrollUp";
 import {
@@ -10,7 +11,6 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { Article } from "@/types/types";
 import { formatDateToPersian } from "@/utils/PersianFormatter ";
-import connectToDB from "configs/db";
 import parse from "html-react-parser";
 import {
   ArrowUp,
