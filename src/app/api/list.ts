@@ -1,7 +1,7 @@
 import connectToDB from "lib/mongodb";
 import ProductModel from "models/Product";
 
-export default async function handler(_request, response) {
+export default async function handler(request, response) {
   await connectToDB();
   const products = await ProductModel.find({})
     .populate("images")

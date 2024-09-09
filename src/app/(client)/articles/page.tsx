@@ -4,7 +4,7 @@ import ArticleModel from "models/Article";
 import Image from "next/image";
 
 export default async function ArticlesPage() {
-  connectToDB();
+  await connectToDB();
   const articles: Article[] = await ArticleModel.find({});
 
   return (
