@@ -18,8 +18,6 @@ export default async function MarketOffers() {
     },
   });
 
-  if (!category) return null;
-
   const supermarketProducts: Product[] = await ProductModel.find({
     category: category._id,
   })

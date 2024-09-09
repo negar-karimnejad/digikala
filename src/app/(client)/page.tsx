@@ -52,7 +52,6 @@ export default async function Home() {
   const serializedProducts = serializeDoc(products);
   const serializedSubmenus = serializeDoc(submenus);
   const serializedArticles = serializeDoc(articles);
-  console.log("products🎑", products);
 
   return (
     <>
