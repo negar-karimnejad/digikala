@@ -59,7 +59,7 @@ export default async function Home() {
       <Hero />
       <Services />
       <Offers products={serializedProducts} />
-      {/* <MarketOffers /> */}
+      <MarketOffers />
       <FirstBanner />
       <CategoriesPage categories={serializedCategories} />
       <MiddleBanner />
