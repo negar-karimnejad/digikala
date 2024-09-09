@@ -1,4 +1,4 @@
-import connectToDB from "@/app/api/lib/mongodb";
+import connectToDB from "@/app/api/mongodb";
 import BreadcrumbContainer from "@/components/product/BreadcrumbContainer";
 import ProductMain from "@/components/product/ProductMain";
 import { Product, Submenu, SubmenuItem } from "@/types/types";

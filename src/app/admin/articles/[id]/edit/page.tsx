@@ -1,4 +1,4 @@
-import connectToDB from "@/app/api/lib/mongodb";
+import connectToDB from "@/app/api/mongodb";
 import ArticleForm from "@/components/admin/ArticleForm";
 import PageHeader from "@/components/admin/PageHeader";
 import { serializeDoc } from "@/utils/serializeDoc";

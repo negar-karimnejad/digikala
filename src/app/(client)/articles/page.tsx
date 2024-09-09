@@ -1,4 +1,4 @@
-import connectToDB from "@/app/api/lib/mongodb";
+import connectToDB from "@/app/api/mongodb";
 import { Article } from "@/types/types";
 import ArticleModel from "models/Article";
 import Image from "next/image";

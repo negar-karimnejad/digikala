@@ -1,6 +1,6 @@
 "use server";
 
-import connectToDB from "@/app/api/lib/mongodb";
+import connectToDB from "@/app/api/mongodb";
 import { ProductSchema } from "@/lib/validation";
 import { ProductImage } from "@/types/types";
 import crypto from "crypto";

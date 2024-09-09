@@ -1,6 +1,6 @@
 "use server";
 
-import connectToDB from "@/app/api/lib/mongodb";
+import connectToDB from "@/app/api/mongodb";
 import {
   LoginSchema,
   RegisterSchema,
