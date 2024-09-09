@@ -23,7 +23,7 @@ import CategoryModel from "models/Category";
 import ProductModel from "models/Product";
 import StoryModel from "models/Story";
 import SubmenuModel from "models/Submenu";
-import connectToDB from "../api/mongodb";
+import connectToDB from "../../../lib/mongodb";
 
 export default async function Home() {
   connectToDB();

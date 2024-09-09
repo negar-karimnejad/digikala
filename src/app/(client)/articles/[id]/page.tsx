@@ -1,4 +1,4 @@
-import connectToDB from "@/app/api/mongodb";
+import connectToDB from "lib/mongodb";
 import ArticleComment from "@/components/article/ArticleComment";
 import ScrollUp from "@/components/footer/ScrollUp";
 import {

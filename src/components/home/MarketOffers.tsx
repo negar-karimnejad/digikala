@@ -1,4 +1,4 @@
-import connectToDB from "@/app/api/mongodb";
+import connectToDB from "lib/mongodb";
 import { Category, Product } from "@/types/types";
 import { ArrowLeft } from "lucide-react";
 import CategoryModel from "models/Category";

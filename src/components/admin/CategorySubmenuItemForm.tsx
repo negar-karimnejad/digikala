@@ -1,5 +1,5 @@
 import { addSubmenuItem } from "@/app/admin/categories/action";
-import connectToDB from "@/app/api/mongodb";
+import connectToDB from "lib/mongodb";
 import { Button } from "@/components/ui/button";
 import { Submenu } from "@/types/types";
 import SubmenuModel from "models/Submenu";

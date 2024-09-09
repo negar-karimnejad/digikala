@@ -1,6 +1,6 @@
 "use server";
 
-import connectToDB from "@/app/api/mongodb";
+import connectToDB from "lib/mongodb";
 import { ArticleSchema } from "@/lib/validation";
 import { promises as fs, unlink, writeFile } from "fs";
 import ArticleModel from "models/Article";

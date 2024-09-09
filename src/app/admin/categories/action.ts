@@ -1,6 +1,6 @@
 "use server";
 
-import connectToDB from "@/app/api/mongodb";
+import connectToDB from "lib/mongodb";
 import {
   categoryEditSchema,
   CategorySchema,
