@@ -19,6 +19,7 @@ export default async function handler(_request, response) {
     .lean();
   // .limit(10)
   // .toArray();
+  console.log("products🏆🏆🏆", products);
 
   response.status(200).json(products);
 }
