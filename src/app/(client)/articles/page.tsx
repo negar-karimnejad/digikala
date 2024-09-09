@@ -6,6 +6,7 @@ import Image from "next/image";
 export default async function ArticlesPage() {
   connectToDB();
   const articles: Article[] = await ArticleModel.find({});
+  
   return (
     <div>
       {articles.map((article) => (

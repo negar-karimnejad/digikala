@@ -51,7 +51,12 @@ export default async function Home() {
   const serializedCategories = serializeDoc(categories);
   const serializedProducts = serializeDoc(products);
   const serializedSubmenus = serializeDoc(submenus);
-  const serializedArticles = serializeDoc(articles);
+
+  const sortedArticles = articles.sort(
+    (a, b) =>
+      new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
+  );
+  const serializedArticles = serializeDoc(sortedArticles);
 
   return (
     <>

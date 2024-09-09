@@ -4,12 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 
 export default function Articles({ articles }: { articles: Article[] }) {
-  const lastArticles = articles
-    .slice()
-    .sort(
-      (a, b) =>
-        new Date(a.publishedAt).getTime() - new Date(b.publishedAt).getTime()
-    );
   return (
     <div className="mx-3 my-10">
       <div className="flex justify-between items-center">
@@ -23,7 +17,7 @@ export default function Articles({ articles }: { articles: Article[] }) {
         </Link>
       </div>
       <div className="grid grid-cols-4 max-lg:grid-cols-1 gap-3">
-        {lastArticles.slice(0, 4).map((article) => (
+        {articles.slice(0, 4).map((article) => (
           <Link key={article._id.toString()} href={`/articles/${article._id}`}>
             <div className="rounded-xl border overflow-hidden">
               <Image
