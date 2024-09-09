@@ -1,8 +1,8 @@
-import connectToDB from "lib/mongodb";
 import BreadcrumbContainer from "@/components/product/BreadcrumbContainer";
 import ProductMain from "@/components/product/ProductMain";
 import { Product, Submenu, SubmenuItem } from "@/types/types";
 import { serializeDoc } from "@/utils/serializeDoc";
+import connectToDB from "lib/mongodb";
 import { Megaphone, Store } from "lucide-react";
 import ProductModel from "models/Product";
 import Link from "next/link";

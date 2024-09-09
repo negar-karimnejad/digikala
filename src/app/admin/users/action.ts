@@ -1,6 +1,5 @@
 "use server";
 
-import connectToDB from "lib/mongodb";
 import {
   LoginSchema,
   RegisterSchema,
@@ -10,6 +9,7 @@ import { LoginFormState, RegisterFormState } from "@/types/types";
 import { generateAccessToken, generateRefreshToken } from "@/utils/auth";
 import bcrypt, { compare } from "bcryptjs";
 import fs from "fs/promises";
+import connectToDB from "lib/mongodb";
 import UserModel from "models/User";
 import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";

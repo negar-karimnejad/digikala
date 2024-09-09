@@ -1,7 +1,7 @@
 "use client";
 
 import { signin } from "@/app/admin/users/action";
-import connectToDB from "lib/mongodb";
+import connectToDB from "@/app/api/mongodb";
 import Logo from "@/components/Logo";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";

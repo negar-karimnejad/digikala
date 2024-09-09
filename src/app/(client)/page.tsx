@@ -18,12 +18,12 @@ import StorySlider from "@/components/home/StorySlider";
 import FloatingSupermarketButton from "@/components/ui/FloatingSupermarketButton";
 import FloatingSupportButton from "@/components/ui/FloatingSupportButton";
 import { serializeDoc } from "@/utils/serializeDoc";
+import connectToDB from "lib/mongodb";
 import ArticleModel from "models/Article";
 import CategoryModel from "models/Category";
 import ProductModel from "models/Product";
 import StoryModel from "models/Story";
 import SubmenuModel from "models/Submenu";
-import connectToDB from "../../../lib/mongodb";
 
 export default async function Home() {
   connectToDB();
@@ -51,12 +51,7 @@ export default async function Home() {
   const serializedCategories = serializeDoc(categories);
   const serializedProducts = serializeDoc(products);
   const serializedSubmenus = serializeDoc(submenus);
-
-  const sortedArticles = articles.sort(
-    (a, b) =>
-      new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
-  );
-  const serializedArticles = serializeDoc(sortedArticles);
+  const serializedArticles = serializeDoc(articles);
 
   return (
     <>

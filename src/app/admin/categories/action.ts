@@ -1,6 +1,5 @@
 "use server";
 
-import connectToDB from "lib/mongodb";
 import {
   categoryEditSchema,
   CategorySchema,
@@ -8,6 +7,7 @@ import {
   CategorySubmenusSchema,
 } from "@/lib/validation";
 import { promises as fs, unlink, writeFile } from "fs";
+import connectToDB from "lib/mongodb";
 import CategoryModel from "models/Category";
 import SubmenuModel from "models/Submenu";
 import SubmenuItemModel from "models/SubmenuItem";

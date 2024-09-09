@@ -1,20 +1,26 @@
 // "use server";
 
-// import connectToDB from "lib/mongodb";
+import connectToDB from "lib/mongodb";
+import ProductModel from "models/Product";
 
-// export default async function handler(request, response) {
-//   const { database } = await connectToDB();
-//   const products = database.collection(process.env.NEXT_ATLAS_COLLECTION);
+export default async function handler(request, response) {
+  await connectToDB();
+  const products = await ProductModel.find({})
+    .populate("images")
+    .populate("colors")
+    .populate("features")
+    .populate({
+      path: "category",
+      populate: {
+        path: "submenus",
+        populate: {
+          path: "items",
+        },
+      },
+    })
+    .lean();
+  // .limit(10)
+  // .toArray();
 
-//   const results = await collection
-//     .find({})
-//     .project({
-//       grades: 0,
-//       borough: 0,
-//       restaurant_id: 0,
-//     })
-//     .limit(10)
-//     .toArray();
-
-//   response.status(200).json(results);
-// }
+  response.status(200).json(products);
+}

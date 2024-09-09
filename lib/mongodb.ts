@@ -1,5 +1,3 @@
-"use server";
-
 import { MongoClient, MongoClientOptions } from "mongodb";
 
 const uri = process.env.MONGODB_URI;

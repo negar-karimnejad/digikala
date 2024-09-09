@@ -1,13 +1,13 @@
 import Sidebar from "@/components/admin/Sidebar";
 import Container from "@/components/ui/container";
 import { authUser } from "@/utils/auth";
-import React from "react";
-import connectToDB from "../../../lib/mongodb";
+import connectToDB from "lib/mongodb";
+import { ReactNode } from "react";
 
 export default async function AdminLayout({
   children,
 }: {
-  children: React.ReactNode;
+  children: ReactNode;
 }) {
   connectToDB();
   const user = await authUser();
