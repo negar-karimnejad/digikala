@@ -19,7 +19,7 @@ export default async function MarketOffers() {
   });
 
   const supermarketProducts: Product[] = await ProductModel.find({
-    category: category._id,
+    category: category?._id,
   })
     .populate("images")
     .populate("colors")
@@ -134,7 +134,7 @@ export default async function MarketOffers() {
             </svg>
           </div>
           <div className="bg-green-600 whitespace-nowrap rounded-full text-white text-sm px-2 py-1">
-            تا {DiscountProducts[0].discount}% تخفیف
+            تا {DiscountProducts[0]?.discount}% تخفیف
           </div>
         </Link>
         <div className="flex items-center max-lg:w-full max-lg:justify-between gap-2">
