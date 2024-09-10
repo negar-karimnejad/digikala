@@ -87,7 +87,11 @@ export default async function ArticlePage({
               src="/default_author.jpg"
               className="rounded-full"
             />
-            {article.author}
+            <Link
+              href={`/articles/user/${article.author.replaceAll(" ", "-")}`}
+            >
+              {article.author}
+            </Link>
           </div>
           {ArticlePublishedDate}
           <span className="text-neutral-400 flex items-center gap-1">

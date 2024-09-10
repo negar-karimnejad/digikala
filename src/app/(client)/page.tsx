@@ -17,6 +17,7 @@ import Services from "@/components/home/Services";
 import StorySlider from "@/components/home/StorySlider";
 import FloatingSupermarketButton from "@/components/ui/FloatingSupermarketButton";
 import FloatingSupportButton from "@/components/ui/FloatingSupportButton";
+import { Article } from "@/types/types";
 import { serializeDoc } from "@/utils/serializeDoc";
 import connectToDB from "config/mongodb";
 import ArticleModel from "models/Article";
@@ -27,7 +28,7 @@ import SubmenuModel from "models/Submenu";
 
 export default async function Home() {
   connectToDB();
-  const articles = await ArticleModel.find({}).lean();
+  const articles: Article[] = await ArticleModel.find({}).lean();
   const stories = await StoryModel.find({}).lean();
   const categories = await CategoryModel.find({}).lean();
   const submenus = await SubmenuModel.find({}).lean();
@@ -51,7 +52,15 @@ export default async function Home() {
   const serializedCategories = serializeDoc(categories);
   const serializedProducts = serializeDoc(products);
   const serializedSubmenus = serializeDoc(submenus);
-  const serializedArticles = serializeDoc(articles);
+
+  // Sort Articles by published date
+  const sortedArticles = articles
+    .slice()
+    .sort(
+      (a, b) =>
+        new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
+    );
+  const serializedArticles = serializeDoc(sortedArticles);
 
   return (
     <>

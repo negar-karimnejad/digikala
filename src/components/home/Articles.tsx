@@ -6,8 +6,8 @@ import Link from "next/link";
 export default function Articles({ articles }: { articles: Article[] }) {
   return (
     <div className="mx-3 my-10">
-      <div className="flex justify-between items-center">
-        <h3 className="mb-5 font-irsansb">خواندنی‌ها</h3>
+      <div className="flex justify-between items-center mb-5">
+        <h3 className="font-irsansb">خواندنی‌ها</h3>
         <Link
           href="/articles"
           className="text-xs text-sky-500 flex items-center"
