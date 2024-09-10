@@ -6,6 +6,7 @@ const options: MongoClientOptions = {
   serverSelectionTimeoutMS: 20000,
   connectTimeoutMS: 20000,
   socketTimeoutMS: 30000,
+  
 };
 
 let mongoClient: MongoClient | null = null;
@@ -34,6 +35,6 @@ export default async function connectToDB() {
     return { mongoClient, database };
   } catch (e) {
     console.error(e);
-    throw e; 
+    throw e;
   }
 }
