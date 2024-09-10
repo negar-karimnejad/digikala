@@ -9,7 +9,7 @@ import { LoginFormState, RegisterFormState } from "@/types/types";
 import { generateAccessToken, generateRefreshToken } from "@/utils/auth";
 import bcrypt, { compare } from "bcryptjs";
 import fs from "fs/promises";
-import connectToDB from "lib/mongodb";
+import connectToDB from "config/mongodb";
 import UserModel from "models/User";
 import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";

@@ -2,7 +2,7 @@
 
 import { ArticleSchema } from "@/lib/validation";
 import { promises as fs, unlink, writeFile } from "fs";
-import connectToDB from "lib/mongodb";
+import connectToDB from "config/mongodb";
 import ArticleModel from "models/Article";
 import { revalidatePath } from "next/cache";
 import { notFound, redirect } from "next/navigation";

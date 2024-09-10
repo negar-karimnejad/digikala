@@ -1,5 +1,5 @@
 import { Article } from "@/types/types";
-import connectToDB from "lib/mongodb";
+import connectToDB from "config/mongodb";
 import ArticleModel from "models/Article";
 import Image from "next/image";
 

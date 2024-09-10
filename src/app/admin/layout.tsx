@@ -1,7 +1,7 @@
 import Sidebar from "@/components/admin/Sidebar";
 import Container from "@/components/ui/container";
 import { authUser } from "@/utils/auth";
-import connectToDB from "lib/mongodb";
+import connectToDB from "config/mongodb";
 import { ReactNode } from "react";
 
 export default async function AdminLayout({

@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { RegisterSchema, RegisterSchemaType } from "@/lib/validation";
 import { RegisterFormState } from "@/types/types";
 import { authUser } from "@/utils/auth";
-import connectToDB from "lib/mongodb";
+import connectToDB from "config/mongodb";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";

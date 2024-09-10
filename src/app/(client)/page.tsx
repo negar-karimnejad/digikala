@@ -18,7 +18,7 @@ import StorySlider from "@/components/home/StorySlider";
 import FloatingSupermarketButton from "@/components/ui/FloatingSupermarketButton";
 import FloatingSupportButton from "@/components/ui/FloatingSupportButton";
 import { serializeDoc } from "@/utils/serializeDoc";
-import connectToDB from "lib/mongodb";
+import connectToDB from "config/mongodb";
 import ArticleModel from "models/Article";
 import CategoryModel from "models/Category";
 import ProductModel from "models/Product";

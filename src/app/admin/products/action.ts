@@ -4,7 +4,7 @@ import { ProductSchema } from "@/lib/validation";
 import { ProductImage } from "@/types/types";
 import crypto from "crypto";
 import fs from "fs/promises";
-import connectToDB from "lib/mongodb";
+import connectToDB from "config/mongodb";
 import ColorModel from "models/Color";
 import FeatureModel from "models/Feature";
 import ImageModel from "models/Image";

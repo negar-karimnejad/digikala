@@ -3,7 +3,7 @@ import { serializeDoc } from "@/utils/serializeDoc";
 import CategoryModel from "models/Category";
 import Navbar from "./Navbar";
 import Topbar from "./Topbar";
-import connectToDB from "lib/mongodb";
+import connectToDB from "config/mongodb";
 
 export default async function Header() {
   connectToDB();

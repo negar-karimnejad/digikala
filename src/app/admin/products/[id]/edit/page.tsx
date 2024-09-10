@@ -3,7 +3,7 @@ import ProductForm from "@/components/admin/ProductForm";
 import { serializeDoc } from "@/utils/serializeDoc";
 import ProductModel from "models/Product";
 import CategoryModel from "models/Category";
-import connectToDB from "lib/mongodb";
+import connectToDB from "config/mongodb";
 
 export default async function EditProductPage({
   params: { id },
