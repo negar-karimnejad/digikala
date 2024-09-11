@@ -1,51 +1,59 @@
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
+"use client";
+
 import { hero } from "@/data/data";
 import Image from "next/image";
 import Link from "next/link";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import { Navigation } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
 
 export default function Hero() {
   return (
-    <Carousel
-      opts={{
-        align: "start",
-        direction: "rtl",
+    <Swiper
+      className="lg:h-96 relative mt-5 cursor-default category-swiper group"
+      autoplay={{ delay: 3000 }}
+      spaceBetween={0}
+      slidesPerView={1}
+      navigation={{
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
       }}
-      className="w-full group"
+      modules={[Navigation]}
     >
-      <CarouselContent>
-        {hero.map((item) => (
-          <CarouselItem
-            key={item.title}
-            className="cursor-pointer basis-full p-0"
+      {/* {loading && (
+  <>
+    {Array.from({ length: 6 }).map((_, index) => (
+      <SwiperSlide key={index}>
+        <OfferSkeleton />
+      </SwiperSlide>
+    ))}
+  </>
+)} */}
+      {hero.map((item) => (
+        <SwiperSlide key={item.title}>
+          <Link
+            target="_blank"
+            href={`/products/${item.title.replaceAll(" ", "+")}`}
           >
-            <Link
-              target="_blank"
-              href={`/products/${item.title.replaceAll(" ", "+")}`}
-            >
-              <div className="w-full h-full">
-                <Image
-                  src={item.cover}
-                  width={4000}
-                  height={4000}
-                  alt={item.title}
-                  title={item.title}
-                  className="object-cover h-full w-full"
-                />
-              </div>
-            </Link>
-          </CarouselItem>
-        ))}
-      </CarouselContent>
-      <div className="group-hover:opacity-100 opacity-0 transition-all duration-300">
-        <CarouselNext className="right-16 top-80 w-10 h-10" />
-        <CarouselPrevious className="right-28 top-80 w-10 h-10" />
-      </div>
-    </Carousel>
+            <div className="w-full h-full">
+              <Image
+                src={item.cover}
+                width={4000}
+                height={4000}
+                alt={item.title}
+                title={item.title}
+                className="w-full h-full object-cover object-[60%] max-lg:h-52"
+              />
+            </div>
+          </Link>
+        </SwiperSlide>
+      ))}
+
+      {/* Navigation buttons */}
+      <div className="swiper-button-next bg-white rounded-full group-hover:opacity-100 opacity-0 transition-all duration-300 after:text-red-500 after:!text-sm after:!font-extrabold shadow-md !right-28 !top-80 !w-10 !h-10 !z-20"></div>
+      <div className="swiper-button-prev bg-white rounded-full group-hover:opacity-100 opacity-0 transition-all duration-300 after:text-red-500 after:!text-sm after:!font-extrabold shadow-md !right-16 !top-80 !w-10 !h-10 !z-20"></div>
+    </Swiper>
   );
 }

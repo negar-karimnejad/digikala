@@ -53,6 +53,13 @@ export default async function Home() {
   const serializedProducts = serializeDoc(products);
   const serializedSubmenus = serializeDoc(submenus);
 
+  // Discount Products
+  const discountProducts = products.filter((product) => product.discount > 0);
+  const offerProducts = discountProducts
+    ?.slice()
+    .sort((a, b) => b.discount - a.discount)
+    .slice(0, 12);
+
   // Sort Articles by published date
   const sortedArticles = articles
     .slice()
@@ -61,13 +68,14 @@ export default async function Home() {
         new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
     );
   const serializedArticles = serializeDoc(sortedArticles);
+  const serializedOfferProducts = serializeDoc(offerProducts);
 
   return (
     <>
       <StorySlider stories={serializedStories} />
       <Hero />
       <Services />
-      <Offers products={serializedProducts} />
+      <Offers products={serializedOfferProducts} />
       <MarketOffers />
       <FirstBanner />
       <CategoriesPage categories={serializedCategories} />

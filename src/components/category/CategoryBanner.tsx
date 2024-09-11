@@ -1,46 +1,63 @@
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
+"use client";
+
 import { Category } from "@/types/types";
 import Image from "next/image";
 import Link from "next/link";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import { Navigation, Pagination } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
 
 export default function CategoryBanner({ category }: { category: Category }) {
   return (
-    <div>
-      <Carousel
-        opts={{
-          align: "start",
-          direction: "rtl",
+    <div className="relative my-5 px-4 lg:rounded-2xl">
+      <Swiper
+        className="cursor-default category-swiper lg:h-96 lg:rounded-2xl"
+        autoplay={{ delay: 3000 }}
+        spaceBetween={0}
+        slidesPerView={1}
+        pagination={{
+          clickable: true,
+          dynamicBullets: true,
+          el: ".swiper-pagination",
         }}
-        className="w-full group"
+        navigation={{
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev",
+        }}
+        modules={[Pagination, Navigation]}
       >
-        <CarouselContent>
-          {category.banner?.map((item, index) => (
-            <CarouselItem key={index} className="cursor-pointer basis-full p-0">
-              <Link target="_blank" href="">
-                <div className="w-full h-full">
-                  <Image
-                    src={item}
-                    width={4000}
-                    height={4000}
-                    alt={`PIC ${index + 1}`}
-                    className="object-cover h-full w-full"
-                  />
-                </div>
-              </Link>
-            </CarouselItem>
-          ))}
-        </CarouselContent>
-        <div className="group-hover:opacity-100 opacity-0 transition-all duration-300">
-          <CarouselNext className="right-16 top-80 w-10 h-10" />
-          <CarouselPrevious className="right-28 top-80 w-10 h-10" />
-        </div>
-      </Carousel>
+        {/* {loading && (
+          <>
+            {Array.from({ length: 6 }).map((_, index) => (
+              <SwiperSlide key={index}>
+                <OfferSkeleton />
+              </SwiperSlide>
+            ))}
+          </>
+        )} */}
+
+        {category.banner?.map((item, index: number) => (
+          <SwiperSlide key={index} className="">
+            <Link href="" className="">
+              <Image
+                alt={`Banner ${index + 1}`}
+                width={1500}
+                height={1500}
+                src={item}
+                className="lg:rounded-lg w-full h-full object-cover object-[60%] max-lg:h-52"
+              />
+            </Link>
+          </SwiperSlide>
+        ))}
+        {/* Pagination element */}
+        <div className="swiper-pagination"></div>
+
+        {/* Navigation buttons */}
+        <div className="swiper-button-next bg-white rounded-r-full after:text-red-500 after:!text-sm after:!font-extrabold shadow-md !left-0 !w-12 !h-12"></div>
+        <div className="swiper-button-prev bg-white rounded-l-full after:text-red-500 after:!text-sm after:!font-extrabold shadow-md !right-0 !w-12 !h-12"></div>
+      </Swiper>
     </div>
   );
 }

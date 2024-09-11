@@ -11,12 +11,6 @@ import { Card, CardContent } from "../ui/card";
 import CountdownTimer from "../ui/CountdownTimer";
 
 export default async function Offers({ products }: { products: Product[] }) {
-  const discountProducts = products.filter((product) => product.discount > 0);
-  const offerProducts = discountProducts
-    ?.slice()
-    .sort((a, b) => b.discount - a.discount)
-    .slice(0, 12);
-
   return (
     <div className="bg-rose-600 lg:rounded-2xl py-4 lg:mx-3">
       <Carousel
@@ -254,7 +248,7 @@ export default async function Offers({ products }: { products: Product[] }) {
               ))}
             </>
           )} */}
-          {offerProducts?.map((product: Product) => (
+          {products?.map((product: Product) => (
             <CarouselItem
               key={product._id.toString()}
               className="pl-1 basis-44 max-lg:basis-36"
