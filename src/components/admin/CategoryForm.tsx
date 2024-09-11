@@ -12,6 +12,7 @@ import toast from "react-hot-toast";
 export default function CategoryForm({ category }: { category?: Category }) {
   const [iconFile, setIconFile] = useState<File | null>(null);
   const [coverFile, setCoverFile] = useState<File | null>(null);
+  const [bannerFiles, setBannerFiles] = useState<File[]>([]); // State for banner files
 
   const [state, formAction] = useFormState(
     category == null ? addCategory : updateCategory,
@@ -30,6 +31,14 @@ export default function CategoryForm({ category }: { category?: Category }) {
     }
   };
 
+  const handleBannerFilesChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      setBannerFiles((prevFiles) => [
+        ...prevFiles,
+        ...Array.from(e.target.files),
+      ]);
+    }
+  };
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
@@ -46,6 +55,17 @@ export default function CategoryForm({ category }: { category?: Category }) {
     if (iconFile) {
       formData.append("icon", iconFile);
     }
+
+    const seenFiles = new Set();
+    bannerFiles.forEach((file) => {
+      const fileName = file.name;
+      if (!seenFiles.has(fileName)) {
+        seenFiles.add(fileName);
+        formData.append("banner", file);
+      } else {
+        console.warn("Duplicate file detected:", file);
+      }
+    });
 
     formAction(formData);
   };
@@ -156,6 +176,57 @@ export default function CategoryForm({ category }: { category?: Category }) {
               className="bg-white object-cover border rounded-lg p-1"
             />
           )}
+        </div>
+        <div className="flex flex-col gap-3 justify-between mt-5">
+          {/* بنر */}
+          <div className="flex items-center justify-between gap-2">
+            <label
+              htmlFor="banner"
+              className="border-b py-2 px-4 cursor-pointer relative w-40 whitespace-nowrap flex items-center text-gray-500 dark:text-gray-400"
+            >
+              آپلود تصاویر بنر
+              <input
+                type="file"
+                id="banner"
+                name="banner"
+                multiple
+                accept="image/*"
+                onChange={handleBannerFilesChange}
+                className="opacity-0 h-full w-24 bg-transparent border-0"
+              />
+              <UploadCloud size={30} className="absolute left-0" />
+            </label>
+            <div className="flex flex-wrap gap-2 mt-2">
+              {bannerFiles.map((file, index) => (
+                <div
+                  key={index}
+                  className="relative w-14 h-14 rounded-lg border p-1"
+                >
+                  <Image
+                    src={URL.createObjectURL(file)}
+                    alt={`Banner Image ${index + 1}`}
+                    layout="fill"
+                    objectFit="cover"
+                    className="rounded-lg"
+                  />
+                </div>
+              ))}
+            </div>
+            {category?.banner && (
+              <div className="flex flex-col gap-2 mt-2">
+                {category.banner.map((url, index) => (
+                  <Image
+                    key={index}
+                    src={url}
+                    height={70}
+                    width={70}
+                    alt={`Existing Banner Image ${index + 1}`}
+                    className="object-cover border rounded-lg p-1"
+                  />
+                ))}
+              </div>
+            )}
+          </div>
         </div>
       </div>
       <SubmitButton title={category ? "ویرایش" : "افزودن"} />

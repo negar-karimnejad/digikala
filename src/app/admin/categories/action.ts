@@ -6,8 +6,8 @@ import {
   CategorySubmenuItemSchema,
   CategorySubmenusSchema,
 } from "@/lib/validation";
-import { promises as fs, unlink, writeFile } from "fs";
 import connectToDB from "config/mongodb";
+import { promises as fs, unlink, writeFile } from "fs";
 import CategoryModel from "models/Category";
 import SubmenuModel from "models/Submenu";
 import SubmenuItemModel from "models/SubmenuItem";
@@ -21,13 +21,16 @@ const writeFileAsync = promisify(writeFile);
 
 export async function addCategory(_state, formData: FormData) {
   connectToDB();
+  const banners = formData.getAll("banner");
 
   // Safely parse the data
-  const result = CategorySchema.safeParse(
-    Object.fromEntries(formData.entries())
-  );
+  const result = CategorySchema.safeParse({
+    ...Object.fromEntries(formData.entries()),
+    banner: banners,
+  });
 
   if (result.success === false) {
+    console.log("❌❌❌", result.error.formErrors.fieldErrors);
     return result.error.formErrors.fieldErrors;
   }
 
@@ -57,12 +60,36 @@ export async function addCategory(_state, formData: FormData) {
     Buffer.from(await data.icon.arrayBuffer())
   );
 
+  // Handle banner files
+  const bannerPaths = [];
+  const existingBanners = new Set(); // To track existing images and avoid duplicates
+
+  const imagePromises = (banners as File[]).map(async (image) => {
+    if (image instanceof File) {
+      const imagePath = `/categories/banners/${crypto.randomUUID()}-${
+        image.name
+      }`;
+      if (!existingBanners.has(image.name)) {
+        existingBanners.add(image.name);
+        await fs.writeFile(
+          path.join(process.cwd(), "public", imagePath),
+          Buffer.from(await image.arrayBuffer())
+        );
+        bannerPaths.push(imagePath);
+      } else {
+        console.warn("Duplicate image detected:", image.name);
+      }
+    }
+  });
+  await Promise.all(imagePromises);
+
   // Save category to the database
   await CategoryModel.create({
     title: data.title,
     cover: coverPath,
     icon: iconPath,
     href: data.href,
+    banner: bannerPaths,
     submenus: [],
   });
 
@@ -74,12 +101,15 @@ export async function addCategory(_state, formData: FormData) {
 
 export async function updateCategory(state: any, formData: FormData) {
   connectToDB();
+  const banners = formData.getAll("banner");
 
-  const result = categoryEditSchema.safeParse(
-    Object.fromEntries(formData.entries())
-  );
+  const result = categoryEditSchema.safeParse({
+    ...Object.fromEntries(formData.entries()),
+    banner: banners,
+  });
 
   if (result.success === false) {
+    console.log("❌❌❌", result.error.formErrors.fieldErrors);
     return result.error.formErrors.fieldErrors;
   }
 
@@ -108,6 +138,32 @@ export async function updateCategory(state: any, formData: FormData) {
     );
   }
 
+  // Update Banners
+  let bannerPaths = [...category.banner]; // Use existing banners
+  const existingBanners = new Set(
+    bannerPaths.map((path) => path.split("/").pop())
+  ); // Track existing images by name
+
+  const imagePromises = (banners as File[]).map(async (image) => {
+    if (image instanceof File) {
+      const imageName = image.name;
+      const imagePath = `/categories/banners/${crypto.randomUUID()}-${imageName}`;
+
+      // Check if the image already exists
+      if (!existingBanners.has(imageName)) {
+        existingBanners.add(imageName);
+        await fs.writeFile(
+          path.join(process.cwd(), "public", imagePath),
+          Buffer.from(await image.arrayBuffer())
+        );
+        bannerPaths.push(imagePath);
+      } else {
+        console.warn("Duplicate image detected:", imageName);
+      }
+    }
+  });
+  await Promise.all(imagePromises);
+
   await CategoryModel.findOneAndUpdate(
     { _id: data._id },
     {
@@ -116,6 +172,7 @@ export async function updateCategory(state: any, formData: FormData) {
         href: data.href,
         cover: coverPath,
         icon: iconPath,
+        banner: bannerPaths,
       },
     },
     { new: true }
@@ -135,6 +192,7 @@ export async function deleteCategory(id: string) {
 
   await fs.unlink(`public${category.cover}`);
   await fs.unlink(`public${category.icon}`);
+  await fs.unlink(`public${category.banner}`);
 
   revalidatePath("/");
   revalidatePath("/admin/categories");

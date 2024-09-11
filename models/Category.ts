@@ -19,6 +19,10 @@ const schema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  banner: {
+    type: [String], 
+    required: true,
+  },
   product: {
     type: mongoose.Types.ObjectId,
     ref: "Product",
