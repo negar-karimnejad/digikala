@@ -13,6 +13,7 @@ export default function CategoryForm({ category }: { category?: Category }) {
   const [iconFile, setIconFile] = useState<File | null>(null);
   const [coverFile, setCoverFile] = useState<File | null>(null);
   const [heroFiles, setHeroFiles] = useState<File[]>([]);
+  const [bannerFiles, setBannerFiles] = useState<File[]>([]);
 
   const [state, formAction] = useFormState(
     category == null ? addCategory : updateCategory,
@@ -39,6 +40,16 @@ export default function CategoryForm({ category }: { category?: Category }) {
       ]);
     }
   };
+
+  const handleBannerFilesChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      setBannerFiles((prevFiles) => [
+        ...prevFiles,
+        ...Array.from(e.target.files),
+      ]);
+    }
+  };
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
@@ -64,6 +75,18 @@ export default function CategoryForm({ category }: { category?: Category }) {
         formData.append("hero", file);
       } else {
         console.warn("Duplicate file detected:", file);
+        return;
+      }
+    });
+
+    const seenBannerFiles = new Set();
+    heroFiles.forEach((file) => {
+      const fileName = file.name;
+      if (!seenBannerFiles.has(fileName)) {
+        seenBannerFiles.add(fileName);
+        formData.append("banner", file);
+      } else {
+        console.warn("Duplicate banner file detected:", file);
         return;
       }
     });
@@ -178,8 +201,9 @@ export default function CategoryForm({ category }: { category?: Category }) {
             />
           )}
         </div>
+
+        {/* Hero */}
         <div className="flex flex-col gap-3 justify-between mt-5">
-          {/* Hero */}
           <div className="flex items-center justify-between gap-2">
             <label
               htmlFor="hero"
@@ -222,6 +246,58 @@ export default function CategoryForm({ category }: { category?: Category }) {
                     height={70}
                     width={70}
                     alt={`Existing Hero Image ${index + 1}`}
+                    className="object-cover border rounded-lg p-1"
+                  />
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* Banner */}
+        <div className="flex flex-col gap-3 justify-between mt-5">
+          <div className="flex items-center justify-between gap-2">
+            <label
+              htmlFor="banner"
+              className="border-b py-2 px-4 cursor-pointer relative w-40 whitespace-nowrap flex items-center text-gray-500 dark:text-gray-400"
+            >
+              آپلود تصاویر بنر
+              <input
+                type="file"
+                id="banner"
+                name="banner"
+                multiple
+                accept="image/*"
+                onChange={handleBannerFilesChange}
+                className="opacity-0 h-full w-28 bg-transparent border-0"
+              />
+              <UploadCloud size={30} className="absolute left-0" />
+            </label>
+            <div className="flex flex-wrap gap-2 mt-2">
+              {bannerFiles.map((file, index) => (
+                <div
+                  key={index}
+                  className="relative w-14 h-14 rounded-lg border p-1"
+                >
+                  <Image
+                    src={URL.createObjectURL(file)}
+                    alt={`Banner Image ${index + 1}`}
+                    layout="fill"
+                    objectFit="cover"
+                    className="rounded-lg"
+                  />
+                </div>
+              ))}
+            </div>
+            {category?.banner && (
+              <div className="flex flex-col gap-2 mt-2">
+                {category.banner.map((url, index) => (
+                  <Image
+                    key={index}
+                    src={url}
+                    height={70}
+                    width={70}
+                    alt={`Existing Banner Image ${index + 1}`}
                     className="object-cover border rounded-lg p-1"
                   />
                 ))}

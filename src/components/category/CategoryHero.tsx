@@ -9,7 +9,7 @@ import "swiper/css/pagination";
 import { Navigation, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 
-export default function CategoryBanner({ category }: { category: Category }) {
+export default function CategoryHero({ category }: { category: Category }) {
   if (category.hero == null) return null;
 
   return (
@@ -44,8 +44,8 @@ export default function CategoryBanner({ category }: { category: Category }) {
             <Link href="">
               <Image
                 alt={`Banner ${index + 1}`}
-                width={1500}
-                height={1500}
+                width={1700}
+                height={1700}
                 src={item}
                 className="lg:rounded-lg w-full h-full object-cover object-[60%] max-lg:h-52"
               />

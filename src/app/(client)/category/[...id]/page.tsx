@@ -1,4 +1,4 @@
-import CategoryBanner from "@/components/category/CategoryBanner";
+import CategoryHero from "@/components/category/CategoryHero";
 import Offers from "@/components/home/Offers";
 import { Category, Product } from "@/types/types";
 import { serializeDoc } from "@/utils/serializeDoc";
@@ -63,7 +63,7 @@ export default async function CategoryPage({
   if (!category) return null;
   return (
     <div className="space-y-10">
-      <CategoryBanner category={serializedCategory} />
+      <CategoryHero category={serializedCategory} />
       <Offers products={offerProducts} />
 
       {category.submenus.length > 0 && (

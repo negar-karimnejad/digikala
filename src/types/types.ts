@@ -87,6 +87,7 @@ export interface Category {
   icon?: string;
   cover: string[];
   hero: string[];
+  banner: string[];
   href: string;
   product?: Product;
   submenus: Submenu[];

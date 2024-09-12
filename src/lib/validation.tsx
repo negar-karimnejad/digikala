@@ -133,6 +133,7 @@ export const CategorySchema = z.object({
     .min(5, { message: "لطفا آدرس لینک دسته‌بندی را وارد نمایید" }),
   icon: imageSchema.refine((file) => file.size > 0, "Required"),
   hero: z.array(imageSchema).optional(),
+  banner: z.array(imageSchema).optional(),
   cover: imageSchema.refine((file) => file.size > 0, "Required"),
   submenus: z.array(CategorySubmenusSchema).optional(),
 });
@@ -141,6 +142,7 @@ export const categoryEditSchema = CategorySchema.extend({
   cover: imageSchema.optional(),
   icon: imageSchema.optional(),
   hero: z.array(imageSchema).optional(),
+  banner: z.array(imageSchema).optional(),
 });
 
 export const StorySchema = z.object({
