@@ -13,9 +13,9 @@ export default function CategoryHero({ category }: { category: Category }) {
   if (category.hero == null) return null;
 
   return (
-    <div className="relative my-5 px-4 lg:rounded-2xl">
+    <div className="relative my-5 px-4 rounded-2xl">
       <Swiper
-        className="cursor-default category-swiper lg:h-96 lg:rounded-2xl"
+        className="cursor-default category-swiper lg:h-96 rounded-2xl"
         autoplay={{ delay: 3000 }}
         spaceBetween={0}
         slidesPerView={1}
@@ -47,7 +47,7 @@ export default function CategoryHero({ category }: { category: Category }) {
                 width={1700}
                 height={1700}
                 src={item}
-                className="lg:rounded-lg w-full h-full object-cover object-[60%] max-lg:h-52"
+                className="rounded-lg w-full h-full object-cover object-[60%] max-lg:h-52"
               />
             </Link>
           </SwiperSlide>

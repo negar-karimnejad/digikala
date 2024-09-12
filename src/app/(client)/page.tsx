@@ -102,7 +102,7 @@ export default async function Home() {
         products={serializedProducts}
         title="داغ ترین چند ساعت گذشته"
       />
-      <Articles articles={serializedArticles} />
+      <Articles articles={serializedArticles} title="خواندنی‌ها" />
       <FloatingSupportButton />
       <FloatingSupermarketButton />
     </>

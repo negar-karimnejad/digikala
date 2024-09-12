@@ -133,6 +133,7 @@ export async function updateCategory(state: any, formData: FormData) {
     hero: heros,
     banner: banners,
   });
+console.log("🎃🏆",banners);
 
   if (result.success === false) {
     console.log("❌❌❌", result.error.formErrors.fieldErrors);
@@ -168,25 +169,25 @@ export async function updateCategory(state: any, formData: FormData) {
   let heroPaths = Array.isArray(category.hero) ? [...category.hero] : [];
   const existingHeros = new Set(heroPaths.map((path) => path.split("/").pop())); // Track existing images by name
 
-  const imagePromises = (heros as File[]).map(async (image) => {
-    if (image instanceof File) {
-      const imageName = image.name;
-      const imagePath = `/categories/hero/${crypto.randomUUID()}-${imageName}`;
+  const heroPromises = (heros as File[]).map(async (hero) => {
+    if (hero instanceof File) {
+      const heroName = hero.name;
+      const heroPath = `/categories/hero/${crypto.randomUUID()}-${heroName}`;
 
-      // Check if the image already exists
-      if (!existingHeros.has(imageName)) {
-        existingHeros.add(imageName);
+      // Check if the hero already exists
+      if (!existingHeros.has(heroName)) {
+        existingHeros.add(heroName);
         await fs.writeFile(
-          path.join(process.cwd(), "public", imagePath),
-          Buffer.from(await image.arrayBuffer())
+          path.join(process.cwd(), "public", heroPath),
+          Buffer.from(await hero.arrayBuffer())
         );
-        heroPaths.push(imagePath);
+        heroPaths.push(heroPath);
       } else {
-        console.warn("Duplicate image detected:", imageName);
+        console.warn("Duplicate hero detected:", heroName);
       }
     }
   });
-  await Promise.all(imagePromises);
+  await Promise.all(heroPromises);
 
   // Update heros
   let bannerPaths = Array.isArray(category.banner) ? [...category.banner] : [];
@@ -194,25 +195,25 @@ export async function updateCategory(state: any, formData: FormData) {
     bannerPaths.map((path) => path.split("/").pop())
   ); // Track existing images by name
 
-  const bannerImagePromises = (banners as File[]).map(async (image) => {
-    if (image instanceof File) {
-      const imageName = image.name;
-      const imagePath = `/categories/banner/${crypto.randomUUID()}-${imageName}`;
+  const bannerPromises = (banners as File[]).map(async (banner) => {
+    if (banner instanceof File) {
+      const bannerName = banner.name;
+      const bannerPath = `/categories/banner/${crypto.randomUUID()}-${bannerName}`;
 
-      // Check if the image already exists
-      if (!existingBanners.has(imageName)) {
-        existingBanners.add(imageName);
+      // Check if the banner already exists
+      if (!existingBanners.has(bannerName)) {
+        existingBanners.add(bannerName);
         await fs.writeFile(
-          path.join(process.cwd(), "public", imagePath),
-          Buffer.from(await image.arrayBuffer())
+          path.join(process.cwd(), "public", bannerPath),
+          Buffer.from(await banner.arrayBuffer())
         );
-        bannerPaths.push(imagePath);
+        bannerPaths.push(bannerPath);
       } else {
-        console.warn("Duplicate image detected:", imageName);
+        console.warn("Duplicate banner detected:", bannerName);
       }
     }
   });
-  await Promise.all(bannerImagePromises);
+  await Promise.all(bannerPromises);
 
   await CategoryModel.findOneAndUpdate(
     { _id: data._id },

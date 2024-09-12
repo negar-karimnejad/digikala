@@ -3,11 +3,17 @@ import { ChevronLeft } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function Articles({ articles }: { articles: Article[] }) {
+export default function Articles({
+  articles,
+  title,
+}: {
+  articles: Article[];
+  title: string;
+}) {
   return (
     <div className="mx-3 my-10">
       <div className="flex justify-between items-center mb-5">
-        <h3 className="font-irsansb">خواندنی‌ها</h3>
+        <h3 className="font-irsansb">{title}</h3>
         <Link
           href="/articles"
           className="text-xs text-sky-500 flex items-center"

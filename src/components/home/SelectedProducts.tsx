@@ -8,9 +8,10 @@ export default async function SelectedProducts({
 }: {
   products: Product[];
 }) {
-  const SelectedAllProducts = products.filter(
-    (product) => product.discount > 0
-  );
+  const SelectedAllProducts = products
+    .filter((product) => product.discount > 0)
+    .slice()
+    .sort((a, b) => b.discount - a.discount);
 
   return (
     <div className="border rounded-xl my-5 pt-5 mx-3 overflow-hidden">

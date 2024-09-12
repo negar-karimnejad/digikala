@@ -1,5 +1,8 @@
 import CategoryHero from "@/components/category/CategoryHero";
+import Bestseller from "@/components/home/Bestseller";
+import Brands from "@/components/home/Brands";
 import Offers from "@/components/home/Offers";
+import SelectedProducts from "@/components/home/SelectedProducts";
 import { Category, Product } from "@/types/types";
 import { serializeDoc } from "@/utils/serializeDoc";
 import CategoryModel from "models/Category";
@@ -49,8 +52,6 @@ export default async function CategoryPage({
     .sort((a, b) => b.discount - a.discount)
     .slice(0, 12);
 
-  const serializedCategory = serializeDoc(category);
-
   // Mapping submenus to their first product's thumbnail
   const submenuProductImages = category?.submenus.map((submenu) => {
     // Find the first product associated with the current submenu
@@ -60,12 +61,16 @@ export default async function CategoryPage({
     return firstProduct?.thumbnail || "";
   });
 
+  const serializedCategory = serializeDoc(category);
+  const serializedcategoryProducts = serializeDoc(categoryProducts);
+
   if (!category) return null;
   return (
     <div className="space-y-10">
       <CategoryHero category={serializedCategory} />
       <Offers products={offerProducts} />
 
+      {/* Shopping by category */}
       {category.submenus.length > 0 && (
         <div>
           <h3 className="font-irsansb text-lg text-center">
@@ -93,6 +98,40 @@ export default async function CategoryPage({
           </div>
         </div>
       )}
+
+      <Brands />
+
+      {/* Banners */}
+      <div className="grid grid-cols-12 gap-4 mx-3">
+        {category.banner?.map((item, index) => (
+          <div className="col-span-6 max-lg:col-span-12" key={index}>
+            <Link href="">
+              <Image
+                width={1700}
+                height={1700}
+                className="rounded-xl object-cover w-full"
+                src={item}
+                alt={`Banner ${index + 1}`}
+              />
+            </Link>
+          </div>
+        ))}
+      </div>
+
+      <Bestseller
+        products={serializedcategoryProducts}
+        title="پرفروش‌ترین کالاها"
+      />
+      <div>
+        <Image
+          alt="زنگ تفریح دیجی‌کالا"
+          title="زنگ تفریح دیجی‌کالا"
+          width={2000}
+          height={500}
+          src="/069665291f9d877a19922f0c741e7620ad85cf6b_1725653469.gif"
+        />
+      </div>
+      <SelectedProducts products={serializedcategoryProducts} />
     </div>
   );
 }

@@ -80,7 +80,7 @@ export default function CategoryForm({ category }: { category?: Category }) {
     });
 
     const seenBannerFiles = new Set();
-    heroFiles.forEach((file) => {
+    bannerFiles.forEach((file) => {
       const fileName = file.name;
       if (!seenBannerFiles.has(fileName)) {
         seenBannerFiles.add(fileName);
@@ -237,7 +237,7 @@ export default function CategoryForm({ category }: { category?: Category }) {
                 </div>
               ))}
             </div>
-            {category?.hero && (
+            {category.hero && (
               <div className="flex flex-col gap-2 mt-2">
                 {category.hero.map((url, index) => (
                   <Image
