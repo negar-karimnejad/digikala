@@ -9,8 +9,8 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { useRef, useState } from "react";
-import { Button } from "../ui/button";
 import { Feature, Product, Question } from "@/types/types";
+import { Button } from "../ui/button";
 
 export default function ProductTab({ product }: { product: Product }) {
   const introductionRef = useRef<HTMLDivElement>(null);
@@ -146,7 +146,7 @@ export default function ProductTab({ product }: { product: Product }) {
             <p className="text-xs text-neutral-600 dark:text-neutral-400">
               شما هم درباره این کالا دیدگاه ثبت کنید
             </p>
-            <Button variant="destructiveOutline">ثبت دیدگاه</Button>
+            <Button variant="destructive">ثبت دیدگاه</Button>
             <p className="text-xs text-neutral-500 flex leading-7 gap-2 items-start">
               <Info size={25} className="text-neutral-500 mt-0.5" />
               با ثبت دیدگاه بر روی کالاهای خریداری شده ۵ امتیاز در دیجی‌کلاب

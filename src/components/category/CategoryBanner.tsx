@@ -10,6 +10,8 @@ import { Navigation, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 export default function CategoryBanner({ category }: { category: Category }) {
+  if (category.hero == null) return null;
+
   return (
     <div className="relative my-5 px-4 lg:rounded-2xl">
       <Swiper
@@ -19,7 +21,6 @@ export default function CategoryBanner({ category }: { category: Category }) {
         slidesPerView={1}
         pagination={{
           clickable: true,
-          dynamicBullets: true,
           el: ".swiper-pagination",
         }}
         navigation={{
@@ -38,9 +39,9 @@ export default function CategoryBanner({ category }: { category: Category }) {
           </>
         )} */}
 
-        {category.banner?.map((item, index: number) => (
-          <SwiperSlide key={index} className="">
-            <Link href="" className="">
+        {category.hero?.map((item, index: number) => (
+          <SwiperSlide key={index}>
+            <Link href="">
               <Image
                 alt={`Banner ${index + 1}`}
                 width={1500}

@@ -11,6 +11,7 @@ import { Card, CardContent } from "../ui/card";
 import CountdownTimer from "../ui/CountdownTimer";
 
 export default async function Offers({ products }: { products: Product[] }) {
+  if (!products.length) return null;
   return (
     <div className="bg-rose-600 lg:rounded-2xl py-4 lg:mx-3">
       <Carousel

@@ -100,8 +100,8 @@ html {
 .breadcrumb-container::-webkit-scrollbar-thumb {
   display: none;
 }
-/* Product Swiper */
 
+/* Product Swiper */
 .mySwiper .swiper-slide-thumb-active::after {
   content: "";
   position: absolute;
@@ -121,6 +121,24 @@ html {
 
 .mySwiper .swiper-slide-thumb-active::after {
   opacity: 1;
+}
+
+/* Category Swiper */
+.category-swiper .swiper-pagination-bullet {
+  border-radius: 4px;
+  background-color: #777777;
+  height: 6px;
+  opacity: 0.7;
+  transition: width 0.2s ease-in-out;
+  width: 6px;
+}
+.category-swiper .swiper-pagination-bullet-active {
+  background-color: #fff;
+  border-radius: 9999px;
+  height: 6px;
+  opacity: 1;
+  transform: translateY(1px);
+  width: 16px;
 }
 
 /* Dots Loader */
