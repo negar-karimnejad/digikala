@@ -1,12 +1,19 @@
 import ArticleForm from "@/components/admin/ArticleForm";
-import CategoryForm from "@/components/admin/CategoryForm";
 import PageHeader from "@/components/admin/PageHeader";
+import { serializeDoc } from "@/utils/serializeDoc";
+import connectToDB from "config/mongodb";
+import CategoryModel from "models/Category";
 
-export default function NewCategoryPage() {
+export default async function NewCategoryPage() {
+  connectToDB();
+  const categories = await CategoryModel.find({}).lean();
+
+  const serializedCategory = serializeDoc(categories);
+
   return (
     <>
       <PageHeader title="افزودن مقاله جدید" />
-      <ArticleForm />
+      <ArticleForm categories={serializedCategory} />
     </>
   );
 }

@@ -1,8 +1,8 @@
 "use server";
 
-import { ArticleSchema } from "@/lib/validation";
-import { promises as fs, unlink, writeFile } from "fs";
+import { ArticleEditSchema, ArticleSchema } from "@/lib/validation";
 import connectToDB from "config/mongodb";
+import { promises as fs, unlink, writeFile } from "fs";
 import ArticleModel from "models/Article";
 import { revalidatePath } from "next/cache";
 import { notFound, redirect } from "next/navigation";
@@ -64,6 +64,7 @@ export async function addArticle(_state, formData: FormData) {
     publishedAt: new Date(),
     cover: coverPath,
     comment: [],
+    categoryId: data.categoryId,
   });
 
   revalidatePath("/");
@@ -86,10 +87,10 @@ export async function updateArticle(_state, formData: FormData) {
     }
   }
 
-  const result = ArticleSchema.safeParse(entries);
+  const result = ArticleEditSchema.safeParse(entries);
 
   if (result.success === false) {
-    console.log("❌ Validation errors:", result.error.formErrors.fieldErrors);
+    console.log("❌❌❌", result.error.formErrors.fieldErrors);
     return result.error.formErrors.fieldErrors;
   }
 
@@ -99,8 +100,7 @@ export async function updateArticle(_state, formData: FormData) {
   // Find the existing article by ID
   const article = await ArticleModel.findById(articleId);
   if (!article) {
-    notFound();
-    return;
+    return notFound();
   }
 
   let coverPath = article.cover;
@@ -135,6 +135,7 @@ export async function updateArticle(_state, formData: FormData) {
     publishedAt: data.publishedAt || article.publishedAt, // Preserve original published date if not changed
     cover: coverPath,
     comment: article.comment, // Keep existing comments
+    categoryId: data.categoryId,
   });
 
   revalidatePath("/");

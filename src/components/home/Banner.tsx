@@ -5,10 +5,10 @@ export function FirstBanner() {
   return (
     <div className="mx-3 mt-5 grid grid-cols-12 gap-4">
       <div className="col-span-3 max-lg:col-span-6">
-        <Link href="/category/vehicles-spare-parts/motorbike">
+        <Link href="/products/66d6eb617bbd835044fd769c">
           <Image
-            width={500}
-            height={500}
+            width={800}
+            height={800}
             className="rounded-xl object-cover"
             src="/banner/motor.webp"
             alt="motor"
@@ -18,8 +18,8 @@ export function FirstBanner() {
       <div className="col-span-3 max-lg:col-span-6">
         <Link href="/category/mobile">
           <Image
-            width={500}
-            height={500}
+            width={800}
+            height={800}
             className="rounded-xl object-cover"
             src="/banner/mobile.webp"
             alt="mobile"
@@ -27,10 +27,10 @@ export function FirstBanner() {
         </Link>
       </div>
       <div className="col-span-3 max-lg:col-span-6">
-        <Link href="/category/detergent/softlan">
+        <Link href="/products/66e59b177d54b0fb3e3181ab">
           <Image
-            width={500}
-            height={500}
+            width={800}
+            height={800}
             className="rounded-xl object-cover"
             src="/banner/softlan.webp"
             alt="softlan"
@@ -38,10 +38,10 @@ export function FirstBanner() {
         </Link>
       </div>
       <div className="col-span-3 max-lg:col-span-6">
-        <Link href="/category/personal-appliance/skin-care/sunscreen-cream">
+        <Link href="/products/66e5994c7d54b0fb3e318120">
           <Image
-            width={500}
-            height={500}
+            width={800}
+            height={800}
             className="rounded-xl object-cover"
             src="/banner/suncream.webp"
             alt="suncream"
@@ -58,8 +58,8 @@ export function MiddleBanner() {
       <div className="w-full">
         <Link href="/category/personal-appliance/sanitary-pad">
           <Image
-            width={500}
-            height={500}
+            width={800}
+            height={800}
             className="rounded-xl object-cover w-full"
             src="/banner/my-lady.webp"
             alt="my-lady"
@@ -69,8 +69,8 @@ export function MiddleBanner() {
       <div className="w-full">
         <Link href="/category/home-appliance/hadron">
           <Image
-            width={500}
-            height={500}
+            width={800}
+            height={800}
             className="rounded-xl object-cover w-full"
             src="/banner/hadron.gif"
             alt="hadron"
@@ -86,8 +86,8 @@ export function LastBanner() {
       <div className="w-full">
         <Link href="/category/leather">
           <Image
-            width={500}
-            height={500}
+            width={800}
+            height={800}
             className="rounded-xl object-cover w-full"
             src="/banner/leather.webp"
             alt="leather"
@@ -95,10 +95,10 @@ export function LastBanner() {
         </Link>
       </div>
       <div className="w-full">
-        <Link href="/category/detergent">
+        <Link href="/category/food-beverage/home-hygiene">
           <Image
-            width={500}
-            height={500}
+            width={800}
+            height={800}
             className="rounded-xl object-cover w-full"
             src="/banner/detergent.webp"
             alt="detergent"

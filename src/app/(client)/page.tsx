@@ -25,6 +25,7 @@ import CategoryModel from "models/Category";
 import ProductModel from "models/Product";
 import StoryModel from "models/Story";
 import SubmenuModel from "models/Submenu";
+import Link from "next/link";
 
 export default async function Home() {
   connectToDB();
@@ -96,7 +97,9 @@ export default async function Home() {
         categories={serializedCategories}
         submenus={serializedSubmenus}
       />
-      <div className="bg-[url('/banner/hotdog-banner.webp')] bg-cover bg-left bg-no-repeat h-40 rounded-2xl mx-3 my-5"></div>
+      <Link href="/products/66e595067d54b0fb3e317fcd">
+        <div className="bg-[url('/banner/hotdog-banner.webp')] bg-cover bg-left bg-no-repeat h-40 rounded-2xl mx-3 my-5"></div>
+      </Link>
       <SelectedProducts products={serializedProducts} />
       <Bestseller
         products={serializedProducts}

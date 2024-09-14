@@ -1,10 +1,12 @@
 import CategoryHero from "@/components/category/CategoryHero";
+import Articles from "@/components/home/Articles";
 import Bestseller from "@/components/home/Bestseller";
 import Brands from "@/components/home/Brands";
 import Offers from "@/components/home/Offers";
 import SelectedProducts from "@/components/home/SelectedProducts";
 import { Category, Product } from "@/types/types";
 import { serializeDoc } from "@/utils/serializeDoc";
+import ArticleModel from "models/Article";
 import CategoryModel from "models/Category";
 import ProductModel from "models/Product";
 import Image from "next/image";
@@ -26,6 +28,7 @@ export default async function CategoryPage({
     })
     .lean();
 
+  const articles = await ArticleModel.find({ categoryId: category?._id }).lean();
   const products: Product[] = await ProductModel.find({})
     .populate({
       path: "category",
@@ -47,6 +50,7 @@ export default async function CategoryPage({
   const discountProducts = categoryProducts.filter(
     (product) => product.discount > 0
   );
+
   const offerProducts = discountProducts
     ?.slice()
     .sort((a, b) => b.discount - a.discount)
@@ -63,6 +67,7 @@ export default async function CategoryPage({
 
   const serializedCategory = serializeDoc(category);
   const serializedcategoryProducts = serializeDoc(categoryProducts);
+  const serializedArticles = serializeDoc(articles);
 
   if (!category) return null;
   return (
@@ -132,6 +137,10 @@ export default async function CategoryPage({
         />
       </div>
       <SelectedProducts products={serializedcategoryProducts} />
+
+      {articles.length > 0 && (
+        <Articles articles={serializedArticles} title="مطالب مرتبط" />
+      )}
     </div>
   );
 }

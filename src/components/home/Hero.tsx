@@ -6,21 +6,21 @@ import Link from "next/link";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import { Navigation } from "swiper/modules";
+import { Autoplay, Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 export default function Hero() {
   return (
     <Swiper
       className="lg:h-96 relative mt-5 cursor-default category-swiper group"
-      autoplay={{ delay: 3000 }}
+      autoplay={{ delay: 5000 }}
       spaceBetween={0}
       slidesPerView={1}
       navigation={{
         nextEl: ".swiper-button-next",
         prevEl: ".swiper-button-prev",
       }}
-      modules={[Navigation]}
+      modules={[Navigation, Autoplay]}
     >
       {/* {loading && (
   <>
@@ -33,10 +33,7 @@ export default function Hero() {
 )} */}
       {hero.map((item) => (
         <SwiperSlide key={item.title}>
-          <Link
-            target="_blank"
-            href={`/products/${item.title.replaceAll(" ", "+")}`}
-          >
+          <Link target="_blank" href={item.href}>
             <div className="w-full h-full">
               <Image
                 src={item.cover}

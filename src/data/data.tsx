@@ -1,6 +1,6 @@
 // Hero Images Source
 import image1 from "@/../public/hero/223182406f6b2b94af6e227293071c82552e3f04_1720613062.webp";
-import image2 from "@/../public/hero/4663d35c9f9e75c051d24b070df6673aa0ab57ba_1721201981.webp";
+import image2 from "@/../public/hero/00648ead8efeea7cb5d2e01e2995d88893c720d8_1725640143.webp";
 import image3 from "@/../public/hero/5e019f7eb15ca21899dea8d986bc9a0c3ba4f3da_1720423339.webp";
 import image4 from "@/../public/hero/86cd652dcca75bc161612940ad0c23d375b45e75_1720969903.webp";
 import image5 from "@/../public/hero/8db73b25bd311928c27f64d04eb58f9836666d7a_1715008589.webp";
@@ -4008,15 +4008,43 @@ export const cities = [
 ];
 
 export const hero = [
-  { title: "تن ماهی با بیشترین تخفیف", cover: image1 },
-  { title: "محبوب ترین", cover: image2 },
-  { title: "مراقبت پوستی", cover: image3 },
-  { title: "پارتنرشیپ-هادرون", cover: image4 },
-  { title: "خرید سوپرمارکتی پر تخفیف تر از همیشه", cover: image5 },
-  { title: "خرید آخر ماه از فروشگاه های اطراف", cover: image6 },
-  { title: "برندهای کفش", cover: image7 },
-  { title: "کمپین - HE - Outlet - آبان 1402", cover: image8 },
-  { title: "سامسونگ", cover: image9 },
+  {
+    title: "تن ماهی با بیشترین تخفیف",
+    cover: image1,
+    href: "/category/food-beverage",
+  },
+  {
+    title: "لوازم خانگی برقی",
+    cover: image2,
+    href: "/category/home-appliance",
+  },
+  {
+    title: "مراقبت پوستی",
+    cover: image3,
+    href: "/category/personal-appliance",
+  },
+  {
+    title: "خرید سوپرمارکتی پر تخفیف تر از همیشه",
+    cover: image5,
+    href: "/category/food-beverage",
+  },
+  {
+    title: "خرید آخر ماه از فروشگاه های اطراف",
+    cover: image6,
+    href: "/category/food-beverage",
+  },
+  { title: "برندهای کفش", cover: image7, href: "/category/apparel" },
+  {
+    title: "پارتنرشیپ-هادرون",
+    cover: image4,
+    href: "/category/home-appliance",
+  },
+  {
+    title: "کمپین - HE - Outlet - آبان 1402",
+    cover: image8,
+    href: "/category/home-appliance",
+  },
+  { title: "سامسونگ", cover: image9, href: "/category/mobile" },
 ];
 
 export const services = [

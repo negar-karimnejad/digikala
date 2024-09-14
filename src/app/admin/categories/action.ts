@@ -127,13 +127,13 @@ export async function updateCategory(state: any, formData: FormData) {
   connectToDB();
   const heros = formData.getAll("hero");
   const banners = formData.getAll("banner");
+  console.log("formData🩳", formData);
 
   const result = categoryEditSchema.safeParse({
     ...Object.fromEntries(formData.entries()),
     hero: heros,
     banner: banners,
   });
-console.log("🎃🏆",banners);
 
   if (result.success === false) {
     console.log("❌❌❌", result.error.formErrors.fieldErrors);

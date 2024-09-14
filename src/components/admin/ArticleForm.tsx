@@ -2,7 +2,7 @@
 
 import { addArticle, updateArticle } from "@/app/admin/articles/action";
 import { Button } from "@/components/ui/button";
-import { Article } from "@/types/types";
+import { Article, Category } from "@/types/types";
 import { Editor } from "@tinymce/tinymce-react";
 import { UploadCloud } from "lucide-react";
 import Image from "next/image";
@@ -11,11 +11,19 @@ import { useFormState, useFormStatus } from "react-dom";
 import toast from "react-hot-toast";
 import TagInput from "./TagInput";
 
-export default function ArticleForm({ article }: { article?: Article }) {
+export default function ArticleForm({
+  article,
+  categories,
+}: {
+  article?: Article;
+  categories: Category[];
+}) {
   const [coverFile, setCoverFile] = useState<File | null>(null);
   const [tags, setTags] = useState<string[]>(article?.tags || []);
   const [content, setContent] = useState(article?.content || "");
-
+  const [selectedCategory, setSelectedCategory] = useState(
+    article?.categoryId?.toString() || ""
+  );
   const [state, formAction] = useFormState(
     article == null ? addArticle : updateArticle,
     {}
@@ -143,7 +151,34 @@ export default function ArticleForm({ article }: { article?: Article }) {
         </label>
       </div>
 
-      <div className="relative mb-8">
+      {/* Select Category */}
+      <div>
+        <label htmlFor="categoryId" className="block text-gray-800 mb-2">
+          دسته‌بندی مورد نظر را انتخاب کنید:
+        </label>
+        <select
+          className="block w-full rounded-lg border-2 border-gray-300 bg-gray-50 px-3 py-2 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0 dark:border-gray-600 dark:bg-gray-900 dark:text-white dark:focus:border-blue-500"
+          required
+          name="categoryId"
+          id="categoryId"
+          value={selectedCategory}
+          onChange={(e) => {
+            setSelectedCategory(e.target.value);
+          }}
+        >
+          <option value="">دسته‌بندی مورد نظر را انتخاب کنید</option>
+          {categories.map((category: Category) => (
+            <option
+              key={category._id.toString()}
+              value={category._id.toString()}
+            >
+              {category.title}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      <div className="relative my-8">
         <label
           htmlFor="tags"
           className="absolute right-2.5 top-4 z-10 origin-[0] -translate-y-4 scale-75 transform text-sm text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:text-blue-600 dark:text-gray-400 peer-focus:dark:text-blue-500"

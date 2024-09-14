@@ -89,6 +89,7 @@ export interface Category {
   hero: string[];
   banner: string[];
   href: string;
+  description?: string;
   product?: Product;
   submenus: Submenu[];
 }
@@ -141,4 +142,5 @@ export interface Article {
   source: string;
   readingTime: string;
   cover: string;
+  categoryId?: ObjectId;
 }

@@ -112,11 +112,12 @@ export async function addProduct(_state: any, formData: FormData) {
   const imageIds = [];
   const images = formData.getAll("image");
   const imagePaths = new Set();
+
   const imagePromises = (images as File[]).map(async (image) => {
     if (image instanceof File) {
       const imagePath = `/products/${crypto.randomUUID()}-${image.name}`;
-      if (!imagePaths.has(imagePath)) {
-        imagePaths.add(imagePath);
+      if (!imagePaths.has(image.name)) {
+        imagePaths.add(image.name);
         await fs.writeFile(
           path.join(process.cwd(), "public", imagePath),
           Buffer.from(await image.arrayBuffer())

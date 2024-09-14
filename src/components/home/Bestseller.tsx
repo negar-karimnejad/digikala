@@ -4,8 +4,8 @@ import { Product } from "@/types/types";
 import { Flame } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
+import { Swiper, SwiperSlide } from "swiper/react";
 
 export default function Bestseller({
   title,
@@ -17,8 +17,13 @@ export default function Bestseller({
   const bestSellerProducts = products
     .slice()
     .sort((a, b) => b.recommended_percent - a.recommended_percent);
-    
-  const trendProducts = products.slice().sort((a, b) => b.likes - a.likes);
+
+  const trendProducts = products.slice().sort((a, b) => {
+    const aTimestamp = parseInt(a._id.toString().substring(0, 8), 16) * 1000;
+    const bTimestamp = parseInt(b._id.toString().substring(0, 8), 16) * 1000;
+    return bTimestamp - aTimestamp;
+  });
+
   return (
     <div className="border rounded-xl my-5 p-5 mx-3">
       {title.includes("پرفروش") ? (

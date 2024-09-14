@@ -173,4 +173,8 @@ export const ArticleSchema = z.object({
   readingTime: z.string(),
   cover: imageSchema.refine((file) => file.size > 0, "Required"),
   comment: z.array(ArticleCommentSchema).optional(),
+  categoryId: z.string(),
+});
+export const ArticleEditSchema = ArticleSchema.extend({
+  cover: imageSchema.optional(),
 });
