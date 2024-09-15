@@ -6,15 +6,14 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
-import { Category, Product, Submenu, SubmenuItem } from "@/types/types";
-import { SlashIcon } from "lucide-react";
+import { Category, Submenu, SubmenuItem } from "@/types/types";
 import React from "react";
 
 interface BreadcrumbContainerProps {
   category: Category;
   submenu: Submenu;
-  item: SubmenuItem;
-  title: string;
+  item?: SubmenuItem;
+  title?: string;
 }
 
 export default function BreadcrumbContainer({
@@ -27,7 +26,7 @@ export default function BreadcrumbContainer({
     { label: "دیجی‌کالا", href: "/" },
     { label: category.title, href: category.href },
     { label: submenu.title, href: submenu.href },
-    { label: item.title, href: item.href },
+    { label: item?.title, href: item?.href },
   ];
   return (
     <Breadcrumb>
@@ -39,12 +38,14 @@ export default function BreadcrumbContainer({
                 {breadcrumb.label}
               </BreadcrumbLink>
             </BreadcrumbItem>
-            <BreadcrumbSeparator />
+            {index < breadcrumbs.length - 1 && <BreadcrumbSeparator />}{" "}
           </React.Fragment>
         ))}
-        <BreadcrumbItem className="text-xs">
-          <BreadcrumbPage>{title}</BreadcrumbPage>
-        </BreadcrumbItem>
+        {title && (
+          <BreadcrumbItem className="text-xs">
+            <BreadcrumbPage>{title}</BreadcrumbPage>
+          </BreadcrumbItem>
+        )}
       </BreadcrumbList>
     </Breadcrumb>
   );
