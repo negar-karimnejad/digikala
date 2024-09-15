@@ -1,5 +1,5 @@
-import CategoryProducts from "@/components/category/categoryProducts";
-import SubmenuProducts from "@/components/category/SubmenuProducts";
+import CategoryProducts from "@/components/category/CategoryProducts";
+import SubmenuProductsContainer from "@/components/category/SubmenuProductsContainer";
 
 export default async function CategoryPage({
   params: { id },
@@ -11,7 +11,7 @@ export default async function CategoryPage({
       {id.length === 1 ? (
         <CategoryProducts id={id} />
       ) : (
-        <SubmenuProducts id={id} />
+        <SubmenuProductsContainer id={id} />
       )}
     </>
   );

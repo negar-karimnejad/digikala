@@ -67,12 +67,13 @@ export default async function CategoryProducts({ id }: { id: string }) {
   const serializedCategory = serializeDoc(category);
   const serializedcategoryProducts = serializeDoc(categoryProducts);
   const serializedArticles = serializeDoc(articles);
+  const serializedOfferProducts = serializeDoc(offerProducts);
 
   if (!category) return null;
   return (
     <div className="space-y-10">
       <CategoryHero category={serializedCategory} />
-      <Offers products={offerProducts} />
+      <Offers products={serializedOfferProducts} />
 
       {/* Shopping by category */}
       {category.submenus.length > 0 && (
@@ -135,6 +136,7 @@ export default async function CategoryProducts({ id }: { id: string }) {
           src="/069665291f9d877a19922f0c741e7620ad85cf6b_1725653469.gif"
         />
       </div>
+
       <SelectedProducts products={serializedcategoryProducts} />
 
       {articles.length > 0 && (

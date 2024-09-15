@@ -14,7 +14,8 @@ export default async function SelectedProducts({
     .sort((a, b) => b.discount - a.discount);
 
   return (
-    <div className="border rounded-xl my-5 pt-5 mx-3 overflow-hidden">
+    <div>
+    <div className="border rounded-xl my-10 mx-3 overflow-hidden">
       <h2 className="text-center flex items-center justify-center gap-2 text-xl font-irsansb my-2">
         <BadgePercent className="text-red-600" />
         <span>منتخب محصولات تخفیف و حراج</span>
@@ -76,6 +77,7 @@ export default async function SelectedProducts({
           </div>
         ))}
       </div>
+    </div>
     </div>
   );
 }

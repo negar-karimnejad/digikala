@@ -27,7 +27,8 @@ export default function BreadcrumbContainer({
     { label: category.title, href: category.href },
     { label: submenu.title, href: submenu.href },
     { label: item?.title, href: item?.href },
-  ];
+  ].filter((breadcrumb) => breadcrumb.label);
+
   return (
     <Breadcrumb>
       <BreadcrumbList>
@@ -42,9 +43,12 @@ export default function BreadcrumbContainer({
           </React.Fragment>
         ))}
         {title && (
-          <BreadcrumbItem className="text-xs">
-            <BreadcrumbPage>{title}</BreadcrumbPage>
-          </BreadcrumbItem>
+          <>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem className="text-xs">
+              <BreadcrumbPage>{title}</BreadcrumbPage>
+            </BreadcrumbItem>
+          </>
         )}
       </BreadcrumbList>
     </Breadcrumb>

@@ -1,0 +1,66 @@
+import { Product, Submenu } from "@/types/types";
+import { serializeDoc } from "@/utils/serializeDoc";
+import CategoryModel from "models/Category";
+import ProductModel from "models/Product";
+import SubmenuModel from "models/Submenu";
+import BreadcrumbContainer from "../product/BreadcrumbContainer";
+import SubmenuProducts from "./SubmenuProducts";
+import SubmenuProductsSidebar from "./SubmenuProductsSidebar";
+
+export default async function SubmenuProductsContainer({ id }: { id: string }) {
+  const submenu: Submenu = await SubmenuModel.findOne({
+    href: `/category/${id[0]}/${id[1]}`,
+  })
+    .populate({
+      path: "items",
+    })
+    .lean();
+
+  const products: Product[] = await ProductModel.find({})
+    .populate({
+      path: "category",
+      populate: {
+        path: "submenus",
+        populate: {
+          path: "items",
+        },
+      },
+    })
+    .lean();
+
+  // Category Products
+  const submenuProducts = products.filter(
+    (product) => product.submenuId === submenu?._id.toString()
+  );
+  const category = await CategoryModel.findOne({ _id: submenu.categoryId })
+    .populate({
+      path: "submenus",
+      populate: {
+        path: "items",
+      },
+    })
+    .lean();
+
+  const serializedCategory = serializeDoc(category);
+  const serializedSubmenu = serializeDoc(submenu);
+  const serializedSubmenuProducts = serializeDoc(submenuProducts);
+
+  if (!category) return null;
+  return (
+    <div className=" px-4 py-5">
+      <div className="breadcrumb-container flex overflow-x-auto overflow-y-hidden hide-scrollbar">
+        <BreadcrumbContainer
+          category={serializedCategory}
+          submenu={serializedSubmenu}
+        />
+      </div>
+      <div className="grid grid-cols-12 gap-5 mt-10">
+        <SubmenuProductsSidebar
+          category={serializedCategory}
+          submenu={serializedSubmenu}
+        />
+        <SubmenuProducts products={serializedSubmenuProducts} />
+      </div>
+    </div>
+  );
+}
