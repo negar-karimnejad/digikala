@@ -24,6 +24,7 @@
     "@vercel/postgres": "^0.9.0",
     "bcryptjs": "^2.4.3",
     "class-variance-authority": "^0.7.0",
+    "classnames": "^2.5.1",
     "clsx": "^2.1.1",
     "dompurify": "^3.1.6",
     "embla-carousel-react": "^8.1.6",
@@ -41,7 +42,7 @@
     "swiper": "^11.1.10",
     "tailwind-merge": "^2.3.0",
     "tailwindcss-animate": "^1.0.7",
-    "vercel": "^37.4.0",
+    "vercel": "^32.3.0",
     "zod": "^3.23.8"
   },
   "devDependencies": {

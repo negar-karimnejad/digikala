@@ -4,8 +4,7 @@ import CategoryModel from "models/Category";
 import ProductModel from "models/Product";
 import SubmenuModel from "models/Submenu";
 import BreadcrumbContainer from "../product/BreadcrumbContainer";
-import SubmenuProducts from "./SubmenuProducts";
-import SubmenuProductsSidebar from "./SubmenuProductsSidebar";
+import SubmenuProductsMain from "./SubmenuProductsMain";
 
 export default async function SubmenuProductsContainer({ id }: { id: string }) {
   const submenu: Submenu = await SubmenuModel.findOne({
@@ -55,11 +54,11 @@ export default async function SubmenuProductsContainer({ id }: { id: string }) {
         />
       </div>
       <div className="grid grid-cols-12 gap-5 mt-10">
-        <SubmenuProductsSidebar
+        <SubmenuProductsMain
           category={serializedCategory}
           submenu={serializedSubmenu}
+          products={serializedSubmenuProducts}
         />
-        <SubmenuProducts products={serializedSubmenuProducts} />
       </div>
     </div>
   );
