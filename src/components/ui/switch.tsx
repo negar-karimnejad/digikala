@@ -1,7 +1,7 @@
 import { useState } from "react";
 
-const Switch = ({ initialState = false, onChange }) => {
-  const [isOn, setIsOn] = useState(initialState);
+const Switch = ({ onChange }) => {
+  const [isOn, setIsOn] = useState(false);
 
   const handleToggle = () => {
     setIsOn((prevState) => !prevState);

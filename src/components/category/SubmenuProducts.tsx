@@ -59,7 +59,12 @@ export default function SubmenuProducts({ products }: { products: Product[] }) {
       <div className="grid grid-cols-12 mt-3">
         {sortedProducts().length > 0 ? (
           sortedProducts().map((product) => (
-            <ProductCard key={product._id.toString()} product={product} />
+            <div
+              key={product._id.toString()}
+              className="col-span-12 md:col-span-6 lg:col-span-4"
+            >
+              <ProductCard product={product} />
+            </div>
           ))
         ) : (
           <div className="col-span-12 text-neutral-500 border-t p-5">

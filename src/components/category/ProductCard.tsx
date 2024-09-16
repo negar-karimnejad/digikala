@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export default function ProductCard({ product }: { product: Product }) {
   return (
-    <div className="hover:shadow-md hover:shadow-neutral-500 transition-all col-span-12 md:col-span-6 lg:col-span-4 flex flex-col justify-center px-2 py-4 border border-neutral-100">
+    <div className="hover:shadow-md h-[25rem] hover:shadow-neutral-500 dark:hover:shadow-neutral-700 transition-all flex flex-col justify-center px-2 py-4 border border-neutral-100 dark:border-neutral-500">
       <Link href={`/products/${product._id}`} className="relative mb-5">
         <Image
           alt={product.title}

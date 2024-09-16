@@ -83,7 +83,7 @@ export default function SubmenuProductsSidebar({
         <AccordionItem value="item-3">
           <AccordionTrigger>
             <Label htmlFor="exist_store">فقط کالاهای موجود</Label>
-            <Switch initialState={true} onChange={handleChange} />
+            <Switch onChange={handleChange} />
           </AccordionTrigger>
         </AccordionItem>
         <AccordionItem value="item-4">
@@ -91,7 +91,7 @@ export default function SubmenuProductsSidebar({
             <Label htmlFor="exist_digikala_store">
               فقط کالاهای موجود در انبار دیجی‌کالا
             </Label>
-            <Switch initialState={true} onChange={handleChange} />
+            <Switch onChange={handleChange} />
           </AccordionTrigger>
         </AccordionItem>
       </Accordion>
