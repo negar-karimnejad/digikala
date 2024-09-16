@@ -24,16 +24,23 @@ import { Button } from "../ui/button";
 const links = [
   {
     label: "شگفت انگیزها",
-    href: "/",
+    href: "/incredible-offers",
     icon: <BadgePercent size={18} />,
   },
-  { label: "سوپرمارکت ", href: "/", icon: <ShoppingBasket size={18} /> },
-  { label: "کارت هدیه ", href: "/", icon: <CreditCard size={18} /> },
-  { label: "پرفروش ترین ها ", href: "/", icon: <Flame size={18} /> },
+  {
+    label: "سوپرمارکت ",
+    href: "/fresh",
+    icon: <ShoppingBasket size={18} />,
+  },
+  { label: "کارت هدیه ", href: "/gift-card", icon: <CreditCard size={18} /> },
+  {
+    label: "پرفروش ترین ها ",
+    href: "/best-selling",
+    icon: <Flame size={18} />,
+  },
 ];
 
 export default function Navbar({ categories }: { categories: Category[] }) {
-  // const [userProvince, setUserProvince] = useState("");
   const [provincecities, setProvinceCities] = useState<City[]>([]);
   const [isShowMenu, setIsShowMenu] = useState(false);
   const [locating, setLocating] = useState(false);
