@@ -1,5 +1,11 @@
 "use client";
 
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import { sortingMenuItems } from "@/data/data";
 import { Category, Product, Submenu } from "@/types/types";
 import {
@@ -9,39 +15,65 @@ import {
   X,
 } from "lucide-react";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
+import { Label } from "../ui/label";
+import Switch from "../ui/switch";
+import PriceSlider from "./PriceSlider";
 import SubmenuProducts from "./SubmenuProducts";
-import SubmenuProductsSidebar from "./SubmenuProductsSidebar";
 
 export default function SubmenuProductsMain({
   category,
   submenu,
   products,
+  maxPrice,
 }: {
   category: Category;
   submenu: Submenu;
   products: Product[];
+  maxPrice: number;
 }) {
+  const [activeSubmenu, setActiveSubmenu] = useState(submenu.title);
+  const [isPriceChanged, setIsPriceChanged] = useState(false);
+  const [isSwitchChanged, setIsSwitchChanged] = useState(false);
+  const [minVal, setMinVal] = useState(0);
+  const [maxVal, setMaxVal] = useState(maxPrice);
+  const [isSwitchOn, setIsSwitchOn] = useState(false);
+  const [isDigikalaSwitchOn, setIsDigikalaSwitchOn] = useState(false);
   const [sortingModal, setSortingModal] = useState(false);
   const [filterModal, setFilterModal] = useState(false);
+  const [priceModal, setPriceModal] = useState(false);
   const [sortingMenu, setSortingMenu] = useState("relevant");
   const [filteredProducts, setFilteredProducts] = useState<Product[]>(products);
-
-  const closeSortingModalHandler = () => setSortingModal(false);
-  const closeFilterModalHandler = () => setFilterModal(false);
-
-  const maxPrice = roundUpToCeil(
-    products.reduce((prev, current) => {
-      return prev.price > current.price ? prev : current;
-    }, products[0])?.price
-  );
-
   const [priceRange, setPriceRange] = useState({ min: 0, max: maxPrice });
 
-  function roundUpToCeil(value: number): number {
-    return Math.ceil(value / 1000000) * 1000000;
-  }
+  const handleSwitchChange = (newState: boolean) => {
+    setIsSwitchOn(newState);
+    setIsSwitchChanged(true);
+  };
 
+  const handleDigikalaSwitchChange = (newState: boolean) => {
+    setIsDigikalaSwitchOn(newState);
+    setIsSwitchChanged(true);
+  };
+
+  // Reset All Filters
+  const handleResetFilters = () => {
+    setIsPriceChanged(false);
+    setMinVal(0);
+    setMaxVal(maxPrice);
+    setPriceRange({ min: 0, max: maxPrice });
+    setIsSwitchOn(false);
+    setIsDigikalaSwitchOn(false);
+    setIsSwitchChanged(false);
+  };
+
+  // Get min and max values when their state changes
+  useEffect(() => {
+    setPriceRange({ min: minVal, max: maxVal });
+    setIsPriceChanged(minVal != 0 || maxVal != maxPrice);
+  }, [maxPrice, maxVal, minVal, setPriceRange]);
+
+  // Filter Products by Price
   useEffect(() => {
     const filtered = products.filter(
       (product) =>
@@ -50,8 +82,8 @@ export default function SubmenuProductsMain({
     setFilteredProducts(filtered);
   }, [priceRange, products]);
 
+  // Disable body scroll when the modal is open
   useEffect(() => {
-    // Disable body scroll when the modal is open
     if (sortingModal) {
       document.body.style.overflow = "hidden";
     } else {
@@ -59,18 +91,95 @@ export default function SubmenuProductsMain({
     }
   }, [sortingModal]);
 
+  const closeSortingModalHandler = () => setSortingModal(false);
+  const closeFilterModalHandler = () => setFilterModal(false);
+  const closePriceModalHandler = () => setPriceModal(false);
+
   return (
     <>
       <div className="col-span-3 max-lg:hidden border rounded-lg p-5">
-        <SubmenuProductsSidebar
-          category={category}
-          submenu={submenu}
-          maxPrice={maxPrice}
-          setPriceRange={setPriceRange}
-        />
+        <div className="flex items-center justify-between pb-10">
+          <h3 className="text-neutral-700 dark:text-neutral-100 text-xl font-irsansb">
+            فیلترها
+          </h3>
+          {(isPriceChanged || isSwitchChanged) && (
+            <button
+              onClick={handleResetFilters}
+              className="text-xs text-sky-500"
+            >
+              حذف فیلترها
+            </button>
+          )}
+        </div>
+        <Accordion type="single" collapsible className="w-full">
+          {/* Category AccordionItem */}
+          <AccordionItem value="item-1">
+            <AccordionTrigger>
+              دسته‌بندی
+              <ChevronDown className="h-4 w-4 text-neutral-600 dark:text-neutral-200 shrink-0 transition-transform duration-200" />
+            </AccordionTrigger>
+            {category.submenus.map((submenu) => (
+              <AccordionContent key={submenu._id.toString()}>
+                <Link
+                  href={submenu.href}
+                  onClick={() => setActiveSubmenu(submenu.title)}
+                  className={`mr-3 text-sm flex items-center gap-2 ${
+                    activeSubmenu === submenu.title
+                      ? "text-red-500"
+                      : "text-neutral-500 dark:text-neutral-300"
+                  }`}
+                >
+                  <span
+                    className={`w-1 h-1  rounded-full ${
+                      activeSubmenu === submenu.title
+                        ? "bg-red-500"
+                        : "bg-neutral-500"
+                    }`}
+                  ></span>
+                  {submenu.title}
+                </Link>
+              </AccordionContent>
+            ))}
+          </AccordionItem>
+
+          {/* Price Range AccordionItem */}
+          <AccordionItem value="item-2">
+            <AccordionTrigger>
+              محدوده قیمت
+              <ChevronDown className="dark:text-neutral-200 h-4 w-4 text-neutral-600 shrink-0 transition-transform duration-200" />
+            </AccordionTrigger>
+            <AccordionContent>
+              <PriceSlider
+                min={0}
+                max={maxPrice}
+                minVal={minVal}
+                maxVal={maxVal}
+                setMinVal={setMinVal}
+                setMaxVal={setMaxVal}
+              />
+            </AccordionContent>
+          </AccordionItem>
+          <AccordionItem value="item-3">
+            <AccordionTrigger>
+              <Label htmlFor="exist_store">فقط کالاهای موجود</Label>
+              <Switch checked={isSwitchOn} onChange={handleSwitchChange} />
+            </AccordionTrigger>
+          </AccordionItem>
+          <AccordionItem value="item-4">
+            <AccordionTrigger>
+              <Label htmlFor="exist_digikala_store">
+                فقط کالاهای موجود در انبار دیجی‌کالا
+              </Label>
+              <Switch
+                checked={isDigikalaSwitchOn}
+                onChange={handleDigikalaSwitchChange}
+              />
+            </AccordionTrigger>
+          </AccordionItem>
+        </Accordion>
       </div>
 
-      <div className="sticky px-4 col-span-12 w-full top-20 right-0 z-10 border-b bg-white py-4 flex items-center gap-2">
+      <div className="lg:hidden sticky px-4 col-span-12 w-full top-20 right-0 z-10 border-b bg-white py-4 flex items-center gap-2">
         <button
           onClick={() => setSortingModal(true)}
           className="border rounded-full px-3 w-fit py-1.5 flex gap-2 items-center"
@@ -85,7 +194,10 @@ export default function SubmenuProductsMain({
           <SlidersHorizontal size={15} />
           فیلتر
         </button>
-        <button className="border rounded-full px-3 w-fit py-1.5 flex gap-2 items-center">
+        <button
+          onClick={() => setPriceModal(true)}
+          className="border rounded-full px-3 w-fit py-1.5 flex gap-2 items-center"
+        >
           محدوده قیمت
           <ChevronDown size={15} />
         </button>
@@ -154,19 +266,183 @@ export default function SubmenuProductsMain({
         >
           <button className="relative w-full">
             <X
-              size={17}
+              size={20}
               onClick={closeFilterModalHandler}
-              className="absolute -left-2 -top-2"
+              className="absolute left-0 top-0"
             />
           </button>
-          <SubmenuProductsSidebar
-            category={category}
-            submenu={submenu}
-            maxPrice={maxPrice}
-            setPriceRange={setPriceRange}
+          <div className="flex items-center justify-between pb-10">
+            <h3 className="text-neutral-700 dark:text-neutral-100 text-xl font-irsansb">
+              فیلترها
+            </h3>
+          </div>
+          <Accordion type="single" collapsible className="w-full">
+            {/* Category AccordionItem */}
+            <AccordionItem value="item-1">
+              <AccordionTrigger>
+                دسته‌بندی
+                <ChevronDown className="h-4 w-4 text-neutral-600 dark:text-neutral-200 shrink-0 transition-transform duration-200" />
+              </AccordionTrigger>
+              {category.submenus.map((submenu) => (
+                <AccordionContent key={submenu._id.toString()}>
+                  <Link
+                    href={submenu.href}
+                    onClick={() => setActiveSubmenu(submenu.title)}
+                    className={`mr-3 text-sm flex items-center gap-2 ${
+                      activeSubmenu === submenu.title
+                        ? "text-red-500"
+                        : "text-neutral-500 dark:text-neutral-300"
+                    }`}
+                  >
+                    <span
+                      className={`w-1 h-1  rounded-full ${
+                        activeSubmenu === submenu.title
+                          ? "bg-red-500"
+                          : "bg-neutral-500"
+                      }`}
+                    ></span>
+                    {submenu.title}
+                  </Link>
+                </AccordionContent>
+              ))}
+            </AccordionItem>
+
+            {/* Price Range AccordionItem */}
+            <AccordionItem value="item-2">
+              <AccordionTrigger>
+                محدوده قیمت
+                <ChevronDown className="dark:text-neutral-200 h-4 w-4 text-neutral-600 shrink-0 transition-transform duration-200" />
+              </AccordionTrigger>
+              <AccordionContent>
+                <PriceSlider
+                  min={0}
+                  max={maxPrice}
+                  minVal={minVal}
+                  maxVal={maxVal}
+                  setMinVal={setMinVal}
+                  setMaxVal={setMaxVal}
+                />
+              </AccordionContent>
+            </AccordionItem>
+            <AccordionItem value="item-3">
+              <AccordionTrigger>
+                <Label htmlFor="exist_store">فقط کالاهای موجود</Label>
+                <Switch checked={isSwitchOn} onChange={handleSwitchChange} />
+              </AccordionTrigger>
+            </AccordionItem>
+            <AccordionItem value="item-4">
+              <AccordionTrigger>
+                <Label htmlFor="exist_digikala_store">
+                  فقط کالاهای موجود در انبار دیجی‌کالا
+                </Label>
+                <Switch
+                  checked={isDigikalaSwitchOn}
+                  onChange={handleDigikalaSwitchChange}
+                />
+              </AccordionTrigger>
+            </AccordionItem>
+          </Accordion>
+
+          <ModalsButtons
+            closeModal={closeFilterModalHandler}
+            products={filteredProducts}
+            resetFilters={handleResetFilters}
+          />
+        </div>
+      </div>
+
+      {/* Price Range Modal */}
+      <div
+        className={`fixed right-0 top-0 z-50 lg:hidden flex h-screen w-full cursor-default flex-col items-center bg-black/40 dark:bg-black/80 transition-all duration-500  ${
+          priceModal ? "visible opacity-100" : "invisible opacity-0"
+        }`}
+        onClick={closePriceModalHandler}
+      >
+        <div
+          onClick={(e) => e.stopPropagation()}
+          className={`overflow-hidden fixed bottom-0 right-0 w-full rounded-lg bg-white px-5 pb-5 pt-0 shadow transition-all duration-500 dark:text-white
+           ${priceModal ? "translate-y-0" : "translate-y-96"}`}
+        >
+          <button className="relative w-full">
+            <X
+              size={20}
+              onClick={closePriceModalHandler}
+              className="absolute left-0 top-0"
+            />
+          </button>
+          <div className="grow whitespace-nowrap dark:text-neutral-100 text-neutral-800 text-body2-strong">
+            <p className="mb-5">محدوده قیمت</p>
+          </div>
+
+          <PriceSlider
+            min={0}
+            max={maxPrice}
+            minVal={minVal}
+            maxVal={maxVal}
+            setMinVal={setMinVal}
+            setMaxVal={setMaxVal}
+          />
+          <ModalsButtons
+            closeModal={closePriceModalHandler}
+            products={filteredProducts}
+            resetFilters={handleResetFilters}
           />
         </div>
       </div>
     </>
+  );
+}
+
+const ModalsButtons = ({ closeModal, products, resetFilters }) => {
+  return (
+    <div className="flex gap-5 mt-5 text-sm pt-3">
+      <button
+        onClick={closeModal}
+        className="w-full p-2 bg-rose-500 rounded-md text-white"
+      >
+        مشاهده {products.length} محصول
+      </button>
+      <button
+        onClick={resetFilters}
+        className="w-full border p-2 border-rose-500 rounded-md text-red-500"
+      >
+        حذف فیلتر
+      </button>
+    </div>
+  );
+};
+
+function Modal({
+  children,
+  isOpen,
+  closeModalHandler,
+}: {
+  children: ReactNode;
+  isOpen: boolean;
+  closeModalHandler: () => void;
+}) {
+  return (
+    <div
+      className={`fixed right-0 top-0 z-50 lg:hidden flex h-screen w-full cursor-default flex-col items-center bg-black/40 dark:bg-black/80 transition-all duration-500  ${
+        isOpen ? "visible opacity-100" : "invisible opacity-0"
+      }`}
+      onClick={closeModalHandler}
+    >
+      <div
+        onClick={(e) => e.stopPropagation()}
+        className={`overflow-hidden fixed bottom-0 right-0 w-full rounded-lg bg-white px-5 pb-5 pt-0 shadow transition-all duration-500 dark:text-white
+           ${priceModal ? "translate-y-0" : "translate-y-96"}`}
+      >
+        <button className="relative w-full">
+          <X
+            size={20}
+            onClick={closeModalHandler}
+            className="absolute left-0 top-0"
+          />
+        </button>
+
+        {children}
+      </div>
+    </div>
   );
 }
