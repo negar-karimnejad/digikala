@@ -2,11 +2,16 @@
 
 import classnames from "classnames";
 import PropTypes from "prop-types";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef } from "react";
 
-export default function PriceSlider({ min, max, onChange }) {
-  const [minVal, setMinVal] = useState(min);
-  const [maxVal, setMaxVal] = useState(max);
+export default function PriceSlider({
+  min,
+  max,
+  minVal,
+  maxVal,
+  setMinVal,
+  setMaxVal,
+}) {
   const minValRef = useRef(null);
   const maxValRef = useRef(null);
   const range = useRef(null);
@@ -42,26 +47,24 @@ export default function PriceSlider({ min, max, onChange }) {
     }
   }, [maxVal, getPercent]);
 
-  // Get min and max values when their state changes
-  useEffect(() => {
-    onChange({ min: minVal, max: maxVal });
-  }, [minVal, maxVal, onChange]);
-
   const formatNumber = (value) => {
     return value.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
   const unformatNumber = (value) => {
     return value.replace(/,/g, "");
   };
+
   return (
     <div>
       <div className="flex items-center justify-between mb-5">
-        <span className="text-[15px] text-neutral-600">از</span>
+        <span className="text-[15px] text-neutral-600 dark:text-neutral-300">
+          از
+        </span>
         <input
           value={formatNumber(minVal.toString())}
           onChange={(e) => setMinVal(unformatNumber(e.target.value))}
           type="text"
-          className="text-left text-2xl font-bold text-gray-800 w-40 border-b p-3 outline-none"
+          className="text-left text-2xl font-bold text-gray-800 dark:text-white w-40 border-b p-3 outline-none bg-transparent"
         />
         <svg
           width="20"
@@ -76,12 +79,14 @@ export default function PriceSlider({ min, max, onChange }) {
         </svg>
       </div>
       <div className="flex items-center justify-between mb-5">
-        <span className="text-[15px] text-neutral-600">تا</span>
+        <span className="text-[15px] text-neutral-600 dark:text-neutral-300">
+          تا
+        </span>
         <input
           value={formatNumber(maxVal.toString())}
           onChange={(e) => setMaxVal(unformatNumber(e.target.value))}
           type="text"
-          className="text-left text-2xl font-bold text-gray-800 w-40 border-b p-3 outline-none"
+          className="text-left text-2xl font-bold text-gray-800 dark:text-white w-40 border-b p-3 outline-none bg-transparent"
         />
         <svg
           width="20"
@@ -128,8 +133,12 @@ export default function PriceSlider({ min, max, onChange }) {
         <div className="slider">
           <div className="slider__track" />
           <div ref={range} className="slider__range" />
-          <div className="slider__left-value">گرانترین</div>
-          <div className="slider__right-value">ارزانترین</div>
+          <div className="slider__left-value dark:text-neutral-300">
+            گرانترین
+          </div>
+          <div className="slider__right-value dark:text-neutral-300">
+            ارزانترین
+          </div>
         </div>
       </div>
     </div>

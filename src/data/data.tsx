@@ -4289,3 +4289,12 @@ export const mobileFooterLinks = [
     href: "/profile",
   },
 ];
+
+export const sortingMenuItems = [
+  { title: "مرتبط‌ترین", label: "relevant" },
+  { title: "پربازدیدترین", label: "visited" },
+  { title: "جدیدترین", label: "newest" },
+  { title: "پرفروش‌ترین‌", label: "bestseller" },
+  { title: "ارزان‌ترین", label: "cheapest" },
+  { title: "گران‌ترین", label: "expensive" },
+];

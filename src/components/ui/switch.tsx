@@ -1,7 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-const Switch = ({ onChange }) => {
-  const [isOn, setIsOn] = useState(false);
+const Switch = ({ onChange, checked }) => {
+  const [isOn, setIsOn] = useState(checked);
+
+  useEffect(() => {
+    setIsOn(checked);
+  }, [checked]);
 
   const handleToggle = () => {
     setIsOn((prevState) => !prevState);

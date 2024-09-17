@@ -46,14 +46,14 @@ export default async function SubmenuProductsContainer({ id }: { id: string }) {
 
   if (!category) return null;
   return (
-    <div className=" px-4 py-5">
-      <div className="breadcrumb-container flex overflow-x-auto overflow-y-hidden hide-scrollbar">
+    <div className="lg:py-5">
+      <div className="px-4 breadcrumb-container flex overflow-x-auto overflow-y-hidden hide-scrollbar">
         <BreadcrumbContainer
           category={serializedCategory}
           submenu={serializedSubmenu}
         />
       </div>
-      <div className="grid grid-cols-12 gap-5 mt-10">
+      <div className="grid grid-cols-12 gap-5 lg:mt-10">
         <SubmenuProductsMain
           category={serializedCategory}
           submenu={serializedSubmenu}

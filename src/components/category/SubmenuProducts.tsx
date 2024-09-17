@@ -1,13 +1,18 @@
 "use client";
 
 import { Product } from "@/types/types";
-import { useState } from "react";
 import ProductCard from "./ProductCard";
 import SortingMenu from "./SortingMenu";
 
-export default function SubmenuProducts({ products }: { products: Product[] }) {
-  const [sortingMenu, setSortingMenu] = useState("relevant");
-
+export default function SubmenuProducts({
+  products,
+  sortingMenu,
+  setSortingMenu,
+}: {
+  products: Product[];
+  sortingMenu: string;
+  setSortingMenu;
+}) {
   const sortedProducts = () => {
     switch (sortingMenu) {
       case "cheapest":
@@ -36,42 +41,43 @@ export default function SubmenuProducts({ products }: { products: Product[] }) {
   };
 
   return (
-    <div className="col-span-9 ">
-      <div className="lg:static sticky lg:top-14 bg-neutral-000 z-2 top-14">
+    <>
+      <div className="col-span-9 max-lg:col-span-12 px-4">
         <div>
-          <div className="flex items-center border-complete-b-200 gap-4 sticky top-20 bg-neutral-000 lg:static">
-            <div className="flex justify-between items-center grow text-sm">
-              <SortingMenu
-                sortingMenu={sortingMenu}
-                setSortingMenu={setSortingMenu}
-              />
+          <div>
+            <div className="flex items-center border-complete-b-200 gap-4 sticky top-20 bg-neutral-000 lg:static">
+              <div className="flex max-lg:flex-col justify-between lg:items-center grow text-sm">
+                <SortingMenu
+                  sortingMenu={sortingMenu}
+                  setSortingMenu={setSortingMenu}
+                />
 
-              <div className="">
-                <span className="text-neutral-500 whitespace-nowrap text-xs ellispis-1 xl:flex items-center gap-2">
+                <div className="max-lg:w-full text-neutral-500 justify-between dark:text-neutral-300 whitespace-nowrap text-xs ellispis-1 flex items-center gap-2">
+                  <p className="lg:hidden">همه کالاها</p>
                   {products.length.toLocaleString()} کالا
-                </span>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <div className="grid grid-cols-12 mt-3">
-        {sortedProducts().length > 0 ? (
-          sortedProducts().map((product) => (
-            <div
-              key={product._id.toString()}
-              className="col-span-12 md:col-span-6 lg:col-span-4"
-            >
-              <ProductCard product={product} />
+        <div className="grid grid-cols-12 mt-3">
+          {sortedProducts().length > 0 ? (
+            sortedProducts().map((product) => (
+              <div
+                key={product._id.toString()}
+                className="col-span-12 md:col-span-6 lg:col-span-4"
+              >
+                <ProductCard product={product} />
+              </div>
+            ))
+          ) : (
+            <div className="col-span-12 text-neutral-500 border-t p-5">
+              هیچ محصولی برای نمایش وجود ندارد.
             </div>
-          ))
-        ) : (
-          <div className="col-span-12 text-neutral-500 border-t p-5">
-            هیچ محصولی برای نمایش وجود ندارد.
-          </div>
-        )}
+          )}
+        </div>
       </div>
-    </div>
+    </>
   );
 }
