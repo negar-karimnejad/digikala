@@ -44,15 +44,7 @@ export default async function SubmenuProductsContainer({ id }: { id: string }) {
   const serializedSubmenu = serializeDoc(submenu);
   const serializedSubmenuProducts = serializeDoc(submenuProducts);
 
-  function roundUpToCeil(value: number): number {
-    return Math.ceil(value / 1000000) * 1000000;
-  }
-
-  const maxPrice = roundUpToCeil(
-    products.reduce((prev, current) => {
-      return prev.price > current.price ? prev : current;
-    }, products[0])?.price
-  );
+  
 
   if (!category) return null;
   return (
@@ -68,7 +60,6 @@ export default async function SubmenuProductsContainer({ id }: { id: string }) {
           category={serializedCategory}
           submenu={serializedSubmenu}
           products={serializedSubmenuProducts}
-          maxPrice={maxPrice}
         />
       </div>
     </div>
