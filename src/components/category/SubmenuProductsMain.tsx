@@ -136,28 +136,20 @@ export default function SubmenuProductsMain({
         />
       </div>
 
-      <div className="lg:hidden sticky px-4 col-span-12 w-full top-20 right-0 z-10 border-b bg-white py-4 flex items-center gap-2">
-        <button
-          onClick={() => setSortingModal(true)}
-          className="border rounded-full px-3 w-fit py-1.5 flex gap-2 items-center"
-        >
+      {/* Mobile Size Sorting Buttons */}
+      <div className="lg:hidden sticky px-4 col-span-12 w-full top-20 right-0 z-10 border-b bg-white dark:bg-neutral-950 py-4 flex items-center gap-2">
+        <MobileSortingButton onClick={() => setSortingModal(true)}>
           <ArrowDownWideNarrow size={15} />
           مرتبط‌ترین
-        </button>
-        <button
-          onClick={() => setFilterModal(true)}
-          className="border rounded-full px-3 w-fit py-1.5 flex gap-2 items-center"
-        >
+        </MobileSortingButton>
+        <MobileSortingButton onClick={() => setFilterModal(true)}>
           <SlidersHorizontal size={15} />
           فیلتر
-        </button>
-        <button
-          onClick={() => setPriceModal(true)}
-          className="border rounded-full px-3 w-fit py-1.5 flex gap-2 items-center"
-        >
+        </MobileSortingButton>
+        <MobileSortingButton onClick={() => setPriceModal(true)}>
           محدوده قیمت
           <ChevronDown size={15} />
-        </button>
+        </MobileSortingButton>
       </div>
 
       <SubmenuProducts
@@ -245,7 +237,18 @@ export default function SubmenuProductsMain({
   );
 }
 
-const FilterAccordion = ({
+function MobileSortingButton({ onClick, children }) {
+  return (
+    <button
+      onClick={onClick}
+      className="border rounded-full px-3 w-fit py-1.5 flex gap-2 items-center"
+    >
+      {children}
+    </button>
+  );
+}
+
+function FilterAccordion({
   category,
   setActiveSubmenu,
   activeSubmenu,
@@ -258,7 +261,7 @@ const FilterAccordion = ({
   handleSwitchChange,
   isDigikalaSwitchOn,
   handleDigikalaSwitchChange,
-}) => {
+}) {
   return (
     <Accordion type="single" collapsible className="w-full">
       {/* Category AccordionItem */}
@@ -327,9 +330,9 @@ const FilterAccordion = ({
       </AccordionItem>
     </Accordion>
   );
-};
+}
 
-const ModalsButtons = ({ closeModal, products, resetFilters }) => {
+function ModalsButtons({ closeModal, products, resetFilters }) {
   return (
     <div className="flex gap-5 mt-5 text-sm pt-3">
       <button
@@ -346,7 +349,7 @@ const ModalsButtons = ({ closeModal, products, resetFilters }) => {
       </button>
     </div>
   );
-};
+}
 
 function Modal({
   children,
@@ -366,7 +369,7 @@ function Modal({
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className={`fixed bottom-0 right-0 w-full max-h-[90vh] overflow-auto rounded-lg bg-white px-5 pb-5 pt-0 shadow transition-all duration-500 dark:text-white
+        className={`fixed bottom-0 right-0 w-full max-h-[90vh] overflow-auto rounded-lg bg-white dark:bg-neutral-900 px-5 pb-5 pt-0 shadow transition-all duration-500 dark:text-white
            ${isOpen ? "translate-y-0" : "translate-y-96"}`}
       >
         <button className="relative w-full">

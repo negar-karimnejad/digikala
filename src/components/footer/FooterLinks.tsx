@@ -7,7 +7,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { footerLinks } from "@/data/data";
-import { Instagram, Linkedin, Twitter } from "lucide-react";
+import { ChevronDown, Instagram, Linkedin, Twitter } from "lucide-react";
 import Link from "next/link";
 import { FormEvent, useEffect, useState } from "react";
 import toast from "react-hot-toast";
@@ -151,6 +151,7 @@ export default function FooterLinks({ user }) {
           <AccordionItem key={link.id} value={`item-${index + 1}`}>
             <AccordionTrigger className="hover:no-underline col-span-12 text-neutral-800 dark:text-neutral-100 text-xs font-irsansb">
               {link.title}
+              <ChevronDown className="h-4 w-4 text-neutral-600 dark:text-neutral-200 shrink-0 transition-transform duration-200" />
             </AccordionTrigger>
             <div
               className={`${
