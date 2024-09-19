@@ -8,7 +8,9 @@ export default async function CategoryLayout({
 }) {
   return (
     <>
-      {/* <Header /> */}
+      <div className="max-lg:hidden">
+        <Header />
+      </div>
       {children}
       <MobileFooter />
     </>

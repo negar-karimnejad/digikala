@@ -1,6 +1,6 @@
 // Hero Images Source
-import image1 from "@/../public/hero/223182406f6b2b94af6e227293071c82552e3f04_1720613062.webp";
 import image2 from "@/../public/hero/00648ead8efeea7cb5d2e01e2995d88893c720d8_1725640143.webp";
+import image1 from "@/../public/hero/223182406f6b2b94af6e227293071c82552e3f04_1720613062.webp";
 import image3 from "@/../public/hero/5e019f7eb15ca21899dea8d986bc9a0c3ba4f3da_1720423339.webp";
 import image4 from "@/../public/hero/86cd652dcca75bc161612940ad0c23d375b45e75_1720969903.webp";
 import image5 from "@/../public/hero/8db73b25bd311928c27f64d04eb58f9836666d7a_1715008589.webp";
@@ -21,6 +21,17 @@ import s_image8 from "@/../public/services/afb3c938fd3149d7587b59919bfc500a46169
 import s_image9 from "@/../public/services/bb03641a188f3a74ec493d0790da87074492f64b_1708970740.png";
 import s_image10 from "@/../public/services/d0dc0edf879e963e9cff31fd57b3f101743ddac8_1707297619.png";
 
+import {
+  Bell,
+  Clock,
+  Gift,
+  Heart,
+  LogOut,
+  MessageCircle,
+  Milestone,
+  ShoppingBag,
+  User
+} from "lucide-react";
 export const partners = [
   {
     id: 1,
@@ -4297,4 +4308,51 @@ export const sortingMenuItems = [
   { title: "پرفروش‌ترین‌", label: "bestseller" },
   { title: "ارزان‌ترین", label: "cheapest" },
   { title: "گران‌ترین", label: "expensive" },
+];
+
+export const profileList = [
+  {
+    title: "سفارش‌ها",
+    icon: <ShoppingBag size={20} />,
+    href: "/profile/orders",
+  },
+  {
+    title: "لیست‌های من",
+    icon: <Heart size={20} />,
+    href: "/profile/lists",
+  },
+  {
+    title: "دیدگاه‌ها",
+    icon: <MessageCircle size={20} />,
+    href: "/profile/comments",
+  },
+  {
+    title: "آدرس‌ها",
+    icon: <Milestone size={20} />,
+    href: "/profile/addresses",
+  },
+  {
+    title: "کارت‌های هدیه",
+    icon: <Gift size={20} />,
+    href: "/profile/gift-cards",
+  },
+  {
+    title: "پیغام‌ها",
+    icon: <Bell size={20} />,
+    href: "/profile/notification",
+  },
+  {
+    title: "بازدیدهای اخیر",
+    icon: <Clock size={20} />,
+    href: "/profile/user-history",
+  },
+  {
+    title: "اطلاعات حساب کاربری",
+    icon: <User size={20} />,
+    href: "/profile/personal-info",
+  },
+  {
+    title: "خروج",
+    icon: <LogOut size={20} />,
+  },
 ];

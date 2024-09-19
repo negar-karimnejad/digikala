@@ -3,6 +3,7 @@ import { cn } from "@/lib/utils";
 import localFont from "next/font/local";
 import { Toaster } from "react-hot-toast";
 import "./globals.css";
+import { DarkMode } from "@/components/ui/DarkMode";
 
 const iranSans = localFont({ src: "../fonts/IranianSans.ttf" });
 
@@ -36,6 +37,9 @@ export default async function RootLayout({
         >
           {children}
           <Toaster position="top-center" reverseOrder={false} />
+          <div className="fixed bottom-9 left-0 z-50">
+            <DarkMode />
+          </div>
         </ThemeProvider>
       </body>
     </html>
