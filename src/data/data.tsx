@@ -20,6 +20,7 @@ import s_image7 from "@/../public/services/ac127167132653d14c758748b07824a6a7643
 import s_image8 from "@/../public/services/afb3c938fd3149d7587b59919bfc500a461693a6_1709571657.png";
 import s_image9 from "@/../public/services/bb03641a188f3a74ec493d0790da87074492f64b_1708970740.png";
 import s_image10 from "@/../public/services/d0dc0edf879e963e9cff31fd57b3f101743ddac8_1707297619.png";
+import { DarkMode } from "@/components/ui/DarkMode";
 
 import {
   Bell,
@@ -30,7 +31,7 @@ import {
   MessageCircle,
   Milestone,
   ShoppingBag,
-  User
+  User,
 } from "lucide-react";
 export const partners = [
   {
@@ -4298,6 +4299,13 @@ export const mobileFooterLinks = [
       </svg>
     ),
     href: "/profile",
+  },
+  {
+    id: 5,
+    title: "تم",
+    icon: <DarkMode />,
+    activeIcon: "",
+    href: "",
   },
 ];
 

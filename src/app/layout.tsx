@@ -37,9 +37,6 @@ export default async function RootLayout({
         >
           {children}
           <Toaster position="top-center" reverseOrder={false} />
-          <div className="fixed bottom-9 left-0 z-50">
-            <DarkMode />
-          </div>
         </ThemeProvider>
       </body>
     </html>

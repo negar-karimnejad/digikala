@@ -1,14 +1,8 @@
+import ProfileHeader from "@/components/profile/ProfileHeader";
 import UserInfo from "@/components/profile/UserInfo";
 import UserList from "@/components/profile/UserList";
 import UserOrders from "@/components/profile/UserOrders";
-import {
-  Bell,
-  ChevronLeft,
-  Headset,
-  House,
-  Info,
-  Settings,
-} from "lucide-react";
+import { ChevronLeft, House, Info } from "lucide-react";
 
 export default async function page() {
   // connectToDB();
@@ -17,26 +11,11 @@ export default async function page() {
   return (
     <div className="lg:px-20 px-4 pb-20 lg:pt-10">
       <div className="flex flex-col gap-10 lg:hidden">
-        {/* Sticky Header */}
-        <div className="flex justify-between sticky top-0 py-5 z-10 bg-white dark:bg-neutral-950">
-          <Settings />
-          <div className="flex gap-4">
-            <Headset />
-            <div className="relative">
-              <Bell />
-              <span className="w-5 h-3 text-xs flex items-center justify-center bg-red-500 absolute bottom-0 text-white -right-2 rounded-sm">
-                5
-              </span>
-            </div>
-          </div>
-        </div>
-
+        <ProfileHeader />
         <UserInfo />
         <WarnSection />
         <UserOrders />
-
         <hr className="border-4 border-neutral-200 dark:border-neutral-700" />
-
         <UserList />
       </div>
 
