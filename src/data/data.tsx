@@ -4190,6 +4190,13 @@ export const mobileFooterLinks = [
     href: "/categories",
   },
   {
+    id: 5,
+    title: "",
+    icon: <DarkMode />,
+    activeIcon: "",
+    href: "",
+  },
+  {
     id: 3,
     title: "سبد خرید",
     icon: (
@@ -4299,13 +4306,6 @@ export const mobileFooterLinks = [
       </svg>
     ),
     href: "/profile",
-  },
-  {
-    id: 5,
-    title: "تم",
-    icon: <DarkMode />,
-    activeIcon: "",
-    href: "",
   },
 ];
 

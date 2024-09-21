@@ -15,6 +15,8 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { ReactNode, useState } from "react";
+import { SignoutFunction } from "../ui/SignoutFunction";
+import { useRouter } from "next/navigation";
 
 const settingList = [
   {
@@ -59,10 +61,16 @@ const settingList = [
 ];
 
 export default function ProfileHeader() {
+  const router = useRouter();
+
   const [isOpen, setIsOpen] = useState(false);
 
   const closeModalHandler = () => setIsOpen(false);
+  // const user = false;
 
+  // if (!user) {
+  //   router.push("/");
+  // }
   return (
     <>
       <div className="flex justify-between sticky top-0 py-5 z-10 bg-white dark:bg-neutral-950">
@@ -103,17 +111,14 @@ export default function ProfileHeader() {
                       <ChevronLeft size={20} className="text-neutral-500" />
                     </Link>
                   ) : (
-                    <div
-                      onClick={closeModalHandler}
-                      className="py-4 flex justify-between cursor-pointer whitespace-nowrap text-sm"
-                    >
+                    <SignoutFunction>
                       <div className="flex gap-5">
                         {item.icon}
                         <span className="font-irsansb text-red-500 dark:text-red-500">
                           {item.title}
                         </span>
                       </div>
-                    </div>
+                    </SignoutFunction>
                   )}
                 </div>
               ))}

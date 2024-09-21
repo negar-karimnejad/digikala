@@ -33,14 +33,9 @@ export default function MobileFooter() {
             ) : (
               <div
                 onClick={() => setActiveLink(link.href)}
-                className={`flex relative items-center flex-col gap-1.5 justify-center transition-all hover:text-neutral-800 dark:hover:text-neutral-50 ${
-                  activeLink === link.href
-                    ? "text-neutral-800 dark:text-neutral-50"
-                    : "text-neutral-400"
-                }`}
+                className={`flex transition-all text-neutral-500 hover:text-neutral-800 dark:hover:text-neutral-50`}
               >
                 {link.icon}
-                <small className="text-xs">{link.title}</small>
               </div>
             )}
           </div>

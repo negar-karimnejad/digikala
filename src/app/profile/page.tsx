@@ -2,12 +2,15 @@ import ProfileHeader from "@/components/profile/ProfileHeader";
 import UserInfo from "@/components/profile/UserInfo";
 import UserList from "@/components/profile/UserList";
 import UserOrders from "@/components/profile/UserOrders";
+import connectToDB from "config/mongodb";
+import UserModel from "models/User";
 import { ChevronLeft, House, Info } from "lucide-react";
 
 export default async function page() {
   // connectToDB();
-  // const user = await UserModel.findOne({  });
+  // const user = await UserModel.findOne({});
 
+  
   return (
     <div className="lg:px-20 px-4 pb-20 lg:pt-10">
       <div className="flex flex-col gap-10 lg:hidden">

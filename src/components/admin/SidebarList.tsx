@@ -1,17 +1,15 @@
+import { signOut } from "@/app/admin/users/action";
 import {
-  BookCheck,
   BringToFront,
   ChevronLeft,
   CircleFadingPlus,
   Layers3,
   LayoutDashboard,
   LogOut,
-  MessagesSquare,
-  PackageOpen,
-  Paperclip,
-  ShoppingBasket,
-  Users2,
   Newspaper,
+  PackageOpen,
+  ShoppingBasket,
+  Users2
 } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -19,7 +17,6 @@ import toast from "react-hot-toast";
 import Logo from "../Logo";
 import { Button } from "../ui/button";
 import { DarkMode } from "../ui/DarkMode";
-import { signOut } from "@/app/admin/users/action";
 
 const sidebarMenu = [
   { label: "محصولات", icon: <PackageOpen />, href: "/admin/products" },
