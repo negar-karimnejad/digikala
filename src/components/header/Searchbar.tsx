@@ -41,7 +41,7 @@ export default function Searchbar({ placeholder }: { placeholder?: string }) {
       if (!response.ok) {
         throw new Error("Error fetching products");
       }
-      const data = await response.json(); 
+      const data = await response.json();
       setProducts(data);
     } catch (error) {
       console.error("Error fetching products:", error);

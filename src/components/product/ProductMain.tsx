@@ -1,14 +1,30 @@
 "use client";
 
-import { useRef } from "react";
+import { Product } from "@/types/types";
+import { useEffect, useRef } from "react";
 import FooterFaq from "../footer/FooterFaq";
 import ProductImage from "./ProductImage";
 import ProductInfo from "./ProductInfo";
 import ProductSeller from "./ProductSeller";
 import ProductTab from "./ProductTab";
 
-export default function ProductMain({ product }) {
+export default function ProductMain({ product }: { product: Product }) {
   const featureRef = useRef<HTMLDivElement>(null);
+
+  // Local Storage Functions
+  const addRecentView = (productId) => {
+    const existingViews = JSON.parse(localStorage.getItem("recentViews")) || [];
+    const updatedViews = [
+      productId,
+      ...existingViews.filter((id) => id !== productId),
+    ].slice(0, 10);
+    localStorage.setItem("recentViews", JSON.stringify(updatedViews));
+  };
+
+  // Use effect to add product to recent views
+  useEffect(() => {
+    addRecentView(product._id);
+  }, [product._id]);
 
   return (
     <>
