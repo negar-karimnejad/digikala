@@ -2,7 +2,7 @@ import { ChevronLeft, Pencil } from "lucide-react";
 
 export default function UserInfo() {
   return (
-    <div className="lg:flex flex-col gap-5">
+    <div className="lg:flex flex-col gap-5 px-5">
       <div className="max-lg:mb-5 flex justify-between items-center">
         <div className="flex flex-col gap-1">
           <span className="font-irsansb text-sm">نگار کریم نژاد</span>

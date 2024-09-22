@@ -1,5 +1,6 @@
 import { ChevronLeft } from "lucide-react";
 import Image from "next/image";
+import React from "react";
 
 export default function UserOrders() {
   const ordersList = [
@@ -24,8 +25,8 @@ export default function UserOrders() {
 
       <div className="flex items-center justify-between max-lg:px-10">
         {ordersList.map((order, index) => (
-          <>
-            <div key={index} className="px-4 text-center lg:flex items-center">
+          <React.Fragment key={index}>
+            <div className="px-4 text-center lg:flex items-center">
               <div className="relative">
                 <Image
                   alt={order.title}
@@ -45,7 +46,7 @@ export default function UserOrders() {
             {ordersList.length > index + 1 && (
               <div className="w-0.5 h-20 bg-neutral-100 dark:bg-neutral-800"></div>
             )}
-          </>
+          </React.Fragment>
         ))}
       </div>
     </div>

@@ -4321,41 +4321,49 @@ export const sortingMenuItems = [
 export const profileList = [
   {
     title: "سفارش‌ها",
+    en_title: "orders",
     icon: <ShoppingBag size={20} />,
     href: "/profile/orders",
   },
   {
     title: "لیست‌های من",
+    en_title: "lists",
     icon: <Heart size={20} />,
     href: "/profile/lists",
   },
   {
-    title: "دیدگاه‌ها",
+    title: "دیدگاه‌ها و پرسش‌ها",
+    en_title: "comments",
     icon: <MessageCircle size={20} />,
     href: "/profile/comments",
   },
   {
     title: "آدرس‌ها",
+    en_title: "addresses",
     icon: <Milestone size={20} />,
     href: "/profile/addresses",
   },
   {
     title: "کارت‌های هدیه",
+    en_title: "gift-cards",
     icon: <Gift size={20} />,
     href: "/profile/gift-cards",
   },
   {
     title: "پیغام‌ها",
+    en_title: "notification",
     icon: <Bell size={20} />,
     href: "/profile/notification",
   },
   {
     title: "بازدیدهای اخیر",
+    en_title: "user-history",
     icon: <Clock size={20} />,
     href: "/profile/user-history",
   },
   {
     title: "اطلاعات حساب کاربری",
+    en_title: "personal-info",
     icon: <User size={20} />,
     href: "/profile/personal-info",
   },

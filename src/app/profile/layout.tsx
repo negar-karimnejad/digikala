@@ -7,12 +7,12 @@ export default async function CategoryLayout({
   children: React.ReactNode;
 }) {
   return (
-    <>
+    <div>
       <div className="max-lg:hidden">
         <Header />
       </div>
       {children}
       <MobileFooter />
-    </>
+    </div>
   );
 }
