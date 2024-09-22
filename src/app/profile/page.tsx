@@ -49,7 +49,7 @@ export default function ProfilePage({
   );
 }
 
-const WarnSection = () => {
+export const WarnSection = () => {
   return (
     <div className="border rounded-md text-xs leading-7 text-orange-500 px-5 py-3 lg:flex">
       <div className="flex gap-2 w-full">

@@ -71,14 +71,14 @@ export default function ProfileTabs({
 
   useEffect(() => {
     const recentviewsIds = getRecentViews();
-    const filteredProducts = products.filter((product: Product) =>
+    const filteredProducts = products?.filter((product: Product) =>
       recentviewsIds.includes(product._id)
     );
     setRecentViewProducts(filteredProducts);
   }, [products]);
 
   return (
-    <div>
+    <div className="border rounded-lg p-5">
       <div className="flex justify-between items-center px-5">
         <h5 className="text-neutral-800 font-irsansb">{title}</h5>
         {searchbar && (
@@ -110,6 +110,7 @@ export default function ProfileTabs({
           ))}
         </Tabs>
       )}
+
       <div className="grid grid-cols-12 mt-10">
         {recentViewProducts &&
           recentViewProducts.map((product) => (

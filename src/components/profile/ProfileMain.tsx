@@ -1,7 +1,9 @@
 "use client";
 
+import { WarnSection } from "@/app/profile/page";
 import ProfileTabs from "@/components/profile/ProfileTabs";
 import { Product } from "@/types/types";
+import PersonalInfo from "./PersonalInfo";
 
 export default function ProfileMain({
   products,
@@ -11,7 +13,7 @@ export default function ProfileMain({
   id: string;
 }) {
   return (
-    <div className="border rounded-lg p-5">
+    <>
       {id === "orders" && (
         <ProfileTabs
           tabsArray={["جاری", "تحویل شده", "مرجوع شده", "لغو شده"]}
@@ -62,6 +64,12 @@ export default function ProfileMain({
           products={products}
         />
       )}
-    </div>
+      {id === "personal-info" && (
+        <div className="flex flex-col gap-5">
+          <WarnSection />
+          <PersonalInfo />
+        </div>
+      )}
+    </>
   );
 }
