@@ -10,7 +10,7 @@ export default function UserOrders() {
   ];
 
   return (
-    <div className="flex flex-col gap-10 lg:border rounded-md lg:p-5">
+    <div className="flex flex-col gap-10 lg:border rounded-md lg:p-5 max-lg:mx-4">
       <div>
         <div className="flex items-center justify-between text-xs font-irsansb">
           <p className="whitespace-nowrap border-b-2 border-b-red-500 pb-3">

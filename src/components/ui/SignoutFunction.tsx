@@ -43,7 +43,7 @@ export function SignoutFunction({ children }: { children: ReactNode }) {
   return (
     <div
       onClick={signoutHandler}
-      className="hover:bg-neutral-100 dark:hover:bg-neutral-900 cursor-pointer py-4 flex items-center justify-between"
+      className="max-lg:pl-5 hover:bg-neutral-100 dark:hover:bg-neutral-900 cursor-pointer py-4 flex items-center justify-between"
     >
       {children}
     </div>

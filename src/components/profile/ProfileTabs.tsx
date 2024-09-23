@@ -1,11 +1,12 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Product } from "@/types/types";
-import { Search, ShoppingCart, Trash2 } from "lucide-react";
+import { ArrowRight, Search, ShoppingCart, Trash2 } from "lucide-react";
 import Image from "next/image";
 import ProductCard from "../category/ProductCard";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { Button } from "../ui/button";
+import { useRouter } from "next/navigation";
 
 export default function ProfileTabs({
   tabsArray,
@@ -20,6 +21,7 @@ export default function ProfileTabs({
   searchbar?: boolean;
   products?: Product[];
 }) {
+  const router = useRouter();
   const [recentViewProducts, setRecentViewProducts] = useState<Product[]>([]);
 
   const getRecentViews = () => {
@@ -35,7 +37,7 @@ export default function ProfileTabs({
     toast(
       (t) => (
         <div>
-          آیا از حذف محصول از بازدیدهای اخیر اطمینان دارید؟
+          آیا از حذف محصول از بازدیدهای اخیر مطمئنید؟
           <div className="flex justify-end mt-3">
             <Button
               className="ml-1 mr-5 "
@@ -78,19 +80,31 @@ export default function ProfileTabs({
   }, [products]);
 
   return (
-    <div className="border rounded-lg p-5">
+    <div className="lg:border rounded-lg py-5">
       <div className="flex justify-between items-center px-5">
-        <h5 className="text-neutral-800 font-irsansb">{title}</h5>
+        <h5 className="gap-2 text-neutral-800 dark:text-white font-irsansb flex items-center">
+          <span
+            className="lg:hidden cursor-pointer"
+            onClick={() => router.push("/profile")}
+          >
+            <ArrowRight size={20} />
+          </span>
+          {title}
+        </h5>
         {searchbar && (
           <button>
-            <Search size={20} className="text-neutral-600" />
+            <Search
+              size={20}
+              className="dark:text-neutral-300 text-neutral-600"
+            />
           </button>
         )}
       </div>
+      <div className="w-full h-2 dark:bg-neutral-700 bg-neutral-100 lg:hidden my-3"></div>
       {tabsArray && (
         <Tabs
           defaultValue={tabsArray[0]}
-          className="mt-10"
+          className="lg:mt-10"
           style={{ direction: "rtl" }}
         >
           <TabsList className="flex gap-7 border-b px-5">
@@ -116,7 +130,7 @@ export default function ProfileTabs({
           recentViewProducts.map((product) => (
             <div
               key={product._id.toString()}
-              className="group relative col-span-6"
+              className="group relative lg:col-span-6 col-span-12"
             >
               <ProductCard product={product} />
               <div className="rounded-md absolute top-4 -left-1 group-hover:left-2 transition-all opacity-0 group-hover:opacity-100 text-red-500">

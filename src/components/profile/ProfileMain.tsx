@@ -4,6 +4,8 @@ import { WarnSection } from "@/app/profile/page";
 import ProfileTabs from "@/components/profile/ProfileTabs";
 import { Product } from "@/types/types";
 import PersonalInfo from "./PersonalInfo";
+import { ArrowRight } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 export default function ProfileMain({
   products,
@@ -12,8 +14,10 @@ export default function ProfileMain({
   products: Product[];
   id: string;
 }) {
+  const router = useRouter();
+
   return (
-    <>
+    <div className="">
       {id === "orders" && (
         <ProfileTabs
           tabsArray={["جاری", "تحویل شده", "مرجوع شده", "لغو شده"]}
@@ -66,10 +70,21 @@ export default function ProfileMain({
       )}
       {id === "personal-info" && (
         <div className="flex flex-col gap-5">
+          <h5 className="gap-2 pt-4 px-4 text-neutral-800 dark:text-white font-irsansb flex items-center">
+            <span
+              className="lg:hidden cursor-pointer"
+              onClick={() => router.push("/profile")}
+            >
+              <ArrowRight size={20} />
+            </span>
+            اطلاعات حساب کاربری
+          </h5>
+          <div className="w-full h-2 bg-neutral-100 dark:bg-neutral-700 lg:hidden my-3"></div>
+
           <WarnSection />
           <PersonalInfo />
         </div>
       )}
-    </>
+    </div>
   );
 }

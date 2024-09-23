@@ -37,11 +37,11 @@ export default function UserList({ id }: { id?: string }) {
           {item.en_title ? (
             <Link
               href={item.href}
-              className="w-full flex items-center justify-between"
+              className="w-full flex items-center justify-between hover:bg-neutral-100 dark:hover:bg-neutral-900 max-lg:pl-5"
             >
               <div
                 onClick={() => setActiveItem(item.en_title)}
-                className={`px-5 hover:bg-neutral-100 dark:hover:bg-neutral-900 w-full flex items-center gap-5 text-neutral-700 dark:text-neutral-200 py-4 ${
+                className={`px-5 w-full flex items-center gap-5 text-neutral-700 dark:text-neutral-200 py-4 ${
                   activeItem === item.en_title
                     ? "font-irsansb after:absolute transition-all relative after:h-full after:w-1 after:top-0 after:right-0 after:border-r-4 after:border-r-red-500"
                     : ""

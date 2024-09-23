@@ -73,7 +73,7 @@ export default function ProfileHeader() {
   // }
   return (
     <>
-      <div className="flex justify-between sticky top-0 py-5 z-10 bg-white dark:bg-neutral-950">
+      <div className="flex justify-between sticky top-0 max-lg:mx-4 py-5 z-10 bg-white dark:bg-neutral-950">
         <Settings onClick={() => setIsOpen(true)} className="cursor-pointer" />
         <div className="flex gap-4">
           <Headset />

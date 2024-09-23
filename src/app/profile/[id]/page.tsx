@@ -29,7 +29,7 @@ export default async function page({
         <UserInfo />
         <UserList id={id} />
       </div>
-      <div className="max-lg:hidden col-span-8 max-lg:col-span-12 gap-5">
+      <div className="col-span-8 max-lg:col-span-12 gap-5">
         <ProfileMain products={serializedProducts} id={id} />
       </div>
     </div>

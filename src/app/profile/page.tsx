@@ -34,11 +34,11 @@ export default function ProfilePage({
           <UserInfo />
           <UserList id={id} />
         </div>
-        <div className="max-lg:hidden col-span-8 max-lg:col-span-12 gap-5">
+        <div className="col-span-8 max-lg:col-span-12 gap-5">
           {id ? (
             <>{children}</>
           ) : (
-            <div className="flex flex-col gap-5">
+            <div className="flex flex-col gap-5 max-lg:hidden">
               <WarnSection />
               <UserOrders />
             </div>
@@ -51,7 +51,7 @@ export default function ProfilePage({
 
 export const WarnSection = () => {
   return (
-    <div className="border rounded-md text-xs leading-7 text-orange-500 px-5 py-3 lg:flex">
+    <div className="border rounded-md text-xs leading-7 max-lg:mx-4 text-orange-500 px-5 py-3 lg:flex">
       <div className="flex gap-2 w-full">
         <Info size={18} className="text-orange-500 mt-1" />
         با تایید هویت می‌توانید‌ امنیت حساب کاربری‌تان را افزایش دهید و از امکان
