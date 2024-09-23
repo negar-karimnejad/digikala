@@ -36,6 +36,16 @@ export default function ProductSlider({ product }: { product: Product }) {
             ))}
           </>
         )}
+        <SwiperSlide className="!flex items-center py-5 justify-center w-full">
+          <Image
+            alt={`Product Image`}
+            width={300}
+            height={300}
+            src={product.thumbnail}
+            className="object-cover"
+          />
+        </SwiperSlide>
+        
         {product.images?.map((image: ProductImage) => (
           <SwiperSlide
             key={image._id.toString()}

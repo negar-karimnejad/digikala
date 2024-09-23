@@ -91,8 +91,8 @@ export default function ProductInfo({
       </div>
 
       <div className="grow min-w-0 lg:hidden">
-        <div className="flex overflow-x-auto overflow-y-hidden gap-2 px-2 breadcrumb-container">
-          {product.features?.slice(0, 5).map((item: Feature) => (
+        <div className="flex flex-wrap overflow-x-auto overflow-y-hidden gap-2 px-2 breadcrumb-container">
+          {product.features?.slice(0, 3).map((item: Feature) => (
             <div
               key={item.value}
               className="w-fit max-w-42 bg-neutral-100 dark:bg-neutral-800 flex flex-col gap-1 p-1 rounded-lg"
@@ -106,7 +106,15 @@ export default function ProductInfo({
             </div>
           ))}
           {product.features?.length > 5 && (
-            <div className="w-fit max-w-42 items-center bg-sky-200 text-sky-600 dark:bg-sky-800 flex gap-2 p-2 rounded-lg text-xs whitespace-nowrap">
+            <div
+              onClick={() =>
+                featureRef.current.scrollIntoView({
+                  behavior: "smooth",
+                  block: "start",
+                })
+              }
+              className="cursor-pointer w-fit max-w-42 items-center bg-sky-200 text-sky-600 dark:bg-sky-800 flex gap-2 p-2 rounded-lg text-xs whitespace-nowrap"
+            >
               مشاهده همه <ChevronLeft size={18} />
             </div>
           )}
