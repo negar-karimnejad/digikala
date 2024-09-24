@@ -36,17 +36,17 @@ export default async function IncredibleOffers() {
   // Discount Products
   const categories = await CategoryModel.find({}).lean();
   const discountProducts = products.filter((product) => product.discount > 0);
-  const offerProducts = discountProducts
-    ?.slice()
-    .sort((a, b) => b.discount - a.discount)
-    .slice(0, 5);
 
-  const sortedOfferProducts = discountProducts
+  const SortedOfferProductsByRating = discountProducts
     ?.slice()
-    .sort((a, b) => b.discount - a.discount);
+    .sort((a, b) => b.rating - a.rating);
+
+  const SortedOfferProductsByLowerDiscount = discountProducts
+    ?.slice()
+    .sort((a, b) => a.discount - b.discount);
 
   const serializedAllProducts = serializeDoc(products);
-  const serializedOfferProducts = serializeDoc(sortedOfferProducts);
+  const serializedOfferProducts = serializeDoc(SortedOfferProductsByRating);
 
   return (
     <div className="flex flex-col gap-10">
@@ -100,7 +100,7 @@ export default async function IncredibleOffers() {
               ))}
             </>
           )} */}
-            {offerProducts?.map((product: Product) => (
+            {SortedOfferProductsByLowerDiscount?.map((product: Product) => (
               <CarouselItem
                 key={product._id.toString()}
                 className="lg:pl-5 px-1 basis-[35rem] max-lg:basis-52"

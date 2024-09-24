@@ -37,7 +37,7 @@ export default async function BestsellingPage() {
   const serializedCategories = serializeDoc(categories);
 
   return (
-    <div>
+    <div className="mb-10">
       <div className="relative h-36 w-full">
         <div className="bg-gradient-to-l h-0.5 absolute -bottom-0 left-0 w-1/2 from-[#e20000] to-[white] dark:to-[black]"></div>
         <div className="bg-gradient-to-r h-0.5 absolute -bottom-0 right-0 w-1/2 from-[#e20000] to-[white] dark:to-[black]"></div>
