@@ -17,15 +17,15 @@ const schema = new mongoose.Schema({
     required: true,
   },
   productId: {
-    type: mongoose.Types.ObjectId,
+    type: mongoose.Schema.Types.ObjectId,
     ref: "Product",
   },
   userId: {
-    type: mongoose.Types.ObjectId,
+    type: mongoose.Schema.Types.ObjectId,
     ref: "User",
   },
 });
 
-const model = mongoose.models.Order || mongoose.model("Order", schema);
+const model = mongoose.models?.Order || mongoose.model("Order", schema);
 
 export default model;

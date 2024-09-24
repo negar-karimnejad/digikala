@@ -31,7 +31,7 @@ const schema = new mongoose.Schema({
   },
 
   articleId: {
-    type: mongoose.Types.ObjectId,
+    type: mongoose.Schema.Types.ObjectId,
     ref: "Article",
     required: true,
   },
@@ -39,6 +39,6 @@ const schema = new mongoose.Schema({
 
 // Export the Comment model
 const model =
-  mongoose.models.ArticleComment || mongoose.model("ArticleComment", schema);
+  mongoose.models?.ArticleComment || mongoose.model("ArticleComment", schema);
 
 export default model;

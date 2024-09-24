@@ -153,6 +153,7 @@ export default function Faq() {
       </div>
 
       <div className="px-4 lg:px-20">
+        {/* Faq Categories */}
         <div>
           <div className="flex flex-col justify-center items-center">
             <div className="flex w-14 h-14 items-center bg-sky-50 dark:bg-sky-950 justify-center rounded-full">
@@ -183,7 +184,8 @@ export default function Faq() {
             ))}
           </div>
         </div>
-
+        
+        {/* Common Questions */}
         <div className="py-14">
           <div className="flex flex-col justify-center items-center">
             <div className="flex w-14 h-14 items-center bg-sky-50 dark:bg-sky-950 justify-center rounded-full">

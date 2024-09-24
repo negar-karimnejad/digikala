@@ -28,17 +28,17 @@ const schema = new mongoose.Schema({
     required: true,
   },
   product: {
-    type: mongoose.Types.ObjectId,
+    type: mongoose.Schema.Types.ObjectId,
     ref: "Product",
   },
   submenus: [
     {
-      type: mongoose.Types.ObjectId,
+      type: mongoose.Schema.Types.ObjectId,
       ref: "Submenu",
     },
   ],
 });
 
-const model = mongoose.models.Category || mongoose.model("Category", schema);
+const model = mongoose.models?.Category || mongoose.model("Category", schema);
 
 export default model;

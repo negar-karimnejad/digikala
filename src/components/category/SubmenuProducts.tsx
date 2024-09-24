@@ -8,10 +8,12 @@ export default function SubmenuProducts({
   products,
   sortingMenu,
   setSortingMenu,
+  searchParams
 }: {
   products: Product[];
   sortingMenu: string;
   setSortingMenu;
+  searchParams?
 }) {
   const sortedProducts = () => {
     switch (sortingMenu) {
@@ -50,6 +52,7 @@ export default function SubmenuProducts({
                 <SortingMenu
                   sortingMenu={sortingMenu}
                   setSortingMenu={setSortingMenu}
+                  searchParams={searchParams}
                 />
 
                 <div className="max-lg:w-full text-neutral-500 justify-between dark:text-neutral-300 whitespace-nowrap text-xs ellispis-1 flex items-center gap-2">

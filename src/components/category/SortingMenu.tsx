@@ -5,11 +5,13 @@ import Link from "next/link";
 interface SortingMenuProps {
   sortingMenu: string;
   setSortingMenu: (selectedMenu: string) => void;
+  searchParams?;
 }
 
 export default function SortingMenu({
   sortingMenu,
   setSortingMenu,
+  searchParams,
 }: SortingMenuProps) {
   return (
     <div className="flex items-center gap-x-4 max-lg:hidden">
@@ -26,7 +28,11 @@ export default function SortingMenu({
       <div className="flex gap-5">
         {sortingMenuItems.map((item, index) => (
           <Link
-            href={`?sort=${item.label}`}
+            href={`${
+              searchParams
+                ? `/search?q=${searchParams.q}&sort=${item.label}`
+                : `?sort=${item.label}`
+            }`}
             shallow
             key={index}
             onClick={() => setSortingMenu(item.label)}

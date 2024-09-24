@@ -1,5 +1,5 @@
-const mongoose = require("mongoose");
-require("./Product");
+import mongoose from "mongoose";
+import "./Product";  // Assuming Product model is already created
 
 const schema = new mongoose.Schema({
   username: {
@@ -24,11 +24,11 @@ const schema = new mongoose.Schema({
     immutable: false,
   },
   productId: {
-    type: mongoose.Types.ObjectId,
+    type: mongoose.Schema.Types.ObjectId, 
     ref: "Product",
   },
 });
 
-const model = mongoose.models.Comment || mongoose.model("Comment", schema);
+const model = mongoose.models?.Comment || mongoose.model("Comment", schema);
 
 export default model;

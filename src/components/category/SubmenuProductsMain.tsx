@@ -25,10 +25,12 @@ export default function SubmenuProductsMain({
   category,
   submenu,
   products,
+  searchParams,
 }: {
   category: Category;
   submenu: Submenu;
   products: Product[];
+  searchParams?;
 }) {
   // Get Products Max Price
   function roundUpToCeil(value: number): number {
@@ -156,6 +158,7 @@ export default function SubmenuProductsMain({
         sortingMenu={sortingMenu}
         setSortingMenu={setSortingMenu}
         products={filteredProducts}
+        searchParams={searchParams}
       />
 
       {/* Sorting Modal */}
@@ -166,7 +169,11 @@ export default function SubmenuProductsMain({
         <div className="flex flex-col">
           {sortingMenuItems.map((item, index) => (
             <Link
-              href={`?sort=${item.label}`}
+              href={`${
+                searchParams
+                  ? `/search?q=${searchParams.q}&sort=${item.label}`
+                  : `?sort=${item.label}`
+              }`}
               shallow
               key={index}
               onClick={() => {

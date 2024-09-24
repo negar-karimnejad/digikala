@@ -12,17 +12,17 @@ const schema = new mongoose.Schema({
     required: true,
   },
   categoryId: {
-    type: mongoose.Types.ObjectId,
+    type: mongoose.Schema.Types.ObjectId,
     ref: "Category",
   },
   items: [
     {
-      type: mongoose.Types.ObjectId,
+      type: mongoose.Schema.Types.ObjectId,
       ref: "SubmenuItem",
     },
   ],
 });
 
-const model = mongoose.models.Submenu || mongoose.model("Submenu", schema);
+const model = mongoose.models?.Submenu || mongoose.model("Submenu", schema);
 
 export default model;

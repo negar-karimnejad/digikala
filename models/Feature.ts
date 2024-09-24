@@ -11,11 +11,11 @@ const schema = new mongoose.Schema({
     required: true,
   },
   productId: {
-    type: mongoose.Types.ObjectId,
+    type: mongoose.Schema.Types.ObjectId,
     ref: "Product",
   },
 });
 
-const model = mongoose.models.Feature || mongoose.model("Feature", schema);
+const model = mongoose.models?.Feature || mongoose.model("Feature", schema);
 
 export default model;

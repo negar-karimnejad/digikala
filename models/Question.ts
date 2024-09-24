@@ -20,11 +20,11 @@ const schema = new mongoose.Schema({
     immutable: false,
   },
   productId: {
-    type: mongoose.Types.ObjectId,
+    type: mongoose.Schema.Types.ObjectId,
     ref: "Product",
   },
 });
 
-const model = mongoose.models.Question || mongoose.model("Question", schema);
+const model = mongoose.models?.Question || mongoose.model("Question", schema);
 
 export default model;

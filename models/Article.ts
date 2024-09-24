@@ -41,10 +41,10 @@ const schema = new mongoose.Schema({
     },
   ],
   categoryId: {
-    type: mongoose.Types.ObjectId,
+    type: mongoose.Schema.Types.ObjectId,
     ref: "Category",
   },
 });
 
-const model = mongoose.models.Article || mongoose.model("Article", schema);
+const model = mongoose.models?.Article || mongoose.model("Article", schema);
 export default model;

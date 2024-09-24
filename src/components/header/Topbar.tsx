@@ -1,6 +1,3 @@
-"use client";
-
-import useScroll from "@/hooks/useScroll";
 import { ShoppingCart } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -8,16 +5,11 @@ import persianLogo from "../../../public/logo/digi.svg";
 import { DarkMode } from "../ui/DarkMode";
 import ProfileButton from "../ui/ProfileButton";
 import Searchbar from "./Searchbar";
+import TopbarContainer from "./TopbarContainer";
 
 export default function Topbar({ user }) {
-  const { isVisible } = useScroll();
-
   return (
-    <header
-      className={`sticky top-0 bg-white dark:bg-neutral-950 w-full z-40 p-4 ${
-        isVisible ? "" : "shadow-sm border-b"
-      }`}
-    >
+    <TopbarContainer>
       <div className="max-lg:hidden">
         <div className="flex justify-between w-full items-center">
           <div className="flex gap-2 w-[45rem]">
@@ -60,6 +52,6 @@ export default function Topbar({ user }) {
           </div>
         </div>
       </div>
-    </header>
+    </TopbarContainer>
   );
 }

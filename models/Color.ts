@@ -11,11 +11,11 @@ const schema = new mongoose.Schema({
     required: true,
   },
   productId: {
-    type: mongoose.Types.ObjectId,
+    type: mongoose.Schema.Types.ObjectId,
     ref: "Product",
   },
 });
 
-const model = mongoose.models.Color || mongoose.model("Color", schema);
+const model = mongoose.models?.Color || mongoose.model("Color", schema);
 
 export default model;
