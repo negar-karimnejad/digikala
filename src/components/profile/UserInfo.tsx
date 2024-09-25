@@ -26,8 +26,8 @@ export default function UserInfo() {
             fill="none"
             className="lg:hidden"
           >
-            <g clip-path="url(#clip0)">
-              <g clip-path="url(#clip1)">
+            <g clipPath="url(#clip0)">
+              <g clipPath="url(#clip1)">
                 <path
                   d="M2.74512 6.6344L20.8099 3.44909C21.601 3.3096 22.3554 3.83784 22.4949 4.62896L24.4454 15.6906C24.5849 16.4818 24.0566 17.2362 23.2655 17.3757L5.20075 20.561L2.74512 6.6344Z"
                   fill="#FFAEFF"
@@ -60,15 +60,15 @@ export default function UserInfo() {
                 </g>
               </g>
               <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
+                fillRule="evenodd"
+                clipRule="evenodd"
                 d="M1.55554 8.22217C1.55554 7.1176 2.45097 6.22217 3.55554 6.22217H22.8889C23.9934 6.22217 24.8889 7.1176 24.8889 8.22217V23.6666C24.8889 24.7712 23.9934 25.6666 22.8889 25.6666H3.55554C2.45097 25.6666 1.55554 24.7712 1.55554 23.6666V8.22217Z"
                 fill="url(#paint1_linear)"
               />
               <g filter="url(#filter1_d)">
                 <path
-                  fill-rule="evenodd"
-                  clip-rule="evenodd"
+                  fillRule="evenodd"
+                  clipRule="evenodd"
                   d="M14 15.9444C14 13.5819 15.9152 11.6666 18.2778 11.6666H26.3546C26.4042 11.6666 26.4444 11.7069 26.4444 11.7565V20.1323C26.4444 20.182 26.4042 20.2222 26.3546 20.2222H18.2778C15.9152 20.2222 14 18.307 14 15.9444Z"
                   fill="#6900F6"
                 />
@@ -90,9 +90,9 @@ export default function UserInfo() {
                 width="29.1919"
                 height="24.6667"
                 filterUnits="userSpaceOnUse"
-                color-interpolation-filters="sRGB"
+                colorInterpolationFilters="sRGB"
               >
-                <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                <feFlood floodOpacity="0" result="BackgroundImageFix" />
                 <feColorMatrix
                   in="SourceAlpha"
                   type="matrix"
@@ -124,9 +124,9 @@ export default function UserInfo() {
                 width="20.4444"
                 height="16.5556"
                 filterUnits="userSpaceOnUse"
-                color-interpolation-filters="sRGB"
+                colorInterpolationFilters="sRGB"
               >
-                <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                <feFlood floodOpacity="0" result="BackgroundImageFix" />
                 <feColorMatrix
                   in="SourceAlpha"
                   type="matrix"
@@ -159,8 +159,8 @@ export default function UserInfo() {
                 y2="6.45593"
                 gradientUnits="userSpaceOnUse"
               >
-                <stop stop-color="#8C31ED" />
-                <stop offset="1" stop-color="#A24BFF" />
+                <stop stopColor="#8C31ED" />
+                <stop offset="1" stopColor="#A24BFF" />
               </linearGradient>
               <linearGradient
                 id="paint1_linear"
@@ -170,8 +170,8 @@ export default function UserInfo() {
                 y2="6.22217"
                 gradientUnits="userSpaceOnUse"
               >
-                <stop stop-color="#8C31ED" />
-                <stop offset="1" stop-color="#A24BFF" />
+                <stop stopColor="#8C31ED" />
+                <stop offset="1" stopColor="#A24BFF" />
               </linearGradient>
               <clipPath id="clip0">
                 <rect

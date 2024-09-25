@@ -6,8 +6,8 @@
               fill="none"
             >
               <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
+                fillRule="evenodd"
+                clipRule="evenodd"
                 d="M32 8.00001C27.5817 8.00001 24 11.5817 24 16C24 20.4183 27.5817 24 32 24C36.4183 24 40 20.4183 40 16C40 11.5817 36.4183 8.00001 32 8.00001ZM18.6667 16C18.6667 8.63621 24.6362 2.66667 32 2.66667C39.3638 2.66667 45.3333 8.63621 45.3333 16C45.3333 23.3638 39.3638 29.3333 32 29.3333C24.6362 29.3333 18.6667 23.3638 18.6667 16Z"
                 fill="url(#paint0_linear)"
               />
@@ -29,9 +29,9 @@
                   width="24.5333"
                   height="21.3333"
                   filterUnits="userSpaceOnUse"
-                  color-interpolation-filters="sRGB"
+                  colorInterpolationFilters="sRGB"
                 >
-                  <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                  <feFlood floodOpacity="0" result="BackgroundImageFix" />
                   <feBlend
                     mode="normal"
                     in="SourceGraphic"
@@ -70,8 +70,8 @@
                   y2="26.6667"
                   gradientUnits="userSpaceOnUse"
                 >
-                  <stop stop-color="#FFD681" />
-                  <stop offset="1" stop-color="#E6B040" />
+                  <stop stopColor="#FFD681" />
+                  <stop offset="1" stopColor="#E6B040" />
                 </linearGradient>
                 <linearGradient
                   id="paint1_linear"
@@ -81,8 +81,8 @@
                   y2="38.5906"
                   gradientUnits="userSpaceOnUse"
                 >
-                  <stop stop-color="#FFD782" />
-                  <stop offset="1" stop-color="#E3AC39" />
+                  <stop stopColor="#FFD782" />
+                  <stop offset="1" stopColor="#E3AC39" />
                 </linearGradient>
               </defs>
             </svg>

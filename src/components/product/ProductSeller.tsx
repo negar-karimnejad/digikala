@@ -195,7 +195,7 @@ export default function ProductSeller({ product }: { product: Product }) {
       </div>
 
       {/* Add to Cart Button */}
-      <div className="lg:hidden fixed flex shadow-[rgba(17,_17,_26,_0.2)_0px_0px_5px] items-center py-3 px-4 bg-white dark:bg-neutral-900 w-full bottom-0 right-0  border-t z-40">
+      <div className="lg:hidden fixed flex shadow-[rgba(17,_17,_26,_0.2)_0px_0px_5px] items-center py-3 px-4 bg-white dark:bg-neutral-900 w-full bottom-0 right-0 border-t z-30">
         <div className="flex-1">
           <AddToCartButton />
         </div>

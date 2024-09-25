@@ -13,7 +13,7 @@ export default function MobileFooter() {
   }, []);
 
   return (
-    <div className="lg:hidden bg-white dark:bg-neutral-900 py-1 w-full fixed bottom-0 right-0 shadow-lg shadow-neutral-500 border-t z-30">
+    <div className="lg:hidden bg-white dark:bg-neutral-900 py-1 w-full fixed bottom-0 right-0 shadow-lg shadow-neutral-500 border-t z-20">
       <div className="flex justify-between items-center px-5">
         {mobileFooterLinks.map((link) => (
           <div key={link.id}>

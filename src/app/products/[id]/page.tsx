@@ -1,5 +1,6 @@
 import BreadcrumbContainer from "@/components/product/BreadcrumbContainer";
 import ProductMain from "@/components/product/ProductMain";
+import ProductPageMobileStickyHeader from "@/components/ui/ProductPageMobileStickyHeader";
 import { Product, Submenu, SubmenuItem } from "@/types/types";
 import { serializeDoc } from "@/utils/serializeDoc";
 import connectToDB from "config/mongodb";
@@ -42,6 +43,7 @@ export default async function ProductPage({
 
   return (
     <div className="px-4 flex flex-col gap-10 py-4">
+      <ProductPageMobileStickyHeader productId={product._id.toString()} />
       <div className="flex justify-between items-center mb-4">
         <nav className="grow min-w-0">
           <div className="breadcrumb-container flex overflow-x-auto overflow-y-hidden hide-scrollbar">

@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/carousel";
 import { Product } from "@/types/types";
 import {
+  ArrowRight,
   ChevronLeft,
   Flame,
   MoveUpRight,
@@ -16,10 +17,10 @@ import {
   SearchIcon,
 } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { ChangeEvent, useEffect, useRef, useState } from "react";
 import { Card, CardContent } from "../ui/card";
 import SearchSkeleton from "./SearchSkeleton";
-import { useRouter } from "next/navigation";
 
 const popularSearches = [
   "گوشی سامسونگ s22",
@@ -36,6 +37,57 @@ export default function SearchbarForm({
   placeholder?: string;
   products: Product[];
 }) {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const closeModalHandler = () => setIsOpen(false);
+  const openModalHandler = () => setIsOpen(true);
+  return (
+    <>
+      <SearchForm
+        openModalHandler={openModalHandler}
+        placeholder={placeholder}
+        products={products}
+        isOpen={isOpen}
+        closeModalHandler={closeModalHandler}
+      />
+
+      <div
+        className={`fixed right-0 top-0 z-50 lg:hidden flex h-screen w-full cursor-default flex-col items-center bg-black/40 dark:bg-black/80 transition-all duration-500  ${
+          isOpen ? "visible opacity-100" : "invisible opacity-0"
+        }`}
+        onClick={closeModalHandler}
+      >
+        <div
+          onClick={(e) => e.stopPropagation()}
+          className={`fixed bottom-0 right-0 z-50 w-full h-full bg-white dark:bg-neutral-900 p-5 shadow transition-all duration-500 dark:text-white
+           ${isOpen ? "translate-y-0" : "translate-y-96"}`}
+        >
+          <SearchForm
+            openModalHandler={openModalHandler}
+            placeholder={placeholder}
+            products={products}
+            isOpen={isOpen}
+            closeModalHandler={closeModalHandler}
+          />
+        </div>
+      </div>
+    </>
+  );
+}
+
+function SearchForm({
+  placeholder,
+  products,
+  openModalHandler,
+  closeModalHandler,
+  isOpen,
+}: {
+  placeholder?: string;
+  products: Product[];
+  isOpen: boolean;
+  openModalHandler: () => void;
+  closeModalHandler: () => void;
+}) {
   const [isShowSearchMenu, setIsShowSearchMenu] = useState(false);
   const searchRef = useRef<HTMLLabelElement>(null);
   const [search, setSearch] = useState("");
@@ -44,9 +96,10 @@ export default function SearchbarForm({
 
   const router = useRouter();
   useEffect(() => {
-    if (!isShowSearchMenu) setSearch("");
+    // if (!isShowSearchMenu) setSearch("");
+    if (!isOpen) setSearch("");
     if (!search) setSearchResult([]);
-  }, [isShowSearchMenu, search]);
+  }, [isOpen, isShowSearchMenu, search]);
 
   useEffect(() => {
     const handleClick = (event: MouseEvent) => {
@@ -86,38 +139,58 @@ export default function SearchbarForm({
         e.preventDefault();
         router.push(`/search?q=${search}`);
         setIsShowSearchMenu(false);
+        closeModalHandler();
       }}
-      className="relative w-full h-12 bg-neutral-100 dark:bg-neutral-700 border-0 rounded-lg"
+      className="relative w-full h-12 border-0"
     >
       <label
         ref={searchRef}
         htmlFor="search"
-        className="flex items-center h-full"
-        onClick={() => setIsShowSearchMenu(true)}
+        className="lg:flex items-center h-full w-full"
+        onClick={() => {
+          openModalHandler();
+          setIsShowSearchMenu(true);
+        }}
       >
-        <SearchIcon size={20} className="z-10 text-neutral-400 mr-5" />
-        <input
-          type="text"
-          id="search"
-          autoComplete="off"
-          value={search}
-          onChange={changeHandler}
-          placeholder={placeholder ? placeholder : "جستجو "}
-          className="placeholder:text-sm z-10 border-0 h-full bg-transparent px-3 w-full outline-none"
-        />
-
+        <div className="flex items-center w-full h-full bg-neutral-100 rounded-lg dark:bg-neutral-700">
+          {isOpen ? (
+            <ArrowRight
+              onClick={(e) => {
+                e.stopPropagation();
+                closeModalHandler();
+              }}
+              size={20}
+              className="z-10 text-neutral-500 mr-5  cursor-pointer"
+            />
+          ) : (
+            <SearchIcon size={20} className="z-10 text-neutral-400 mr-5" />
+          )}
+          <input
+            type="text"
+            id="search"
+            autoComplete="off"
+            value={search}
+            onChange={changeHandler}
+            placeholder={placeholder ? placeholder : "جستجو "}
+            className="placeholder:text-sm text-neutral-500 z-10 bg-transparent rounded-lg dark:bg-neutral-700 h-full px-3 w-2/3 outline-none"
+          />
+        </div>
         {/* Search Menu */}
         <div
-          className={`transition-all duration-700 ease-in-out absolute shadow top-0 border right-0 w-full bg-white rounded-lg p-4 ${
-            isShowSearchMenu ? "opacity-100 visible" : "opacity-0 invisible"
-          }`}
+          className={`overflow-y-auto overflow-x-hidden max-h-screen lg:absolute transition-all duration-700 ease-in-out lg:shadow top-0 lg:border right-0 w-full bg-white rounded-lg p-4 max-lg:pb-20
+            ${isShowSearchMenu ? "opacity-100 visible" : "opacity-0 invisible"}
+          `}
         >
-          <div className="w-full bg-sky-500 h-[1px] mt-8"></div>
+          <div className="max-lg:hidden w-full bg-sky-500 h-[1px] mt-8"></div>
           {searchResult.map((product) => (
             <div
-              className="my-8 text-neutral-700 flex justify-between items-center"
+              className="my-5 text-neutral-700 flex justify-between items-center"
               key={product.id}
-              onClick={() => setIsShowSearchMenu(false)}
+              onClick={(e) => {
+                e.stopPropagation();
+                closeModalHandler();
+                setIsShowSearchMenu(false);
+              }}
             >
               <Link href={`/products/${product._id}`} className="flex gap-5">
                 <Search size={20} className="text-neutral-400" />
@@ -152,24 +225,25 @@ export default function SearchbarForm({
             className="w-full"
           >
             <CarouselContent>
-              {popularSearches.map((search) => (
+              {products.slice(0, 5).map((product) => (
                 <CarouselItem
-                  key={search}
+                  key={product._id.toString()}
                   className="cursor-pointer basis-auto p-0"
                 >
                   <div className="p-1">
                     <Card className="!rounded-full">
                       <CardContent className="rounded-full flex items-center justify-center p-2">
                         <Link
-                          href={`/search/?q=${search.replaceAll(" ", "+")}`}
+                          href={`/products/${product._id}`}
                           className="p-1"
                           onClick={(e) => {
                             e.stopPropagation();
                             setIsShowSearchMenu(false);
+                            closeModalHandler();
                           }}
                         >
                           <span className="flex text-sm font-irsansb text-neutral-600 items-center gap-2 whitespace-nowrap">
-                            {search}
+                            {product.title.slice(0, 11)} ...
                             <ChevronLeft size={15} />
                           </span>
                         </Link>

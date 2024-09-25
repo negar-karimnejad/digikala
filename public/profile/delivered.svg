@@ -6,8 +6,8 @@
               fill="none"
             >
               <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
+                fillRule="evenodd"
+                clipRule="evenodd"
                 d="M32 8.00001C27.5817 8.00001 24 11.5817 24 16C24 20.4183 27.5817 24 32 24C36.4183 24 40 20.4183 40 16C40 11.5817 36.4183 8.00001 32 8.00001ZM18.6667 16C18.6667 8.63621 24.6362 2.66667 32 2.66667C39.3638 2.66667 45.3334 8.63621 45.3334 16C45.3334 23.3638 39.3638 29.3333 32 29.3333C24.6362 29.3333 18.6667 23.3638 18.6667 16Z"
                 fill="url(#paint0_linear)"
               />
@@ -17,8 +17,8 @@
               />
               <g filter="url(#filter0_i)">
                 <path
-                  fill-rule="evenodd"
-                  clip-rule="evenodd"
+                  fillRule="evenodd"
+                  clipRule="evenodd"
                   d="M21.3333 37.12L24.9173 33.7067L29.3973 37.9733L40.1493 27.7333L43.7333 31.1467L29.3973 44.8L21.3333 37.12Z"
                   fill="url(#paint2_linear)"
                 />
@@ -31,9 +31,9 @@
                   width="22.4"
                   height="17.0667"
                   filterUnits="userSpaceOnUse"
-                  color-interpolation-filters="sRGB"
+                  colorInterpolationFilters="sRGB"
                 >
-                  <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                  <feFlood floodOpacity="0" result="BackgroundImageFix" />
                   <feBlend
                     mode="normal"
                     in="SourceGraphic"
@@ -72,8 +72,8 @@
                   y2="26.6667"
                   gradientUnits="userSpaceOnUse"
                 >
-                  <stop stop-color="#83D788" />
-                  <stop offset="1" stop-color="#4DB051" />
+                  <stop stopColor="#83D788" />
+                  <stop offset="1" stopColor="#4DB051" />
                 </linearGradient>
                 <linearGradient
                   id="paint1_linear"
@@ -83,8 +83,8 @@
                   y2="58.6667"
                   gradientUnits="userSpaceOnUse"
                 >
-                  <stop stop-color="#83D888" />
-                  <stop offset="1" stop-color="#4CAF50" />
+                  <stop stopColor="#83D888" />
+                  <stop offset="1" stopColor="#4CAF50" />
                 </linearGradient>
                 <linearGradient
                   id="paint2_linear"
@@ -94,8 +94,8 @@
                   y2="43.2252"
                   gradientUnits="userSpaceOnUse"
                 >
-                  <stop stop-color="#2E7B32" />
-                  <stop offset="1" stop-color="#2E7B32" />
+                  <stop stopColor="#2E7B32" />
+                  <stop offset="1" stopColor="#2E7B32" />
                 </linearGradient>
               </defs>
             </svg>

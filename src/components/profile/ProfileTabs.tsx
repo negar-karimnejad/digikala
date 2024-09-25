@@ -2,11 +2,11 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Product } from "@/types/types";
 import { ArrowRight, Search, ShoppingCart, Trash2 } from "lucide-react";
 import Image from "next/image";
-import ProductCard from "../category/ProductCard";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import ProductCard from "../category/ProductCard";
 import { Button } from "../ui/button";
-import { useRouter } from "next/navigation";
 
 export default function ProfileTabs({
   tabsArray,

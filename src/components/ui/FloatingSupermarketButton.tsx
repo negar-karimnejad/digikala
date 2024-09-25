@@ -12,13 +12,13 @@ export default function FloatingSupermarketButton() {
   return (
     <>
       <div onClick={() => setIsShowSupermarketModal(true)}>
-        <div className="text-sm max-lg:hidden font-irsansb cursor-pointer gap-2 bg-green-600 px-3 text-white h-12 flex items-center justify-center z-40 rounded-full fixed bottom-8 lg:left-4">
+        <div className="text-sm max-lg:hidden font-irsansb cursor-pointer gap-2 bg-green-600 px-3 text-white h-12 flex items-center justify-center z-30 rounded-full fixed bottom-8 lg:left-4">
           سوپرمارکت
           <span className="opacity-30">|</span>
           تنوع بالا و پرتخفیف
           <ShoppingBasket size={30} />
         </div>
-        <div className="text-sm lg:hidden font-irsansb cursor-pointer gap-2 max-lg:w-fit max-lg:right-0 max-lg:left-0 max-lg:mx-auto bg-green-600 px-3 text-white h-10 flex items-center justify-center z-40 rounded-full fixed bottom-16">
+        <div className="text-sm lg:hidden font-irsansb cursor-pointer gap-2 max-lg:w-fit max-lg:right-0 max-lg:left-0 max-lg:mx-auto bg-green-600 px-3 text-white h-10 flex items-center justify-center z-30 rounded-full fixed bottom-16">
           <ShoppingBasket size={28} />
           <span className="opacity-30">|</span>
           سوپرمارکت، تنوع بالا، پرتخفیف
@@ -26,7 +26,7 @@ export default function FloatingSupermarketButton() {
       </div>
 
       <div
-        className={`fixed transition-all duration-700 flex sm:items-center sm:justify-center items-end w-full h-full bg-black/50 top-0 right-0 z-50 ${
+        className={`fixed transition-all duration-700 flex sm:items-center sm:justify-center items-end w-full h-full bg-black/50 top-0 right-0 z-30 ${
           isShowSupermarketModal ? "visible opacity-100" : "opacity-0 invisible"
         }`}
       >

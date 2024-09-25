@@ -57,6 +57,7 @@ export default async function SearchCategoryPage({
 
   const serializedCategory = serializeDoc(category);
   const serializedSubmenu = serializeDoc(submenu);
+  const serializedSearchParamsResult = serializeDoc(searchParamsResult);
 
   return (
     <div>
@@ -65,7 +66,7 @@ export default async function SearchCategoryPage({
           <SubmenuProductsMain
             category={serializedCategory}
             submenu={serializedSubmenu}
-            products={searchParamsResult}
+            products={serializedSearchParamsResult}
             searchParams={searchParams}
           />
         </div>

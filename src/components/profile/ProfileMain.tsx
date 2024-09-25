@@ -6,6 +6,7 @@ import { Product } from "@/types/types";
 import PersonalInfo from "./PersonalInfo";
 import { ArrowRight } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export default function ProfileMain({
   products,
@@ -15,6 +16,21 @@ export default function ProfileMain({
   id: string;
 }) {
   const router = useRouter();
+
+  // لیست محصول علاقه مند یوزر
+  const [favoriteProducts, setFavoriteProducts] = useState<Product[]>([]);
+
+  const getFavorites = () => {
+    return JSON.parse(localStorage.getItem("favorites")) || [];
+  };
+
+  useEffect(() => {
+    const favoriteIds = getFavorites();
+    const filteredFavoriteProducts = products.filter((product: Product) =>
+      favoriteIds.includes(product._id.toString())
+    );
+    setFavoriteProducts(filteredFavoriteProducts);
+  }, [products]);
 
   return (
     <div className="">
