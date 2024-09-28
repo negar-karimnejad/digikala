@@ -43,7 +43,7 @@ export default async function ProductPage({
 
   return (
     <div className="px-4 flex flex-col gap-10 py-4">
-      <ProductPageMobileStickyHeader productId={product._id.toString()} />
+      <ProductPageMobileStickyHeader productId={id} />
       <div className="flex justify-between items-center mb-4">
         <nav className="grow min-w-0">
           <div className="breadcrumb-container flex overflow-x-auto overflow-y-hidden hide-scrollbar">

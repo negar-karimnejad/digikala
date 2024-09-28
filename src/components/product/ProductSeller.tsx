@@ -24,7 +24,7 @@ export default function ProductSeller({ product }: { product: Product }) {
   const closeModal = () => setIsShowModal(false);
 
   const addToCart = () => {
-    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
 
     const existingProductIndex = cart.findIndex(
       (item: Product) => item._id === product._id
@@ -34,7 +34,7 @@ export default function ProductSeller({ product }: { product: Product }) {
       cart[existingProductIndex].count += count;
     } else {
       const cartItem = {
-        id: product._id,
+        _id: product._id,
         title: product.title,
         thumbnail: product.thumbnail,
         guarantee: product.guarantee,
