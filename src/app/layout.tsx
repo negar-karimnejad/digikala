@@ -1,9 +1,10 @@
 import { ThemeProvider } from "@/components/ui/theme-provider";
 import { cn } from "@/lib/utils";
 import localFont from "next/font/local";
+import { Suspense } from "react";
 import { Toaster } from "react-hot-toast";
 import "./globals.css";
-import { DarkMode } from "@/components/ui/DarkMode";
+import Loading from "./loading";
 
 const iranSans = localFont({ src: "../fonts/IranianSans.ttf" });
 
@@ -35,7 +36,7 @@ export default async function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          {children}
+          <Suspense fallback={<Loading />}>{children}</Suspense>
           <Toaster position="top-center" reverseOrder={false} />
         </ThemeProvider>
       </body>

@@ -1,11 +1,10 @@
-"use client";
-
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { Product } from "@/types/types";
 import {
   ChevronLeft,
   Info,
@@ -18,14 +17,34 @@ import {
 import { useState } from "react";
 import { Button } from "../ui/button";
 import Modal from "../ui/Modal";
-import { Product } from "@/types/types";
 
 export default function ProductSeller({ product }: { product: Product }) {
   const [isShowModal, setIsShowModal] = useState(false);
+  const [count, setCount] = useState(1);
   const closeModal = () => setIsShowModal(false);
 
-  const AddToCartButton = () => {
-    return <Button className="w-full">افزودن به سبد</Button>;
+  const addToCart = () => {
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    const existingProductIndex = cart.findIndex(
+      (item: Product) => item._id === product._id
+    );
+
+    if (existingProductIndex !== -1) {
+      cart[existingProductIndex].count += count;
+    } else {
+      const cartItem = {
+        id: product._id,
+        title: product.title,
+        thumbnail: product.thumbnail,
+        guarantee: product.guarantee,
+        price: product.discount_price,
+        count,
+      };
+      cart.push(cartItem);
+    }
+
+    localStorage.setItem("cart", JSON.stringify(cart));
   };
 
   if (!product) return null;
@@ -111,7 +130,9 @@ export default function ProductSeller({ product }: { product: Product }) {
           </div>
         </div>
         <div className="max-lg:hidden">
-          <AddToCartButton />
+          <Button onClick={addToCart} className="w-full">
+            افزودن به سبد
+          </Button>
         </div>
         <div className="flex items-center gap-3 text-[13px]">
           <ShieldCheck
@@ -197,7 +218,9 @@ export default function ProductSeller({ product }: { product: Product }) {
       {/* Add to Cart Button */}
       <div className="lg:hidden fixed flex shadow-[rgba(17,_17,_26,_0.2)_0px_0px_5px] items-center py-3 px-4 bg-white dark:bg-neutral-900 w-full bottom-0 right-0 border-t z-30">
         <div className="flex-1">
-          <AddToCartButton />
+          <Button onClick={addToCart} className="w-full">
+            افزودن به سبد
+          </Button>
         </div>
         <div className="flex-1 flex flex-col items-end gap-2">
           {product.discount > 0 && (

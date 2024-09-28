@@ -29,7 +29,7 @@ export default function FreeShipping() {
             <p className="text-[11px] text-neutral-500">
               برای خریدهای بالای ۱ میلیون تومان در استان{" "}
               {userCity && (
-                <span className="text-xs">
+                <span className="text-xs text-red-500">
                   {
                     province.find((item) => item.id == userCity.province_id)
                       ?.title
@@ -50,14 +50,14 @@ export default function FreeShipping() {
 
       {/* Free Shipping Modal */}
       <div
-        className={`fixed right-0 bottom-0 z-50 lg:hidden flex h-screen w-full cursor-default flex-col items-center bg-black/40 dark:bg-black/80 transition-all duration-500  ${
+        className={`fixed right-0 bottom-0 z-50 flex h-screen w-full cursor-default flex-col items-center bg-black/40 dark:bg-black/80 transition-all duration-500  ${
           isOpenModal ? "visible opacity-100" : "invisible opacity-0"
         }`}
         onClick={closeModalHandler}
       >
         <div
           onClick={(e) => e.stopPropagation()}
-          className={`fixed bottom-0 right-0 w-full h-fit bg-white dark:bg-neutral-900 px-5 pb-5 pt-0 shadow transition-all duration-500 dark:text-white
+          className={`fixed right-0 left-0 lg:top-0 bottom-0 lg:m-auto max-lg:w-full max-w-xl h-fit bg-white dark:bg-neutral-900 px-5 pb-5 pt-0 shadow transition-all duration-500 dark:text-white
                ${isOpenModal ? "translate-y-0" : "translate-y-96"}`}
         >
           <button className="relative w-full">
@@ -72,9 +72,13 @@ export default function FreeShipping() {
               شرایط ارسال رایگان
             </h5>
             <p className="text-sm leading-6 text-neutral-600">
-              هزینه ارسال مرسوله‌های پیک دیجی‌کالا در {userCity?.title} که مجموع
-              قیمت آن ۱ میلیون تومان یا بیشتر باشد، رایگان است. لطفاً توجه کنید
-              که باربری، ارسال فروشنده و پست فروشنده مشمول این تخفیف نیستند.
+              هزینه ارسال مرسوله‌های پیک دیجی‌کالا در{" "}
+              <span className="font-irsansb text-base">
+                &quot; {userCity?.title} &quot;
+              </span>{" "}
+              که مجموع قیمت آن ۱ میلیون تومان یا بیشتر باشد، رایگان است. لطفاً
+              توجه کنید که باربری، ارسال فروشنده و پست فروشنده مشمول این تخفیف
+              نیستند.
             </p>
           </div>
         </div>

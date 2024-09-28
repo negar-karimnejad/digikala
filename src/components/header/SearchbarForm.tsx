@@ -22,14 +22,6 @@ import { ChangeEvent, useEffect, useRef, useState } from "react";
 import { Card, CardContent } from "../ui/card";
 import SearchSkeleton from "./SearchSkeleton";
 
-const popularSearches = [
-  "گوشی سامسونگ s22",
-  "سرم پوست ویتامین c",
-  "اسباب بازی لوازم آرایشی",
-  "گوشی iphone 13 pro max",
-  "چاقو زنجان",
-];
-
 export default function SearchbarForm({
   placeholder,
   products,
@@ -39,8 +31,10 @@ export default function SearchbarForm({
 }) {
   const [isOpen, setIsOpen] = useState(false);
 
+  // Modal Open & Close Functions
   const closeModalHandler = () => setIsOpen(false);
   const openModalHandler = () => setIsOpen(true);
+
   return (
     <>
       <SearchForm
@@ -142,15 +136,15 @@ function SearchForm({
         closeModalHandler();
       }}
       className="relative w-full h-12 border-0"
+      onClick={() => {
+        openModalHandler();
+        setIsShowSearchMenu(true);
+      }}
     >
       <label
         ref={searchRef}
         htmlFor="search"
-        className="lg:flex items-center h-full w-full"
-        onClick={() => {
-          openModalHandler();
-          setIsShowSearchMenu(true);
-        }}
+        className="lg:flex items-center w-full"
       >
         <div className="flex items-center w-full h-full bg-neutral-100 rounded-lg dark:bg-neutral-700">
           {isOpen ? (

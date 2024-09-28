@@ -31,7 +31,7 @@ export default function ProductPageMobileStickyHeader({
   };
 
   return (
-    <div className="flex z-10 justify-between lg:hidden items-center bg-white dark:bg-neutral-900 sticky top-0">
+    <div className="flex z-10 justify-between lg:hidden items-center bg-white dark:bg-neutral-900 sticky top-0 h-14">
       <div className="flex items-center gap-2">
         <button onClick={() => router.back()}>
           <ArrowRight
@@ -45,12 +45,17 @@ export default function ProductPageMobileStickyHeader({
       </div>
 
       <div className="flex gap-5 items-center">
-        <button>
-          <ShoppingCart
-            size={22}
-            className="text-neutral-700 dark:text-neutral-100"
-          />
-        </button>
+        <div className="relative">
+          <Link href="/checkout/cart">
+            <ShoppingCart
+              size={22}
+              className="text-neutral-700 dark:text-neutral-100"
+            />
+          </Link>
+          <span className="flex items-center justify-center text-xs rounded-sm absolute w-4 h-3 bg-red-500 -bottom-1 -right-2 text-white">
+            0
+          </span>
+        </div>
         <button
           onClick={(prev) => {
             setIsFavorite(!prev);
