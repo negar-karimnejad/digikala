@@ -14,9 +14,7 @@ export default function ProductPageMobileStickyHeader({
   const router = useRouter();
 
   const [isFavorite, setIsFavorite] = useState(false);
-  const [cartItems, setCartItems] = useState(
-    JSON.parse(localStorage.getItem("cart")) || []
-  );
+  const [cartItems, setCartItems] = useState<any[]>([]);
 
   useEffect(() => {
     const allFavorites = JSON.parse(localStorage.getItem("favorites") || "[]");
@@ -24,6 +22,11 @@ export default function ProductPageMobileStickyHeader({
       setIsFavorite(true);
     }
   }, [productId]);
+
+  useEffect(() => {
+    const storedCart = JSON.parse(localStorage.getItem("cart") || "[]");
+    setCartItems(storedCart);
+  }, []);
 
   const toggleFavorite = () => {
     const allFavorites = JSON.parse(localStorage.getItem("favorites") || "[]");

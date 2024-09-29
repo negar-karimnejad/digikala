@@ -144,3 +144,14 @@ export interface Article {
   cover: string;
   categoryId?: ObjectId;
 }
+
+export interface CartItem {
+  _id: ObjectId;
+  title: string;
+  thumbnail: string;
+  guarantee: string;
+  price: number;
+  discount_price: number;
+  discount: number;
+  count: number;
+}

@@ -19,7 +19,7 @@ export default function FreeShipping() {
 
   return (
     <>
-      <div className="p-5 mx-4 rounded-lg bg-neutral-100 dark:bg-neutral-800 border dark:border-neutral-700 flex items-center justify-between">
+      <div className="p-5 max-lg:mx-4 rounded-lg bg-neutral-100 dark:bg-neutral-800 border dark:border-neutral-700 flex items-center justify-between">
         <div className="flex items-center gap-2">
           <Truck size={25} className="text-neutral-500" />
           <div className="">

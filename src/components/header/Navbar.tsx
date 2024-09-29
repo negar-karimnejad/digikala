@@ -113,10 +113,10 @@ export default function Navbar({ categories }: { categories: Category[] }) {
     <>
       <nav
         className={`sticky top-20 z-30 bg-white dark:bg-neutral-950 border-b shadow-sm max-lg:hidden transition-all duration-700 px-4 ${
-          isVisible ? "translate-y-0" : "-translate-y-32"
+          isVisible ? "translate-y-0" : "-translate-y-20"
         }`}
       >
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between bg-white w-full">
           <div className="flex items-center">
             <div
               onMouseEnter={() => setIsShowMenu(true)}

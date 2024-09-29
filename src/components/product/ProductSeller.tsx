@@ -38,7 +38,9 @@ export default function ProductSeller({ product }: { product: Product }) {
         title: product.title,
         thumbnail: product.thumbnail,
         guarantee: product.guarantee,
-        price: product.discount_price,
+        price: product.price,
+        discount_price: product.discount_price,
+        discount: product.discount,
         count,
       };
       cart.push(cartItem);

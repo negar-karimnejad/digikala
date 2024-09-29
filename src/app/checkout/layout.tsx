@@ -9,9 +9,7 @@ export default async function CheckoutLayout({
 }) {
   return (
     <>
-      <div className="max-lg:hidden sticky top-0 bg-white dark:bg-neutral-950 z-40">
-        <Header />
-      </div>
+      <Header />
       {children}
       <div className="max-lg:hidden">
         <Footer />
