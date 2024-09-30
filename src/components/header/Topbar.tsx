@@ -2,6 +2,7 @@ import { ShoppingCart } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import persianLogo from "../../../public/logo/digi.svg";
+import CartLengthPseudo from "../cart/CartLengthPseudo";
 import { DarkMode } from "../ui/DarkMode";
 import ProfileButton from "../ui/ProfileButton";
 import Searchbar from "./Searchbar";
@@ -31,10 +32,11 @@ export default function Topbar({ user }) {
           <div className="flex items-center gap-2">
             <ProfileButton user={user} />
             <div className="w-[0.5px] h-6 bg-gray-300 mr-2"></div>
-            <div className="mx-2">
+            <div className="relative mx-2">
               <Link href="/checkout/cart/">
                 <ShoppingCart />
               </Link>
+              <CartLengthPseudo />
               <span className="sr-only">Shopping Cart</span>
             </div>
             <div className="w-[0.5px] h-6 bg-gray-300"></div>

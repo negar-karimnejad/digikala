@@ -166,7 +166,7 @@ function SearchForm({
             value={search}
             onChange={changeHandler}
             placeholder={placeholder ? placeholder : "جستجو "}
-            className="placeholder:text-sm text-neutral-500 z-10 bg-transparent rounded-lg dark:bg-neutral-700 h-full px-3 w-2/3 outline-none"
+            className="placeholder:text-sm text-neutral-500 z-10 bg-transparent rounded-lg dark:bg-neutral-700 h-full p-3 w-2/3 outline-none"
           />
         </div>
         {/* Search Menu */}

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import persianLogo from "../../../public/logo/digi.svg";
+import CartLengthPseudo from "../cart/CartLengthPseudo";
 
 export default function ProductPageMobileStickyHeader({
   productId,
@@ -14,7 +15,6 @@ export default function ProductPageMobileStickyHeader({
   const router = useRouter();
 
   const [isFavorite, setIsFavorite] = useState(false);
-  const [cartItems, setCartItems] = useState<any[]>([]);
 
   useEffect(() => {
     const allFavorites = JSON.parse(localStorage.getItem("favorites") || "[]");
@@ -22,11 +22,6 @@ export default function ProductPageMobileStickyHeader({
       setIsFavorite(true);
     }
   }, [productId]);
-
-  useEffect(() => {
-    const storedCart = JSON.parse(localStorage.getItem("cart") || "[]");
-    setCartItems(storedCart);
-  }, []);
 
   const toggleFavorite = () => {
     const allFavorites = JSON.parse(localStorage.getItem("favorites") || "[]");
@@ -62,9 +57,7 @@ export default function ProductPageMobileStickyHeader({
               className="text-neutral-700 dark:text-neutral-100"
             />
           </Link>
-          <span className="flex items-center justify-center text-xs rounded-sm absolute w-4 h-3 bg-red-500 -bottom-1 -right-2 text-white">
-            {cartItems.length}
-          </span>
+          <CartLengthPseudo />
         </div>
         <button
           onClick={(prev) => {

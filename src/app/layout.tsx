@@ -5,6 +5,7 @@ import { Suspense } from "react";
 import { Toaster } from "react-hot-toast";
 import "./globals.css";
 import Loading from "./loading";
+import { CartProvider } from "@/context/cartItemsContext";
 
 const iranSans = localFont({ src: "../fonts/IranianSans.ttf" });
 
@@ -36,7 +37,9 @@ export default async function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <Suspense fallback={<Loading />}>{children}</Suspense>
+          <CartProvider>
+            <Suspense fallback={<Loading />}>{children}</Suspense>
+          </CartProvider>
           <Toaster position="top-center" reverseOrder={false} />
         </ThemeProvider>
       </body>

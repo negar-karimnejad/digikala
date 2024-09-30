@@ -4,7 +4,8 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { Product } from "@/types/types";
+import { useCart } from "@/context/cartItemsContext";
+import { CartItem, Product } from "@/types/types";
 import {
   ChevronLeft,
   Info,
@@ -14,39 +15,77 @@ import {
   Truck,
   X,
 } from "lucide-react";
-import { useState } from "react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import Swal from "sweetalert2";
+import CartItemControls from "../cart/CartItemControls";
 import { Button } from "../ui/button";
 import Modal from "../ui/Modal";
 
 export default function ProductSeller({ product }: { product: Product }) {
   const [isShowModal, setIsShowModal] = useState(false);
   const [count, setCount] = useState(1);
+  const [existingProduct, setExistingProduct] = useState<CartItem>();
+
+  const router = useRouter();
+
   const closeModal = () => setIsShowModal(false);
+  const { cart, setCart } = useCart();
+
+  useEffect(() => {
+    setExistingProduct(cart.find((item) => item._id === product._id));
+  }, [cart, product._id]);
 
   const addToCart = () => {
-    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const updatedCart = [...cart];
 
-    const existingProductIndex = cart.findIndex(
-      (item: Product) => item._id === product._id
-    );
+    const cartItem = {
+      _id: product._id,
+      title: product.title,
+      thumbnail: product.thumbnail,
+      guarantee: product.guarantee,
+      price: product.price,
+      discount_price: product.discount_price,
+      discount: product.discount,
+      count,
+    };
 
-    if (existingProductIndex !== -1) {
-      cart[existingProductIndex].count += count;
-    } else {
-      const cartItem = {
-        _id: product._id,
-        title: product.title,
-        thumbnail: product.thumbnail,
-        guarantee: product.guarantee,
-        price: product.price,
-        discount_price: product.discount_price,
-        discount: product.discount,
-        count,
-      };
-      cart.push(cartItem);
-    }
+    updatedCart.push(cartItem);
+    setCart(updatedCart);
+    localStorage.setItem("cart", JSON.stringify(updatedCart));
 
-    localStorage.setItem("cart", JSON.stringify(cart));
+    Swal.fire({
+      html: `
+      <div>
+        <div style="display: flex; align-items: center; gap:10px; padding-bottom: 20px;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="rgb(58,173,0)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-check-big"><path d="M21.801 10A10 10 0 1 1 17 3.335"/><path d="m9 11 3 3L22 4"/></svg>
+          <h2 style="font-size:15px; color:rgb(57, 170, 0)">
+          این کالا به سبد خرید اضافه شد!
+          </h2>
+        </div>
+        <div style="display: flex; border-top: 1px solid #e7e7e7;padding-top: 20px; align-items: center; gap:20px">
+          <img 
+            src="${product.thumbnail}" 
+            alt="${product.title}" 
+            width="100" 
+            height="100" 
+            style="border-radius: 8px;"
+          />
+          <p style="color:#dddcdc;font-weight:bold;font-size: 14px;line-height: 30px; color: #272727;text-align: right;">
+            ${product.title}
+          </p>
+        </div>
+      </div>
+  `,
+      showCloseButton: true,
+      confirmButtonColor: "#e11d48",
+      confirmButtonText: "برو به سبد خرید",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        router.push("/checkout/cart");
+      }
+    });
   };
 
   if (!product) return null;
@@ -132,9 +171,24 @@ export default function ProductSeller({ product }: { product: Product }) {
           </div>
         </div>
         <div className="max-lg:hidden">
-          <Button onClick={addToCart} className="w-full">
-            افزودن به سبد
-          </Button>
+          {existingProduct ? (
+            <div className="flex items-center gap-5">
+              <CartItemControls product={existingProduct} />
+              <div className="text-sm space-y-2 text-neutral-700">
+                <p>در سبد شما</p>
+                <p className="text-xs">
+                  مشاهده{" "}
+                  <Link className="text-sky-500" href="/checkout/cart">
+                    سبد خرید
+                  </Link>
+                </p>
+              </div>
+            </div>
+          ) : (
+            <Button onClick={addToCart} className="w-full">
+              افزودن به سبد
+            </Button>
+          )}
         </div>
         <div className="flex items-center gap-3 text-[13px]">
           <ShieldCheck
@@ -220,9 +274,15 @@ export default function ProductSeller({ product }: { product: Product }) {
       {/* Add to Cart Button */}
       <div className="lg:hidden fixed flex shadow-[rgba(17,_17,_26,_0.2)_0px_0px_5px] items-center py-3 px-4 bg-white dark:bg-neutral-900 w-full bottom-0 right-0 border-t z-30">
         <div className="flex-1">
-          <Button onClick={addToCart} className="w-full">
-            افزودن به سبد
-          </Button>
+          {existingProduct ? (
+            <div className="w-full">
+              <CartItemControls product={existingProduct} />
+            </div>
+          ) : (
+            <Button onClick={addToCart} className="w-full">
+              افزودن به سبد
+            </Button>
+          )}
         </div>
         <div className="flex-1 flex flex-col items-end gap-2">
           {product.discount > 0 && (

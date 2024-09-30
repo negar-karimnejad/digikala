@@ -1,17 +1,14 @@
 "use client";
 
+import { useCart } from "@/context/cartItemsContext";
 import { mobileFooterLinks } from "@/data/data";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import CartLengthPseudo from "../cart/CartLengthPseudo";
 
 export default function MobileFooter() {
   const [activeLink, setActiveLink] = useState<string | null>(null);
-  const [cartItems, setCartItems] = useState<any[]>([]);
-
-  useEffect(() => {
-    const storedCart = JSON.parse(localStorage.getItem("cart") || "[]");
-    setCartItems(storedCart);
-  }, []);
+  const { cart } = useCart();
 
   useEffect(() => {
     const pathname = window.location.pathname;
@@ -34,9 +31,7 @@ export default function MobileFooter() {
                 }`}
               >
                 {link.title === "سبد خرید" && (
-                  <span className="flex items-center justify-center text-xs rounded-sm absolute w-5 h-5 bg-red-500 top-0 left-0 text-white border border-white">
-                    {cartItems.length}
-                  </span>
+                  <CartLengthPseudo className="w-5 h-5 top-0 right-7" />
                 )}
                 {activeLink === link.href ? link.activeIcon : link.icon}
                 <small className="text-xs">{link.title}</small>
