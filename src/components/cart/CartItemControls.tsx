@@ -5,20 +5,10 @@ import { CartItem } from "@/types/types";
 import { Minus, Plus, Trash2 } from "lucide-react";
 
 export default function CartItemControls({ product }: { product: CartItem }) {
-  const {
-    cart,
-    setCart,
-    totalDiscountPrice,
-    totalPrice,
-    totalDiscount,
-    decreaseCount,
-    increaseCount,
-    deleteFromCart,
-    clearCart,
-  } = useCart();
+  const { decreaseCount, increaseCount, deleteFromCart } = useCart();
 
   return (
-    <div className="border flex items-center gap-5 rounded-md text-red-500 p-2">
+    <div className="border shadow flex items-center justify-between gap-5 rounded-md text-red-500 p-2">
       <button>
         <Plus onClick={() => increaseCount(product)} size={20} />
       </button>

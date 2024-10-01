@@ -135,11 +135,11 @@ function SearchForm({
         setIsShowSearchMenu(false);
         closeModalHandler();
       }}
-      className="relative w-full h-12 border-0"
       onClick={() => {
         openModalHandler();
         setIsShowSearchMenu(true);
       }}
+      className="relative w-full h-12 border-0 max-lg:overflow-hidden"
     >
       <label
         ref={searchRef}

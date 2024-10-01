@@ -178,3 +178,13 @@ export const ArticleSchema = z.object({
 export const ArticleEditSchema = ArticleSchema.extend({
   cover: imageSchema.optional(),
 });
+
+//
+export const ShippingSchema = z.object({
+  address: z.string({ required_error: "اینجا را خالی نگذارید" }),
+  plate: z.string({ required_error: "اینجا را خالی نگذارید" }),
+  postalcode: z.string({ required_error: "اینجا را خالی نگذارید" }),
+  firstname: z.string({ required_error: "اینجا را خالی نگذارید" }),
+  lastname: z.string({ required_error: "اینجا را خالی نگذارید" }),
+  mobile: z.string({ required_error: "اینجا را خالی نگذارید" }),
+});

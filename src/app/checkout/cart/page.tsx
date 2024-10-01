@@ -1,10 +1,16 @@
+import CartContainer from "@/components/cart/CartContainer";
 import FreeShipping from "@/components/cart/FreeShipping";
 import RecentViews from "@/components/cart/RecentViews";
 import ShoppincartItems from "@/components/cart/ShoppincartItems";
+import { authUser } from "@/utils/auth";
 import { serializeDoc } from "@/utils/serializeDoc";
+import connectToDB from "config/mongodb";
 import ProductModel from "models/Product";
 
 export default async function Cart() {
+  connectToDB();
+  const user = await authUser();
+
   const products = await ProductModel.find({})
     .populate({
       path: "category",
@@ -20,7 +26,7 @@ export default async function Cart() {
   const serializedProducts = serializeDoc(products);
 
   return (
-    <div className="flex flex-col gap-5 lg:px-20 pt-5 pb-16">
+    <CartContainer>
       <div className="border-b">
         <h5 className="text-red-500 border-b-4 px-2 w-1/2 lg:w-fit font-irsansb text-center border-b-red-500 pb-2">
           سبد خرید
@@ -28,7 +34,7 @@ export default async function Cart() {
       </div>
       <FreeShipping />
 
-      <ShoppincartItems />
+      <ShoppincartItems user={user} />
       <div className="border-b-8"></div>
       <div className="border rounded-lg max-lg:mx-4 py-5">
         <h5 className="border-b-2 text-sm mx-5 w-fit font-irsansb border-b-red-500 pb-2">
@@ -36,6 +42,6 @@ export default async function Cart() {
         </h5>
         <RecentViews products={serializedProducts} />
       </div>
-    </div>
+    </CartContainer>
   );
 }
