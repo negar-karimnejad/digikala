@@ -1,6 +1,6 @@
 "use client";
 
-import useScroll from "@/hooks/useScroll";
+import useScroll from "@/utils/useScroll";
 import { ReactNode } from "react";
 
 export default function TopbarContainer({ children }: { children: ReactNode }) {

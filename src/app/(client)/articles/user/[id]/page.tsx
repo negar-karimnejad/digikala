@@ -22,7 +22,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Article } from "@/types/types";
+import { Article } from "@/utils/types";
 import connectToDB from "config/mongodb";
 import { ArrowUp, ChevronLeft, Library } from "lucide-react";
 import ArticleModel from "models/Article";

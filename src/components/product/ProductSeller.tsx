@@ -4,8 +4,8 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { useCart } from "@/context/cartItemsContext";
-import { CartItem, Product } from "@/types/types";
+import { useCart } from "@/utils/cartItemsContext";
+import { CartItem, Product } from "@/utils/types";
 import {
   ChevronLeft,
   Info,

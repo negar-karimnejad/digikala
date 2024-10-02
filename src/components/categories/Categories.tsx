@@ -6,7 +6,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { Category, Product, Submenu, SubmenuItem } from "@/types/types";
+import { Category, Product, Submenu, SubmenuItem } from "@/utils/types";
 import { ChevronDown, ChevronLeft } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";

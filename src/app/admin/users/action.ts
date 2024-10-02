@@ -4,8 +4,8 @@ import {
   LoginSchema,
   RegisterSchema,
   UserupdateSchema,
-} from "@/lib/validation";
-import { LoginFormState, RegisterFormState } from "@/types/types";
+} from "@/utils/validation";
+import { LoginFormState, RegisterFormState } from "@/utils/types";
 import { generateAccessToken, generateRefreshToken } from "@/utils/auth";
 import bcrypt, { compare } from "bcryptjs";
 import fs from "fs/promises";

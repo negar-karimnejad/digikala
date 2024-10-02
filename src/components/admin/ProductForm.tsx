@@ -8,7 +8,7 @@ import {
   Product,
   Submenu,
   SubmenuItem,
-} from "@/types/types";
+} from "@/utils/types";
 import { LucideUploadCloud, X } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";

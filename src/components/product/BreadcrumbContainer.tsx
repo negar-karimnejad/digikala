@@ -6,7 +6,7 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
-import { Category, Submenu, SubmenuItem } from "@/types/types";
+import { Category, Submenu, SubmenuItem } from "@/utils/types";
 import React from "react";
 
 interface BreadcrumbContainerProps {

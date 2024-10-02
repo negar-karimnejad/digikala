@@ -1,4 +1,4 @@
-import { Product, Submenu } from "@/types/types";
+import { Product, Submenu } from "@/utils/types";
 import { serializeDoc } from "@/utils/serializeDoc";
 import CategoryModel from "models/Category";
 import ProductModel from "models/Product";
@@ -43,8 +43,6 @@ export default async function SubmenuProductsContainer({ id }: { id: string }) {
   const serializedCategory = serializeDoc(category);
   const serializedSubmenu = serializeDoc(submenu);
   const serializedSubmenuProducts = serializeDoc(submenuProducts);
-
-  
 
   if (!category) return null;
   return (

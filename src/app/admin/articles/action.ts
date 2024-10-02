@@ -1,6 +1,6 @@
 "use server";
 
-import { ArticleEditSchema, ArticleSchema } from "@/lib/validation";
+import { ArticleEditSchema, ArticleSchema } from "@/utils/validation";
 import connectToDB from "config/mongodb";
 import { promises as fs, unlink, writeFile } from "fs";
 import ArticleModel from "models/Article";

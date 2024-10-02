@@ -2,7 +2,7 @@
 
 import { WarnSection } from "@/app/profile/page";
 import ProfileTabs from "@/components/profile/ProfileTabs";
-import { Product } from "@/types/types";
+import { Product } from "@/utils/types";
 import PersonalInfo from "./PersonalInfo";
 import { ArrowRight } from "lucide-react";
 import { useRouter } from "next/navigation";

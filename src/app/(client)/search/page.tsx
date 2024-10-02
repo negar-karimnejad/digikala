@@ -1,5 +1,5 @@
 import SubmenuProductsMain from "@/components/category/SubmenuProductsMain";
-import { Category, Product } from "@/types/types";
+import { Category, Product } from "@/utils/types";
 import { serializeDoc } from "@/utils/serializeDoc";
 import { Info } from "lucide-react";
 import CategoryModel from "models/Category";

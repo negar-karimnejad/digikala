@@ -9,7 +9,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { Category, Product } from "@/types/types";
+import { Category, Product } from "@/utils/types";
 import { serializeDoc } from "@/utils/serializeDoc";
 import { Sparkles } from "lucide-react";
 import CategoryModel from "models/Category";

@@ -1,6 +1,6 @@
 "use client";
 
-import { Product } from "@/types/types";
+import { Product } from "@/utils/types";
 import { useEffect, useRef } from "react";
 import FooterFaq from "../footer/FooterFaq";
 import ProductImage from "./ProductImage";

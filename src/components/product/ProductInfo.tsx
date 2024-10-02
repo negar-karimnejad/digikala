@@ -6,7 +6,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { Color, Feature, Product } from "@/types/types";
+import { Color, Feature, Product } from "@/utils/types";
 import { Check, ChevronLeft, Info, Sparkle, ThumbsUp } from "lucide-react";
 import { RefObject, useState } from "react";
 import { Button } from "../ui/button";

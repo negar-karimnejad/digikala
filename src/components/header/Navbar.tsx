@@ -1,8 +1,8 @@
 "use client";
 
 import { cities, province } from "@/data/data";
-import useScroll from "@/hooks/useScroll";
-import { Category, City, Location, Submenu, SubmenuItem } from "@/types/types";
+import useScroll from "@/utils/useScroll";
+import { Category, City, Location, Submenu, SubmenuItem } from "@/utils/types";
 import {
   ArrowRight,
   BadgePercent,

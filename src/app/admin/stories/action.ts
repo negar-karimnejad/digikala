@@ -1,6 +1,6 @@
 "use server";
 
-import { StorySchema } from "@/lib/validation";
+import { StorySchema } from "@/utils/validation";
 import connectToDB from "config/mongodb";
 import fs from "fs/promises";
 import StoryModel from "models/Story";

@@ -1,6 +1,6 @@
 "use client";
 
-import { Category } from "@/types/types";
+import { Category } from "@/utils/types";
 import Image from "next/image";
 import Link from "next/link";
 import "swiper/css";

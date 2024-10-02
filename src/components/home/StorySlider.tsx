@@ -11,7 +11,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
 import Modal from "../ui/Modal";
-import { Story } from "@/types/types";
+import { Story } from "@/utils/types";
 
 interface StorySliderProps {
   stories: Story[];

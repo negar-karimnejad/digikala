@@ -1,7 +1,7 @@
 "use server";
 
-import { ProductSchema } from "@/lib/validation";
-import { ProductImage } from "@/types/types";
+import { ProductSchema } from "@/utils/validation";
+import { ProductImage } from "@/utils/types";
 import crypto from "crypto";
 import fs from "fs/promises";
 import connectToDB from "config/mongodb";

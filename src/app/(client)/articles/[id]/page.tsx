@@ -8,7 +8,7 @@ import {
   BreadcrumbPage,
 } from "@/components/ui/breadcrumb";
 import { Separator } from "@/components/ui/separator";
-import { Article } from "@/types/types";
+import { Article } from "@/utils/types";
 import { formatDateToPersian } from "@/utils/PersianFormatter ";
 import parse from "html-react-parser";
 import connectToDB from "config/mongodb";

@@ -1,6 +1,6 @@
 "use client";
 
-import { Product } from "@/types/types";
+import { Product } from "@/utils/types";
 import { Flame } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";

@@ -1,6 +1,6 @@
 "use client";
 
-import { Product } from "@/types/types";
+import { Product } from "@/utils/types";
 import ProductCard from "./ProductCard";
 import SortingMenu from "./SortingMenu";
 
@@ -8,12 +8,12 @@ export default function SubmenuProducts({
   products,
   sortingMenu,
   setSortingMenu,
-  searchParams
+  searchParams,
 }: {
   products: Product[];
   sortingMenu: string;
   setSortingMenu;
-  searchParams?
+  searchParams?;
 }) {
   const sortedProducts = () => {
     switch (sortingMenu) {

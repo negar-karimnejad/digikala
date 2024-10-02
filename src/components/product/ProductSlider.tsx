@@ -5,7 +5,7 @@ import "swiper/css/pagination";
 import { Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import OfferSkeleton from "../skeleton/OfferSkeleton";
-import { Product, ProductImage } from "@/types/types";
+import { Product, ProductImage } from "@/utils/types";
 
 // interface ProductSliderProps {
 //   productImages: ProductImage[];
@@ -45,7 +45,7 @@ export default function ProductSlider({ product }: { product: Product }) {
             className="object-cover"
           />
         </SwiperSlide>
-        
+
         {product.images?.map((image: ProductImage) => (
           <SwiperSlide
             key={image._id.toString()}

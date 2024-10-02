@@ -1,6 +1,6 @@
 import { addSubmenu } from "@/app/admin/categories/action";
 import { Button } from "@/components/ui/button";
-import { Category } from "@/types/types";
+import { Category } from "@/utils/types";
 import connectToDB from "config/mongodb";
 import CategoryModel from "models/Category";
 

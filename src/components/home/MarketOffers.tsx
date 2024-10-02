@@ -1,4 +1,4 @@
-import { Category, Product } from "@/types/types";
+import { Category, Product } from "@/utils/types";
 import connectToDB from "config/mongodb";
 import { ArrowLeft } from "lucide-react";
 import CategoryModel from "models/Category";

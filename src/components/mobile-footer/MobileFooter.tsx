@@ -1,6 +1,6 @@
 "use client";
 
-import { useCart } from "@/context/cartItemsContext";
+import { useCart } from "@/utils/cartItemsContext";
 import { mobileFooterLinks } from "@/data/data";
 import Link from "next/link";
 import { useEffect, useState } from "react";

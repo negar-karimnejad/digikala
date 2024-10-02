@@ -1,4 +1,4 @@
-import { Product } from "@/types/types";
+import { Product } from "@/utils/types";
 import { serializeDoc } from "@/utils/serializeDoc";
 import connectToDB from "config/mongodb";
 import ProductModel from "models/Product";

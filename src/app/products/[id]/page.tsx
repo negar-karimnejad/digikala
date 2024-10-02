@@ -1,7 +1,7 @@
 import BreadcrumbContainer from "@/components/product/BreadcrumbContainer";
 import ProductMain from "@/components/product/ProductMain";
 import ProductPageMobileStickyHeader from "@/components/ui/ProductPageMobileStickyHeader";
-import { Product, Submenu, SubmenuItem } from "@/types/types";
+import { Product, Submenu, SubmenuItem } from "@/utils/types";
 import { serializeDoc } from "@/utils/serializeDoc";
 import connectToDB from "config/mongodb";
 import { Megaphone, Store } from "lucide-react";

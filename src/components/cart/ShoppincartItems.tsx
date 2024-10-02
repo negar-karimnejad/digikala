@@ -1,7 +1,7 @@
 "use client";
 
-import { useCart } from "@/context/cartItemsContext";
-import useScroll from "@/hooks/useScroll";
+import { useCart } from "@/utils/cartItemsContext";
+import useScroll from "@/utils/useScroll";
 import { ShieldCheck, Store, Trash2, Truck } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -9,7 +9,7 @@ import { useEffect } from "react";
 import toast from "react-hot-toast";
 import { Button } from "../ui/button";
 import CartItemControls from "./CartItemControls";
-import { User } from "@/types/types";
+import { User } from "@/utils/types";
 import { useRouter } from "next/navigation";
 
 export default function ShoppincartItems({ user }: { user: User }) {

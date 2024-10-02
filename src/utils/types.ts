@@ -155,3 +155,15 @@ export interface CartItem {
   discount: number;
   count: number;
 }
+
+export interface ShippingFormState {
+  errors: {
+    address?: string[];
+    plate?: string[];
+    postalcode?: string[];
+    name?: string[];
+    mobile?: string[];
+    general?: string[];
+  };
+  success: boolean;
+}

@@ -1,6 +1,6 @@
 "use client";
 import { province } from "@/data/data";
-import { City } from "@/types/types";
+import { City } from "@/utils/types";
 import { ChevronLeft, Truck, X } from "lucide-react";
 import { useEffect, useState } from "react";
 

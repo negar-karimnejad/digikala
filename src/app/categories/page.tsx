@@ -1,5 +1,5 @@
 import Categories from "@/components/categories/Categories";
-import { Product } from "@/types/types";
+import { Product } from "@/utils/types";
 import { serializeDoc } from "@/utils/serializeDoc";
 import connectToDB from "config/mongodb";
 import CategoryModel from "models/Category";

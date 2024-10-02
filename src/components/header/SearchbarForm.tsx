@@ -7,7 +7,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { Product } from "@/types/types";
+import { Product } from "@/utils/types";
 import {
   ArrowRight,
   ChevronLeft,

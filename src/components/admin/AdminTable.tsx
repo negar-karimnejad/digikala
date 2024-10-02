@@ -31,7 +31,7 @@ import {
   Submenu,
   SubmenuItem,
   User,
-} from "@/types/types";
+} from "@/utils/types";
 import { Edit2, Eye, MoreVertical } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";

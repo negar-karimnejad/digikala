@@ -1,6 +1,6 @@
 "use client";
 
-import { CartItem } from "@/types/types";
+import { CartItem } from "@/utils/types";
 import {
   createContext,
   ReactNode,

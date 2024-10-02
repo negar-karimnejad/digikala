@@ -1,6 +1,6 @@
 import { addSubmenuItem } from "@/app/admin/categories/action";
 import { Button } from "@/components/ui/button";
-import { Submenu } from "@/types/types";
+import { Submenu } from "@/utils/types";
 import connectToDB from "config/mongodb";
 import SubmenuModel from "models/Submenu";
 

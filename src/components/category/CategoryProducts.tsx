@@ -4,7 +4,7 @@ import Bestseller from "@/components/home/Bestseller";
 import Brands from "@/components/home/Brands";
 import Offers from "@/components/home/Offers";
 import SelectedProducts from "@/components/home/SelectedProducts";
-import { Category, Product } from "@/types/types";
+import { Category, Product } from "@/utils/types";
 import { serializeDoc } from "@/utils/serializeDoc";
 import ArticleModel from "models/Article";
 import CategoryModel from "models/Category";

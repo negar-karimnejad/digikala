@@ -7,7 +7,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { sortingMenuItems } from "@/data/data";
-import { Category, Product, Submenu } from "@/types/types";
+import { Category, Product, Submenu } from "@/utils/types";
 import {
   ArrowDownWideNarrow,
   ChevronDown,

@@ -5,7 +5,7 @@ import {
   CategorySchema,
   CategorySubmenuItemSchema,
   CategorySubmenusSchema,
-} from "@/lib/validation";
+} from "@/utils/validation";
 import connectToDB from "config/mongodb";
 import { promises as fs, unlink, writeFile } from "fs";
 import CategoryModel from "models/Category";

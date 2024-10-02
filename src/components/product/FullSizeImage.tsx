@@ -1,6 +1,6 @@
 "use client";
 
-import { ProductImage } from "@/types/types";
+import { ProductImage } from "@/utils/types";
 import { ChevronLeft, ChevronRight, LayoutGrid } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";

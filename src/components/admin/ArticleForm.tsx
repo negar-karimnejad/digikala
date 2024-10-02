@@ -2,7 +2,7 @@
 
 import { addArticle, updateArticle } from "@/app/admin/articles/action";
 import { Button } from "@/components/ui/button";
-import { Article, Category } from "@/types/types";
+import { Article, Category } from "@/utils/types";
 import { Editor } from "@tinymce/tinymce-react";
 import { UploadCloud } from "lucide-react";
 import Image from "next/image";
