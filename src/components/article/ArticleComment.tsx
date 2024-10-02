@@ -38,7 +38,7 @@ export default function ArticleComment() {
           extendCommentBox ? "bg-white" : "bg-neutral-100"
         }`}
       >
-        <div className="">
+        <div>
           <div className="relative flex gap-3 items-center">
             <CircleUserRound
               className="text-neutral-600 absolute -top-1 right-0"
@@ -71,7 +71,7 @@ export default function ArticleComment() {
                   onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
-              <div className="">
+              <div>
                 <textarea
                   placeholder="دیدگاه"
                   className="mt-8 w-full overflow-visible outline-none bg-transparent flex items-center justify-center resize-none"

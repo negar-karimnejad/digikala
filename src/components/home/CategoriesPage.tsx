@@ -53,7 +53,7 @@ export default function CategoriesPage({
                   className="flex items-center flex-col"
                 >
                   <Image
-                    alt=""
+                    alt={category.title}
                     width={100}
                     height={100}
                     src={category.cover[0]}
@@ -99,7 +99,7 @@ export default function CategoriesPage({
                   className="flex items-center flex-col"
                 >
                   <Image
-                    alt=""
+                    alt={category.title}
                     width={100}
                     height={100}
                     src={category.cover[0]}

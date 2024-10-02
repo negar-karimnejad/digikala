@@ -69,7 +69,6 @@ export default function Categories({
           <div
             onClick={() => clickHandler(category._id.toString())}
             key={category._id.toString()}
-            className=""
           >
             <div
               className={`cursor-pointer transition-all py-3 px-1 border border-b border-b-neutral-200 dark:border-b-neutral-700 text-neutral-600 dark:text-neutral-100 flex flex-col text-center items-center gap-2 text-xs ${

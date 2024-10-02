@@ -266,7 +266,7 @@ export default function Navbar({ categories }: { categories: Category[] }) {
       <Modal isOpen={isShowCityModal} closeModalHandler={closeModalHandler}>
         <div className="border-b dark:border-b-neutral-700 py-3 text-neutral-800 dark:text-white flex justify-between items-center">
           <h2 className="text-lg font-irsansb">انتخاب شهر</h2>
-          <Button variant="ghost" className="" onClick={closeModalHandler}>
+          <Button variant="ghost" onClick={closeModalHandler}>
             <X />
           </Button>
         </div>

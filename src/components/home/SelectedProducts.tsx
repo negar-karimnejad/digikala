@@ -43,7 +43,7 @@ export default function SelectedProducts({
                 className="flex items-center justify-center flex-col gap-4"
               >
                 <Image
-                  alt=""
+                  alt={product.title}
                   width={150}
                   height={150}
                   src={product.thumbnail}

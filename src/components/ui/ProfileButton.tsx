@@ -44,7 +44,6 @@ export default function ProfileButton({ user }) {
               انصراف
             </Button>
             <Button
-              className=""
               variant={"destructive"}
               onClick={async () => {
                 await signOut();

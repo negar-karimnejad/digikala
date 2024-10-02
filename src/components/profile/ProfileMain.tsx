@@ -33,7 +33,7 @@ export default function ProfileMain({
   }, [products]);
 
   return (
-    <div className="">
+    <div>
       {id === "orders" && (
         <ProfileTabs
           tabsArray={["جاری", "تحویل شده", "مرجوع شده", "لغو شده"]}

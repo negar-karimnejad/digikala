@@ -70,7 +70,7 @@ export default function BestsellingMain({
           <div className="col-span-12 p-5 flex flex-col justify-center items-center">
             <Image
               src="/not-found-product.svg"
-              alt=""
+              alt="not-found-product"
               width={200}
               height={200}
             />

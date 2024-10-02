@@ -22,7 +22,7 @@ export default function FreeShipping() {
       <div className="p-5 max-lg:mx-4 rounded-lg bg-neutral-100 dark:bg-neutral-800 border dark:border-neutral-700 flex items-center justify-between">
         <div className="flex items-center gap-2">
           <Truck size={25} className="text-neutral-500" />
-          <div className="">
+          <div>
             <h6 className="font-irsansb text-xs text-neutral-600 dark:text-neutral-300 mb-2">
               دریافت رایگان مرسوله‌های پیک دیجی‌کالا
             </h6>

@@ -24,7 +24,7 @@ export default function Digiclub() {
             <Radius className="text-sky-500" size={17} />
             <p className="text-xs font-bold text-black">چرخ و بخت</p>
             <Image
-              alt=""
+              alt="wheel-spinner"
               width={130}
               height={130}
               src="/digiclub/wheel-spinner.webp"
@@ -35,7 +35,7 @@ export default function Digiclub() {
             <Goal className="text-sky-500" size={17} />
             <p className="text-xs font-bold text-black">ماموریت ها</p>
             <Image
-              alt=""
+              alt="missions"
               width={130}
               height={130}
               src="/digiclub/missions.webp"
@@ -45,7 +45,7 @@ export default function Digiclub() {
             <Ticket className="text-sky-500" size={17} />
             <p className="text-xs font-bold text-black">جایزه ها</p>
             <Image
-              alt=""
+              alt="awards"
               width={130}
               height={130}
               src="/digiclub/awards.webp"

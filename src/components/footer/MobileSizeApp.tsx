@@ -12,7 +12,7 @@ export default function MobileSizeApp() {
     <>
       <div className="lg:hidden border-b pb-5 mt-5 flex justify-between items-center w-full">
         <div className="flex items-center gap-4">
-          <Image alt="" width={45} height={45} src="/logo/footerlogo2.webp" />
+          <Image alt="footer-logo" width={45} height={45} src="/logo/footerlogo2.webp" />
           <div className="flex flex-col gap-2">
             <span className="text-[11px] text-neutral-500 dark:text-neutral-400">
               تجربه خرید بهتر در

@@ -79,7 +79,7 @@ export default async function Footer() {
               className="bg-white w-28 h-24 border rounded-lg flex items-center justify-center"
             >
               <Image
-                alt=""
+                alt="rezi"
                 className="objet-cover"
                 width={70}
                 height={70}
@@ -92,7 +92,7 @@ export default async function Footer() {
               className="bg-white w-28 h-24 border rounded-lg flex items-center justify-center"
             >
               <Image
-                alt=""
+                alt="kasbokar"
                 className="objet-cover"
                 width={50}
                 height={50}
@@ -105,7 +105,7 @@ export default async function Footer() {
               className="bg-white w-28 h-24 border rounded-lg flex items-center justify-center"
             >
               <Image
-                alt=""
+                alt="enamad"
                 className="objet-cover"
                 width={120}
                 height={120}

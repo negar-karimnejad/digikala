@@ -61,7 +61,7 @@ export default function FloatingSupermarketButton() {
               </div>
               <div className="mt-10 flex items-center justify-end">
                 <Image
-                  alt=""
+                  alt="fresh-shop-basket"
                   width={130}
                   height={130}
                   src="/fresh-shop-basket.webp"
@@ -82,7 +82,7 @@ export default function FloatingSupermarketButton() {
               </div>
               <div className="mt-10 flex items-center justify-end">
                 <Image
-                  alt=""
+                  alt="jet-shop-basket"
                   width={130}
                   height={130}
                   src="/jet-shop-basket.webp"
