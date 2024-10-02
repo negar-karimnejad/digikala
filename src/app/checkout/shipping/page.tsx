@@ -1,10 +1,10 @@
-import { User } from "@/utils/types";
 import { authUser } from "@/utils/auth";
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import persianLogo from "../../../../public/logo/digi.svg";
 import ShippingForm from "@/components/cart/ShippingForm";
+import { User } from "@/utils/types";
 
 export default async function Shipping() {
   const user: User = await authUser();
@@ -20,7 +20,7 @@ export default async function Shipping() {
             size={22}
             className="text-neutral-700 dark:text-neutral-100"
           />
-          <span className="text-neutral-900 font-irsansb">
+          <span className="text-neutral-900 dark:text-white font-irsansb">
             آدرس و زمان ارسال
           </span>
         </Link>
@@ -28,7 +28,7 @@ export default async function Shipping() {
           <Image alt="Logo" width={100} height={100} src={persianLogo} />
         </div>
       </div>
-      <div className="w-full h-2 bg-neutral-100 lg:hidden"></div>
+      <div className="w-full h-2 bg-neutral-100 dark:bg-neutral-800 lg:hidden"></div>
       <ShippingForm user={user} />
     </>
   );

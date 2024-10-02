@@ -17,6 +17,30 @@ const schema = new mongoose.Schema({
     type: String,
     required: false,
   },
+  address: {
+    type: String,
+    required: false,
+  },
+  province: {
+    type: String,
+    required: false,
+  },
+  city: {
+    type: String,
+    required: false,
+  },
+  plate: {
+    type: String,
+    required: false,
+  },
+  unit: {
+    type: String,
+    required: false,
+  },
+  postalcode: {
+    type: String,
+    required: false,
+  },
   role: {
     type: String,
     default: "USER",

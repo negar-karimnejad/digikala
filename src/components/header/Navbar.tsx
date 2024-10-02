@@ -116,7 +116,7 @@ export default function Navbar({ categories }: { categories: Category[] }) {
           isVisible ? "translate-y-0" : "-translate-y-20"
         }`}
       >
-        <div className="flex items-center justify-between bg-white w-full">
+        <div className="flex items-center justify-between bg-white dark:bg-neutral-950 w-full">
           <div className="flex items-center">
             <div
               onMouseEnter={() => setIsShowMenu(true)}

@@ -162,7 +162,7 @@ export interface ShippingFormState {
     plate?: string[];
     postalcode?: string[];
     name?: string[];
-    mobile?: string[];
+    phone?: string[];
     general?: string[];
   };
   success: boolean;

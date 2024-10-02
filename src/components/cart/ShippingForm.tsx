@@ -3,8 +3,8 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cities, province } from "@/data/data";
-import { ShippingSchema, ShippingSchemaType } from "@/utils/validation";
 import { ShippingFormState, User } from "@/utils/types";
+import { ShippingSchema, ShippingSchemaType } from "@/utils/validation";
 import { CirclePlus, X } from "lucide-react";
 import React, { FormEvent, useState } from "react";
 
@@ -21,7 +21,7 @@ export default function ShippingForm({ user }: { user: User }) {
 
   const [selectedProvince, setSelectedProvince] = useState("-1");
   const [name, setName] = useState("");
-  const [mobile, setMobile] = useState("");
+  const [phone, setPhone] = useState("");
 
   const closeModalHandler = () => {
     setIsOpenModal(false);
@@ -30,10 +30,10 @@ export default function ShippingForm({ user }: { user: User }) {
   const changeCheckboxHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.checked && user) {
       setName(user.name);
-      setMobile(user.phone);
+      setPhone(user.phone);
     } else {
       setName("");
-      setMobile("");
+      setPhone("");
     }
   };
 
@@ -88,7 +88,7 @@ export default function ShippingForm({ user }: { user: User }) {
         ${addAddress ? "h-[80vh] max-lg:h-screen" : ""}`}
       >
         {/* Header Section */}
-        <div className="flex px-4 items-center justify-between sticky top-0 py-4 border-b bg-white z-10">
+        <div className="flex px-4 items-center justify-between sticky top-0 py-4 border-b dark:border-b-neutral-700 bg-white dark:bg-neutral-800 z-10">
           <p className="font-irsansb">
             {addAddress ? "جزییات آدرس" : "انتخاب آدرس"}
           </p>
@@ -104,17 +104,20 @@ export default function ShippingForm({ user }: { user: User }) {
           {addAddress ? (
             <form
               onSubmit={submitHandler}
-              className="text-sm space-y-6 px-3 py-5 bg-white rounded-lg"
+              className="text-sm space-y-6 px-3 py-5 bg-white dark:bg-neutral-800 rounded-lg"
             >
               <div className="space-y-2">
-                <label htmlFor="address" className="text-gray-700">
+                <label
+                  htmlFor="address"
+                  className="text-neutral-700 dark:text-neutral-50"
+                >
                   نشانی پستی
                   <span className="text-red-500">*</span>
                 </label>
                 <Input
                   type="text"
                   id="address"
-                  className={`w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-neutral-100 
+                  className={`w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-neutral-100 dark:bg-neutral-700 dark:border-neutral-500 
                     ${state.errors.address ? "border-red-500" : ""}
                      `}
                 />
@@ -126,12 +129,15 @@ export default function ShippingForm({ user }: { user: User }) {
               </div>
 
               <div className="space-y-2">
-                <label htmlFor="province" className="text-gray-700">
+                <label
+                  htmlFor="province"
+                  className="text-neutral-700 dark:text-neutral-50"
+                >
                   استان
                   <span className="text-red-500">*</span>
                 </label>
                 <select
-                  className="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-neutral-100"
+                  className="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-neutral-100 dark:bg-neutral-700 dark:border-neutral-500"
                   name=""
                   id="province"
                   onChange={(e) => setSelectedProvince(e.target.value)}
@@ -146,12 +152,15 @@ export default function ShippingForm({ user }: { user: User }) {
               </div>
 
               <div className="space-y-2">
-                <label htmlFor="city" className="text-gray-700">
+                <label
+                  htmlFor="city"
+                  className="text-neutral-700 dark:text-neutral-50"
+                >
                   شهر
                   <span className="text-red-500">*</span>
                 </label>
                 <select
-                  className="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-neutral-100"
+                  className="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-neutral-100 dark:bg-neutral-700 dark:border-neutral-500"
                   name=""
                   id="city"
                 >
@@ -169,14 +178,17 @@ export default function ShippingForm({ user }: { user: User }) {
 
               <div className="flex gap-4">
                 <div className="flex-1 space-y-2">
-                  <label htmlFor="plate" className="text-gray-700">
+                  <label
+                    htmlFor="plate"
+                    className="text-neutral-700 dark:text-neutral-50"
+                  >
                     پلاک
                     <span className="text-red-500">*</span>
                   </label>
                   <Input
                     type="text"
                     id="plate"
-                    className={`w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-neutral-100 
+                    className={`w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-neutral-100 dark:bg-neutral-700 dark:border-neutral-500 
                       ${state.errors.plate ? "border-red-500" : ""}
                        `}
                   />
@@ -188,26 +200,32 @@ export default function ShippingForm({ user }: { user: User }) {
                 </div>
 
                 <div className="flex-1 space-y-2">
-                  <label htmlFor="unit" className="text-gray-700">
+                  <label
+                    htmlFor="unit"
+                    className="text-neutral-700 dark:text-neutral-50"
+                  >
                     واحد
                   </label>
                   <Input
                     type="text"
                     id="unit"
-                    className="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-neutral-100"
+                    className="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-neutral-100 dark:bg-neutral-700 dark:border-neutral-500"
                   />
                 </div>
               </div>
 
               <div className="space-y-2">
-                <label htmlFor="postalcode" className="text-gray-700">
+                <label
+                  htmlFor="postalcode"
+                  className="text-neutral-700 dark:text-neutral-50"
+                >
                   کدپستی
                   <span className="text-red-500">*</span>
                 </label>
                 <Input
                   type="text"
                   id="postalcode"
-                  className={`w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-neutral-100 
+                  className={`w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-neutral-100 dark:bg-neutral-700 dark:border-neutral-500 
                     ${state.errors.postalcode ? "border-red-500" : ""}
                      `}
                 />
@@ -225,16 +243,22 @@ export default function ShippingForm({ user }: { user: User }) {
                 <Input
                   type="checkbox"
                   id="same-recipient"
-                  className="form-checkbox h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded-md"
+                  className="form-checkbox h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded-md dark:bg-neutral-700 dark:border-neutral-500"
                   onChange={changeCheckboxHandler}
                 />
-                <label htmlFor="same-recipient" className="text-gray-700">
+                <label
+                  htmlFor="same-recipient"
+                  className="text-neutral-700 dark:text-neutral-50"
+                >
                   گیرنده سفارش خودم هستم.
                 </label>
               </div>
 
               <div className="space-y-2">
-                <label htmlFor="name" className="text-gray-700">
+                <label
+                  htmlFor="name"
+                  className="text-neutral-700 dark:text-neutral-50"
+                >
                   نام و نام خانوادگی گیرنده
                   <span className="text-red-500">*</span>
                 </label>
@@ -243,7 +267,7 @@ export default function ShippingForm({ user }: { user: User }) {
                   id="name"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className={`w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-neutral-100 
+                  className={`w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-neutral-100 dark:bg-neutral-700 dark:border-neutral-500 
                     ${state.errors.name ? "border-red-500" : ""}
                      `}
                 />
@@ -255,22 +279,25 @@ export default function ShippingForm({ user }: { user: User }) {
               </div>
 
               <div className="space-y-2">
-                <label htmlFor="mobile" className="text-gray-700">
+                <label
+                  htmlFor="phone"
+                  className="text-neutral-700 dark:text-neutral-50"
+                >
                   شماره موبایل
                   <span className="text-red-500">*</span>
                 </label>
                 <Input
                   type="text"
-                  id="mobile"
-                  value={mobile}
-                  onChange={(e) => setMobile(e.target.value)}
-                  className={`w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-neutral-100 
-                    ${state.errors.mobile ? "border-red-500" : ""}
+                  id="phone"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                  className={`w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-neutral-100 dark:bg-neutral-700 dark:border-neutral-500 
+                    ${state.errors.phone ? "border-red-500" : ""}
                      `}
                 />
-                {state.errors.mobile && (
+                {state.errors.phone && (
                   <div className="text-destructive text-xs">
-                    {state.errors.mobile}
+                    {state.errors.phone}
                   </div>
                 )}
 
@@ -281,7 +308,7 @@ export default function ShippingForm({ user }: { user: User }) {
 
               {/* Footer Section */}
               {addAddress && (
-                <div className="bg-white z-10 p-3 border-t sticky bottom-0">
+                <div className="bg-white dark:bg-neutral-800 dark:border-t-neutral-500 z-10 p-3 border-t sticky bottom-0">
                   <Button className="w-full" type="submit">
                     ثبت آدرس
                   </Button>

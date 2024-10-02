@@ -57,7 +57,7 @@ export default function FreeShipping() {
       >
         <div
           onClick={(e) => e.stopPropagation()}
-          className={`fixed right-0 left-0 lg:top-0 bottom-0 lg:m-auto max-lg:w-full max-w-xl h-fit bg-white dark:bg-neutral-900 px-5 pb-5 pt-0 shadow transition-all duration-500 dark:text-white
+          className={`fixed right-0 left-0 lg:top-0 bottom-0 lg:m-auto max-lg:w-full max-w-xl h-fit bg-white dark:bg-neutral-700 px-5 pb-5 pt-0 shadow transition-all duration-500 dark:text-white
                ${isOpenModal ? "translate-y-0" : "translate-y-96"}`}
         >
           <button className="relative w-full">
@@ -68,10 +68,10 @@ export default function FreeShipping() {
             />
           </button>
           <div>
-            <h5 className="text-neutral-700 mb-5 pb-3 border-b text-sm font-irsansb">
+            <h5 className="text-neutral-700 dark:text-neutral-100 mb-5 pb-3 border-b text-sm font-irsansb">
               شرایط ارسال رایگان
             </h5>
-            <p className="text-sm leading-6 text-neutral-600">
+            <p className="text-sm leading-6 text-neutral-600 dark:text-neutral-300">
               هزینه ارسال مرسوله‌های پیک دیجی‌کالا در{" "}
               <span className="font-irsansb text-base">
                 &quot; {userCity?.title} &quot;
