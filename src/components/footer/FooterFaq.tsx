@@ -16,7 +16,7 @@ export default function FooterFaq({
       }`}
     >
       <Link
-        href="/guarantee"
+        href="/faq/guarantee"
         className={`text-center mx-auto flex items-center justify-center ${
           vertical ? "flex-col" : "gap-2 max-lg:flex-col"
         }`}
@@ -62,7 +62,7 @@ export default function FooterFaq({
         </p>
       </Link>
       <Link
-        href="/return"
+        href="/faq/return"
         className={`text-center mx-auto flex items-center justify-center max-lg:text-xs ${
           vertical ? "flex-col" : "gap-2 max-lg:flex-col"
         }`}
@@ -113,7 +113,7 @@ export default function FooterFaq({
         </p>
       </Link>
       <Link
-        href="/contact-us"
+        href="/faq/contact-us"
         className={`text-center mx-auto flex items-center justify-center ${
           vertical ? "flex-col" : "gap-2 max-lg:flex-col"
         }`}
@@ -172,7 +172,7 @@ export default function FooterFaq({
         </p>
       </Link>
       <Link
-        href="/payment"
+        href="/faq/payment"
         className={`text-center mx-auto flex items-center justify-center ${
           vertical ? "flex-col" : "gap-2 max-lg:flex-col"
         }`}
@@ -225,7 +225,7 @@ export default function FooterFaq({
         </p>
       </Link>
       <Link
-        href="/sending"
+        href="/faq/express-delivery"
         className={`text-center mx-auto flex items-center justify-center ${
           vertical ? "flex-col" : "gap-2 max-lg:flex-col"
         }`}

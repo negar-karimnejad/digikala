@@ -85,7 +85,7 @@ function SearchForm({
   const [isShowSearchMenu, setIsShowSearchMenu] = useState(false);
   const searchRef = useRef<HTMLLabelElement>(null);
   const [search, setSearch] = useState("");
-  const [searchResult, setSearchResult] = useState([]);
+  const [searchResult, setSearchResult] = useState<Product[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
   const router = useRouter();
@@ -179,7 +179,7 @@ function SearchForm({
           {searchResult.map((product) => (
             <div
               className="my-5 text-neutral-700 flex justify-between items-center"
-              key={product.id}
+              key={product._id.toString()}
               onClick={(e) => {
                 e.stopPropagation();
                 closeModalHandler();

@@ -14,7 +14,7 @@ export default async function Footer() {
   const user = await authUser();
   return (
     <>
-      <div className="border-t px-3 pt-5 border-gray-100 dark:border-gray-800">
+      <div className="border-t px-3 pt-5 max-lg:pb-14 border-gray-100 dark:border-gray-800">
         <div className="flex justify-between items-center">
           <svg
             width="120"
