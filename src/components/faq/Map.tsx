@@ -12,7 +12,7 @@ export default function Map() {
   return (
     <MapContainer
       className="z-0 h-96 w-full"
-      center={[35.762, 51.405]}
+      center={[35.75515294611187, 51.41220957799119]}
       zoom={13}
       scrollWheelZoom={false}
     >
@@ -20,7 +20,10 @@ export default function Map() {
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      <Marker icon={ICON} position={[35.762, 51.405]}></Marker>
+      <Marker
+        icon={ICON}
+        position={[35.75515294611187, 51.41220957799119]}
+      ></Marker>
     </MapContainer>
   );
 }
