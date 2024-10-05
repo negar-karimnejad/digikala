@@ -9,10 +9,14 @@ export default function CartLengthPseudo({
 }) {
   const { cart } = useCart();
   return (
-    <span
-      className={`flex items-center justify-center text-xs rounded-sm absolute w-4 h-3 bg-red-500 -bottom-1 -right-2 text-white ${className}`}
-    >
-      {cart.length}
-    </span>
+    <>
+      {cart.length > 0 && (
+        <span
+          className={`flex items-center justify-center text-xs rounded-sm absolute w-4 h-3 bg-red-500 -bottom-1 -right-2 text-white ${className}`}
+        >
+          {cart.length}
+        </span>
+      )}
+    </>
   );
 }
