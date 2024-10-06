@@ -102,7 +102,7 @@ export async function signin(
     }
 
     const { email, password } = result.data;
-    const user = await UserModel.findOne({ email });
+    const user = await UserModel.findOne({ email }).lean();
 
     if (!user) {
       return {

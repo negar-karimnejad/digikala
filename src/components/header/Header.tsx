@@ -1,13 +1,11 @@
-import { authUser } from "@/utils/auth";
 import { serializeDoc } from "@/utils/serializeDoc";
+import connectToDB from "config/mongodb";
 import CategoryModel from "models/Category";
 import Navbar from "./Navbar";
 import Topbar from "./Topbar";
-import connectToDB from "config/mongodb";
 
 export default async function Header() {
   connectToDB();
-  const user = await authUser();
   const categories = await CategoryModel.find({})
     .populate({
       path: "submenus",
@@ -18,11 +16,10 @@ export default async function Header() {
     .lean();
 
   const serializedCategories = serializeDoc(categories);
-  const serializedUser = serializeDoc(user);
 
   return (
     <>
-      <Topbar user={serializedUser} />
+      <Topbar />
       <Navbar categories={serializedCategories} />
     </>
   );

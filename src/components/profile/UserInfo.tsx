@@ -1,13 +1,15 @@
+import { authUser } from "@/utils/auth";
+import { User } from "@/utils/types";
 import { ChevronLeft, Pencil } from "lucide-react";
 
-export default function UserInfo() {
+export default async function UserInfo({ user }: { user: User }) {
   return (
     <div className="lg:flex flex-col gap-5 px-5">
       <div className="max-lg:mb-5 flex justify-between items-center">
         <div className="flex flex-col gap-1">
-          <span className="font-irsansb text-sm">نگار کریم نژاد</span>
+          <span className="font-irsansb text-sm">{user.name}</span>
           <span className="text-xs text-neutral-600 dark:text-neutral-400">
-            09214052876
+            {user.phone}
           </span>
         </div>
         <Pencil size={20} className="text-sky-500" />

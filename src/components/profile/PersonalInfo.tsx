@@ -1,6 +1,7 @@
+import { User } from "@/utils/types";
 import { Edit2 } from "lucide-react";
 
-export default function PersonalInfo() {
+export default async function PersonalInfo({ user }: { user: User }) {
   return (
     <div className="flex border rounded-md px-5 flex-col lg:flex-row mx-4 lg:mx-0">
       <div className="flex-1 divide-y-2 divide-neutral-100 dark:divide-neutral-900">
@@ -8,7 +9,7 @@ export default function PersonalInfo() {
           <div className="flex flex-col gap-3">
             <span className="text-neutral-400 text-sm">نام و نام خانوادگی</span>
             <span className="text-neutral-700 dark:text-white">
-              نگار کریم نژاد
+              {user.name}
             </span>
           </div>
           <Edit2 size={20} className="text-neutral-500" />
@@ -18,7 +19,7 @@ export default function PersonalInfo() {
           <div className="flex flex-col gap-3">
             <span className="text-neutral-400 text-sm">شماره موبایل</span>
             <span className="text-neutral-700 dark:text-white">
-              09123456789
+              {user.phone}
             </span>
           </div>
           <Edit2 size={20} className="text-neutral-500" />
@@ -50,14 +51,16 @@ export default function PersonalInfo() {
         <div className="p-5 h-20 flex justify-between items-center">
           <div className="flex flex-col gap-3">
             <span className="text-neutral-400 text-sm">کد ملی</span>
-            <span className="text-neutral-700 dark:text-white">1680006142</span>
+            <span className="text-neutral-700 dark:text-white"></span>
           </div>
           <Edit2 size={20} className="text-neutral-500" />
         </div>
         <div className="p-5 h-20 flex justify-between items-center">
           <div className="flex flex-col gap-3">
             <span className="text-neutral-400 text-sm">ایمیل</span>
-            <span className="text-neutral-700 dark:text-white"></span>
+            <span className="text-neutral-700 dark:text-white">
+              {user.email}
+            </span>
           </div>
           <Edit2 size={20} className="text-neutral-500" />
         </div>

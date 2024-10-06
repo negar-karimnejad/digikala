@@ -1,7 +1,5 @@
 import Sidebar from "@/components/admin/Sidebar";
 import Container from "@/components/ui/container";
-import { authUser } from "@/utils/auth";
-import connectToDB from "config/mongodb";
 import { ReactNode } from "react";
 
 export default async function AdminLayout({
@@ -9,8 +7,6 @@ export default async function AdminLayout({
 }: {
   children: ReactNode;
 }) {
-  connectToDB();
-  const user = await authUser();
   return (
     <div>
       <Container>

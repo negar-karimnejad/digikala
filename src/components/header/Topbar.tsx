@@ -7,8 +7,15 @@ import { DarkMode } from "../ui/DarkMode";
 import ProfileButton from "../ui/ProfileButton";
 import Searchbar from "./Searchbar";
 import TopbarContainer from "./TopbarContainer";
+import { authUser } from "@/utils/auth";
+import connectToDB from "config/mongodb";
+import { serializeDoc } from "@/utils/serializeDoc";
 
-export default function Topbar({ user }) {
+export default async function Topbar() {
+  await connectToDB();
+  const user = await authUser();
+  const serializedUser = serializeDoc(user);
+
   return (
     <TopbarContainer>
       <div className="max-lg:hidden">
@@ -30,7 +37,7 @@ export default function Topbar({ user }) {
             <Searchbar />
           </div>
           <div className="flex items-center gap-2">
-            <ProfileButton user={user} />
+            <ProfileButton user={serializedUser} />
             <div className="w-[0.5px] h-6 bg-gray-300 mr-2"></div>
             <div className="relative mx-2">
               <Link href="/checkout/cart/">

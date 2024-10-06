@@ -2,7 +2,7 @@
 
 import { WarnSection } from "@/app/profile/page";
 import ProfileTabs from "@/components/profile/ProfileTabs";
-import { Product } from "@/utils/types";
+import { Product, User } from "@/utils/types";
 import PersonalInfo from "./PersonalInfo";
 import { ArrowRight } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -10,9 +10,11 @@ import { useEffect, useState } from "react";
 
 export default function ProfileMain({
   products,
+  user,
   id,
 }: {
   products: Product[];
+  user: User;
   id: string;
 }) {
   const router = useRouter();
@@ -98,7 +100,7 @@ export default function ProfileMain({
           <div className="w-full h-2 bg-neutral-100 dark:bg-neutral-700 lg:hidden my-3"></div>
 
           <WarnSection />
-          <PersonalInfo />
+          <PersonalInfo user={user} />
         </div>
       )}
     </div>

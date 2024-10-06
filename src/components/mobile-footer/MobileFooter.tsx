@@ -1,6 +1,5 @@
 "use client";
 
-import { useCart } from "@/utils/cartItemsContext";
 import { mobileFooterLinks } from "@/data/data";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -8,7 +7,6 @@ import CartLengthPseudo from "../cart/CartLengthPseudo";
 
 export default function MobileFooter() {
   const [activeLink, setActiveLink] = useState<string | null>(null);
-  const { cart } = useCart();
 
   useEffect(() => {
     const pathname = window.location.pathname;

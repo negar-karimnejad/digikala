@@ -1,5 +1,6 @@
 "use client";
 
+import { signOut } from "@/app/admin/users/action";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -23,13 +24,11 @@ import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { Avatar, AvatarFallback, AvatarImage } from "./avatar";
 import { Button } from "./button";
-import { signOut } from "@/app/admin/users/action";
+import { User } from "@/utils/types";
 
-export default function ProfileButton({ user }) {
+export default function ProfileButton({ user }: { user: User }) {
   const router = useRouter();
-  if (!user) return null;
 
-  const { name, email, phone } = user;
   const signoutHandler = () => {
     toast(
       (t) => (
@@ -66,10 +65,10 @@ export default function ProfileButton({ user }) {
       {user ? (
         <DropdownMenu dir="rtl">
           <DropdownMenuTrigger asChild className="cursor-pointer">
-            {user.image ? (
+            {user.avatar ? (
               <div className="relative ml-2">
                 <Avatar className="h-9 w-9">
-                  <AvatarImage src={user?.image} className="object-cover" />
+                  <AvatarImage src={user?.avatar} className="object-cover" />
                   <AvatarFallback className="text-red-500 p-0.5">
                     {user.name.split(" ")[0].slice(0, 1)}{" "}
                     {user.name.split(" ")[1].slice(0, 1)}
@@ -94,7 +93,7 @@ export default function ProfileButton({ user }) {
                 className="w-full text-left flex justify-between items-center transition-all duration-500"
                 href="/profile"
               >
-                {name}
+                {user.name}
                 <ChevronLeft size={18} />
               </Link>
             </DropdownMenuLabel>
