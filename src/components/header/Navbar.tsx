@@ -50,6 +50,7 @@ export default function Navbar({ categories }: { categories: Category[] }) {
   const [selectedCategory, setSelectedCategory] = useState<Category | null>(
     categories?.find((category) => category.title === "موبایل") || null
   );
+console.log(categories);
 
   const { isVisible } = useScroll();
 

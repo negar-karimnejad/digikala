@@ -28,6 +28,7 @@ import { User } from "@/utils/types";
 
 export default function ProfileButton({ user }: { user: User }) {
   const router = useRouter();
+  console.log(user);
 
   const signoutHandler = () => {
     toast(
