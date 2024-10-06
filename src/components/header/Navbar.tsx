@@ -1,8 +1,8 @@
 "use client";
 
 import { cities, province } from "@/data/data";
-import useScroll from "@/utils/useScroll";
 import { Category, City, Location, Submenu, SubmenuItem } from "@/utils/types";
+import useScroll from "@/utils/useScroll";
 import {
   ArrowRight,
   BadgePercent,
@@ -50,7 +50,6 @@ export default function Navbar({ categories }: { categories: Category[] }) {
   const [selectedCategory, setSelectedCategory] = useState<Category | null>(
     categories?.find((category) => category.title === "موبایل") || null
   );
-console.log(categories);
 
   const { isVisible } = useScroll();
 

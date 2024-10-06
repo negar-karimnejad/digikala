@@ -8,10 +8,10 @@ import {
   BreadcrumbPage,
 } from "@/components/ui/breadcrumb";
 import { Separator } from "@/components/ui/separator";
-import { Article } from "@/utils/types";
 import { formatDateToPersian } from "@/utils/PersianFormatter ";
-import parse from "html-react-parser";
+import { Article } from "@/utils/types";
 import connectToDB from "config/mongodb";
+import parse from "html-react-parser";
 import {
   ArrowUp,
   ChevronLeft,
@@ -53,13 +53,13 @@ export default async function ArticlePage({
   }
 
   return (
-    <div className="grid-cols-12 lg:grid gap-5 px-4 py-4 flex items-start justify-between">
-      <div className="shadow-sm text-white col-span-1 sticky top-32 right-7 w-16 h-16 flex items-center justify-center bg-sky-500">
+    <div className="grid-cols-12 grid gap-5 lg:px-4 py-4">
+      <div className="lg:shadow-sm max-lg:hidden text-white col-span-1 sticky top-32 right-7 w-16 h-16 flex items-center justify-center bg-sky-500">
         <Library size={35} />
       </div>
 
       {/* Article Content */}
-      <div className="col-span-12 lg:col-span-8 border border-neutral-100 p-8 rounded-md shadow-md">
+      <div className="col-span-12 lg:col-span-8 lg:border border-neutral-100 py-8 lg:px-8 px-4 rounded-md lg:shadow-md">
         <div>
           <Breadcrumb>
             <BreadcrumbList>
@@ -67,7 +67,7 @@ export default async function ArticlePage({
                 <BreadcrumbLink href="/articles">خانه</BreadcrumbLink>
               </BreadcrumbItem>
               <ChevronLeft className="text-red-500" size={15} />
-              <BreadcrumbItem className="text-xs">
+              <BreadcrumbItem className="text-xs gap-4 max-lg:overflow-x-auto hidden-scrollbar">
                 <BreadcrumbPage>{article.title}</BreadcrumbPage>
               </BreadcrumbItem>
             </BreadcrumbList>
@@ -75,11 +75,11 @@ export default async function ArticlePage({
         </div>
         <Separator className="my-8" />
 
-        <h1 className="text-3xl font-bold text-neutral-800 mb-8">
+        <h1 className="text-3xl font-bold text-neutral-800 dark:text-white leading-10 mb-8">
           {article.title}
         </h1>
-        <div className="text-sm text-neutral-600 mb-4 flex itece justify-between">
-          <div className="flex items-center gap-4 text-neutral-600">
+        <div className="text-sm text-neutral-600 mb-4 flex flex-wrap gap-y-3 itece justify-between">
+          <div className="flex items-center gap-4 text-neutral-400">
             <Image
               alt="default_author_profile"
               width={40}
@@ -100,7 +100,7 @@ export default async function ArticlePage({
           </span>
         </div>
 
-        <div className="font-irsansb prose prose-lg dark:prose-invert max-w-none">
+        <div className="font-irsansb text-justify prose prose-lg dark:prose-invert max-w-none">
           {parse(article.content)} {/* Render content with base64 images */}
         </div>
 
@@ -134,12 +134,12 @@ export default async function ArticlePage({
         </div>
         <Separator className="my-10" />
         <div className="flex">
-          <span className="text-neutral-600 ml-5">برچسب ها: </span>
-          <div className="flex flex-wrap gap-3">
+          <span className="text-neutral-600 ml-5">برچسب‌ها:</span>
+          <div className="flex gap-3 max-lg:overflow-x-auto hidden-scrollbar">
             {article.tags.map((tag: string, index: number) => (
               <span
                 key={index}
-                className="bg-neutral-100 text-neutral-500 text-[13px] font-medium px-2.5 py-1 rounded"
+                className="bg-neutral-100 dark:bg-neutral-800 whitespace-nowrap text-neutral-500 dark:text-neutral-400 text-[13px] font-medium px-3 py-1 rounded"
               >
                 {tag}
               </span>
@@ -152,7 +152,7 @@ export default async function ArticlePage({
       </div>
 
       {/* Last Articles */}
-      <div className="col-span-12 lg:col-span-3 border bg-white p-4 py-8 shadow-lg shadow-neutral-300 dark:border-0 dark:bg-neutral-800 dark:shadow-neutral-950">
+      <div className="col-span-12 lg:col-span-3 lg:border bg-white p-4 py-8 lg:shadow-lg shadow-neutral-300 dark:border-0 dark:bg-neutral-800 dark:shadow-neutral-950">
         <h3 className="text-center text-neutral-700 font-vazirBold text-lg dark:text-white">
           آخرین پست ها
         </h3>
@@ -193,7 +193,7 @@ export default async function ArticlePage({
       </div>
 
       {/* ScrollUp Section */}
-      <ScrollUp className="z-20 cursor-pointer text-white fixed bottom-10 right-9 w-12 h-14 rounded-md flex items-center justify-center bg-sky-400">
+      <ScrollUp className="z-20 cursor-pointer text-white fixed bottom-16 right-8 w-12 h-14 rounded-md flex items-center justify-center bg-sky-400">
         <ArrowUp size={30} />
       </ScrollUp>
     </div>

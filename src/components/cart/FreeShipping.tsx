@@ -19,7 +19,7 @@ export default function FreeShipping() {
 
   return (
     <>
-      <div className="p-5 max-lg:mx-4 rounded-lg bg-neutral-100 dark:bg-neutral-800 border dark:border-neutral-700 flex items-center justify-between">
+      <div className="py-5 sm:px-5 px-2 max-lg:mx-4 rounded-lg bg-neutral-100 dark:bg-neutral-800 border dark:border-neutral-700 flex max-sm:flex-col sm:items-center justify-between">
         <div className="flex items-center gap-2">
           <Truck size={25} className="text-neutral-500" />
           <div>
@@ -39,13 +39,15 @@ export default function FreeShipping() {
             </p>
           </div>
         </div>
-        <button
-          onClick={() => setIsOpenModal(true)}
-          className="text-sky-500 text-xs flex items-center font-irsansb"
-        >
-          دیدن شرایط
-          <ChevronLeft size={15} />
-        </button>
+        <div className="justify-end max-sm:flex max-sm:mt-5">
+          <button
+            onClick={() => setIsOpenModal(true)}
+            className="text-sky-500 text-xs flex items-center font-irsansb"
+          >
+            دیدن شرایط
+            <ChevronLeft size={15} />
+          </button>
+        </div>
       </div>
 
       {/* Free Shipping Modal */}

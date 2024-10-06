@@ -59,7 +59,7 @@ export default async function AutorPage({
       </div>
 
       {/* Article Content */}
-      <div className="col-span-12 lg:col-span-11 p-8">
+      <div className="col-span-12 lg:col-span-11 py-8 lg:px-8">
         <Breadcrumb>
           <BreadcrumbList>
             <BreadcrumbItem className="text-xs">
@@ -81,7 +81,9 @@ export default async function AutorPage({
               src="/default_author.jpg"
               className="rounded-full"
             />
-            <h1 className="text-3xl font-bold text-neutral-600">{decodedID}</h1>
+            <h1 className="text-3xl max-lg:text-2xl font-bold text-neutral-600 dark:text-neutral-100">
+              {decodedID}
+            </h1>
           </div>
         </div>
         <div className="mb-10 flex justify-between items-center">
@@ -104,8 +106,10 @@ export default async function AutorPage({
               </Select>
             </div>
           </div>
-          <div className="text-sm text-neutral-600">
-            <span className="text-neutral-700">{totalArticles} </span>
+          <div className="text-sm text-neutral-600 dark:text-neutral-100">
+            <span className="text-neutral-700 dark:text-neutral-100">
+              {totalArticles}{" "}
+            </span>
             مطلب موجود است.
           </div>
         </div>

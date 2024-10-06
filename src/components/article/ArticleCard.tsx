@@ -47,11 +47,11 @@ export default function ArticleCard({ article }: { article: Article }) {
       <div className="p-3 pb-6 flex flex-col justify-between h-40">
         <Link
           href={`/articles/${article._id}`}
-          className="font-irsansb leading-7 text-neutral-600 text-sm"
+          className="font-irsansb leading-7 text-neutral-600 dark:text-neutral-100 text-sm"
         >
           {article.title}
         </Link>
-        <div className="text-neutral-400 mt-3 flex gap-5 justify-between items-center">
+        <div className="text-neutral-400 dark:text-neutral-300 mt-3 flex gap-5 justify-between items-center">
           <Link
             href={`/articles/user/${article.author.replaceAll(" ", "-")}`}
             className="flex items-center gap-1"

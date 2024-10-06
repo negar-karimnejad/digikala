@@ -138,25 +138,14 @@ export default async function MarketOffers() {
           </div>
         </Link>
         <div className="flex items-center max-lg:w-full max-lg:justify-between gap-2">
-          <div className="flex items-center gap-1.5">
+          <div className="flex items-center gap-1.5 max-lg:hidden">
             {DiscountProducts.slice(0, 4).map((product, index) => (
-              <div
-                key={index}
-                className="relative bg-white w-[4.5rem] h-[4.5rem] rounded-full flex items-center justify-center"
-              >
-                <Link href={`/products/${product._id}`}>
-                  <Image
-                    width={50}
-                    height={50}
-                    alt="digikala"
-                    className="rounded-full w-14 h-14 object-contain"
-                    src={product.thumbnail}
-                  />
-                </Link>
-                <div className="absolute right-0 bottom-0 z-10 bg-red-600 text-white rounded-full px-1 py-0.5 text-xs">
-                  {product.discount}٪
-                </div>
-              </div>
+              <DiscountProductsFunc key={index} product={product} />
+            ))}
+          </div>
+          <div className="flex items-center gap-1.5  lg:hidden">
+            {DiscountProducts.slice(0, 3).map((product, index) => (
+              <DiscountProductsFunc key={index} product={product} />
             ))}
           </div>
           <Link
@@ -173,3 +162,22 @@ export default async function MarketOffers() {
     </div>
   );
 }
+
+const DiscountProductsFunc = ({ product }: { product: Product }) => {
+  return (
+    <div className="relative bg-white w-[4.5rem] h-[4.5rem] rounded-full flex items-center justify-center">
+      <Link href={`/products/${product._id}`}>
+        <Image
+          width={50}
+          height={50}
+          alt="digikala"
+          className="rounded-full w-14 h-14 object-contain"
+          src={product.thumbnail}
+        />
+      </Link>
+      <div className="absolute right-0 bottom-0 z-10 bg-red-600 text-white rounded-full px-1 py-0.5 text-xs">
+        {product.discount}٪
+      </div>
+    </div>
+  );
+};

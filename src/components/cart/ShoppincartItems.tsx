@@ -71,7 +71,7 @@ export default function ShoppincartItems({ user }: { user: User }) {
       {cart.length > 0 ? (
         <div className="relative grid grid-cols-12 gap-3">
           <div className="lg:col-span-9 col-span-12 lg:border rounded-lg">
-            <div className="px-8 py-4 flex justify-between items-start">
+            <div className="px-4 sm:px-8 py-4 flex justify-between items-start">
               <div className="space-y-2">
                 <h5 className="font-irsansb">سبد خرید شما</h5>
                 <p className="text-xs text-neutral-500 dark:text-neutral-300">
@@ -88,17 +88,18 @@ export default function ShoppincartItems({ user }: { user: User }) {
             </div>
             <div className="divide-y">
               {cart.map((product) => (
-                <div key={product._id.toString()} className="p-8">
-                  <div className="flex items-center gap-10">
+                <div key={product._id.toString()} className="py-8 sm:px-8 px-4">
+                  <div className="flex items-center sm:gap-10 gap-5">
                     <Link href={`/products/${product._id}`}>
                       <Image
                         src={product.thumbnail}
                         alt={product.title}
                         width={100}
                         height={100}
+                        className="flex-1"
                       />
                     </Link>
-                    <div className="text-neutral-500 dark:text-neutral-400 space-y-2 text-xs">
+                    <div className="flex-1 text-neutral-500 dark:text-neutral-400 space-y-2 text-xs">
                       <p className="text-sm font-irsansb text-neutral-700 dark:text-neutral-100 mb-5">
                         {product.title}
                       </p>
@@ -230,7 +231,7 @@ export default function ShoppincartItems({ user }: { user: User }) {
           </div>
         </div>
       ) : (
-        <div className="lg:border rounded-lg p-5 mx-4 flex items-center justify-center flex-col gap-5">
+        <div className="lg:border rounded-lg p-5 sm:mx-4 flex items-center justify-center flex-col gap-5">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="200"
@@ -636,7 +637,7 @@ export default function ShoppincartItems({ user }: { user: User }) {
           <h5 className="font-irsansb text-neutral-700 dark:text-neutral-100">
             سبد خرید شما خالی است!
           </h5>
-          <p className="text-xs text-neutral-500 dark:text-neutral-400">
+          <p className="text-xs text-center text-neutral-500 dark:text-neutral-400">
             می‌توانید برای مشاهده محصولات بیشتر به صفحات زیر بروید:
           </p>
         </div>

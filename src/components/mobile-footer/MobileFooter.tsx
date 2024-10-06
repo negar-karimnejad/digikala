@@ -15,7 +15,7 @@ export default function MobileFooter() {
 
   return (
     <div className="lg:hidden bg-white dark:bg-neutral-900 py-1 w-full fixed bottom-0 right-0 shadow-lg shadow-neutral-500 border-t z-20">
-      <div className="flex justify-between items-center px-5">
+      <div className="flex justify-between items-center sm:px-5 px-1">
         {mobileFooterLinks.map((link) => (
           <div key={link.id}>
             {link.href ? (
@@ -32,7 +32,9 @@ export default function MobileFooter() {
                   <CartLengthPseudo className="w-5 h-5 top-0 right-7" />
                 )}
                 {activeLink === link.href ? link.activeIcon : link.icon}
-                <small className="text-xs">{link.title}</small>
+                <small className="text-xs max-sm:text-[10px]">
+                  {link.title}
+                </small>
               </Link>
             ) : (
               <div

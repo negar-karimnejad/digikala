@@ -2,6 +2,7 @@
 
 import { CircleUserRound } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+import { Button } from "../ui/button";
 import { Separator } from "../ui/separator";
 
 export default function ArticleComment() {
@@ -35,7 +36,9 @@ export default function ArticleComment() {
       <div
         onClick={() => setExtendCommentBox(true)}
         className={`border border-neutral-300 rounded-sm mt-5 px-8 py-5 ${
-          extendCommentBox ? "bg-white" : "bg-neutral-100"
+          extendCommentBox
+            ? "bg-white dark:bg-neutral-800"
+            : "bg-neutral-100 dark:bg-neutral-800"
         }`}
       >
         <div>
@@ -55,7 +58,7 @@ export default function ArticleComment() {
           </div>
           {extendCommentBox && (
             <>
-              <div className="flex gap-3 w-full pr-14">
+              <div className="flex max-lg:flex-col gap-3 w-full lg:pr-14 max-lg:pt-14">
                 <input
                   type="text"
                   className="p-2 border flex-1 outline-none"
@@ -83,9 +86,7 @@ export default function ArticleComment() {
                 ></textarea>
                 <Separator className="my-2" />
                 <div className="flex justify-end">
-                  <button className="rounded-md px-5 py-2 border text-gray-500 dark:text-gray-200 text-sm">
-                    ارسال دیدگاه
-                  </button>
+                  <Button variant="outline">ارسال دیدگاه</Button>
                 </div>
               </div>
             </>

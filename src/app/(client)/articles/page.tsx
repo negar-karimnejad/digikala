@@ -17,8 +17,10 @@ export default async function ArticlesPage() {
         </div>
 
         {/* Article Content */}
-        <div className="col-span-12 lg:col-span-11 border border-neutral-100 p-8 rounded-md shadow-md">
-          <h1 className="text-3xl font-bold text-neutral-800 mb-8">مقالات</h1>
+        <div className="col-span-12 lg:col-span-11 lg:border border-neutral-100 py-8 lg:px-8 rounded-md lg:shadow-md">
+          <h1 className="text-3xl font-bold text-neutral-800 dark:text-white mb-8">
+            مقالات
+          </h1>
           <div className="flex gap-5 flex-wrap">
             {articles.map((article) => (
               <ArticleCard key={article._id.toString()} article={article} />

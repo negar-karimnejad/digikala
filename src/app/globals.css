@@ -353,3 +353,8 @@ html {
 .categories_sidebar::-webkit-scrollbar {
   width: 0px !important;
 }
+
+/* article */
+.hidden-scrollbar::-webkit-scrollbar-thumb {
+  display: none;
+}
