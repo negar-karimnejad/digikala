@@ -11,7 +11,7 @@ export default async function AdminLayout({
 }: {
   children: ReactNode;
 }) {
-  await connectToDB();
+  connectToDB();
   const user: User = await authUser();
 
   if (!user) {

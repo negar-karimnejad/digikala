@@ -9,7 +9,7 @@ import {
   Newspaper,
   PackageOpen,
   ShoppingBasket,
-  Users2
+  Users2,
 } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -69,7 +69,6 @@ export default function SidebarList({
               onClick={async () => {
                 await signOut();
                 toast.dismiss(t.id);
-                router.refresh();
                 toast.success("از حساب خود خارج شدید.");
               }}
             >

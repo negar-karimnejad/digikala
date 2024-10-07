@@ -161,11 +161,9 @@ export async function signin(
 }
 
 export async function signOut() {
-  try {
-    cookies().delete("token");
-  } catch (error) {
-    console.log("Error ->", error);
-  }
+  const cookieStore = cookies();
+  cookieStore.set("token", "", { maxAge: -1 });
+  redirect("/");
 }
 
 export async function updateUser(

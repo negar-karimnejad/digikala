@@ -47,6 +47,7 @@ export default function Login() {
     const formData = new FormData(event.currentTarget);
     const validationErrors = validateForm(formData);
     if (Object.keys(validationErrors).length > 0) {
+      // Set validation errors without causing additional renders
       setState((prevState) => ({
         ...prevState,
         errors: validationErrors,
@@ -59,12 +60,19 @@ export default function Login() {
       const result = await signin(state, formData);
 
       if (result.success) {
-        if (redirectedLogin) {
-          const params = new URLSearchParams({ redirected: "true" });
-          router.push(`/admin?${params.toString()}`);
-        } else {
-          router.push("/");
-        }
+        // Clear query parameters from the URL without reloading
+        const cleanUrl = window.location.pathname;
+        window.history.replaceState({}, document.title, cleanUrl);
+
+        // Delay navigation slightly to avoid issues
+        setTimeout(() => {
+          if (redirectedLogin) {
+            router.push("/admin");
+          } else {
+            router.push("/");
+          }
+        }, 100); 
+
         toast.success("خوشحالیم که میبینیمت :)");
       } else {
         setState((prevState) => ({

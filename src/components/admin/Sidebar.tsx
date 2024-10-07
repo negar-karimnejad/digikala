@@ -1,11 +1,10 @@
 "use client";
 
 import { Menu } from "lucide-react";
-import Link from "next/link";
 import { useState } from "react";
+import Logo from "../Logo";
 import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
 import SidebarList from "./SidebarList";
-import Logo from "../Logo";
 
 export default function Sidebar() {
   const [sheet, setSheet] = useState(false);
@@ -23,7 +22,7 @@ export default function Sidebar() {
         style={{ direction: "rtl" }}
       >
         <h1 className="font-bold py-5 text-center text-5xl">
-        <Logo />
+          <Logo />
         </h1>
         <Sheet open={sheet} onOpenChange={toggleSheet}>
           <SheetTrigger>
