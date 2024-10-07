@@ -5,7 +5,7 @@ import connectToDB from "config/mongodb";
 import CategoryModel from "models/Category";
 
 export default async function NewCategoryPage() {
-  connectToDB();
+  await connectToDB();
   const categories = await CategoryModel.find({}).lean();
 
   const serializedCategory = serializeDoc(categories);

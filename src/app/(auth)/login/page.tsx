@@ -3,10 +3,8 @@
 import { signin } from "@/app/admin/users/action";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { authUser } from "@/utils/auth";
 import { LoginFormState } from "@/utils/types";
 import { LoginSchema, LoginSchemaType } from "@/utils/validation";
-import connectToDB from "config/mongodb";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -61,8 +59,13 @@ export default function Login() {
       const result = await signin(state, formData);
 
       if (result.success) {
+        if (redirectedLogin) {
+          const params = new URLSearchParams({ redirected: "true" });
+          router.push(`/admin?${params.toString()}`);
+        } else {
+          router.push("/");
+        }
         toast.success("خوشحالیم که میبینیمت :)");
-        router.push("/");
       } else {
         setState((prevState) => ({
           ...prevState,
@@ -81,15 +84,6 @@ export default function Login() {
         success: false,
       }));
     }
-
-    // connectToDB();
-    // const user = await authUser();
-
-    // if (user && redirectedLogin) {
-    //   router.push("/admin");
-    // } else if (user && !redirectedLogin) {
-    //   router.push("/");
-    // }
   };
 
   return (

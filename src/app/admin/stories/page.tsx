@@ -9,7 +9,7 @@ export default function StoriesPage() {
 }
 
 async function StoriesTable() {
-  connectToDB();
+  await connectToDB();
   const stories = await StoryModel.find({}).lean();
   const serializedStories = serializeDoc(stories);
 

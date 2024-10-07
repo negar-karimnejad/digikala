@@ -13,7 +13,7 @@ const unlinkAsync = promisify(unlink);
 const writeFileAsync = promisify(writeFile);
 
 export async function addArticle(_state, formData: FormData) {
-  connectToDB();
+  await connectToDB();
   const entries = Object.fromEntries(formData.entries());
 
   // Parse tags if they are sent as a string
@@ -74,7 +74,7 @@ export async function addArticle(_state, formData: FormData) {
 }
 
 export async function updateArticle(_state, formData: FormData) {
-  connectToDB();
+  await connectToDB();
   const entries = Object.fromEntries(formData.entries());
 
   // Parse tags if they are sent as a string
@@ -145,7 +145,7 @@ export async function updateArticle(_state, formData: FormData) {
 }
 
 export async function deleteArticle(id: string) {
-  connectToDB();
+  await connectToDB();
   const article = await ArticleModel.findOneAndDelete({ _id: id });
 
   if (article == null) return notFound();

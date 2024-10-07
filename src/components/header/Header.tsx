@@ -5,7 +5,7 @@ import Navbar from "./Navbar";
 import Topbar from "./Topbar";
 
 export default async function Header() {
-  connectToDB();
+  await connectToDB();
   const categories = await CategoryModel.find({})
     .populate({
       path: "submenus",

@@ -13,7 +13,7 @@ export default async function ProductPage({
 }: {
   params: { id: string };
 }) {
-  connectToDB();
+  await connectToDB();
   const product: Product = await ProductModel.findOne({ _id: id })
     .populate("images")
     .populate("colors")

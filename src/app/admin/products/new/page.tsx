@@ -5,7 +5,7 @@ import connectToDB from "config/mongodb";
 import CategoryModel from "models/Category";
 
 export default async function NewProductPage() {
-  connectToDB();
+  await connectToDB();
   const categories = await CategoryModel.find({})
     .populate({
       path: "submenus",

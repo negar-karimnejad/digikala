@@ -34,7 +34,7 @@ export default async function ArticlePage({
 }: {
   params: { id: string };
 }) {
-  connectToDB();
+  await connectToDB();
   const articles: Article[] = await ArticleModel.find({});
   const article: Article = await ArticleModel.findOne({ _id: id });
 

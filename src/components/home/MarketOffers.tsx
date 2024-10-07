@@ -7,7 +7,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 export default async function MarketOffers() {
-  connectToDB();
+  await connectToDB();
   // Get Category by title
   const category: Category = await CategoryModel.findOne({
     title: "کالای خوراکی و اساسی",

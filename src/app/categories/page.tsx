@@ -6,7 +6,7 @@ import CategoryModel from "models/Category";
 import ProductModel from "models/Product";
 
 export default async function CategoriesPage() {
-  connectToDB();
+  await connectToDB();
   const categories = await CategoryModel.find({})
     .populate({
       path: "submenus",

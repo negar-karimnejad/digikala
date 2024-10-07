@@ -12,7 +12,7 @@ import Searchbar from "./Searchbar";
 import TopbarContainer from "./TopbarContainer";
 
 export default async function Topbar() {
-  connectToDB();
+  await connectToDB();
   const user = await authUser();
   const serializedUser = serializeDoc(user);
 

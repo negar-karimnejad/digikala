@@ -28,7 +28,7 @@ import SubmenuModel from "models/Submenu";
 import Link from "next/link";
 
 export default async function Home() {
-  connectToDB();
+  await connectToDB();
   const articles: Article[] = await ArticleModel.find({}).lean();
   const stories = await StoryModel.find({}).lean();
   const categories = await CategoryModel.find({}).lean();

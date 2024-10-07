@@ -13,7 +13,7 @@ import { serializeDoc } from "@/utils/serializeDoc";
 import connectToDB from "config/mongodb";
 
 export default async function Footer() {
-  connectToDB();
+  await connectToDB();
   const user = await authUser();
   const serializedUser = serializeDoc(user);
   return (

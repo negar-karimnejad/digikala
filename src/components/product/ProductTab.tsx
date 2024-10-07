@@ -37,7 +37,9 @@ export default function ProductTab({ product }: { product: Product }) {
     <div className="relative mb-10">
       <ul
         className={`sticky pr-2 dark:bg-neutral-950 bg-white z-10 text-sm text-neutral-600 dark:text-neutral-400 h-10 pt-2 cursor-pointer flex items-center gap-8 border-b ${
-          isVisible ? "lg:top-[7.5rem] top-20" : "top-20"
+          isVisible
+            ? "lg:top-[7.5rem] top-20 max-sm:top-[56px]"
+            : "top-20 max-sm:top-[56px]"
         }`}
       >
         {productTabs.map((tab, index) => (

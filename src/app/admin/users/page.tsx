@@ -5,7 +5,7 @@ import connectToDB from "config/mongodb";
 import UserModel from "models/User";
 
 export default async function AdminUsersPage() {
-  connectToDB();
+  await connectToDB();
   const users = await UserModel.find({}).lean();
   const serializedUsers = serializeDoc(users);
 

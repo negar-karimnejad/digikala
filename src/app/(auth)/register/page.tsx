@@ -3,13 +3,11 @@
 import { signup } from "@/app/admin/users/action";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { authUser } from "@/utils/auth";
 import { RegisterFormState } from "@/utils/types";
 import { RegisterSchema, RegisterSchemaType } from "@/utils/validation";
-import connectToDB from "config/mongodb";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useFormStatus } from "react-dom";
 import toast from "react-hot-toast";
 
@@ -21,16 +19,6 @@ const initialState: RegisterFormState = {
 export default function Register() {
   const router = useRouter();
   const [state, setState] = useState<RegisterFormState>(initialState);
-
-  // useEffect(() => {
-  //   async function initialize() {
-  //     await connectToDB();
-  //     const user = await authUser();
-  //     if (user) router.push("/");
-  //   }
-
-  //   initialize();
-  // }, [router]);
 
   const validateForm = (formData: FormData) => {
     const formObject = Object.fromEntries(

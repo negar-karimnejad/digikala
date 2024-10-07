@@ -12,9 +12,6 @@ export default function ProfilePage({
   children: ReactNode;
   params: { id: string };
 }) {
-  // connectToDB();
-  // const user = await UserModel.findOne({});
-
   return (
     <div>
       <div className="flex flex-col gap-10 lg:hidden">

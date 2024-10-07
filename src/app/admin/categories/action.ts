@@ -20,7 +20,7 @@ const unlinkAsync = promisify(unlink);
 const writeFileAsync = promisify(writeFile);
 
 export async function addCategory(_state, formData: FormData) {
-  connectToDB();
+  await connectToDB();
   const heros = formData.getAll("hero");
   const banners = formData.getAll("banner");
 
@@ -124,7 +124,7 @@ export async function addCategory(_state, formData: FormData) {
 }
 
 export async function updateCategory(state: any, formData: FormData) {
-  connectToDB();
+  await connectToDB();
   const heros = formData.getAll("hero");
   const banners = formData.getAll("banner");
   console.log("formData🩳", formData);
@@ -237,7 +237,7 @@ export async function updateCategory(state: any, formData: FormData) {
 }
 
 export async function deleteCategory(id: string) {
-  connectToDB();
+  await connectToDB();
   const category = await CategoryModel.findOneAndDelete({ _id: id });
 
   if (category == null) return notFound();
@@ -253,7 +253,7 @@ export async function deleteCategory(id: string) {
 
 // Submenu Actions
 export async function addSubmenu(formData: FormData) {
-  connectToDB();
+  await connectToDB();
   const result = CategorySubmenusSchema.safeParse(
     Object.fromEntries(formData.entries())
   );
@@ -285,7 +285,7 @@ export async function addSubmenu(formData: FormData) {
 }
 
 export async function deleteSubmenu(id: string) {
-  connectToDB();
+  await connectToDB();
   const submenu = await SubmenuModel.findOneAndDelete({ _id: id });
 
   if (submenu == null) return notFound();
@@ -296,7 +296,7 @@ export async function deleteSubmenu(id: string) {
 
 // Submenu-Item Actions
 export async function addSubmenuItem(formData: FormData) {
-  connectToDB();
+  await connectToDB();
   // Convert FormData entries to a plain object
   const result = CategorySubmenuItemSchema.safeParse(
     Object.fromEntries(formData.entries())
@@ -329,7 +329,7 @@ export async function addSubmenuItem(formData: FormData) {
 }
 
 export async function deleteSubmenuItem(id: string) {
-  connectToDB();
+  await connectToDB();
   const submenuItem = await SubmenuItemModel.findOneAndDelete({ _id: id });
 
   if (submenuItem == null) return notFound();

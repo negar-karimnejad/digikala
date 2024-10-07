@@ -8,7 +8,7 @@ import connectToDB from "config/mongodb";
 import ProductModel from "models/Product";
 
 export default async function Cart() {
-  connectToDB();
+  await connectToDB();
   const user = await authUser();
 
   const products = await ProductModel.find({})

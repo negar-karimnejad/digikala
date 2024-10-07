@@ -9,7 +9,7 @@ export default function AdminProductsPage() {
 }
 
 async function ProductTable() {
-  connectToDB();
+  await connectToDB();
   const products = await ProductModel.find({}).lean();
   const serializedProducts = serializeDoc(products);
 

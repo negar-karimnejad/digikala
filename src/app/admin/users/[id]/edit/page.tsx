@@ -9,7 +9,7 @@ export default async function EditProductPage({
 }: {
   params: { id: string };
 }) {
-  connectToDB();
+  await connectToDB();
   const user = await UserModel.findOne({ _id: id });
   const serializedUser = serializeDoc(user);
 

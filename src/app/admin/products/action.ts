@@ -305,7 +305,7 @@ export async function updateProduct(_state: any, formData: FormData) {
 }
 
 export async function deleteProduct(id: string) {
-  connectToDB();
+  await connectToDB();
   const productWithImages = await ProductModel.findOne({ _id: id }).populate(
     "images"
   );

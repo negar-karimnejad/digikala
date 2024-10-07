@@ -9,7 +9,7 @@ export default async function Searchbar({
 }: {
   placeholder?: string;
 }) {
-  connectToDB();
+  await connectToDB();
   const product: Product[] = await ProductModel.find({})
     .populate("images")
     .populate("colors")

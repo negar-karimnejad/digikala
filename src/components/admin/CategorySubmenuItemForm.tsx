@@ -5,7 +5,7 @@ import connectToDB from "config/mongodb";
 import SubmenuModel from "models/Submenu";
 
 export default async function CategorySubmenuItemForm() {
-  connectToDB();
+  await connectToDB();
   const submenus = await SubmenuModel.find({});
 
   return (

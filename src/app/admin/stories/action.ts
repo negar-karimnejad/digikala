@@ -9,7 +9,7 @@ import { notFound, redirect } from "next/navigation";
 import path from "path";
 
 export async function addStory(_state: any, formData: FormData) {
-  connectToDB();
+  await connectToDB();
   const result = StorySchema.safeParse(Object.fromEntries(formData.entries()));
 
   if (result.success === false) {
@@ -55,7 +55,7 @@ export async function addStory(_state: any, formData: FormData) {
 }
 
 export async function deleteStory(id: string) {
-  connectToDB();
+  await connectToDB();
   const story = await StoryModel.findOneAndDelete({ _id: id });
 
   if (story == null) return notFound();

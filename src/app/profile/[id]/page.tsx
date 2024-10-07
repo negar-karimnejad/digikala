@@ -12,7 +12,7 @@ export default async function page({
 }: {
   params: { id: string };
 }) {
-  connectToDB();
+  await connectToDB();
   const user: User = await authUser();
   const products = await ProductModel.find({})
     .populate({

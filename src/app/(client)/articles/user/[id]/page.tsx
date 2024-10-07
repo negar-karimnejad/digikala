@@ -40,7 +40,7 @@ export default async function AutorPage({
   const decodedID = decodeURIComponent(id.replaceAll("-", " "));
   const currentPage = parseInt(page, 10) || 1;
 
-  connectToDB();
+  await connectToDB();
   // Find articles by author name
   const authorArticles: Article[] = await ArticleModel.find({
     author: decodedID,

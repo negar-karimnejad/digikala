@@ -11,7 +11,7 @@ export default function FooterFaq({
   return (
     <div
       ref={featureRef}
-      className={`my-4 grid grid-cols-5 w-full justify-center items-center ${
+      className={`my-4 w-full lg:grid grid-cols-5 lg:justify-center lg:items-center flex gap-5 max-lg:overflow-x-auto hidden-scrollbar  ${
         vertical ? "max-lg:hidden" : ""
       }`}
     >
@@ -57,7 +57,7 @@ export default function FooterFaq({
             fill="#424750"
           />
         </svg>
-        <p className="text-xs text-gray-600 mt-2 dark:text-gray-300">
+        <p className="text-xs text-gray-600 mt-2 dark:text-gray-300 whitespace-nowrap">
           ضمانت اصل بودن کالا
         </p>
       </Link>
@@ -108,7 +108,7 @@ export default function FooterFaq({
             fill="#E6123D"
           />
         </svg>
-        <p className="text-xs text-gray-600 mt-2 dark:text-gray-300">
+        <p className="text-xs text-gray-600 mt-2 dark:text-gray-300 whitespace-nowrap">
           7 روز ضمانت بازگشت کالا
         </p>
       </Link>
@@ -167,7 +167,7 @@ export default function FooterFaq({
             fill="#E6123D"
           />
         </svg>
-        <p className="text-xs text-gray-600 mt-2 dark:text-gray-300">
+        <p className="text-xs text-gray-600 mt-2 dark:text-gray-300 whitespace-nowrap">
           7 روز هفته، 24 ساعته
         </p>
       </Link>
@@ -220,7 +220,7 @@ export default function FooterFaq({
             fill="#19BFD3"
           />
         </svg>
-        <p className="text-xs text-gray-600 mt-2 dark:text-gray-300">
+        <p className="text-xs text-gray-600 mt-2 dark:text-gray-300 whitespace-nowrap">
           امکان پرداخت در محل
         </p>
       </Link>
@@ -289,7 +289,7 @@ export default function FooterFaq({
             fill="#424750"
           />
         </svg>
-        <p className="text-xs text-gray-600 mt-2 dark:text-gray-300">
+        <p className="text-xs text-gray-600 mt-2 dark:text-gray-300 whitespace-nowrap">
           امکان تحویل اکسپرس
         </p>
       </Link>

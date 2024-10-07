@@ -9,7 +9,7 @@ export default function AdminArticlesPage() {
 }
 
 async function ArticleTable() {
-  connectToDB();
+  await connectToDB();
   const articles = await ArticleModel.find({}).lean();
   const serializedArticles = serializeDoc(articles);
 

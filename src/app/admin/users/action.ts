@@ -1,15 +1,19 @@
 "use server";
 
 import {
+  authUser,
+  generateAccessToken,
+  generateRefreshToken,
+} from "@/utils/auth";
+import { LoginFormState, RegisterFormState } from "@/utils/types";
+import {
   LoginSchema,
   RegisterSchema,
   UserupdateSchema,
 } from "@/utils/validation";
-import { LoginFormState, RegisterFormState } from "@/utils/types";
-import { generateAccessToken, generateRefreshToken } from "@/utils/auth";
 import bcrypt, { compare } from "bcryptjs";
-import fs from "fs/promises";
 import connectToDB from "config/mongodb";
+import fs from "fs/promises";
 import UserModel from "models/User";
 import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
@@ -20,7 +24,7 @@ export async function signup(
   formData: FormData
 ): Promise<RegisterFormState> {
   try {
-    connectToDB();
+    await connectToDB();
     const result = RegisterSchema.safeParse(
       Object.fromEntries(formData.entries())
     );
@@ -88,7 +92,7 @@ export async function signin(
   formData: FormData
 ): Promise<LoginFormState> {
   try {
-    connectToDB();
+    await connectToDB();
     const result = LoginSchema.safeParse(
       Object.fromEntries(formData.entries())
     );
@@ -168,7 +172,7 @@ export async function updateUser(
   state: RegisterFormState,
   formData: FormData
 ): Promise<RegisterFormState> {
-  connectToDB();
+  await connectToDB();
   const id = formData.get("_id");
 
   if (!id) throw new Error("User ID is required");
@@ -221,7 +225,7 @@ export async function updateUser(
 }
 
 export async function deleteUser(id: string) {
-  connectToDB();
+  await connectToDB();
   const user = await UserModel.findOneAndDelete({ _id: id });
 
   if (user == null) return notFound();

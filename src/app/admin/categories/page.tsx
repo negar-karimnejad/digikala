@@ -9,7 +9,7 @@ export default function AdminCategoriesPage() {
 }
 
 async function ProductTable() {
-  connectToDB();
+  await connectToDB();
   const categories = await CategoryModel.find({})
     .populate({
       path: "submenus",

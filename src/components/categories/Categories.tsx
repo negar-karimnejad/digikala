@@ -64,7 +64,7 @@ export default function Categories({
 
   return (
     <div className="pb-12 grid grid-cols-12 bg-white dark:bg-neutral-950 shadow-sm">
-      <div className="max-h-[30rem] overflow-y-auto categories_sidebar bg-neutral-100 border border-neutral-50 dark:border-neutral-600 dark:bg-neutral-800 col-span-2">
+      <div className="sm:max-h-[30rem] max-h-[600px] overflow-y-auto categories_sidebar bg-neutral-100 border border-neutral-50 dark:border-neutral-600 dark:bg-neutral-800 sm:col-span-2 col-span-3">
         {categories.map((category) => (
           <div
             onClick={() => clickHandler(category._id.toString())}
@@ -89,7 +89,7 @@ export default function Categories({
           </div>
         ))}
       </div>
-      <div className="col-span-10 p-4">
+      <div className="sm:col-span-10 col-span-9 p-4">
         <h2 className="text-sky-500 text-sm flex items-center gap-1">
           <Link
             href={selectedCategory?.href || "/"}

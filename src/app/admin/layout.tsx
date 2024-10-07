@@ -1,5 +1,9 @@
 import Sidebar from "@/components/admin/Sidebar";
 import Container from "@/components/ui/container";
+import { authUser } from "@/utils/auth";
+import { User } from "@/utils/types";
+import connectToDB from "config/mongodb";
+import { redirect } from "next/navigation";
 import { ReactNode } from "react";
 
 export default async function AdminLayout({
@@ -7,6 +11,13 @@ export default async function AdminLayout({
 }: {
   children: ReactNode;
 }) {
+  await connectToDB();
+  const user: User = await authUser();
+
+  if (!user) {
+    redirect("/login?redirected");
+  }
+
   return (
     <div>
       <Container>

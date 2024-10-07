@@ -248,7 +248,7 @@ function MobileSortingButton({ onClick, children }) {
   return (
     <button
       onClick={onClick}
-      className="border rounded-full px-3 w-fit py-1.5 flex gap-2 items-center"
+      className="text-sm sm:text-base border rounded-full px-3 w-fit py-1.5 flex gap-2 items-center"
     >
       {children}
     </button>

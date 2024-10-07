@@ -10,7 +10,7 @@ export default async function EditArticlePage({
 }: {
   params: { id: string };
 }) {
-  connectToDB();
+  await connectToDB();
   const article = await ArticleModel.findOne({ _id: id }).lean();
   const categories = await CategoryModel.find({}).lean();
 
