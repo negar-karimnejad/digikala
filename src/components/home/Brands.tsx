@@ -1,6 +1,5 @@
 import { brands } from "@/data/data";
 import Image from "next/image";
-import Link from "next/link";
 import {
   Carousel,
   CarouselContent,
@@ -30,7 +29,7 @@ export default function Brands() {
                 key={brand.id}
                 className="flex items-center justify-center cursor-pointer basis-40 mx-2 px-1 border-l"
               >
-                <Link href={brand.href}>
+                <div>
                   <Image
                     src={brand.logo}
                     width={80}
@@ -38,7 +37,7 @@ export default function Brands() {
                     alt="Brand"
                     className="object-cover"
                   />
-                </Link>
+                </div>
               </CarouselItem>
             ))}
           </CarouselContent>

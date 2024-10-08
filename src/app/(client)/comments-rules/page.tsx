@@ -1,11 +1,13 @@
 export default function CommentsRules() {
   return (
-    <div className="p-10">
-      <h1 className="text-2xl text-neutral-600">قوانین انتشار نظرات کاربران</h1>
-      <h3 className="text-lg py-6 text-neutral-600">
+    <div className="py-10 lg:px-10 px-4">
+      <h1 className="text-2xl text-neutral-600 font-irsansb dark:text-white">
+        قوانین انتشار نظرات کاربران
+      </h1>
+      <h3 className="text-lg py-6 text-neutral-600 dark:text-white">
         شرایط ثبت نظرات کاربران در صفحات محصول:
       </h3>
-      <div className="leading-8 text-[15px] text-neutral-500">
+      <div className="leading-8 text-[15px] text-neutral-500 dark:text-neutral-300 text-justify">
         <p>
           نظر، عکس و ویدئوی ارسال شده‌ی شما برای دیجی‌کالا و راهنمایی سایر
           کاربران اهمیت بسیاری دارد و پیش از هر چیز از زمانی که برای ثبت آن صرف
@@ -54,10 +56,10 @@ export default function CommentsRules() {
           </li>
         </ul>
       </div>
-      <h3 className="text-lg py-6 text-neutral-600">
+      <h3 className="text-lg py-6 text-neutral-600 dark:text-white">
         شرایط و قوانین افزودن عکس و ویدیو به نظرات در صفحات محصول:
       </h3>
-      <div className="leading-8 text-[15px] text-neutral-500">
+      <div className="leading-8 text-[15px] text-neutral-500 dark:text-neutral-300 text-justify">
         <ul className="list-disc">
           <li>
             تنها در صورتی که خریدار محصول باشید امکان بارگذاری ویدئو و عکس از
@@ -82,8 +84,10 @@ export default function CommentsRules() {
           </li>
         </ul>
       </div>
-      <h3 className="text-lg py-6 text-neutral-600">توجه داشته باشید: </h3>
-      <div className="leading-8 text-[15px] text-neutral-500">
+      <h3 className="text-lg py-6 text-neutral-600 dark:text-white">
+        توجه داشته باشید:{" "}
+      </h3>
+      <div className="leading-8 text-[15px] text-neutral-500 dark:text-neutral-300 text-justify">
         <p>
           نظرات ثبت شده توسط کاربران در وب ‌سایت، تجربه یا اطلاعات شخصی آنها در
           مورد محصولات است و برای نظردهنده و دیجی‌کالا ایجاد مسئولیت نمی‌کند

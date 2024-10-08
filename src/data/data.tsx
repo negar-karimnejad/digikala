@@ -4087,19 +4087,19 @@ export const services = [
 ];
 
 export const brands = [
-  { id: 1, logo: "/brands/preal.png", href: "/brand/pril" },
-  { id: 2, logo: "/brands/3.png", href: "/brand/kingstar" },
-  { id: 3, logo: "/brands/4.png", href: "/brand/kalleh" },
-  { id: 4, logo: "/brands/5.png", href: "/brand/huawei" },
-  { id: 5, logo: "/brands/6.png", href: "/brand/pegah" },
-  { id: 6, logo: "/brands/7.jpg", href: "/brand/zariniran" },
-  { id: 7, logo: "/brands/8.jpg", href: "/brand/panter" },
-  { id: 8, logo: "/brands/9.png", href: "/brand/pakshoma" },
-  { id: 9, logo: "/brands/10.png", href: "/brand/eurhi-vital" },
-  { id: 10, logo: "/brands/11.png", href: "/brand/active" },
-  { id: 11, logo: "/brands/12.jpg", href: "/brand/softlan" },
-  { id: 12, logo: "/brands/13.jpg", href: "/brand/mahya" },
-  { id: 13, logo: "/brands/percil.png", href: "/brand/persil" },
+  { id: 1, logo: "/brands/preal.png" },
+  { id: 2, logo: "/brands/3.png" },
+  { id: 3, logo: "/brands/4.png" },
+  { id: 4, logo: "/brands/5.png" },
+  { id: 5, logo: "/brands/6.png" },
+  { id: 6, logo: "/brands/7.jpg" },
+  { id: 7, logo: "/brands/8.jpg" },
+  { id: 8, logo: "/brands/9.png" },
+  { id: 9, logo: "/brands/10.png" },
+  { id: 10, logo: "/brands/11.png" },
+  { id: 11, logo: "/brands/12.jpg" },
+  { id: 12, logo: "/brands/13.jpg" },
+  { id: 13, logo: "/brands/percil.png" },
 ];
 
 export const mobileFooterLinks = [
@@ -4389,7 +4389,7 @@ export const profileList = [
 
 export const faqCategories = [
   {
-    id:"category1",
+    id: "category1",
     title: "ورود و ثبت‌نام",
     icon: <User size={35} />,
     href: "/faq/category1",

@@ -33,9 +33,9 @@ export default function BestsellingMain({
       <div className="flex items-center justify-center md:gap-x-5 gap-x-3 gap-y-3 flex-wrap my-20">
         <div
           onClick={() => setActiveCategory("0")}
-          className={`cursor-pointer rounded-full px-5 py-2 border text-neutral-800 dark:text-neutral-300 dark:border-neutral-300 text-[15px] ${
+          className={`cursor-pointer rounded-full px-3 sm:px-5 py-2 border text-neutral-800 dark:text-neutral-300 dark:border-neutral-300 sm:text-[15px] text-xs ${
             activeCategory === "0"
-              ? "text-red-500 bg-red-50 border-red-500"
+              ? "text-red-500 dark:text-red-500 bg-red-50 border-red-500"
               : ""
           }`}
         >
@@ -43,7 +43,7 @@ export default function BestsellingMain({
         </div>
         {categories.map((category) => (
           <div
-            className={`dark:text-neutral-300 dark:border-neutral-300 cursor-pointer rounded-full px-5 py-2 border text-neutral-800 text-[15px] ${
+            className={`dark:text-neutral-300 dark:border-neutral-300 cursor-pointer rounded-full px-3 sm:px-5 py-2 border text-neutral-800 sm:text-[15px] text-xs ${
               activeCategory === category._id.toString()
                 ? "text-red-500 dark:text-red-500 bg-red-50 border-red-500 dark:border-red-500"
                 : ""

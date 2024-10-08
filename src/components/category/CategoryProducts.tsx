@@ -4,8 +4,8 @@ import Bestseller from "@/components/home/Bestseller";
 import Brands from "@/components/home/Brands";
 import Offers from "@/components/home/Offers";
 import SelectedProducts from "@/components/home/SelectedProducts";
-import { Category, Product } from "@/utils/types";
 import { serializeDoc } from "@/utils/serializeDoc";
+import { Category, Product } from "@/utils/types";
 import ArticleModel from "models/Article";
 import CategoryModel from "models/Category";
 import ProductModel from "models/Product";
@@ -81,18 +81,18 @@ export default async function CategoryProducts({ id }: { id: string }) {
           <h3 className="font-irsansb text-lg text-center">
             خرید بر اساس دسته‌بندی
           </h3>
-          <div className="mt-10 flex gap-10 items-center justify-center flex-wrap">
+          <div className="mt-10 px-4 flex gap-10 items-center lg:justify-center flex-wrap">
             {category.submenus?.map((submenu, index) =>
               submenuProductImages[index] ? (
                 <div key={submenu._id.toString()}>
                   <Link
                     href={submenu.href}
-                    className="relative mb-5 flex flex-col items-center gap-4"
+                    className="relative mb-5 flex flex-col items-center gap-2"
                   >
                     <Image
                       alt={submenu.title}
-                      width={140}
-                      height={140}
+                      width={120}
+                      height={120}
                       src={submenuProductImages[index]}
                     />
                     <p className="text-sm">{submenu.title}</p>

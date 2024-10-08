@@ -19,7 +19,7 @@ export default async function Offers({ products }: { products: Product[] }) {
           align: "start",
           direction: "rtl",
         }}
-        className="min-w-screen px-4"
+        className="min-w-screen lg:px-4"
       >
         <div className="mb-4 lg:hidden flex items-center justify-between">
           <Link href="incredible-offers" className="flex items-center gap-2">
