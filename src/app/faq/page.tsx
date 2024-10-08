@@ -24,14 +24,14 @@ export default function Faq() {
           <h4 className="mt-10 mb-3 font-irsansb text-lg dark:text-white">
             موضوع پرسش شما چیست؟
           </h4>
-          <p className="text-neutral-500 dark:text-neutral-300 text-sm">
+          <p className="text-neutral-500 text-center dark:text-neutral-300 text-sm">
             موضوع موردنظرتان را جستجو کرده یا از دسته‌بندی زیر انتخاب کنید
           </p>
           <form className="mt-10">
             <Input
               type="text"
               placeholder="جستجوی موضوع"
-              className="lg:w-[35rem] w-96 py-6"
+              className="lg:w-[35rem] sm:w-96 py-6 w-80 dark:placeholder:text-neutral-600"
             />
           </form>
         </div>
@@ -56,7 +56,7 @@ export default function Faq() {
                   {question.q}
                   <ChevronDown className="h-4 w-4 text-neutral-600 dark:text-neutral-200 shrink-0 transition-transform duration-200" />
                 </AccordionTrigger>
-                <AccordionContent className="text-neutral-500 text-base leading-7">
+                <AccordionContent className="text-neutral-600 dark:text-neutral-400 text-base leading-7">
                   {question.a}
                 </AccordionContent>
               </AccordionItem>
@@ -86,7 +86,7 @@ export const FaqCategories = () => {
           <Link
             key={index}
             href={category.href}
-            className="col-span-4 border border-neutral-200 dark:border-neutral-900 lg:col-span-2 flex gap-5 flex-col items-center justify-center p-5"
+            className="col-span-4 border border-neutral-200 dark:border-neutral-900 lg:col-span-2 flex gap-5 flex-col items-center justify-center sm:p-5 p-2"
           >
             <span className="text-neutral-400 dark:text-neutral-600">
               {category.icon}

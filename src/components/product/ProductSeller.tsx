@@ -25,7 +25,6 @@ import Modal from "../ui/Modal";
 
 export default function ProductSeller({ product }: { product: Product }) {
   const [isShowModal, setIsShowModal] = useState(false);
-  const [count, setCount] = useState(1);
   const [existingProduct, setExistingProduct] = useState<CartItem>();
 
   const router = useRouter();
@@ -48,7 +47,7 @@ export default function ProductSeller({ product }: { product: Product }) {
       price: product.price,
       discount_price: product.discount_price,
       discount: product.discount,
-      count,
+      count: 1,
     };
 
     updatedCart.push(cartItem);

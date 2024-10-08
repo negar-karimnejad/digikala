@@ -1,11 +1,11 @@
 import ProfileMain from "@/components/profile/ProfileMain";
-import ProductModel from "models/Product";
 import UserInfo from "@/components/profile/UserInfo";
 import UserList from "@/components/profile/UserList";
+import { authUser } from "@/utils/auth";
 import { serializeDoc } from "@/utils/serializeDoc";
 import { User } from "@/utils/types";
-import { authUser } from "@/utils/auth";
 import connectToDB from "config/mongodb";
+import ProductModel from "models/Product";
 
 export default async function page({
   params: { id },
@@ -31,7 +31,7 @@ export default async function page({
   return (
     <div className="grid grid-cols-12 gap-5 lg:px-20 pb-20 lg:pt-10">
       <div className="col-span-4 border rounded-md py-5 max-lg:hidden">
-        <UserInfo user={user} />
+        <UserInfo />
         <UserList id={id} />
       </div>
       <div className="col-span-8 max-lg:col-span-12 gap-5">

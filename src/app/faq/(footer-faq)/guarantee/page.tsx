@@ -25,13 +25,13 @@ export default function Guarantee() {
             <p className="my-5 font-irsansb text-xs text-sky-500">
               روند ثبت سفارش
             </p>
-            <h4 className="mb-3 font-irsansb text-lg dark:text-white">
+            <h4 className="mb-3 text-center font-irsansb text-lg dark:text-white max-sm:px-10">
               آیا کالاهایی که در سایت دیجی کالا بفروش می رسد اصل هستند؟
             </h4>
           </div>
         </div>
 
-        <div className="leading-9 grow bg-neutral-000 flex flex-col w-full items-center lg:px-32 px-5 text-justify">
+        <div className="leading-9 grow bg-neutral-000 flex flex-col w-full items-center lg:px-32 text-justify">
           <div className="hidden"></div>
           <div>
             <div className="px-5 lg:px-4 lg:mx-auto container-xl-w">

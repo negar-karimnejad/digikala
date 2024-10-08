@@ -50,14 +50,14 @@ export default function UserUpdateForm({ user }) {
           id="name"
           name="name"
           defaultValue={user?.name}
-          className="peer block w-full appearance-none rounded-t-lg border-0 border-b-2 border-gray-300 bg-gray-50 px-2.5 pb-2.5 pt-5 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0 dark:border-gray-600 dark:bg-gray-900 dark:text-white dark:focus:border-blue-500"
+          className="peer block w-full appearance-none rounded-t-lg border-0 border-b-2 border-neutral-300 bg-neutral-50 px-2.5 pb-2.5 pt-5 text-sm text-neutral-900 focus:border-blue-600 focus:outline-none focus:ring-0 dark:border-neutral-600 dark:bg-neutral-900 dark:text-white dark:focus:border-blue-500"
         />
         {/* {state.errors.name && (
           <div className="text-destructive text-xs">{state.errors.name}</div>
         )} */}
         <label
           htmlFor="name"
-          className="absolute right-2.5 top-4 z-10 origin-[0] -translate-y-4 scale-75 transform text-sm text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:text-blue-600 dark:text-gray-400 peer-focus:dark:text-blue-500"
+          className="absolute right-2.5 top-4 z-10 origin-[0] -translate-y-4 scale-75 transform text-sm text-neutral-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:text-blue-600 dark:text-neutral-400 peer-focus:dark:text-blue-500"
         >
           نام و نام خانوادگی
         </label>
@@ -70,14 +70,14 @@ export default function UserUpdateForm({ user }) {
             name="email"
             disabled
             defaultValue={user?.email}
-            className="disabled:cursor-not-allowed disabled:opacity-80 peer max-h-20 block w-full appearance-none rounded-t-lg border-0 border-b-2 border-gray-300 bg-gray-50 px-2.5 pb-2.5 pt-5 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0 dark:border-gray-600 dark:bg-gray-900 dark:text-white dark:focus:border-blue-500"
+            className="disabled:cursor-not-allowed disabled:opacity-80 peer max-h-20 block w-full appearance-none rounded-t-lg border-0 border-b-2 border-neutral-300 bg-neutral-50 px-2.5 pb-2.5 pt-5 text-sm text-neutral-900 focus:border-blue-600 focus:outline-none focus:ring-0 dark:border-neutral-600 dark:bg-neutral-900 dark:text-white dark:focus:border-blue-500"
           />
           {/* {state.errors.email && (
             <div className="text-destructive text-xs">{state.errors.email}</div>
           )} */}
           <label
             htmlFor="email"
-            className="absolute right-2.5 top-4 z-10 origin-[0] -translate-y-4 scale-75 transform text-sm text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:text-blue-600 dark:text-gray-400 peer-focus:dark:text-blue-500"
+            className="absolute right-2.5 top-4 z-10 origin-[0] -translate-y-4 scale-75 transform text-sm text-neutral-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:text-blue-600 dark:text-neutral-400 peer-focus:dark:text-blue-500"
           >
             ایمیل
           </label>
@@ -88,7 +88,7 @@ export default function UserUpdateForm({ user }) {
         <div className="w-full">
           <label
             htmlFor="role"
-            className="pb-2 text-sm pr-3 text-gray-500"
+            className="pb-2 text-sm pr-3 text-neutral-500"
           ></label>
           <Select dir="rtl" required onValueChange={(value) => setRole(value)}>
             <SelectTrigger>
@@ -105,7 +105,10 @@ export default function UserUpdateForm({ user }) {
       </div>
       <div className="mb-5 text-right">
         <div className="w-full">
-          <label htmlFor="avatar" className="pb-2 text-sm pr-3 text-gray-500">
+          <label
+            htmlFor="avatar"
+            className="pb-2 text-sm pr-3 text-neutral-500"
+          >
             پروفایل
           </label>
           <input
@@ -114,7 +117,7 @@ export default function UserUpdateForm({ user }) {
             name="avatar"
             required={user.avatar == null}
             onChange={handleAvatarChange}
-            className="h-full w-full dark:border-gray-700 dark:bg-gray-900 rounded-lg p-1"
+            className="h-full w-full dark:border-neutral-700 dark:bg-neutral-900 rounded-lg p-1"
           />
         </div>
       </div>
@@ -144,7 +147,7 @@ const SubmitButton = () => {
       <div className="flex items-center justify-center gap-2">
         <span>{pending ? `در حال ویرایش ...` : `ویرایش اطلاعات کاربر`}</span>
         {pending && (
-          <div className="h-5 w-5 animate-spin rounded-full border-2 border-dotted border-gray-800"></div>
+          <div className="h-5 w-5 animate-spin rounded-full border-2 border-dotted border-neutral-800"></div>
         )}
       </div>
     </Button>

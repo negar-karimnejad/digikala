@@ -4,11 +4,21 @@ import { useCart } from "@/utils/cartItemsContext";
 import { CartItem } from "@/utils/types";
 import { Minus, Plus, Trash2 } from "lucide-react";
 
-export default function CartItemControls({ product }: { product: CartItem }) {
+export default function CartItemControls({
+  product,
+  vertical,
+}: {
+  product: CartItem;
+  vertical?: boolean;
+}) {
   const { decreaseCount, increaseCount, deleteFromCart } = useCart();
 
   return (
-    <div className="border shadow flex items-center justify-between gap-5 rounded-md text-red-500 p-2">
+    <div
+      className={`border shadow flex items-center justify-between gap-5 rounded-md text-red-500 p-2 ${
+        vertical ? "flex-col" : ""
+      }`}
+    >
       <button>
         <Plus onClick={() => increaseCount(product)} size={20} />
       </button>

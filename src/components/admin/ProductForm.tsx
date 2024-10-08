@@ -178,7 +178,7 @@ export default function ProductForm({
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
+    <form onSubmit={handleSubmit} className="space-y-6 pb-5">
       <div className="relative h-20">
         <input
           type="text"
@@ -187,14 +187,14 @@ export default function ProductForm({
           placeholder=""
           required
           defaultValue={product?.title || ""}
-          className="peer block w-full appearance-none rounded-t-lg border-0 border-b-2 border-gray-300 bg-gray-50 px-2.5 pb-2.5 pt-5 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0 dark:border-gray-600 dark:bg-gray-900 dark:text-white dark:focus:border-blue-500"
+          className="peer block w-full appearance-none rounded-t-lg border-0 border-b-2 border-neutral-300 bg-neutral-50 px-2.5 pb-2.5 pt-5 text-sm text-neutral-900 focus:border-blue-600 focus:outline-none focus:ring-0 dark:border-neutral-600 dark:bg-neutral-900 dark:text-white dark:focus:border-blue-500"
         />
         {state.errors?.title && (
           <div className="text-red-600 text-xs">{state.errors?.title}</div>
         )}
         <label
           htmlFor="title"
-          className="absolute right-3 top-2 text-gray-500 text-sm duration-300 transform -translate-y-4 scale-75 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:text-blue-600 dark:text-gray-400 dark:peer-focus:text-blue-500"
+          className="absolute right-3 top-2 text-neutral-500 text-sm duration-300 transform -translate-y-4 scale-75 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:text-blue-600 dark:peer-focus:text-blue-500"
         >
           نام محصول
         </label>
@@ -208,14 +208,14 @@ export default function ProductForm({
           placeholder=""
           required
           defaultValue={product?.en_title || ""}
-          className="peer block w-full appearance-none rounded-t-lg border-0 border-b-2 border-gray-300 bg-gray-50 px-2.5 pb-2.5 pt-5 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0 dark:border-gray-600 dark:bg-gray-900 dark:text-white dark:focus:border-blue-500"
+          className="peer block w-full appearance-none rounded-t-lg border-0 border-b-2 border-neutral-300 bg-neutral-50 px-2.5 pb-2.5 pt-5 text-sm text-neutral-900 focus:border-blue-600 focus:outline-none focus:ring-0 dark:border-neutral-600 dark:bg-neutral-900 dark:text-white dark:focus:border-blue-500"
         />
         {state.errors?.en_title && (
           <div className="text-red-600 text-xs">{state.errors?.en_title}</div>
         )}
         <label
           htmlFor="en_title"
-          className="absolute right-3 top-2 text-gray-500 text-sm duration-300 transform -translate-y-4 scale-75 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:text-blue-600 dark:text-gray-400 dark:peer-focus:text-blue-500"
+          className="absolute right-3 top-2 text-neutral-500 text-sm duration-300 transform -translate-y-4 scale-75 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:text-blue-600 dark:peer-focus:text-blue-500"
         >
           نام انگلیسی محصول
         </label>
@@ -254,14 +254,14 @@ export default function ProductForm({
               step={step}
               placeholder=""
               defaultValue={product?.[id] || ""}
-              className="peer block w-full appearance-none rounded-t-lg border-0 border-b-2 border-gray-300 bg-gray-50 px-2.5 pb-2.5 pt-5 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0 dark:border-gray-600 dark:bg-gray-900 dark:text-white dark:focus:border-blue-500"
+              className="peer block w-full appearance-none rounded-t-lg border-0 border-b-2 border-neutral-300 bg-neutral-50 px-2.5 pb-2.5 pt-5 text-sm text-neutral-900 focus:border-blue-600 focus:outline-none focus:ring-0 dark:border-neutral-600 dark:bg-neutral-900 dark:text-white dark:focus:border-blue-500"
             />
             {state.errors?.[id] && (
               <div className="text-red-600 text-xs">{state.errors?.[id]}</div>
             )}
             <label
               htmlFor={id}
-              className="absolute right-3 top-2 text-gray-500 text-sm duration-300 transform -translate-y-4 scale-75 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:text-blue-600 dark:text-gray-400 dark:peer-focus:text-blue-500"
+              className="absolute right-3 top-2 text-neutral-500 text-sm duration-300 transform -translate-y-4 scale-75 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:text-blue-600 dark:peer-focus:text-blue-500"
             >
               {label}
             </label>
@@ -270,14 +270,17 @@ export default function ProductForm({
       </div>
 
       <div>
-        <label htmlFor="sizes" className="block text-gray-800 mb-2">
+        <label
+          htmlFor="sizes"
+          className="block text-neutral-800 mb-2 dark:text-neutral-300"
+        >
           سایز محصول را انتخاب کنید:
         </label>
         <select
           name="sizes"
           id="sizes"
           defaultValue={product?.sizes ? String(product.sizes) : ""}
-          className="block w-full rounded-lg border-2 border-gray-300 bg-gray-50 px-3 py-2 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0 dark:border-gray-600 dark:bg-gray-900 dark:text-white dark:focus:border-blue-500"
+          className="block w-full rounded-lg border-2 border-neutral-300 bg-neutral-50 px-3 py-2 text-sm text-neutral-900 focus:border-blue-600 focus:outline-none focus:ring-0 dark:border-neutral-600 dark:bg-neutral-900 dark:text-white dark:focus:border-blue-500"
         >
           <option value="-1">سایز محصول را انتخاب کنید</option>
           {Array.from({ length: 100 }).map((_, index) => (
@@ -290,11 +293,14 @@ export default function ProductForm({
 
       {/* Select Category */}
       <div>
-        <label htmlFor="categoryId" className="block text-gray-800 mb-2">
+        <label
+          htmlFor="categoryId"
+          className="block text-neutral-800 mb-2 dark:text-neutral-300"
+        >
           دسته‌بندی مورد نظر را انتخاب کنید:
         </label>
         <select
-          className="block w-full rounded-lg border-2 border-gray-300 bg-gray-50 px-3 py-2 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0 dark:border-gray-600 dark:bg-gray-900 dark:text-white dark:focus:border-blue-500"
+          className="block w-full rounded-lg border-2 border-neutral-300 bg-neutral-50 px-3 py-2 text-sm text-neutral-900 focus:border-blue-600 focus:outline-none focus:ring-0 dark:border-neutral-600 dark:bg-neutral-900 dark:text-white dark:focus:border-blue-500"
           required
           name="categoryId"
           id="categoryId"
@@ -319,11 +325,14 @@ export default function ProductForm({
 
       {/* Select Submenu */}
       <div>
-        <label htmlFor="submenuId" className="block text-gray-800 mb-2">
+        <label
+          htmlFor="submenuId"
+          className="block text-neutral-800 mb-2 dark:text-neutral-300"
+        >
           زیرمجموعه دسته‌بندی مورد نظر را انتخاب کنید:
         </label>
         <select
-          className="disabled:cursor-not-allowed disabled:opacity-50 block w-full rounded-lg border-2 border-gray-300 bg-gray-50 px-3 py-2 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0 dark:border-gray-600 dark:bg-gray-900 dark:text-white dark:focus:border-blue-500"
+          className="disabled:cursor-not-allowed disabled:opacity-50 block w-full rounded-lg border-2 border-neutral-300 bg-neutral-50 px-3 py-2 text-sm text-neutral-900 focus:border-blue-600 focus:outline-none focus:ring-0 dark:border-neutral-600 dark:bg-neutral-900 dark:text-white dark:focus:border-blue-500"
           required
           disabled={!filteredSubmenus.length}
           name="submenuId"
@@ -345,11 +354,14 @@ export default function ProductForm({
 
       {/* Select Submenu Item */}
       <div>
-        <label htmlFor="submenuItemId" className="block text-gray-800 mb-2">
+        <label
+          htmlFor="submenuItemId"
+          className="block text-neutral-800 mb-2 dark:text-neutral-300"
+        >
           آیتم های زیرمجموعه دسته‌بندی مورد نظر را انتخاب کنید:
         </label>
         <select
-          className="disabled:cursor-not-allowed disabled:opacity-50 block w-full rounded-lg border-2 border-gray-300 bg-gray-50 px-3 py-2 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0 dark:border-gray-600 dark:bg-gray-900 dark:text-white dark:focus:border-blue-500"
+          className="disabled:cursor-not-allowed disabled:opacity-50 block w-full rounded-lg border-2 border-neutral-300 bg-neutral-50 px-3 py-2 text-sm text-neutral-900 focus:border-blue-600 focus:outline-none focus:ring-0 dark:border-neutral-600 dark:bg-neutral-900 dark:text-white dark:focus:border-blue-500"
           required
           disabled={!filteredSubmenuItems.length}
           name="submenuItemId"
@@ -372,7 +384,9 @@ export default function ProductForm({
       </div>
 
       <div>
-        <h3 className="text-gray-800 mb-2">ویژگی‌های محصول</h3>
+        <h3 className="text-neutral-800 mb-2 dark:text-neutral-400">
+          ویژگی‌های محصول
+        </h3>
         {features.map((feature, index) => (
           <div key={index} className="relative flex gap-2 items-center mb-2">
             <div className="relative w-full">
@@ -383,11 +397,11 @@ export default function ProductForm({
                 onChange={(e) =>
                   handleFeatureChange(index, "key", e.target.value)
                 }
-                className="peer w-full block appearance-none rounded-l-lg border-0 border-b-2 border-gray-300 bg-gray-50 px-2.5 pb-2.5 pt-5 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0 dark:border-gray-600 dark:bg-gray-900 dark:text-white dark:focus:border-blue-500"
+                className="peer w-full block appearance-none rounded-l-lg border-0 border-b-2 border-neutral-300 bg-neutral-50 px-2.5 pb-2.5 pt-5 text-sm text-neutral-900 focus:border-blue-600 focus:outline-none focus:ring-0 dark:border-neutral-600 dark:bg-neutral-900 dark:text-white dark:focus:border-blue-500"
               />
               <label
                 htmlFor=""
-                className="absolute right-3 top-2 text-gray-500 text-sm duration-300 transform -translate-y-4 scale-75 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:text-blue-600 dark:text-gray-400 dark:peer-focus:text-blue-500"
+                className="absolute right-3 top-2 text-neutral-500 text-sm duration-300 transform -translate-y-4 scale-75 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:text-blue-600 dark:peer-focus:text-blue-500"
               >
                 ویژگی
               </label>
@@ -400,11 +414,11 @@ export default function ProductForm({
                 onChange={(e) =>
                   handleFeatureChange(index, "value", e.target.value)
                 }
-                className="peer block w-full appearance-none rounded-r-lg border-0 border-b-2 border-gray-300 bg-gray-50 px-2.5 pb-2.5 pt-5 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0 dark:border-gray-600 dark:bg-gray-900 dark:text-white dark:focus:border-blue-500"
+                className="peer block w-full appearance-none rounded-r-lg border-0 border-b-2 border-neutral-300 bg-neutral-50 px-2.5 pb-2.5 pt-5 text-sm text-neutral-900 focus:border-blue-600 focus:outline-none focus:ring-0 dark:border-neutral-600 dark:bg-neutral-900 dark:text-white dark:focus:border-blue-500"
               />
               <label
                 htmlFor=""
-                className="absolute right-3 top-2 text-gray-500 text-sm duration-300 transform -translate-y-4 scale-75 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:text-blue-600 dark:text-gray-400 dark:peer-focus:text-blue-500"
+                className="absolute right-3 top-2 text-neutral-500 text-sm duration-300 transform -translate-y-4 scale-75 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:text-blue-600 dark:peer-focus:text-blue-500"
               >
                 مقدار
               </label>
@@ -424,7 +438,9 @@ export default function ProductForm({
       </div>
 
       <div>
-        <h3 className="text-gray-800 mb-2">رنگ های محصول</h3>
+        <h3 className="text-neutral-800 mb-2 dark:text-neutral-400">
+          رنگ های محصول
+        </h3>
         {colors.map((color, index) => (
           <div key={index} className="relative flex gap-2 items-center mb-2">
             <div className="relative w-full">
@@ -435,11 +451,11 @@ export default function ProductForm({
                 onChange={(e) =>
                   handleColorChange(index, "name", e.target.value)
                 }
-                className="peer w-full block appearance-none rounded-l-lg border-0 border-b-2 border-gray-300 bg-gray-50 px-2.5 pb-2.5 pt-5 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0 dark:border-gray-600 dark:bg-gray-900 dark:text-white dark:focus:border-blue-500"
+                className="peer w-full block appearance-none rounded-l-lg border-0 border-b-2 border-neutral-300 bg-neutral-50 px-2.5 pb-2.5 pt-5 text-sm text-neutral-900 focus:border-blue-600 focus:outline-none focus:ring-0 dark:border-neutral-600 dark:bg-neutral-900 dark:text-white dark:focus:border-blue-500"
               />
               <label
                 htmlFor=""
-                className="absolute right-3 top-2 text-gray-500 text-sm duration-300 transform -translate-y-4 scale-75 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:text-blue-600 dark:text-gray-400 dark:peer-focus:text-blue-500"
+                className="absolute right-3 top-2 text-neutral-500 text-sm duration-300 transform -translate-y-4 scale-75 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:text-blue-600 dark:peer-focus:text-blue-500"
               >
                 نام
               </label>
@@ -452,11 +468,11 @@ export default function ProductForm({
                 onChange={(e) =>
                   handleColorChange(index, "hex", e.target.value)
                 }
-                className="peer block w-full appearance-none rounded-r-lg border-0 border-b-2 border-gray-300 bg-gray-50 px-2.5 pb-2.5 pt-5 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0 dark:border-gray-600 dark:bg-gray-900 dark:text-white dark:focus:border-blue-500"
+                className="peer block w-full appearance-none rounded-r-lg border-0 border-b-2 border-neutral-300 bg-neutral-50 px-2.5 pb-2.5 pt-5 text-sm text-neutral-900 focus:border-blue-600 focus:outline-none focus:ring-0 dark:border-neutral-600 dark:bg-neutral-900 dark:text-white dark:focus:border-blue-500"
               />
               <label
                 htmlFor=""
-                className="absolute right-3 top-2 text-gray-500 text-sm duration-300 transform -translate-y-4 scale-75 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:text-blue-600 dark:text-gray-400 dark:peer-focus:text-blue-500"
+                className="absolute right-3 top-2 text-neutral-500 text-sm duration-300 transform -translate-y-4 scale-75 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:text-blue-600 dark:peer-focus:text-blue-500"
               >
                 کد
               </label>
@@ -482,7 +498,7 @@ export default function ProductForm({
           rows={8}
           placeholder=""
           defaultValue={product?.description || ""}
-          className="peer block w-full appearance-none rounded-t-lg border-0 border-b-2 border-gray-300 bg-gray-50 px-2.5 pb-2.5 pt-5 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0 dark:border-gray-600 dark:bg-gray-900 dark:text-white dark:focus:border-blue-500"
+          className="peer block w-full appearance-none rounded-t-lg border-0 border-b-2 border-neutral-300 bg-neutral-50 px-2.5 pb-2.5 pt-5 text-sm text-neutral-900 focus:border-blue-600 focus:outline-none focus:ring-0 dark:border-neutral-600 dark:bg-neutral-900 dark:text-white dark:focus:border-blue-500"
         />
         {state.errors?.description && (
           <div className="text-red-600 text-xs">
@@ -491,14 +507,14 @@ export default function ProductForm({
         )}
         <label
           htmlFor="description"
-          className="absolute right-3 top-2 text-gray-500 text-sm duration-300 transform -translate-y-4 scale-75 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:text-blue-600 dark:text-gray-400 dark:peer-focus:text-blue-500"
+          className="absolute right-3 top-2 text-neutral-500 text-sm duration-300 transform -translate-y-4 scale-75 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:text-blue-600 dark:peer-focus:text-blue-500"
         >
           معرفی محصول
         </label>
       </div>
 
       {product != null ? (
-        <div className="mb-5 dark:border-gray-700 dark:bg-gray-900 rounded-lg border border-gray-100 p-1">
+        <div className="mb-5 dark:border-neutral-700 dark:bg-neutral-900 rounded-lg border border-neutral-100 p-1">
           <input
             type="file"
             id="thumbnail"
@@ -509,7 +525,7 @@ export default function ProductForm({
           />
         </div>
       ) : (
-        <div className="h-40 bg-red-50 dark:border-gray-700 dark:bg-gray-900 rounded-lg border-dashed border-2 border-gray-300">
+        <div className="h-40 bg-red-50 dark:border-neutral-700 dark:bg-neutral-900 rounded-lg border-dashed border-2 border-neutral-300">
           <input
             type="file"
             id="thumbnail"
@@ -520,7 +536,7 @@ export default function ProductForm({
           />
           <div className="flex -mt-32 items-center justify-center flex-col gap-2">
             <LucideUploadCloud size={35} className="text-red-600" />
-            <p className="font-medium text-gray-400">
+            <p className="font-medium text-neutral-400">
               {thumbnailFile != null ? (
                 <span className="text-center flex flex-col items-center justify-center">
                   تصویر کاور آپلود شد
@@ -540,7 +556,7 @@ export default function ProductForm({
         </div>
       )}
 
-      <div className="h-40 bg-red-50 dark:border-gray-700 dark:bg-gray-900 rounded-lg border-dashed border-2 border-gray-300">
+      <div className="h-40 bg-red-50 dark:border-neutral-700 dark:bg-neutral-900 rounded-lg border-dashed border-2 border-neutral-300">
         <input
           type="file"
           id="image"
@@ -551,7 +567,7 @@ export default function ProductForm({
         />
         <div className="flex -mt-32 items-center justify-center flex-col gap-2">
           <LucideUploadCloud size={35} className="text-red-600" />
-          <p className="font-medium text-gray-400">
+          <p className="font-medium text-neutral-400">
             {additionalFiles.length > 0 ? (
               <span className="text-center flex flex-col items-center justify-center">
                 {additionalFiles.length} تصویر آپلود شد
@@ -601,7 +617,7 @@ const SubmitButton = ({ title }: { title: string }) => {
       <div className="flex items-center justify-center gap-2">
         <span>{pending ? `در حال ${title} ...` : `${title} محصول`}</span>
         {pending && (
-          <div className="h-5 w-5 animate-spin rounded-full border-2 border-dotted border-gray-800"></div>
+          <div className="h-5 w-5 animate-spin rounded-full border-2 border-dotted border-neutral-800"></div>
         )}
       </div>
     </Button>

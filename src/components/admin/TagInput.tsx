@@ -1,5 +1,5 @@
 import { X } from "lucide-react";
-import React, { useState, KeyboardEvent, ChangeEvent } from "react";
+import React, { ChangeEvent, KeyboardEvent, useState } from "react";
 
 interface TagInputProps {
   tags: string[];
@@ -37,12 +37,12 @@ const TagInput: React.FC<TagInputProps> = ({
   };
 
   return (
-    <div className="peer block w-full appearance-none rounded-t-lg border-0 border-b-2 border-gray-300 bg-gray-50 px-2.5 pb-2.5 pt-5 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0 dark:border-gray-600 dark:bg-gray-900 dark:text-white dark:focus:border-blue-500">
+    <div className="peer block w-full appearance-none rounded-t-lg border-0 border-b-2 border-neutral-300 bg-neutral-50 px-2.5 pb-2.5 pt-5 text-sm text-neutral-900 focus:border-blue-600 focus:outline-none focus:ring-0 dark:border-neutral-600 dark:bg-neutral-900 dark:text-white dark:focus:border-blue-500">
       <div className="flex flex-wrap items-center gap-2">
         {tags.map((tag, index) => (
           <div
             key={index}
-            className="bg-neutral-200 rounded-md p-2 flex items-center"
+            className="bg-neutral-200 dark:bg-neutral-700 rounded-md p-2 flex items-center"
           >
             {tag}
             <button

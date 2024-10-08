@@ -1,10 +1,13 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Product } from "@/utils/types";
+import { useCart } from "@/utils/cartItemsContext";
+import { CartItem, Product } from "@/utils/types";
 import { ArrowRight, Search, ShoppingCart, Trash2 } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import Swal from "sweetalert2";
+import CartItemControls from "../cart/CartItemControls";
 import ProductCard from "../category/ProductCard";
 import { Button } from "../ui/button";
 
@@ -62,7 +65,7 @@ export default function ProfileTabs({
                 toast.success("محصول از بازدیدهای اخیر شما حذف شد.");
               }}
             >
-              خروج از حساب
+              حذف
             </Button>
           </div>
         </div>
@@ -81,7 +84,7 @@ export default function ProfileTabs({
 
   return (
     <div className="lg:border rounded-lg py-5">
-      <div className="flex justify-between items-center px-5">
+      <div className="flex justify-between items-center sm:px-5 px-2">
         <h5 className="gap-2 text-neutral-800 dark:text-white font-irsansb flex items-center">
           <span
             className="lg:hidden cursor-pointer"
@@ -107,7 +110,7 @@ export default function ProfileTabs({
           className="lg:mt-10"
           style={{ direction: "rtl" }}
         >
-          <TabsList className="flex gap-7 border-b px-5">
+          <TabsList className="flex sm:gap-7 gap-1 border-b sm:px-5 px-2">
             {tabsArray.map((tab, index) => (
               <TabsTrigger key={index} value={tab}>
                 {tab}
@@ -133,13 +136,13 @@ export default function ProfileTabs({
               className="group relative lg:col-span-6 col-span-12"
             >
               <ProductCard product={product} />
-              <div className="rounded-md absolute top-4 -left-1 group-hover:left-2 transition-all opacity-0 group-hover:opacity-100 text-red-500">
+              <div className="flex items-center justify-center flex-col rounded-md absolute top-4 sm:-left-1 left-2 group-hover:left-2 transition-all sm:opacity-0 group-hover:opacity-100 text-red-500">
                 <Trash2
                   onClick={() => handleRemoveProduct(product._id.toString())}
                   size={20}
                   className="mb-3 cursor-pointer"
                 />
-                <ShoppingCart size={20} className="cursor-pointer" />
+                <ShoppingcartButton product={product} />
               </div>
             </div>
           ))}
@@ -147,3 +150,82 @@ export default function ProfileTabs({
     </div>
   );
 }
+
+const ShoppingcartButton = ({ product }: { product: Product }) => {
+  const [existingProduct, setExistingProduct] = useState<CartItem>();
+  const { cart, setCart } = useCart();
+  const router = useRouter();
+
+  useEffect(() => {
+    setExistingProduct(cart.find((item) => item._id === product._id));
+  }, [cart, product._id]);
+
+  const addToCart = (product: Product) => {
+    const updatedCart = [...cart];
+
+    const cartItem = {
+      _id: product._id,
+      title: product.title,
+      thumbnail: product.thumbnail,
+      guarantee: product.guarantee,
+      price: product.price,
+      discount_price: product.discount_price,
+      discount: product.discount,
+      count: 1,
+    };
+
+    updatedCart.push(cartItem);
+    setCart(updatedCart);
+    localStorage.setItem("cart", JSON.stringify(updatedCart));
+
+    Swal.fire({
+      html: `
+      <div>
+        <div style="display: flex; align-items: center; gap:10px; padding-bottom: 20px;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="rgb(58,173,0)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-check-big"><path d="M21.801 10A10 10 0 1 1 17 3.335"/><path d="m9 11 3 3L22 4"/></svg>
+          <h2 style="font-size:15px; color:rgb(57, 170, 0)">
+          این کالا به سبد خرید اضافه شد!
+          </h2>
+        </div>
+        <div style="display: flex; border-top: 1px solid #e7e7e7;padding-top: 20px; align-items: center; gap:20px">
+          <img 
+            src="${product.thumbnail}" 
+            alt="${product.title}" 
+            width="100" 
+            height="100" 
+            style="border-radius: 8px;"
+          />
+          <p style="color:#dddcdc;font-weight:bold;font-size: 14px;line-height: 30px; color: #272727;text-align: right;">
+            ${product.title}
+          </p>
+        </div>
+      </div>
+  `,
+      showCloseButton: true,
+      confirmButtonColor: "#e11d48",
+      confirmButtonText: "برو به سبد خرید",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        router.push("/checkout/cart");
+      }
+    });
+  };
+  return (
+    <>
+      {existingProduct ? (
+        <div className="w-full">
+          <CartItemControls vertical={true} product={existingProduct} />
+        </div>
+      ) : (
+        <ShoppingCart
+          onClick={() => {
+            setExistingProduct(cart.find((item) => item._id === product._id));
+            addToCart(product);
+          }}
+          size={20}
+          className="cursor-pointer"
+        />
+      )}
+    </>
+  );
+};

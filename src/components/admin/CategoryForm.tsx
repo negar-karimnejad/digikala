@@ -114,14 +114,14 @@ export default function CategoryForm({ category }: { category?: Category }) {
           placeholder=""
           required
           defaultValue={category?.title || ""}
-          className="peer block w-full appearance-none rounded-t-lg border-0 border-b-2 border-gray-300 bg-gray-50 px-2.5 pb-2.5 pt-5 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0 dark:border-gray-600 dark:bg-gray-900 dark:text-white dark:focus:border-blue-500"
+          className="peer block w-full appearance-none rounded-t-lg border-0 border-b-2 border-neutral-300 bg-neutral-50 px-2.5 pb-2.5 pt-5 text-sm text-neutral-900 focus:border-blue-600 focus:outline-none focus:ring-0 dark:border-neutral-600 dark:bg-neutral-900 dark:text-white dark:focus:border-blue-500"
         />
         {state.errors?.title && (
           <div className="text-destructive text-xs">{state.errors.title}</div>
         )}
         <label
           htmlFor="title"
-          className="absolute right-2.5 top-4 z-10 origin-[0] -translate-y-4 scale-75 transform text-sm text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:text-blue-600 dark:text-gray-400 peer-focus:dark:text-blue-500"
+          className="absolute right-2.5 top-4 z-10 origin-[0] -translate-y-4 scale-75 transform text-sm text-neutral-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:text-blue-600 dark:text-neutral-400 peer-focus:dark:text-blue-500"
         >
           نام دسته بندی
         </label>
@@ -135,14 +135,14 @@ export default function CategoryForm({ category }: { category?: Category }) {
           placeholder=""
           required
           defaultValue={category?.href}
-          className="peer block w-full appearance-none rounded-t-lg border-0 border-b-2 border-gray-300 bg-gray-50 px-2.5 pb-2.5 pt-5 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0 dark:border-gray-600 dark:bg-gray-900 dark:text-white dark:focus:border-blue-500"
+          className="peer block w-full appearance-none rounded-t-lg border-0 border-b-2 border-neutral-300 bg-neutral-50 px-2.5 pb-2.5 pt-5 text-sm text-neutral-900 focus:border-blue-600 focus:outline-none focus:ring-0 dark:border-neutral-600 dark:bg-neutral-900 dark:text-white dark:focus:border-blue-500"
         />
         {state.errors?.href && (
           <div className="text-destructive text-xs">{state.errors?.href}</div>
         )}
         <label
           htmlFor="href"
-          className="absolute right-2.5 top-4 z-10 origin-[0] -translate-y-4 scale-75 transform text-sm text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:text-blue-600 dark:text-gray-400 peer-focus:dark:text-blue-500"
+          className="absolute right-2.5 top-4 z-10 origin-[0] -translate-y-4 scale-75 transform text-sm text-neutral-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:text-blue-600 dark:text-neutral-400 peer-focus:dark:text-blue-500"
         >
           آدرس لینک
         </label>
@@ -152,7 +152,7 @@ export default function CategoryForm({ category }: { category?: Category }) {
         <div className="flex items-center justify-between gap-2">
           <label
             htmlFor="cover"
-            className="border-b py-2 px-4 rounded-lg cursor-pointer relative w-40 whitespace-nowrap flex items-center text-gray-500 dark:text-gray-400"
+            className="border-b py-2 px-4 rounded-lg cursor-pointer relative w-40 whitespace-nowrap flex items-center text-neutral-500 dark:text-neutral-400"
           >
             آپلود تصویر کاور
             <input
@@ -178,7 +178,7 @@ export default function CategoryForm({ category }: { category?: Category }) {
         <div className="flex items-center justify-between gap-2">
           <label
             htmlFor="icon"
-            className="border-b py-2 px-4 cursor-pointer relative w-40 whitespace-nowrap flex items-center text-gray-500 dark:text-gray-400"
+            className="border-b py-2 px-4 cursor-pointer relative w-40 whitespace-nowrap flex items-center text-neutral-500 dark:text-neutral-400"
           >
             آپلود تصویر آیکون
             <input
@@ -207,7 +207,7 @@ export default function CategoryForm({ category }: { category?: Category }) {
           <div className="flex items-center justify-between gap-2">
             <label
               htmlFor="hero"
-              className="border-b py-2 px-4 cursor-pointer relative w-40 whitespace-nowrap flex items-center text-gray-500 dark:text-gray-400"
+              className="border-b py-2 px-4 cursor-pointer relative w-40 whitespace-nowrap flex items-center text-neutral-500 dark:text-neutral-400"
             >
               آپلود تصاویر Hero
               <input
@@ -219,7 +219,7 @@ export default function CategoryForm({ category }: { category?: Category }) {
                 onChange={handleHeroFilesChange}
                 className="opacity-0 h-full w-28 bg-transparent border-0"
               />
-              <UploadCloud size={30} className="absolute left-0" />
+              <UploadCloud size={30} className="absolute -left-1" />
             </label>
             <div className="flex flex-wrap gap-2 mt-2">
               {heroFiles.map((file, index) => (
@@ -237,7 +237,7 @@ export default function CategoryForm({ category }: { category?: Category }) {
                 </div>
               ))}
             </div>
-            {category.hero && (
+            {category?.hero.length > 0 && category.hero && (
               <div className="flex flex-col gap-2 mt-2">
                 {category.hero.map((url, index) => (
                   <Image
@@ -259,7 +259,7 @@ export default function CategoryForm({ category }: { category?: Category }) {
           <div className="flex items-center justify-between gap-2">
             <label
               htmlFor="banner"
-              className="border-b py-2 px-4 cursor-pointer relative w-40 whitespace-nowrap flex items-center text-gray-500 dark:text-gray-400"
+              className="border-b py-2 px-4 cursor-pointer relative w-40 whitespace-nowrap flex items-center text-neutral-500 dark:text-neutral-400"
             >
               آپلود تصاویر بنر
               <input
@@ -323,7 +323,7 @@ const SubmitButton = ({ title }: { title: string }) => {
       <div className="flex items-center justify-center gap-2">
         <span>{pending ? `در حال ${title} ...` : `${title} دسته بندی`}</span>
         {pending && (
-          <div className="h-5 w-5 animate-spin rounded-full border-2 border-dotted border-gray-800"></div>
+          <div className="h-5 w-5 animate-spin rounded-full border-2 border-dotted border-neutral-800"></div>
         )}
       </div>
     </Button>

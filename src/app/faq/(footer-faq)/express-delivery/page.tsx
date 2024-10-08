@@ -32,7 +32,7 @@ export default function ExpressDelivery() {
           </div>
         </div>
 
-        <div className="leading-9 grow bg-neutral-000 flex flex-col w-full items-center lg:px-32 px-5 text-justify">
+        <div className="leading-9 grow bg-neutral-000 flex flex-col w-full items-center lg:px-32 text-justify">
           <div className="hidden"></div>
           <div>
             <div className="px-5 lg:px-4 lg:mx-auto container-xl-w">

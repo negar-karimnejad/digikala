@@ -1,7 +1,6 @@
 import { Plus } from "lucide-react";
-import React from "react";
-import { Button } from "../ui/button";
 import Link from "next/link";
+import { Button } from "../ui/button";
 
 export default function PageHeader({
   title,
@@ -12,7 +11,7 @@ export default function PageHeader({
 }) {
   return (
     <div>
-      <div className="text-2xl font-bold mb-10 flex justify-between items-center">
+      <div className="sm:text-2xl text-xl max-sm:leading-9 font-bold mb-10 flex justify-between items-center">
         <span>{title}</span>
         {href && (
           <Button>

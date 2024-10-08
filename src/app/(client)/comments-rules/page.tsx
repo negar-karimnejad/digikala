@@ -1,6 +1,6 @@
 export default function CommentsRules() {
   return (
-    <div className="py-10 lg:px-10 px-4">
+    <div className="py-10 lg:px-10 px-8">
       <h1 className="text-2xl text-neutral-600 font-irsansb dark:text-white">
         قوانین انتشار نظرات کاربران
       </h1>

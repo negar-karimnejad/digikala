@@ -1,8 +1,8 @@
 import {
-    Accordion,
-    AccordionContent,
-    AccordionItem,
-    AccordionTrigger,
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
 } from "@/components/ui/accordion";
 import MobileStickyHeader from "@/components/ui/MobileStickyHeader";
 import { faqCategories } from "@/data/data";
@@ -42,7 +42,7 @@ export default function FagCategory({
                   {question.q}
                   <ChevronDown className="h-4 w-4 text-neutral-600 dark:text-neutral-200 shrink-0 transition-transform duration-200" />
                 </AccordionTrigger>
-                <AccordionContent className="text-neutral-500 text-base leading-7">
+                <AccordionContent className="text-neutral-600 dark:text-neutral-400 text-base leading-7">
                   {question.a}
                 </AccordionContent>
               </AccordionItem>
