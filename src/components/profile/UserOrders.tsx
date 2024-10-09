@@ -4,9 +4,9 @@ import React from "react";
 
 export default function UserOrders() {
   const ordersList = [
-    { title: "جاری", src: "/profile/current.svg", value: 0 },
-    { title: "تحویل شده", src: "/profile/delivered.svg", value: 0 },
-    { title: "مرجوع شده", src: "/profile/returned.svg", value: 0 },
+    { title: "جاری", src: "/profile/status-processing.svg", value: 0 },
+    { title: "تحویل شده", src: "/profile/status-delivered.svg", value: 0 },
+    { title: "مرجوع شده", src: "/profile/status-returned.svg", value: 0 },
   ];
 
   return (
@@ -23,7 +23,7 @@ export default function UserOrders() {
         </div>
       </div>
 
-      <div className="flex items-center justify-between max-lg:px-10">
+      <div className="flex items-center justify-between max-lg:px-10 max-sm:px-2">
         {ordersList.map((order, index) => (
           <React.Fragment key={index}>
             <div className="px-4 text-center lg:flex items-center">

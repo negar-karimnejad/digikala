@@ -46,7 +46,7 @@ const settingList = [
     icon: (
       <Phone className="text-neutral-500 dark:text-neutral-400" size={22} />
     ),
-    href: "/contact-us",
+    href: "/faq/contact-us",
   },
   {
     title: "گزارش خطا ",

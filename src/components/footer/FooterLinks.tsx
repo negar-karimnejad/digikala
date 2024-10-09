@@ -45,6 +45,8 @@ export default function FooterLinks({ user }) {
             </p>
             {link.links.map((item) => (
               <Link
+                shallow={true}
+                scroll={false}
                 key={item.id}
                 className="text-sm text-neutral-500 mb-4 block dark:text-neutral-400"
                 href={item.href}

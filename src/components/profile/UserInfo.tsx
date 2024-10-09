@@ -21,7 +21,7 @@ export default async function UserInfo() {
 
       <hr className="text-neutral-500 lg:hidden" />
 
-      <div className="flex lg:flex-col gap-7 max-lg:mt-5">
+      <div className="flex lg:flex-col sm:gap-7 max-lg:mt-5">
         <div className="max-lg:flex gap-2 items-center">
           <p className="text-xs max-lg:hidden">کیف پول</p>
           <svg

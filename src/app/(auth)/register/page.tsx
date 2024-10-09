@@ -140,6 +140,7 @@ export default function Register() {
             type="name"
             id="name"
             name="name"
+            autoComplete="off"
             autoFocus
             className={`bg-transparent py-5 border rounded-lg 
               ${state.errors.name ? "border-red-500" : ""}
@@ -155,6 +156,7 @@ export default function Register() {
             type="phone"
             id="phone"
             name="phone"
+            autoComplete="off"
             autoFocus
             className={`bg-transparent py-5 border rounded-lg 
               ${state.errors.phone ? "border-red-500" : ""}
@@ -170,6 +172,7 @@ export default function Register() {
             type="text"
             id="email"
             name="email"
+            autoComplete="off"
             className={`bg-transparent py-5 border rounded-lg ${
               state.errors.email ? "border-red-500" : ""
             }`}

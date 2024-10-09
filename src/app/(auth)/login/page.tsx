@@ -175,6 +175,7 @@ export default function Login() {
               type="text"
               id="email"
               name="email"
+              autoComplete="off"
               className={`bg-transparent py-5 border rounded-lg ${
                 state.errors.email ? "border-red-500" : ""
               }`}
