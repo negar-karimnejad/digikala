@@ -9,7 +9,7 @@ import {
 import { authUser } from "@/utils/auth";
 import { Product, User } from "@/utils/types";
 import connectToDB from "config/mongodb";
-import { Box, Check, Flame, HardDriveUpload, UserRound } from "lucide-react";
+import { Bell, Box, Check, UserRound } from "lucide-react";
 import ProductModel from "models/Product";
 import UserModel from "models/User";
 import Image from "next/image";
@@ -28,26 +28,32 @@ export default async function AdminPage() {
     <div className="h-screen flex">
       <div className="flex-1">
         <header className="h-16 border border-neutral-100 dark:border-neutral-700 bg-white dark:bg-neutral-800 rounded-lg flex items-center justify-between px-4">
-          <div className="text-lg font-semibold">پیشخوان</div>
+          <div className="text-lg text-neutral-700 dark:text-neutral-100 font-semibold">
+            پیشخوان
+          </div>
           <div className="flex items-center gap-2">
-            <div className="bg-rose-500 text-white px-4 py-2 rounded-md">
+            <Bell
+              size={20}
+              className="p-2.5 dark:bg-neutral-700 bg-neutral-100 w-10 h-10 rounded-full flex items-center justify-center"
+            />
+            <div className="border dark:border-neutral-600 rounded-lg px-3 py-1.5 flex items-center gap-2 dark:text-white font-irsansb text-neutral-600 border-neutral-100">
+              <Image
+                width={100}
+                height={100}
+                src={user.avatar ? user.avatar : "/users/avatar1.png"}
+                alt="admin"
+                className="grayscale rounded-full w-8 h-8 border"
+              />
               {user.name}
             </div>
-            <Image
-              width={100}
-              height={100}
-              src={user.avatar ? user.avatar : "/users/avatar1.png"}
-              alt="admin"
-              className="grayscale rounded-full w-10 h-10 border"
-            />
           </div>
         </header>
 
-        <div className="flex-1 mt-5">
+        <div className="flex-1 mt-3">
           <main className="py-6 space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
-              <div className="bg-green-50 dark:bg-neutral-800 relative p-4 pt-8 rounded-2xl shadow-md flex flex-col items-start">
-                <span className="absolute right-0 left-0 mx-auto -top-5 rounded-full w-10 h-10 bg-transparent shadow flex items-center justify-center border-2 border-green-100 dark:border-green-500">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              <div className="dark:shadow-neutral-800 bg-neutral-50/50 dark:bg-neutral-900/20 border-neutral-50 dark:border-neutral-900 border-2 relative p-4 pt-8 rounded-2xl shadow-md flex flex-col items-start">
+                <span className="absolute right-0 left-0 mx-auto -top-5 bg-white dark:bg-neutral-950 rounded-full w-10 h-10 bg-transparent shadow flex items-center justify-center border-2 border-green-100 dark:border-green-500">
                   <Check className="text-green-500" size={25} />
                 </span>
 
@@ -70,10 +76,19 @@ export default async function AdminPage() {
                   +5% نسبت به ماه قبل
                 </span>
               </div>
-
-              <div className="bg-rose-50 dark:bg-neutral-800 relative p-4 pt-8 rounded-2xl shadow-md flex flex-col items-start">
-                <span className="absolute right-0 left-0 mx-auto -top-5 rounded-full w-10 h-10 bg-transpare0 shadow flex items-center justify-center border-2 border-rose-100 dark:border-rose-500">
-                  <UserRound className="text-rose-500" size={25} />
+              <div className="dark:shadow-neutral-800 bg-neutral-50/50 dark:bg-neutral-900/20 border-neutral-50 dark:border-neutral-900 border-2 relative p-4 pt-8 rounded-2xl shadow-md flex flex-col items-start">
+                <span className="absolute right-0 left-0 mx-auto -top-5 bg-white dark:bg-neutral-950 rounded-full w-10 h-10 bg-transparent dshadow flex items-center justify-center border-2 border-rose-100 dark:border-rose-500">
+                  <Box className="text-rose-500" size={25} />
+                </span>
+                <div className="text-neutral-400">تعداد سفارشات</div>
+                <div className="text-2xl font-semibold">567</div>
+                <span className="text-red-500 text-sm">
+                  -2% نسبت به ماه قبل
+                </span>
+              </div>
+              <div className="dark:shadow-neutral-800 bg-neutral-50/50 dark:bg-neutral-900/20 border-neutral-50 dark:border-neutral-900 border-2 relative p-4 pt-8 rounded-2xl shadow-md flex flex-col items-start">
+                <span className="absolute right-0 left-0 mx-auto -top-5 bg-white dark:bg-neutral-950 rounded-full w-10 h-10 bg-transpare0 shadow flex items-center justify-center border-2 border-yellow-100 dark:border-yellow-500">
+                  <UserRound className="text-yellow-500" size={25} />
                 </span>
                 <div className="text-neutral-400">تعداد کاربران</div>
                 <div className="text-2xl font-semibold">
@@ -83,44 +98,16 @@ export default async function AdminPage() {
                   +10% نسبت به ماه قبل
                 </span>
               </div>
-
-              <div className="bg-yellow-50 dark:bg-neutral-800 relative p-4 pt-8 rounded-2xl shadow-md flex flex-col items-start">
-                <span className="absolute right-0 left-0 mx-auto -top-5 rounded-full w-10 h-10 bg-transparent dshadow flex items-center justify-center border-2 border-yellow-100 dark:border-yellow-500">
-                  <Box className="text-yellow-500" size={25} />
-                </span>
-                <div className="text-neutral-400">تعداد سفارشات</div>
-                <div className="text-2xl font-semibold">567</div>
-                <span className="text-red-500 text-sm">
-                  -2% نسبت به ماه قبل
-                </span>
-              </div>
-
-              <div className="text- bg-fuchsia-50 dark:bg-neutral-800 relative p-4 pt-8 rounded-2xl shadow-md flex flex-col items-start">
-                <span className="absolute right-0 left-0 mx-auto -top-5 rounded-full w-10 h-10 bg-transparent darhadow flex items-center justify-center border-2 border-fuchsia-100 dark:border-fuchsia-500">
-                  <Flame className="text-fuchsia-500" size={25} />
-                </span>
-                <div className="text-neutral-400">اشتراک‌های فعال</div>
-                <div className="text-2xl font-semibold">345</div>
-                <span className="text-green-500 text-sm">
-                  +8% نسبت به ماه قبل
-                </span>
-              </div>
             </div>
 
-            <div className="bg-white dark:bg-neutral-800 p-6 rounded-lg shadow-md border border-neutral-100 dark:border-neutral-700">
+            <div className="bg-white dark:bg-neutral-900 p-6 rounded-lg shadow-md border-2 border-neutral-100 dark:border-neutral-800">
               <div className="flex items-center justify-between mb-4">
-                <div>
-                  <h3 className="text-xl font-semibold mb-2">
-                    محصولات برتر هفته
-                  </h3>
-                  <p className="text-neutral-500 text-sm">
-                    برترین ها از نگاه شما
-                  </p>
-                </div>
-                <button className="flex text-neutral-700 border rounded-lg p-2 text-sm gap-2">
-                  <HardDriveUpload size={18} />
-                  همه محصولات
-                </button>
+                <h3 className="text-xl font-semibold mb-2">
+                  محصولات برتر هفته
+                </h3>
+                <p className="text-neutral-400 text-sm">
+                  برترین ها از نگاه شما
+                </p>
               </div>
 
               <Table className="max-sm:overflow-x-auto">
@@ -150,66 +137,26 @@ export default async function AdminPage() {
                       <TableCell>
                         <p className="max-w-96">{product.title}</p>
                       </TableCell>
-                      <TableCell className="flex items-center gap-2 justify-center">
-                        <input
-                          type="range"
-                          min={0}
-                          max={100}
-                          step={10}
-                          defaultValue={product.recommended_percent}
-                          className="flex-1 min-w-24"
-                          style={{ width: "80%", direction: "rtl" }}
-                        />
-                        <p>{product.recommended_percent}%</p>
+                      <TableCell>
+                        <div className="w-36 relative flex items-center h-2">
+                          <div className="w-28 absolute top-0 h-full right-0 bg-neutral-300 rounded">
+                            <div
+                              className="bg-green-500 rounded h-full"
+                              style={{
+                                width: `${product.recommended_percent}%`,
+                              }}
+                            ></div>
+                          </div>
+                          <p className="absolute -top-1.5 -left-2">
+                            {product.recommended_percent}%
+                          </p>
+                        </div>
                       </TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
               </Table>
             </div>
-            {/* <div className="bg-white p-6 rounded-lg shadow-md border">
-              <h3 className="text-xl font-semibold mb-4">سفارشات اخیر</h3>
-              <table className="min-w-full table-auto">
-                <thead>
-                  <tr className="bg-neutral-200">
-                    <th className="px-4 py-2">شناسه سفارش</th>
-                    <th className="px-4 py-2">مشتری</th>
-                    <th className="px-4 py-2">تاریخ</th>
-                    <th className="px-4 py-2">مجموع</th>
-                    <th className="px-4 py-2">وضعیت</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td className="border px-4 py-2">#12345</td>
-                    <td className="border px-4 py-2">جان دو</td>
-                    <td className="border px-4 py-2">2024-10-05</td>
-                    <td className="border px-4 py-2">$99.99</td>
-                    <td className="border px-4 py-2">
-                      <span className="text-green-500">تکمیل شده</span>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="border px-4 py-2">#12346</td>
-                    <td className="border px-4 py-2">جین اسمیت</td>
-                    <td className="border px-4 py-2">2024-10-04</td>
-                    <td className="border px-4 py-2">$49.99</td>
-                    <td className="border px-4 py-2">
-                      <span className="text-yellow-500">در انتظار</span>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="border px-4 py-2">#12347</td>
-                    <td className="border px-4 py-2">آلیس جانسون</td>
-                    <td className="border px-4 py-2">2024-10-03</td>
-                    <td className="border px-4 py-2">$129.99</td>
-                    <td className="border px-4 py-2">
-                      <span className="text-red-500">لغو شده</span>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div> */}
           </main>
         </div>
       </div>

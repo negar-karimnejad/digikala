@@ -5,6 +5,7 @@ import {
   CircleFadingPlus,
   Layers3,
   LayoutDashboard,
+  LayoutTemplate,
   LogOut,
   Newspaper,
   PackageOpen,
@@ -19,12 +20,13 @@ import { Button } from "../ui/button";
 import { DarkMode } from "../ui/DarkMode";
 
 const sidebarMenu = [
+  { label: "پیشخوان", icon: <LayoutDashboard />, href: "/admin" },
   { label: "محصولات", icon: <PackageOpen />, href: "/admin/products" },
   // { label: "محصول جدید", icon: <Plus />, href: "/admin/products/new" },
   { label: "سفارشات", icon: <ShoppingBasket />, href: "/admin/orders" },
   {
     label: "دسته‌بندی ها",
-    icon: <LayoutDashboard />,
+    icon: <LayoutTemplate />,
     href: "/admin/categories",
   },
   {
@@ -99,7 +101,7 @@ export default function SidebarList({
             >
               <Link
                 href={item.href}
-                className="flex items-center border-t py-[1rem] justify-between"
+                className="flex items-center border-t py-[18px] justify-between"
               >
                 <div className="flex items-center gap-4">
                   <span className="text-neutral-500">{item.icon}</span>
