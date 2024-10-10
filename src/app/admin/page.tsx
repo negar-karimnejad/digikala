@@ -1,7 +1,16 @@
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import { authUser } from "@/utils/auth";
-import { User } from "@/utils/types";
+import { Product, User } from "@/utils/types";
 import connectToDB from "config/mongodb";
-import { Box, Check, Flame, UserRound } from "lucide-react";
+import { Box, Check, Flame, HardDriveUpload, UserRound } from "lucide-react";
+import ProductModel from "models/Product";
 import UserModel from "models/User";
 import Image from "next/image";
 
@@ -9,6 +18,11 @@ export default async function AdminPage() {
   connectToDB();
   const users: User[] = await UserModel.find({});
   const user: User = await authUser();
+  const products: Product[] = await ProductModel.find({}).lean();
+  const topProducts = products
+    .slice()
+    .sort((a, b) => b.likes - a.likes)
+    .slice(0, 3);
 
   return (
     <div className="h-screen flex">
@@ -94,55 +108,65 @@ export default async function AdminPage() {
             </div>
 
             <div className="bg-white dark:bg-neutral-800 p-6 rounded-lg shadow-md border border-neutral-100 dark:border-neutral-700">
-              <h3 className="text-xl font-semibold mb-4">محصولات برتر هفته</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {/* محصول 1 */}
-                <div className="bg-neutral-100 p-4 rounded-lg shadow-md flex flex-col items-start">
-                  <Image
-                    width={200}
-                    height={200}
-                    src="/product1.jpg"
-                    alt="محصول 1"
-                    className="rounded-lg"
-                  />
-                  <div className="mt-4 text-lg font-semibold">
-                    محصول شماره ۱
-                  </div>
-                  <div className="text-green-500 mt-2">قیمت: $99.99</div>
+              <div className="flex items-center justify-between mb-4">
+                <div>
+                  <h3 className="text-xl font-semibold mb-2">
+                    محصولات برتر هفته
+                  </h3>
+                  <p className="text-neutral-500 text-sm">
+                    برترین ها از نگاه شما
+                  </p>
                 </div>
-
-                {/* محصول 2 */}
-                <div className="bg-neutral-100 p-4 rounded-lg shadow-md flex flex-col items-start">
-                  <Image
-                    width={200}
-                    height={200}
-                    src="/product2.jpg"
-                    alt="محصول 2"
-                    className="rounded-lg"
-                  />
-                  <div className="mt-4 text-lg font-semibold">
-                    محصول شماره ۲
-                  </div>
-                  <div className="text-green-500 mt-2">قیمت: $79.99</div>
-                </div>
-
-                {/* محصول 3 */}
-                <div className="bg-neutral-100 p-4 rounded-lg shadow-md flex flex-col items-start">
-                  <Image
-                    width={200}
-                    height={200}
-                    src="/product3.jpg"
-                    alt="محصول 3"
-                    className="rounded-lg"
-                  />
-                  <div className="mt-4 text-lg font-semibold">
-                    محصول شماره ۳
-                  </div>
-                  <div className="text-green-500 mt-2">قیمت: $119.99</div>
-                </div>
+                <button className="flex text-neutral-700 border rounded-lg p-2 text-sm gap-2">
+                  <HardDriveUpload size={18} />
+                  همه محصولات
+                </button>
               </div>
-            </div>
 
+              <Table className="max-sm:overflow-x-auto">
+                <TableHeader>
+                  <TableRow>
+                    <TableHead className="text-right">تصویر</TableHead>
+                    <TableHead className="text-right">عنوان</TableHead>
+                    <TableHead className="text-right">
+                      میزان رضایت کاربران
+                    </TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {topProducts.map((product: Product) => (
+                    <TableRow key={product._id.toString()}>
+                      <TableCell>
+                        <div className="w-20">
+                          <Image
+                            alt={product.title}
+                            height={100}
+                            width={100}
+                            className="w-16 h-16 object-cover"
+                            src={product.thumbnail}
+                          />
+                        </div>
+                      </TableCell>
+                      <TableCell>
+                        <p className="max-w-96">{product.title}</p>
+                      </TableCell>
+                      <TableCell className="flex items-center gap-2 justify-center">
+                        <input
+                          type="range"
+                          min={0}
+                          max={100}
+                          step={10}
+                          defaultValue={product.recommended_percent}
+                          className="flex-1 min-w-24"
+                          style={{ width: "80%", direction: "rtl" }}
+                        />
+                        <p>{product.recommended_percent}%</p>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </div>
             {/* <div className="bg-white p-6 rounded-lg shadow-md border">
               <h3 className="text-xl font-semibold mb-4">سفارشات اخیر</h3>
               <table className="min-w-full table-auto">
