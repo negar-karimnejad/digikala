@@ -3,10 +3,9 @@
 import { WarnSection } from "@/app/profile/page";
 import ProfileTabs from "@/components/profile/ProfileTabs";
 import { Product, User } from "@/utils/types";
-import PersonalInfo from "./PersonalInfo";
 import { ArrowRight } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import PersonalInfo from "./PersonalInfo";
 
 export default function ProfileMain({
   products,
@@ -18,21 +17,6 @@ export default function ProfileMain({
   id: string;
 }) {
   const router = useRouter();
-
-  // لیست محصول علاقه مند یوزر
-  const [favoriteProducts, setFavoriteProducts] = useState<Product[]>([]);
-
-  const getFavorites = () => {
-    return JSON.parse(localStorage.getItem("favorites")) || [];
-  };
-
-  useEffect(() => {
-    const favoriteIds = getFavorites();
-    const filteredFavoriteProducts = products.filter((product: Product) =>
-      favoriteIds.includes(product._id.toString())
-    );
-    setFavoriteProducts(filteredFavoriteProducts);
-  }, [products]);
 
   return (
     <div>
@@ -49,6 +33,7 @@ export default function ProfileMain({
           tabsArray={["لیست علاقه‌مندی", "لیست‌های دیگر", "اطلاع‌رسانی‌ها"]}
           src="/profile/favorites-list-empty.svg"
           title="لیست‌ها"
+          products={products}
         />
       )}
       {id === "comments" && (

@@ -26,16 +26,15 @@ export default function ProfileTabs({
 }) {
   const router = useRouter();
   const [recentViewProducts, setRecentViewProducts] = useState<Product[]>([]);
-
+  const [favoriteProducts, setFavoriteProducts] = useState<Product[]>([]);
+  const { cart, deleteFromCart } = useCart();
   const getRecentViews = () => {
     return JSON.parse(localStorage.getItem("recentViews")) || [];
   };
-
   // Function to update recent views in localStorage
   const updateRecentViews = (updatedViews: string[]) => {
     localStorage.setItem("recentViews", JSON.stringify(updatedViews));
   };
-
   const handleRemoveProduct = (productId: string) => {
     toast(
       (t) => (
@@ -73,7 +72,6 @@ export default function ProfileTabs({
       { position: "top-left" }
     );
   };
-
   useEffect(() => {
     const recentviewsIds = getRecentViews();
     const filteredProducts = products?.filter((product: Product) =>
@@ -82,6 +80,59 @@ export default function ProfileTabs({
     setRecentViewProducts(filteredProducts);
   }, [products]);
 
+  const getFavorites = () => {
+    return JSON.parse(localStorage.getItem("favorites")) || [];
+  };
+  const updateFavorites = (updatedFavorits: string[]) => {
+    localStorage.setItem("favorites", JSON.stringify(updatedFavorits));
+  };
+  const handleRemoveFavorite = (productId: string) => {
+    toast(
+      (t) => (
+        <div>
+          آیا از حذف محصول از لیست علاقه مندی ها مطمئنید؟
+          <div className="flex justify-end mt-3">
+            <Button
+              className="ml-1 mr-5 "
+              variant={"secondary"}
+              onClick={() => toast.dismiss(t.id)}
+            >
+              انصراف
+            </Button>
+            <Button
+              variant={"destructive"}
+              onClick={async () => {
+                const updatedFavorites = getFavorites().filter(
+                  (id: string) => id !== productId
+                );
+                updateFavorites(updatedFavorites);
+
+                const filteredProducts = favoriteProducts.filter(
+                  (product) => product._id.toString() !== productId
+                );
+                setFavoriteProducts(filteredProducts);
+                toast.dismiss(t.id);
+                toast.success("محصول از لیست علاقه مندی های شما حذف شد.");
+              }}
+            >
+              حذف
+            </Button>
+          </div>
+        </div>
+      ),
+      { position: "top-left" }
+    );
+  };
+
+  useEffect(() => {
+    const favoriteIds = getFavorites();
+    const filteredFavoriteProducts = products?.filter((product: Product) =>
+      favoriteIds.includes(product._id.toString())
+    );
+    setFavoriteProducts(filteredFavoriteProducts);
+  }, [products]);
+
+  // 🎃توجه توجه کلین دیس کد پلییییز🎃
   return (
     <div className="lg:border rounded-lg py-5">
       <div className="flex justify-between items-center sm:px-5 px-2">
@@ -104,7 +155,7 @@ export default function ProfileTabs({
         )}
       </div>
       <div className="w-full h-2 dark:bg-neutral-700 bg-neutral-100 lg:hidden my-3"></div>
-      {tabsArray && (
+      {favoriteProducts?.length === 0 && tabsArray && (
         <Tabs
           defaultValue={tabsArray[0]}
           className="lg:mt-10"
@@ -129,7 +180,24 @@ export default function ProfileTabs({
       )}
 
       <div className="grid grid-cols-12 mt-10">
+        {cart &&
+          cart.map((product) => (
+            <div
+              key={product._id.toString()}
+              className="group relative lg:col-span-6 col-span-12"
+            >
+              <ProductCard product={product} />
+              <div className="flex items-center justify-center flex-col rounded-md absolute top-4 sm:-left-1 left-2 group-hover:left-2 transition-all sm:opacity-0 group-hover:opacity-100 text-red-500">
+                <Trash2
+                  onClick={() => deleteFromCart(product._id.toString())}
+                  size={20}
+                  className="mb-3 cursor-pointer"
+                />
+              </div>
+            </div>
+          ))}
         {recentViewProducts &&
+          title === "بازدیدهای اخیر" &&
           recentViewProducts.map((product) => (
             <div
               key={product._id.toString()}
@@ -139,6 +207,24 @@ export default function ProfileTabs({
               <div className="flex items-center justify-center flex-col rounded-md absolute top-4 sm:-left-1 left-2 group-hover:left-2 transition-all sm:opacity-0 group-hover:opacity-100 text-red-500">
                 <Trash2
                   onClick={() => handleRemoveProduct(product._id.toString())}
+                  size={20}
+                  className="mb-3 cursor-pointer"
+                />
+                <ShoppingcartButton product={product} />
+              </div>
+            </div>
+          ))}
+        {favoriteProducts &&
+          title === "لیست‌ها" &&
+          favoriteProducts.map((product) => (
+            <div
+              key={product._id.toString()}
+              className="group relative lg:col-span-6 col-span-12"
+            >
+              <ProductCard product={product} />
+              <div className="flex items-center justify-center flex-col rounded-md absolute top-4 sm:-left-1 left-2 group-hover:left-2 transition-all sm:opacity-0 group-hover:opacity-100 text-red-500">
+                <Trash2
+                  onClick={() => handleRemoveFavorite(product._id.toString())}
                   size={20}
                   className="mb-3 cursor-pointer"
                 />

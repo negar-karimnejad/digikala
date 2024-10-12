@@ -70,7 +70,6 @@ export interface Product {
   questions?: Question[];
   features?: Feature[];
   colors?: Color[];
-  orders?: Order[];
   images?: ProductImage[];
   category: Category;
   submenuId: string;

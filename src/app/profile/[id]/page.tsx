@@ -27,6 +27,7 @@ export default async function page({
     .lean();
 
   const serializedProducts = serializeDoc(products);
+  const serializedUser = serializeDoc(user);
 
   return (
     <div className="grid grid-cols-12 gap-5 lg:px-20 pb-20 lg:pt-10">
@@ -35,7 +36,11 @@ export default async function page({
         <UserList id={id} />
       </div>
       <div className="col-span-8 max-lg:col-span-12 gap-5">
-        <ProfileMain user={user} products={serializedProducts} id={id} />
+        <ProfileMain
+          user={serializedUser}
+          products={serializedProducts}
+          id={id}
+        />
       </div>
     </div>
   );

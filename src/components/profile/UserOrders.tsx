@@ -1,10 +1,22 @@
+import { authUser } from "@/utils/auth";
+import { Order } from "@/utils/types";
+import connectToDB from "config/mongodb";
 import { ChevronLeft } from "lucide-react";
+import OrderModel from "models/Order";
 import Image from "next/image";
 import React from "react";
 
-export default function UserOrders() {
+export default async function UserOrders() {
+  await connectToDB();
+  const user = await authUser();
+  const orders: Order[] = await OrderModel.find({ userId: user._id });
+
   const ordersList = [
-    { title: "جاری", src: "/profile/status-processing.svg", value: 0 },
+    {
+      title: "جاری",
+      src: "/profile/status-processing.svg",
+      value: orders.length,
+    },
     { title: "تحویل شده", src: "/profile/status-delivered.svg", value: 0 },
     { title: "مرجوع شده", src: "/profile/status-returned.svg", value: 0 },
   ];

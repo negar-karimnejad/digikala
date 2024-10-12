@@ -107,14 +107,6 @@ const schema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Category",
   },
-  orders: {
-    type: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Order",
-      },
-    ],
-  },
 });
 
 const model = mongoose.models?.Product || mongoose.model("Product", schema);
