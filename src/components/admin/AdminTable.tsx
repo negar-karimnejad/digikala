@@ -26,6 +26,7 @@ import {
 import {
   Article,
   Category,
+  Order,
   Product,
   Story,
   Submenu,
@@ -45,6 +46,7 @@ export default function AdminTable({
   submenuItems,
   stories,
   articles,
+  orders,
 }: {
   products?: Product[];
   users?: User[];
@@ -53,6 +55,7 @@ export default function AdminTable({
   submenuItems?: SubmenuItem[];
   stories?: Story[];
   articles?: Article[];
+  orders?: Order[];
 }) {
   return (
     <div>
@@ -105,6 +108,15 @@ export default function AdminTable({
               <TableHead className="text-right">نام</TableHead>
               <TableHead className="text-right">کاور</TableHead>
               <TableHead className="text-right">تصویر</TableHead>
+              <TableHead className="text-right"></TableHead>
+            </TableRow>
+          )}
+          {orders && (
+            <TableRow>
+              <TableHead className="text-right">تعداد</TableHead>
+              <TableHead className="text-right">شناسه سفارش</TableHead>
+              <TableHead className="text-right">شناسه محصول</TableHead>
+              <TableHead className="text-right">شناسه کاربر</TableHead>
               <TableHead className="text-right"></TableHead>
             </TableRow>
           )}
@@ -389,6 +401,40 @@ export default function AdminTable({
                       </DropdownMenuTrigger>
                       <DropdownMenuContent>
                         <DeleteDropdownItem storyId={story._id} />
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                  </Dialog>
+                </TableCell>
+              </TableRow>
+            ))}
+          {orders &&
+            orders.map((order, index) => (
+              <TableRow key={order._id.toString()}>
+                <TableCell>{index + 1}</TableCell>
+                <TableCell>
+                  <p className="whitespace-nowrap font-sans">
+                    {order._id.toString()}
+                  </p>
+                </TableCell>
+                <TableCell>
+                  <p className="whitespace-nowrap font-sans">
+                    {order.productId.toString()}
+                  </p>
+                </TableCell>
+                <TableCell>
+                  <p className="whitespace-nowrap font-sans">
+                    {order.userId.toString()}
+                  </p>
+                </TableCell>
+                <TableCell>
+                  <Dialog>
+                    <DropdownMenu>
+                      <DropdownMenuTrigger>
+                        <MoreVertical />
+                        <span className="sr-only">Actions</span>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent>
+                        <DeleteDropdownItem order={order} />
                       </DropdownMenuContent>
                     </DropdownMenu>
                   </Dialog>

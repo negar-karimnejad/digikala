@@ -151,15 +151,20 @@ export const StorySchema = z.object({
   post: imageSchema.refine((file) => file.size > 0, "Required"),
 });
 
+export const OrderSchema = z.object({
+  productId: z.string(),
+  userId: z.string(),
+});
+
 export const ArticleCommentSchema = z.object({
   author: z.string(),
-  date: z.date(), // Date must be a valid Date object
-  likes: z.number().nonnegative("Likes cannot be negative"), // Ensure likes is not negative
+  date: z.date(),
+  likes: z.number().nonnegative("Likes cannot be negative"),
   content: z
     .string()
     .min(1, "Content cannot be empty")
-    .max(2000, "Content must be less than 2000 characters long"), // Ensure valid length
-  articleId: z.string().nonempty("Article ID is required"), // Ensure article ID is not empty
+    .max(2000, "Content must be less than 2000 characters long"),
+  articleId: z.string().nonempty("Article ID is required"),
 });
 
 export const ArticleSchema = z.object({

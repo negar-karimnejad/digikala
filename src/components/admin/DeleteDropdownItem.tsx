@@ -1,20 +1,23 @@
 "use client";
 
+import { deleteArticle } from "@/app/admin/articles/action";
 import {
   deleteCategory,
   deleteSubmenu,
   deleteSubmenuItem,
 } from "@/app/admin/categories/action";
+import { deleteOrder } from "@/app/admin/orders/action";
 import { deleteProduct } from "@/app/admin/products/action";
 import { deleteStory } from "@/app/admin/stories/action";
 import { deleteUser } from "@/app/admin/users/action";
+import { Order } from "@/utils/types";
 import { Trash2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useTransition } from "react";
 import toast from "react-hot-toast";
 import { Button } from "../ui/button";
 import { DropdownMenuItem } from "../ui/dropdown-menu";
-import { deleteArticle } from "@/app/admin/articles/action";
+import { useCart } from "@/utils/cartItemsContext";
 
 export function DeleteDropdownItem({
   categoryId,
@@ -24,6 +27,7 @@ export function DeleteDropdownItem({
   itemId,
   storyId,
   articleId,
+  order,
 }: {
   categoryId?: string;
   productId?: string;
@@ -32,9 +36,11 @@ export function DeleteDropdownItem({
   itemId?: string;
   storyId?: string;
   articleId?: string;
+  order?: Order;
 }) {
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
+  const { deleteFromCart } = useCart();
 
   const deleteHandler = () => {
     toast((t) => (
@@ -55,6 +61,8 @@ export function DeleteDropdownItem({
             ? "داستان"
             : articleId
             ? "مقاله"
+            : order
+            ? "سفارش"
             : ""
         }`}
         :
@@ -84,6 +92,9 @@ export function DeleteDropdownItem({
                 await deleteStory(storyId);
               } else if (articleId) {
                 await deleteArticle(articleId);
+              } else if (order) {
+                deleteFromCart(order.productId.toString());
+                await deleteOrder(order._id.toString());
               }
               router.refresh();
               toast.success(
@@ -101,6 +112,8 @@ export function DeleteDropdownItem({
                   ? "داستان با موفقیت حذف شد"
                   : articleId
                   ? "مقاله با موفقیت حذف شد"
+                  : order
+                  ? "سفارش با موفقیت حذف شد"
                   : ""
               );
             });

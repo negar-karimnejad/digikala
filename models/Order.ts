@@ -3,18 +3,10 @@ require("./Product");
 require("./User");
 
 const schema = new mongoose.Schema({
-  totalAmount: {
-    type: Number,
-    required: true,
-  },
   date: {
     type: Date,
     default: () => Date.now(),
     immutable: false,
-  },
-  status: {
-    type: String,
-    required: true,
   },
   productId: {
     type: mongoose.Schema.Types.ObjectId,

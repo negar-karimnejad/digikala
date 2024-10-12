@@ -1,7 +1,7 @@
 "use client";
 
 import { useCart } from "@/utils/cartItemsContext";
-import { User } from "@/utils/types";
+import { CartItem, User } from "@/utils/types";
 import useScroll from "@/utils/useScroll";
 import { ShieldCheck, Store, Trash2, Truck } from "lucide-react";
 import Image from "next/image";
@@ -11,6 +11,7 @@ import { useEffect } from "react";
 import toast from "react-hot-toast";
 import { Button } from "../ui/button";
 import CartItemControls from "./CartItemControls";
+import { addOrder } from "@/app/admin/orders/action";
 
 export default function ShoppincartItems({ user }: { user: User }) {
   const router = useRouter();
@@ -66,6 +67,33 @@ export default function ShoppincartItems({ user }: { user: User }) {
       router.push("/checkout/shipping/");
     }
   };
+
+  useEffect(() => {
+    const fetchUserOrders = async () => {
+      const cart: CartItem[] = JSON.parse(localStorage.getItem("cart") || "[]");
+
+      if (user && cart.length > 0) {
+        try {
+          for (const product of cart) {
+            const formData = new FormData();
+            formData.append("productId", product._id.toString());
+            formData.append("userId", user._id.toString());
+
+            const errors = await addOrder(formData);
+            if (errors) {
+              console.log("Form validation errors", errors);
+              return;
+            }
+          }
+        } catch (error) {
+          console.error("Error adding order", error);
+        }
+      }
+    };
+
+    fetchUserOrders();
+  }, [user]);
+
   return (
     <>
       {cart.length > 0 ? (
