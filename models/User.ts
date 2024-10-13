@@ -18,26 +18,43 @@ const schema = new mongoose.Schema({
     required: false,
   },
   address: {
+    type: {
+      province: {
+        type: String,
+        required: false,
+      },
+      city: {
+        type: String,
+        required: false,
+      },
+      street: {
+        type: String,
+        required: false,
+      },
+      plate: {
+        type: String,
+        required: false,
+      },
+      unit: {
+        type: String,
+        required: false,
+      },
+      postalcode: {
+        type: String,
+        required: false,
+      },
+    },
+    required: false,
+  },
+  idNumber: {
     type: String,
     required: false,
   },
-  province: {
+  avatar: {
     type: String,
     required: false,
   },
-  city: {
-    type: String,
-    required: false,
-  },
-  plate: {
-    type: String,
-    required: false,
-  },
-  unit: {
-    type: String,
-    required: false,
-  },
-  postalcode: {
+  job: {
     type: String,
     required: false,
   },

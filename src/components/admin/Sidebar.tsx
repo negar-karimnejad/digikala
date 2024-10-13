@@ -28,7 +28,10 @@ export default function Sidebar() {
           <SheetTrigger>
             <Menu className="lg:hidden" />
           </SheetTrigger>
-          <SheetContent side="right" className="p-0 w-[300px] sm:w-[400px]">
+          <SheetContent
+            side="right"
+            className="h-screen overflow-y-auto hidden-scrollbar p-0 w-[300px] sm:w-[400px]"
+          >
             <SidebarList closeSheet={closeSheet} />
           </SheetContent>
         </Sheet>
