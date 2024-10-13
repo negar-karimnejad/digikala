@@ -1,6 +1,6 @@
 "use client";
 
-import { signin } from "@/app/admin/users/action";
+import { signin, signOut } from "@/app/admin/users/action";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { LoginFormState } from "@/utils/types";
@@ -23,7 +23,7 @@ export default function Login() {
   useEffect(() => {
     const searchParams = new URLSearchParams(window.location.search);
     setRedirectedLogin(searchParams.has("redirected"));
-  }, []);
+  }, [redirectedLogin]);
 
   const validateForm = (formData: FormData) => {
     const formObject = Object.fromEntries(
@@ -71,7 +71,7 @@ export default function Login() {
           } else {
             router.push("/");
           }
-        }, 100); 
+        }, 100);
 
         toast.success("خوشحالیم که میبینیمت :)");
       } else {

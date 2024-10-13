@@ -13,6 +13,7 @@ import { Bell, Box, Check, UserRound } from "lucide-react";
 import ProductModel from "models/Product";
 import UserModel from "models/User";
 import Image from "next/image";
+import { signOut } from "./users/action";
 
 export default async function AdminPage() {
   connectToDB();

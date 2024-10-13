@@ -2,11 +2,17 @@
 
 import { signOut } from "@/app/admin/users/action";
 import { useRouter } from "next/navigation";
+import { ReactNode } from "react";
 import toast from "react-hot-toast";
 import { Button } from "./button";
-import { ReactNode } from "react";
 
-export function SignoutFunction({ children }: { children: ReactNode }) {
+export function SignoutFunction({
+  children,
+  showAdminPage,
+}: {
+  children: ReactNode;
+  showAdminPage?: boolean;
+}) {
   const router = useRouter();
 
   const signoutHandler = () => {
@@ -27,7 +33,9 @@ export function SignoutFunction({ children }: { children: ReactNode }) {
               onClick={async () => {
                 await signOut();
                 toast.dismiss(t.id);
-                router.push("/login");
+                showAdminPage
+                  ? router.push("/login?redirected")
+                  : router.push("/login");
                 toast.success("از حساب خود خارج شدید.");
               }}
             >
@@ -43,7 +51,9 @@ export function SignoutFunction({ children }: { children: ReactNode }) {
   return (
     <div
       onClick={signoutHandler}
-      className="max-lg:pl-5 hover:bg-neutral-100 dark:hover:bg-neutral-900 cursor-pointer py-4 flex items-center justify-between"
+      className={`hover:bg-neutral-100 dark:hover:bg-neutral-900 cursor-pointer py-4 flex items-center justify-between ${
+        showAdminPage ? "" : "max-lg:pl-5"
+      }`}
     >
       {children}
     </div>

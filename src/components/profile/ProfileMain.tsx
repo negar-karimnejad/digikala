@@ -66,6 +66,7 @@ export default function ProfileMain({
       )}
       {id === "user-history" && (
         <ProfileTabs
+          tabsArray={["بازدیدهای اخیر"]}
           src="/profile/order-empty.svg"
           title="بازدیدهای اخیر"
           products={products}

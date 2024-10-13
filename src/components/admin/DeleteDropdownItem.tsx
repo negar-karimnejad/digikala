@@ -6,10 +6,10 @@ import {
   deleteSubmenu,
   deleteSubmenuItem,
 } from "@/app/admin/categories/action";
-import { deleteOrder } from "@/app/admin/orders/action";
 import { deleteProduct } from "@/app/admin/products/action";
 import { deleteStory } from "@/app/admin/stories/action";
 import { deleteUser } from "@/app/admin/users/action";
+import { useCart } from "@/utils/cartItemsContext";
 import { Order } from "@/utils/types";
 import { Trash2 } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -17,7 +17,6 @@ import { useTransition } from "react";
 import toast from "react-hot-toast";
 import { Button } from "../ui/button";
 import { DropdownMenuItem } from "../ui/dropdown-menu";
-import { useCart } from "@/utils/cartItemsContext";
 
 export function DeleteDropdownItem({
   categoryId,
@@ -94,7 +93,6 @@ export function DeleteDropdownItem({
                 await deleteArticle(articleId);
               } else if (order) {
                 deleteFromCart(order.productId.toString());
-                await deleteOrder(order._id.toString());
               }
               router.refresh();
               toast.success(

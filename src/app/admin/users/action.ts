@@ -163,7 +163,7 @@ export async function signin(
 export async function signOut() {
   const cookieStore = cookies();
   cookieStore.set("token", "", { maxAge: -1 });
-  redirect("/");
+  redirect("/login");
 }
 
 export async function updateUser(
