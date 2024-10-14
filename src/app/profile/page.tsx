@@ -5,12 +5,13 @@ import UserOrders from "@/components/profile/UserOrders";
 import WarnSection from "@/components/profile/WarnSection";
 import { ReactNode } from "react";
 
-interface ProfilePageProps {
+export default function ProfilePage({
+  children,
+  params,
+}: {
   children: ReactNode;
   params: { id: string };
-}
-
-export default function ProfilePage({ children, params }: ProfilePageProps) {
+}) {
   const { id } = params;
 
   return (
