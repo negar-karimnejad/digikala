@@ -6,12 +6,10 @@ import WarnSection from "@/components/profile/WarnSection";
 import React from "react";
 
 interface ProfilePageProps {
-  children: React.ReactNode;
   params: { id: string };
 }
 
 export default async function ProfilePage({
-  children,
   params: { id },
 }: ProfilePageProps) {
   return (
@@ -35,7 +33,8 @@ export default async function ProfilePage({
         </div>
         <div className="col-span-8 max-lg:col-span-12 gap-5">
           {id ? (
-            <>{children}</>
+            // <>{children}</>
+            <></>
           ) : (
             <div className="flex flex-col gap-5 max-lg:hidden">
               <WarnSection />
