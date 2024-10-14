@@ -3,10 +3,10 @@ import UserInfo from "@/components/profile/UserInfo";
 import UserList from "@/components/profile/UserList";
 import UserOrders from "@/components/profile/UserOrders";
 import WarnSection from "@/components/profile/WarnSection";
-import { ReactNode } from "react";
+import React from "react";
 
 interface ProfilePageProps {
-  children: ReactNode;
+  children: React.ReactNode;
   params: { id: string };
 }
 
