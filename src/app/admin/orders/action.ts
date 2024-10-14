@@ -58,7 +58,4 @@ export async function deleteOrder(id: string) {
     revalidatePath("/orders");
     return;
   }
-
-  // If no order was found by either _id or productId, return a 404
-  return notFound();
 }
