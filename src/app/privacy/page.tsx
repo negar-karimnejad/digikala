@@ -49,7 +49,7 @@ export default function Privacy() {
             <path
               d="M18.6666 36.2667L22.4 40L29.3333 33.0667"
               stroke="white"
-              stroke-width="1.6"
+              strokeWidth="1.6"
               stroke-linejoin="round"
             />
           </g>

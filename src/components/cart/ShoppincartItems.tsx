@@ -332,8 +332,8 @@ export default function ShoppincartItems({ user }: { user: User }) {
             <path
               d="M159.5 59.9324L116.6 48.75"
               stroke="url(#paint10_linear)"
-              stroke-width="7.54"
-              stroke-linecap="round"
+              strokeWidth="7.54"
+              strokeLinecap="round"
             />
             <circle cx="116.925" cy="48.6851" r="1.625" fill="#424750" />
             <path
@@ -393,8 +393,8 @@ export default function ShoppincartItems({ user }: { user: User }) {
             <path
               d="M71.2998 89.7L116.8 74.75"
               stroke="url(#paint20_linear)"
-              stroke-width="7.54"
-              stroke-linecap="round"
+              strokeWidth="7.54"
+              strokeLinecap="round"
             />
             <circle cx="117.125" cy="74.6851" r="1.625" fill="#424750" />
             <defs>
@@ -505,10 +505,10 @@ export default function ShoppincartItems({ user }: { user: User }) {
                 y2="58.5"
                 gradientUnits="userSpaceOnUse"
               >
-                <stop stopColor="#FEFEFE" stop-opacity="0.578316" />
-                <stop offset="0.163444" stopColor="white" stop-opacity="0.2" />
-                <stop offset="0.840292" stopColor="white" stop-opacity="0.01" />
-                <stop offset="1" stop-opacity="0.1" />
+                <stop stopColor="#FEFEFE" stopOpacity="0.578316" />
+                <stop offset="0.163444" stopColor="white" stopOpacity="0.2" />
+                <stop offset="0.840292" stopColor="white" stopOpacity="0.01" />
+                <stop offset="1" stopOpacity="0.1" />
               </linearGradient>
               <linearGradient
                 id="paint8_linear"
@@ -529,10 +529,10 @@ export default function ShoppincartItems({ user }: { user: User }) {
                 y2="58.5"
                 gradientUnits="userSpaceOnUse"
               >
-                <stop stopColor="#FEFEFE" stop-opacity="0.578316" />
-                <stop offset="0.163444" stopColor="white" stop-opacity="0.2" />
-                <stop offset="0.840292" stopColor="white" stop-opacity="0.01" />
-                <stop offset="1" stop-opacity="0.05" />
+                <stop stopColor="#FEFEFE" stopOpacity="0.578316" />
+                <stop offset="0.163444" stopColor="white" stopOpacity="0.2" />
+                <stop offset="0.840292" stopColor="white" stopOpacity="0.01" />
+                <stop offset="1" stopOpacity="0.05" />
               </linearGradient>
               <linearGradient
                 id="paint10_linear"
@@ -609,10 +609,10 @@ export default function ShoppincartItems({ user }: { user: User }) {
                 y2="84.5"
                 gradientUnits="userSpaceOnUse"
               >
-                <stop stopColor="#FEFEFE" stop-opacity="0.578316" />
-                <stop offset="0.163444" stopColor="white" stop-opacity="0.2" />
-                <stop offset="0.840292" stopColor="white" stop-opacity="0.01" />
-                <stop offset="1" stop-opacity="0.1" />
+                <stop stopColor="#FEFEFE" stopOpacity="0.578316" />
+                <stop offset="0.163444" stopColor="white" stopOpacity="0.2" />
+                <stop offset="0.840292" stopColor="white" stopOpacity="0.01" />
+                <stop offset="1" stopOpacity="0.1" />
               </linearGradient>
               <linearGradient
                 id="paint17_linear"
@@ -633,10 +633,10 @@ export default function ShoppincartItems({ user }: { user: User }) {
                 y2="84.5"
                 gradientUnits="userSpaceOnUse"
               >
-                <stop stopColor="#FEFEFE" stop-opacity="0.578316" />
-                <stop offset="0.163444" stopColor="white" stop-opacity="0.2" />
-                <stop offset="0.840292" stopColor="white" stop-opacity="0.01" />
-                <stop offset="1" stop-opacity="0.05" />
+                <stop stopColor="#FEFEFE" stopOpacity="0.578316" />
+                <stop offset="0.163444" stopColor="white" stopOpacity="0.2" />
+                <stop offset="0.840292" stopColor="white" stopOpacity="0.01" />
+                <stop offset="1" stopOpacity="0.05" />
               </linearGradient>
               <linearGradient
                 id="paint19_linear"

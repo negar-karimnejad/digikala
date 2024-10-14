@@ -3,14 +3,11 @@ import UserInfo from "@/components/profile/UserInfo";
 import UserList from "@/components/profile/UserList";
 import UserOrders from "@/components/profile/UserOrders";
 import WarnSection from "@/components/profile/WarnSection";
-import { ReactNode } from "react";
 
 export default async function ProfilePage({
   params: { id },
-  children,
 }: {
   params: { id: string };
-  children: ReactNode;
 }) {
   return (
     <div>
@@ -33,7 +30,7 @@ export default async function ProfilePage({
         </div>
         <div className="col-span-8 max-lg:col-span-12 gap-5">
           {id ? (
-            <>{children}</>
+            <></>
           ) : (
             <div className="flex flex-col gap-5 max-lg:hidden">
               <WarnSection />

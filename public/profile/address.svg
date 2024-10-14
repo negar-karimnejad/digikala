@@ -55,8 +55,8 @@
 <stop offset="1" stop-color="#DDDEE0"/>
 </linearGradient>
 <linearGradient id="paint8_linear" x1="102" y1="66.5139" x2="78" y2="66.5139" gradientUnits="userSpaceOnUse">
-<stop stop-color="white" stop-opacity="0.01"/>
-<stop offset="1" stop-opacity="0.108774"/>
+<stop stop-color="white" stopOpacity="0.01"/>
+<stop offset="1" stopOpacity="0.108774"/>
 </linearGradient>
 <linearGradient id="paint9_linear" x1="75.2852" y1="109.602" x2="72.5131" y2="123.639" gradientUnits="userSpaceOnUse">
 <stop stop-color="#9DC44D"/>
@@ -64,7 +64,7 @@
 </linearGradient>
 <linearGradient id="paint10_linear" x1="69.9166" y1="79.6529" x2="71.4436" y2="88.777" gradientUnits="userSpaceOnUse">
 <stop stop-color="#A1A3A8"/>
-<stop offset="1" stop-color="#A1A3A8" stop-opacity="0.01"/>
+<stop offset="1" stop-color="#A1A3A8" stopOpacity="0.01"/>
 </linearGradient>
 </defs>
 </svg>
