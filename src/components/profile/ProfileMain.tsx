@@ -48,6 +48,7 @@ export default function ProfileMain({
           tabsArray={["آدرس‌ها"]}
           src="/profile/address.svg"
           title="آدرس‌"
+          user={user}
         />
       )}
       {id === "gift-cards" && (

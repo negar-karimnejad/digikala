@@ -49,6 +49,18 @@ export const UserupdateSchema = z.object({
     .optional(),
   role: z.string(),
   avatar: avatarSchema.optional(),
+  address: z
+    .object({
+      street: z.string().optional(),
+      plate: z.string().optional(),
+      unit: z.string().optional(),
+      postalcode: z.string().optional(),
+      province: z.string().optional(),
+      city: z.string().optional(),
+    })
+    .optional(),
+  idNumber: z.string().optional(),
+  job: z.string().optional(),
 });
 
 const fileSchema = z.instanceof(File, { message: "Required" });
@@ -185,12 +197,14 @@ export const ArticleEditSchema = ArticleSchema.extend({
 });
 
 export const ShippingSchema = z.object({
-  address: z.string({ required_error: "اینجا را خالی نگذارید" }),
-  province: z.string({ required_error: "اینجا را خالی نگذارید" }),
-  city: z.string({ required_error: "اینجا را خالی نگذارید" }),
-  plate: z.string({ required_error: "اینجا را خالی نگذارید" }),
-  unit: z.string().optional(),
-  postalcode: z.string({ required_error: "اینجا را خالی نگذارید" }),
+  address: z.object({
+    street: z.string({ required_error: "اینجا را خالی نگذارید" }),
+    plate: z.string({ required_error: "اینجا را خالی نگذارید" }),
+    unit: z.string({ required_error: "اینجا را خالی نگذارید" }),
+    postalcode: z.string({ required_error: "اینجا را خالی نگذارید" }),
+    province: z.string({ required_error: "اینجا را خالی نگذارید" }),
+    city: z.string({ required_error: "اینجا را خالی نگذارید" }),
+  }),
   name: z.string({ required_error: "اینجا را خالی نگذارید" }),
   phone: z.string({ required_error: "اینجا را خالی نگذارید" }),
 });

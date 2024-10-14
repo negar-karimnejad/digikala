@@ -127,7 +127,6 @@ export async function updateCategory(state: any, formData: FormData) {
   await connectToDB();
   const heros = formData.getAll("hero");
   const banners = formData.getAll("banner");
-  console.log("formData🩳", formData);
 
   const result = categoryEditSchema.safeParse({
     ...Object.fromEntries(formData.entries()),

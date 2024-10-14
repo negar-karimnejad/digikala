@@ -1,27 +1,26 @@
 "use client";
 
+import { updateUser } from "@/app/admin/users/action";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cities, province } from "@/data/data";
-import { ShippingFormState, User } from "@/utils/types";
-import { ShippingSchema, ShippingSchemaType } from "@/utils/validation";
+import { User } from "@/utils/types";
 import { CirclePlus, X } from "lucide-react";
 import React, { FormEvent, useState } from "react";
 
-const initialState: ShippingFormState = {
-  errors: {},
-  success: false,
-};
-
 export default function ShippingForm({ user }: { user: User }) {
-  const [state, setState] = useState<ShippingFormState>(initialState);
-
   const [isOpenModal, setIsOpenModal] = useState(true);
   const [addAddress, setAddAddress] = useState(false);
 
   const [selectedProvince, setSelectedProvince] = useState("-1");
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
+  const [street, setStreet] = useState("");
+  const [plate, setPlate] = useState("");
+  const [unit, setUnit] = useState("");
+  const [postalCode, setPostalCode] = useState("");
+  const [city, setCity] = useState("");
+  const [theProvince, setTheProvince] = useState("");
 
   const closeModalHandler = () => {
     setIsOpenModal(false);
@@ -37,39 +36,38 @@ export default function ShippingForm({ user }: { user: User }) {
     }
   };
 
-  const submitHandler = (e: FormEvent<HTMLFormElement>) => {
+  const submitHandler = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const formData = new FormData(e.currentTarget);
+    const formData = new FormData();
+    formData.append("_id", user._id.toString());
+    formData.append("role", user.role || "USER");
+    formData.append("name", name);
+    formData.append("phone", phone);
 
-    const formObject = Object.fromEntries(
-      formData.entries()
-    ) as ShippingSchemaType;
-    const validation = ShippingSchema.safeParse(formObject);
+    const address = {
+      street: street,
+      plate: plate,
+      city: city,
+      postalCode: postalCode,
+      province: theProvince,
+      unit: unit || "",
+    };
+    formData.append("address", JSON.stringify(address));
 
-    // Clear errors first
-    const errors: Partial<ShippingFormState["errors"]> = {};
+    try {
+      const errors = await updateUser(formData);
 
-    if (validation.success) {
-      // Clear errors and set success to true
-      setState({
-        ...state,
-        errors: {}, // Clear any previous errors
-        success: true,
-      });
-      // Continue with form submission logic (e.g., API call)
-    } else {
-      const errors: Partial<ShippingFormState["errors"]> = {};
-      validation.error.errors.forEach((error) => {
-        errors[error.path[0]] = error.message;
-      });
+      if (errors) {
+        // Handle validation errors
+        console.error("Validation errors:", errors);
+        return;
+      }
 
-      // Set the state with validation errors
-      setState({
-        ...state,
-        errors, // Update state with errors
-        success: false,
-      });
+      // Optionally: show a success message or update UI
+      setIsOpenModal(false); // Close the modal after submission
+    } catch (error) {
+      console.error("Failed to update user:", error);
     }
   };
 
@@ -108,28 +106,6 @@ export default function ShippingForm({ user }: { user: User }) {
             >
               <div className="space-y-2">
                 <label
-                  htmlFor="address"
-                  className="text-neutral-700 dark:text-neutral-50"
-                >
-                  نشانی پستی
-                  <span className="text-red-500">*</span>
-                </label>
-                <Input
-                  type="text"
-                  id="address"
-                  className={`w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-neutral-100 dark:bg-neutral-700 dark:border-neutral-500 
-                    ${state.errors.address ? "border-red-500" : ""}
-                     `}
-                />
-                {state.errors.address && (
-                  <div className="text-destructive text-xs">
-                    {state.errors.address}
-                  </div>
-                )}
-              </div>
-
-              <div className="space-y-2">
-                <label
                   htmlFor="province"
                   className="text-neutral-700 dark:text-neutral-50"
                 >
@@ -138,9 +114,16 @@ export default function ShippingForm({ user }: { user: User }) {
                 </label>
                 <select
                   className="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-neutral-100 dark:bg-neutral-700 dark:border-neutral-500"
-                  name=""
+                  name="province"
                   id="province"
-                  onChange={(e) => setSelectedProvince(e.target.value)}
+                  onChange={(e) => {
+                    setSelectedProvince(e.target.value);
+                    setTheProvince(
+                      province.find(
+                        (item) => item.id === Number(e.target.value)
+                      ).title
+                    );
+                  }}
                 >
                   <option value="-1"></option>
                   {province.map((item) => (
@@ -161,19 +144,38 @@ export default function ShippingForm({ user }: { user: User }) {
                 </label>
                 <select
                   className="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-neutral-100 dark:bg-neutral-700 dark:border-neutral-500"
-                  name=""
+                  name="city"
                   id="city"
+                  onChange={(e) => setCity(e.target.value)}
                 >
                   {cities
                     .filter((item) => {
                       return item.province_id === Number(selectedProvince);
                     })
                     .map((item) => (
-                      <option value={item.id} key={item.id}>
+                      <option value={item.title} key={item.id}>
                         {item.title}
                       </option>
                     ))}
                 </select>
+              </div>
+
+              <div className="flex-1 space-y-2">
+                <label
+                  htmlFor="street"
+                  className="text-neutral-700 dark:text-neutral-50"
+                >
+                  محله
+                  <span className="text-red-500">*</span>
+                </label>
+                <Input
+                  type="text"
+                  id="street"
+                  name="street"
+                  value={street}
+                  onChange={(e) => setStreet(e.target.value)}
+                  className="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-neutral-100 dark:bg-neutral-700 dark:border-neutral-500"
+                />
               </div>
 
               <div className="flex gap-4">
@@ -188,15 +190,11 @@ export default function ShippingForm({ user }: { user: User }) {
                   <Input
                     type="text"
                     id="plate"
-                    className={`w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-neutral-100 dark:bg-neutral-700 dark:border-neutral-500 
-                      ${state.errors.plate ? "border-red-500" : ""}
-                       `}
+                    name="plate"
+                    value={plate}
+                    onChange={(e) => setPlate(e.target.value)}
+                    className="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-neutral-100 dark:bg-neutral-700 dark:border-neutral-500 "
                   />
-                  {state.errors.plate && (
-                    <div className="text-destructive text-xs">
-                      {state.errors.plate}
-                    </div>
-                  )}
                 </div>
 
                 <div className="flex-1 space-y-2">
@@ -209,6 +207,9 @@ export default function ShippingForm({ user }: { user: User }) {
                   <Input
                     type="text"
                     id="unit"
+                    name="unit"
+                    value={unit}
+                    onChange={(e) => setUnit(e.target.value)}
                     className="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-neutral-100 dark:bg-neutral-700 dark:border-neutral-500"
                   />
                 </div>
@@ -225,15 +226,12 @@ export default function ShippingForm({ user }: { user: User }) {
                 <Input
                   type="text"
                   id="postalcode"
-                  className={`w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-neutral-100 dark:bg-neutral-700 dark:border-neutral-500 
-                    ${state.errors.postalcode ? "border-red-500" : ""}
-                     `}
+                  name="postalcode"
+                  value={postalCode}
+                  onChange={(e) => setPostalCode(e.target.value)}
+                  className="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-neutral-100 dark:bg-neutral-700 dark:border-neutral-500 "
                 />
-                {state.errors.postalcode && (
-                  <div className="text-destructive text-xs">
-                    {state.errors.postalcode}
-                  </div>
-                )}
+
                 <span className="text-xs text-neutral-500">
                   کد‌پستی باید ۱۰ رقم و بدون خط تیره باشد.
                 </span>
@@ -265,17 +263,11 @@ export default function ShippingForm({ user }: { user: User }) {
                 <Input
                   type="text"
                   id="name"
+                  name="name"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className={`w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-neutral-100 dark:bg-neutral-700 dark:border-neutral-500 
-                    ${state.errors.name ? "border-red-500" : ""}
-                     `}
+                  className="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-neutral-100 dark:bg-neutral-700 dark:border-neutral-500"
                 />
-                {state.errors.name && (
-                  <div className="text-destructive text-xs">
-                    {state.errors.name}
-                  </div>
-                )}
               </div>
 
               <div className="space-y-2">
@@ -289,18 +281,11 @@ export default function ShippingForm({ user }: { user: User }) {
                 <Input
                   type="text"
                   id="phone"
+                  name="phone"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
-                  className={`w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-neutral-100 dark:bg-neutral-700 dark:border-neutral-500 
-                    ${state.errors.phone ? "border-red-500" : ""}
-                     `}
+                  className="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-neutral-100 dark:bg-neutral-700 dark:border-neutral-500"
                 />
-                {state.errors.phone && (
-                  <div className="text-destructive text-xs">
-                    {state.errors.phone}
-                  </div>
-                )}
-
                 <span className="text-xs text-neutral-500">
                   مثل: ۰۹۱۲۳۴۵۶۷۸۹
                 </span>

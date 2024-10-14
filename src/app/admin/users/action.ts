@@ -1,10 +1,6 @@
 "use server";
 
-import {
-  authUser,
-  generateAccessToken,
-  generateRefreshToken,
-} from "@/utils/auth";
+import { generateAccessToken, generateRefreshToken } from "@/utils/auth";
 import { LoginFormState, RegisterFormState } from "@/utils/types";
 import {
   LoginSchema,
@@ -166,31 +162,36 @@ export async function signOut() {
   redirect("/login");
 }
 
-export async function updateUser(
-  state: RegisterFormState,
-  formData: FormData
-): Promise<RegisterFormState> {
+export async function updateUser(formData: FormData) {
   await connectToDB();
   const id = formData.get("_id");
 
   if (!id) throw new Error("User ID is required");
 
-  const result = UserupdateSchema.safeParse(
-    Object.fromEntries(formData.entries())
-  );
+  const entries = Object.fromEntries(formData.entries());
 
-  if (result.success === false) {
-    return {
-      ...state,
-      errors: result.error.formErrors.fieldErrors,
-    };
+  if (entries.address) {
+    try {
+      const parsedAddress = JSON.parse(entries.address as string);
+      entries.address = parsedAddress;
+    } catch (error) {
+      console.log("Invalid JSON format for address:", error);
+      return { address: ["Invalid address format"] };
+    }
+  }
+
+  const result = UserupdateSchema.safeParse(entries);
+
+  if (!result.success) {
+    console.log("❌❌❌", result.error.formErrors.fieldErrors);
+    return result.error.formErrors.fieldErrors;
   }
 
   const data = result.data;
 
   const user = await UserModel.findOne({ _id: id });
 
-  if (user == null) return notFound();
+  if (!user) return notFound();
 
   let avatarPath = user.avatar;
 
@@ -205,21 +206,34 @@ export async function updateUser(
     );
   }
 
-  await UserModel.findOneAndUpdate(
-    { _id: id },
-    {
-      $push: {
-        name: data.name,
-        role: data.role,
-        avatar: avatarPath,
-      },
-    }
-  );
+  const updateFields: any = {
+    name: data.name,
+    role: data.role,
+    email: data.email,
+    phone: data.phone,
+    password: data.password,
+    avatar: avatarPath,
+    idNumber: data.idNumber,
+    job: data.job,
+  };
+
+  // Include address only if provided
+  if (data.address) {
+    updateFields.address = {
+      street: data.address.street || "", // Use default value or leave empty
+      plate: data.address.plate || "",
+      city: data.address.city || "",
+      postalcode: data.address.postalcode || "",
+      province: data.address.province || "",
+      unit: data.address.unit || "",
+    };
+  }
+
+  await UserModel.findOneAndUpdate({ _id: id }, { $set: updateFields });
 
   revalidatePath("/");
   revalidatePath("/users");
-
-  redirect("/admin/users");
+  revalidatePath("/admin/users");
 }
 
 export async function deleteUser(id: string) {

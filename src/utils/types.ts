@@ -172,6 +172,7 @@ export interface ShippingFormState {
   errors: {
     address?: string[];
     plate?: string[];
+    street?: string[];
     postalcode?: string[];
     name?: string[];
     phone?: string[];

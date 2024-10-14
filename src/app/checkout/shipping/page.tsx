@@ -5,10 +5,12 @@ import Link from "next/link";
 import persianLogo from "../../../../public/logo/digi.svg";
 import ShippingForm from "@/components/cart/ShippingForm";
 import { User } from "@/utils/types";
+import { serializeDoc } from "@/utils/serializeDoc";
 
 export default async function Shipping() {
   const user: User = await authUser();
 
+  const serializedUser = serializeDoc(user);
   return (
     <>
       <div className="lg:grid flex flex-col-reverse grid-cols-12 lg:items-center lg:border p-4 lg:my-7 lg:mx-20 lg:rounded-md">
@@ -29,7 +31,7 @@ export default async function Shipping() {
         </div>
       </div>
       <div className="w-full h-2 bg-neutral-100 dark:bg-neutral-800 lg:hidden"></div>
-      <ShippingForm user={user} />
+      <ShippingForm user={serializedUser} />
     </>
   );
 }

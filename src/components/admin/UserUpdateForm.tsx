@@ -1,5 +1,6 @@
 "use client";
 
+import { updateUser } from "@/app/admin/users/action";
 import {
   Select,
   SelectContent,
@@ -9,12 +10,14 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useFormStatus } from "react-dom";
+import toast from "react-hot-toast";
 import { Button } from "../ui/button";
 
 export default function UserUpdateForm({ user }) {
-  // const [state, formAction] = useFormState(updateUser,{});
+  const router = useRouter();
   const [role, setRole] = useState(user.role || "USER");
   const [file, setFile] = useState<File | null>(null);
 
@@ -27,19 +30,20 @@ export default function UserUpdateForm({ user }) {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // const formData = new FormData(e.currentTarget);
-    // formData.append("_id", String(user._id));
-    // if (file) {
-    //   formData.append("avatar", file);
-    // }
-    // formData.append("role", role);
+    const formData = new FormData(e.currentTarget);
+    formData.append("_id", String(user._id));
+    if (file) {
+      formData.append("avatar", file);
+    }
+    formData.append("role", role);
 
-    // try {
-    //   await formAction();
-    //   toast.success("کاربر با موفقیت به روزرسانی شد.");
-    // } catch (errors) {
-    //   console.log(errors);
-    // }
+    try {
+      updateUser(formData);
+      toast.success("کاربر با موفقیت به روزرسانی شد.");
+      router.push("/admin/users");
+    } catch (errors) {
+      console.log(errors);
+    }
   };
 
   return (
@@ -62,6 +66,7 @@ export default function UserUpdateForm({ user }) {
           نام و نام خانوادگی
         </label>
       </div>
+
       <div className="flex gap-5 w-full h-24">
         <div className="relative w-full">
           <input
@@ -83,7 +88,24 @@ export default function UserUpdateForm({ user }) {
           </label>
         </div>
       </div>
-
+      <div className="h-20 relative">
+        <input
+          type="text"
+          id="phone"
+          name="phone"
+          defaultValue={user?.phone}
+          className="peer block w-full appearance-none rounded-t-lg border-0 border-b-2 border-neutral-300 bg-neutral-50 px-2.5 pb-2.5 pt-5 text-sm text-neutral-900 focus:border-blue-600 focus:outline-none focus:ring-0 dark:border-neutral-600 dark:bg-neutral-900 dark:text-white dark:focus:border-blue-500"
+        />
+        {/* {state.errors.name && (
+          <div className="text-destructive text-xs">{state.errors.name}</div>
+        )} */}
+        <label
+          htmlFor="phone"
+          className="absolute right-2.5 top-4 z-10 origin-[0] -translate-y-4 scale-75 transform text-sm text-neutral-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:text-blue-600 dark:text-neutral-400 peer-focus:dark:text-blue-500"
+        >
+          شماره موبایل
+        </label>
+      </div>
       <div className="mb-5 text-right">
         <div className="w-full">
           <label

@@ -1,32 +1,44 @@
+import { updateUser } from "@/app/admin/users/action";
 import { User } from "@/utils/types";
 import { Edit2, Plus, X } from "lucide-react";
 import { FormEvent, useState } from "react";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import Modal from "../ui/Modal";
-import { updateUser } from "@/app/admin/users/action";
 
 export default function PersonalInfo({ user }: { user: User }) {
   const [formData, setFormData] = useState({
     email: user.email || "",
     name: user.name || "",
     phone: user.phone || "",
-    password: "",
+    password: user.password || "",
     job: user.job || "",
     idNumber: user.idNumber || "",
+    role: user.role,
   });
 
   const [activeModal, setActiveModal] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
+
   const closeModalHandler = () => setActiveModal(null);
 
   const handleInputChange = (field: string, value: string) =>
     setFormData((prev) => ({ ...prev, [field]: value }));
 
-  const submitHandler = (e: FormEvent<HTMLFormElement>) => {
+  const submitHandler = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    updateUser(formData);
+    setLoading(true);
+    const data = new FormData();
+    data.append("_id", user._id.toString());
+    Object.entries(formData).forEach(([key, value]) => {
+      data.append(key, value);
+    });
+
+    await updateUser(data);
+    setLoading(false);
+    closeModalHandler();
   };
-  
+
   return (
     <>
       <div className="flex border rounded-md px-5 flex-col lg:flex-row mx-4 lg:mx-0">
@@ -42,14 +54,20 @@ export default function PersonalInfo({ user }: { user: User }) {
             >
               <div className="flex flex-col gap-3">
                 <span className="text-neutral-400 text-sm">{label}</span>
-                <span className="text-neutral-700 dark:text-white">
+                <span
+                  className={`text-neutral-700 dark:text-white ${
+                    modal === "password" ? "opacity-50" : ""
+                  }`}
+                >
                   {value}
                 </span>
               </div>
               <Edit2
                 onClick={() => setActiveModal(modal)}
                 size={20}
-                className="text-neutral-500 cursor-pointer"
+                className={`text-neutral-500 ${
+                  modal === "password" ? "opacity-50" : ""
+                }`}
               />
             </div>
           ))}
@@ -100,11 +118,6 @@ export default function PersonalInfo({ user }: { user: User }) {
           title: "شماره موبایل خود را وارد کنید",
           field: "phone",
         },
-        {
-          modal: "password",
-          title: "رمز کاربری خود را وارد کنید",
-          field: "password",
-        },
         { modal: "job", title: "شغل خود را وارد کنید", field: "job" },
         {
           modal: "idNumber",
@@ -128,12 +141,14 @@ export default function PersonalInfo({ user }: { user: User }) {
               type="text"
               value={formData[field]}
               onChange={(e) => handleInputChange(field, e.target.value)}
+              disabled={loading}
             />
             <Button
               type="submit"
               variant={formData[field].trim() ? "default" : "disabled"}
+              disabled={loading}
             >
-              تایید
+              {loading ? "در حال ارسال..." : "تایید"}
             </Button>
           </form>
         </Modal>

@@ -18,33 +18,12 @@ const schema = new mongoose.Schema({
     required: false,
   },
   address: {
-    type: {
-      province: {
-        type: String,
-        required: false,
-      },
-      city: {
-        type: String,
-        required: false,
-      },
-      street: {
-        type: String,
-        required: false,
-      },
-      plate: {
-        type: String,
-        required: false,
-      },
-      unit: {
-        type: String,
-        required: false,
-      },
-      postalcode: {
-        type: String,
-        required: false,
-      },
-    },
-    required: false,
+    street: { type: String, required: false },
+    plate: { type: String, required: false },
+    unit: { type: String, required: false },
+    postalcode: { type: String, required: false },
+    province: { type: String, required: false },
+    city: { type: String, required: false },
   },
   idNumber: {
     type: String,

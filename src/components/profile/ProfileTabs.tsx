@@ -1,7 +1,16 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useCart } from "@/utils/cartItemsContext";
-import { CartItem, Product } from "@/utils/types";
-import { ArrowRight, Search, ShoppingCart, Trash2 } from "lucide-react";
+import { CartItem, Product, User } from "@/utils/types";
+import {
+  ArrowRight,
+  Mail,
+  Milestone,
+  Phone,
+  Search,
+  ShoppingCart,
+  Trash2,
+  User2,
+} from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -17,12 +26,14 @@ export default function ProfileTabs({
   title,
   searchbar,
   products,
+  user,
 }: {
   tabsArray?: string[];
   src: string;
   title: string;
   searchbar?: boolean;
   products?: Product[];
+  user?: User;
 }) {
   const router = useRouter();
   const { cart, deleteFromCart } = useCart();
@@ -171,6 +182,37 @@ export default function ProfileTabs({
               "محصول از لیست علاقه مندی های شما حذف شد."
             )
           )}
+        {title === "آدرس‌" && user.address.city && (
+          <>
+            <div className="px-4 col-span-6 space-y-3 text-sm text-neutral-500">
+              <p className="font-irsansb">{user.address.street}</p>
+              <p className="flex items-center gap-1 mt-5">
+                <Milestone size={18} />
+                {user.address.city}
+              </p>
+              <p className="flex items-center gap-1">
+                <Mail size={18} />
+                {user.address.postalcode}
+              </p>
+              <p className="flex items-center gap-1">
+                <Phone size={18} />
+                {user.phone}
+              </p>
+              <p className="flex items-center gap-1">
+                <User2 size={18} />
+                {user.name}
+              </p>
+            </div>
+            <div className="px-4 col-span-6">
+              <Image
+                alt="emptyAddress"
+                width={400}
+                height={400}
+                src="/profile/emptyAddress.webp"
+              />
+            </div>
+          </>
+        )}
       </div>
     </div>
   );
