@@ -9,8 +9,8 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { Category, Product } from "@/utils/types";
 import { serializeDoc } from "@/utils/serializeDoc";
+import { Category, Product } from "@/utils/types";
 import { Sparkles } from "lucide-react";
 import CategoryModel from "models/Category";
 import ProductModel from "models/Product";
@@ -35,7 +35,9 @@ export default async function IncredibleOffers() {
 
   // Discount Products
   const categories = await CategoryModel.find({}).lean();
-  const discountProducts = products.filter((product) => product.discount > 0);
+  const discountProducts = products.filter(
+    (product: Product) => product.discount > 0
+  );
 
   const SortedOfferProductsByRating = discountProducts
     ?.slice()
@@ -88,18 +90,6 @@ export default async function IncredibleOffers() {
           className="min-w-screen "
         >
           <CarouselContent>
-            {/* {loading && (
-            <>
-              {Array.from({ length: 7 }).map((_, index) => (
-                <CarouselItem
-                  key={index}
-                  className="pl-1 cursor-pointer basis-44 max-lg:basis-36"
-                >
-                  <OfferSkeleton />
-                </CarouselItem>
-              ))}
-            </>
-          )} */}
             {SortedOfferProductsByLowerDiscount?.map((product: Product) => (
               <CarouselItem
                 key={product._id.toString()}
@@ -221,18 +211,6 @@ export default async function IncredibleOffers() {
         className="min-w-screen mr-4"
       >
         <CarouselContent>
-          {/* {loading && (
-            <>
-              {Array.from({ length: 7 }).map((_, index) => (
-                <CarouselItem
-                  key={index}
-                  className="pl-1 cursor-pointer basis-44 max-lg:basis-36"
-                >
-                  <OfferSkeleton />
-                </CarouselItem>
-              ))}
-            </>
-          )} */}
           <CarouselItem className="text-center basis-28 rounded-sm bg-neutral-100 dark:!bg-transparent">
             <Image
               alt="incridble-offers-bag"
