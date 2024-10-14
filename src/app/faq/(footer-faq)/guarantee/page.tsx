@@ -1,3 +1,4 @@
+import FaqCategories from "@/components/faq/FaqCategories";
 import {
   Accordion,
   AccordionContent,
@@ -8,7 +9,6 @@ import MobileStickyHeader from "@/components/ui/MobileStickyHeader";
 import { commonQuestions } from "@/data/data";
 import { ChevronDown, FileQuestion, Headset, Mail } from "lucide-react";
 import Link from "next/link";
-import { FaqCategories } from "../../page";
 
 export default function Guarantee() {
   return (

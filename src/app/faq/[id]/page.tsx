@@ -1,3 +1,4 @@
+import FaqCategories from "@/components/faq/FaqCategories";
 import {
   Accordion,
   AccordionContent,
@@ -7,7 +8,6 @@ import {
 import MobileStickyHeader from "@/components/ui/MobileStickyHeader";
 import { faqCategories } from "@/data/data";
 import { ChevronDown } from "lucide-react";
-import { FaqCategories } from "../page";
 
 export default function FagCategory({
   params: { id },

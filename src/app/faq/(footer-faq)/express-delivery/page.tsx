@@ -1,3 +1,4 @@
+import FaqCategories from "@/components/faq/FaqCategories";
 import {
   Accordion,
   AccordionContent,
@@ -9,7 +10,6 @@ import { commonQuestions } from "@/data/data";
 import { ChevronDown, FileQuestion, Headset, Mail } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { FaqCategories } from "../../page";
 
 export default function ExpressDelivery() {
   return (
