@@ -1,11 +1,11 @@
 "use client";
 
-import { WarnSection } from "@/app/profile/page";
 import ProfileTabs from "@/components/profile/ProfileTabs";
 import { Product, User } from "@/utils/types";
 import { ArrowRight } from "lucide-react";
 import { useRouter } from "next/navigation";
 import PersonalInfo from "./PersonalInfo";
+import WarnSection from "./WarnSection";
 
 export default function ProfileMain({
   products,
