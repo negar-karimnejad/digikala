@@ -7,7 +7,7 @@ import { User } from "@/utils/types";
 import connectToDB from "config/mongodb";
 import ProductModel from "models/Product";
 
-export default async function page({
+export default async function ProfileIdPage({
   params: { id },
 }: {
   params: { id: string };

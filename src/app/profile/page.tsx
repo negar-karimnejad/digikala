@@ -6,11 +6,11 @@ import WarnSection from "@/components/profile/WarnSection";
 import { ReactNode } from "react";
 
 export default async function ProfilePage({
-  children,
   params: { id },
+  children,
 }: {
-  children: ReactNode;
   params: { id: string };
+  children: ReactNode;
 }) {
   return (
     <div>
