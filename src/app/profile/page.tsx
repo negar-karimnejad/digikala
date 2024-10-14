@@ -5,15 +5,13 @@ import UserOrders from "@/components/profile/UserOrders";
 import WarnSection from "@/components/profile/WarnSection";
 import { ReactNode } from "react";
 
-export default function ProfilePage({
+export default function page({
   children,
-  params,
+  params: { id },
 }: {
   children: ReactNode;
-  params: { id: string };
+  params: { id };
 }) {
-  const { id } = params;
-
   return (
     <div>
       <div className="flex flex-col gap-10 lg:hidden">
