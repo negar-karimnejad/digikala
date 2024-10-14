@@ -4,11 +4,7 @@ import { serializeDoc } from "@/utils/serializeDoc";
 import connectToDB from "config/mongodb";
 import StoryModel from "models/Story";
 
-export default function StoriesPage() {
-  return <StoriesTable />;
-}
-
-async function StoriesTable() {
+export default async function StoriesPage() {
   await connectToDB();
   const stories = await StoryModel.find({}).lean();
   const serializedStories = serializeDoc(stories);
