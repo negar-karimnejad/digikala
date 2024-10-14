@@ -5,12 +5,12 @@ import UserOrders from "@/components/profile/UserOrders";
 import WarnSection from "@/components/profile/WarnSection";
 import { ReactNode } from "react";
 
-export default function page({
+export default async function ProfilePage({
   children,
   params: { id },
 }: {
   children: ReactNode;
-  params: { id };
+  params: { id: string };
 }) {
   return (
     <div>
