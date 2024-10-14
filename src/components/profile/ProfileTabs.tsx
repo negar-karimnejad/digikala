@@ -184,8 +184,10 @@ export default function ProfileTabs({
           )}
         {title === "آدرس‌" && user.address.city && (
           <>
-            <div className="px-4 col-span-6 space-y-3 text-sm text-neutral-500">
-              <p className="font-irsansb">{user.address.street}</p>
+            <div className="px-4 sm:col-span-6 col-span-12 space-y-3 text-sm text-neutral-400">
+              <p className="font-irsansb dark:text-white text-neutral-700">
+                {user.address.street}
+              </p>
               <p className="flex items-center gap-1 mt-5">
                 <Milestone size={18} />
                 {user.address.city}
@@ -203,12 +205,13 @@ export default function ProfileTabs({
                 {user.name}
               </p>
             </div>
-            <div className="px-4 col-span-6">
+            <div className="px-4 sm:col-span-6 col-span-12">
               <Image
                 alt="emptyAddress"
                 width={400}
                 height={400}
                 src="/profile/emptyAddress.webp"
+                className="dark:hidden"
               />
             </div>
           </>
