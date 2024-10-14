@@ -1,8 +1,6 @@
 import { Info } from "lucide-react";
 import Image from "next/image";
 
-const pStyle = "text-[13px] text-neutral-700 dark:text-neutral-300 leading-7";
-
 export default function Privacy() {
   return (
     <div className="max-lg:pb-20">
@@ -149,7 +147,7 @@ export default function Privacy() {
           </defs>
         </svg>
         <h1 className="font-irsansb my-5 lg:text-xl">حریم خصوصی</h1>
-        <p className={pStyle}>
+        <p className="text-[13px] text-neutral-700 dark:text-neutral-300 leading-7">
           دیجی‌کالا با تاکید بر احترامی که برای حریم شخصی کاربران قائل است، برای
           خرید، ثبت نظر یا استفاده از برخی امکانات وب‌سایت اطلاعاتی را از
           کاربران درخواست می‌کند تا بتواند خدماتی امن و مطمئن را به کاربران
@@ -163,18 +161,18 @@ export default function Privacy() {
           و تلفن‌های رسمی و مورد تایید مشتری است و تمام مکاتبات و پاسخ‌های شرکت
           از طریق آنها صورت می‌گیرد.
         </p>
-        <p className={pStyle}>
+        <p className="text-[13px] text-neutral-700 dark:text-neutral-300 leading-7">
           بنابراین درج آدرس، ایمیل و شماره تماس‌های همراه و ثابت توسط مشتری، به
           منزله مورد تایید بودن صحت آنها است و در صورتی که موارد فوق به صورت
           صحیح یا کامل درج نشده باشد، دیجی‌کالا جهت اطمینان از صحت و قطعیت ثبت
           سفارش می‌تواند از مشتری، اطلاعات تکمیلی و بیشتری درخواست کند.
         </p>
-        <p className={pStyle}>
+        <p className="text-[13px] text-neutral-700 dark:text-neutral-300 leading-7">
           مشتریان می‌توانند نام، آدرس و تلفن شخص دیگری را برای تحویل گرفتن سفارش
           وارد کنند و دیجی‌کالا تنها برای ارسال همان سفارش، از این اطلاعات
           استفاده خواهد کرد.
         </p>
-        <p className={pStyle}>
+        <p className="text-[13px] text-neutral-700 dark:text-neutral-300 leading-7">
           همچنین دیجی کالا با نصب و یا استفاده از اپلیکشن با اخذ اجازه از کاربر
           اطلاعات زیر را به صورت ناشناس از کاربر اخذ می کند. این اطلاعات در حد
           ضرورت و متناسب با مقاصدی از جمله مطالعه علت گزارش خطا و بهبود اشکالات
@@ -183,35 +181,35 @@ export default function Privacy() {
           کاربران جمع آوری می شود و به نحوی مورد استفاده قرار می‌گیرند که به طور
           مستقیم به یک شخص حقیقی مشخص و معین مرتبط نباشند.
         </p>
-        <p className={pStyle}>
+        <p className="text-[13px] text-neutral-700 dark:text-neutral-300 leading-7">
           - نوع دستگاه، زبان و نوع سیستم عامل دستگاه شما، شناسه اندروید و شناسه
           تبلیغاتی اندروید ویژه دستگاه شما، جست‌وجوهای انجام شده در وب سایت و
           اپلیکشن دیجی کالا و نتایج انتخاب‌شده، مدت و بازه های استفاده شما از
           دیجی کالا، برنامه های نصب شده، اطلاعات فنی و گزارش‌های سرور شامل نوع
           شبکه و نوع و نسخه مرورگر
         </p>
-        <p className={pStyle}>
+        <p className="text-[13px] text-neutral-700 dark:text-neutral-300 leading-7">
           این اطلاعات تنها توسط دیجی کالا استفاده شده و در اختیار شریک تجاری
           دیگری قرار نمی گیرد. همچنین در صورت درخواست کاربر اطلاعات قبلی پاک شده
           و پس از آن این اطلاعات جمع آوری نمی گردد.
         </p>
-        <p className={pStyle}>
+        <p className="text-[13px] text-neutral-700 dark:text-neutral-300 leading-7">
           در صورت بروز وقفه (Crashes) نیز اطلاعات زیر جهت مطالعه علت بروز وققه و
           رفع خطا جمع آوری می گردد:
         </p>
-        <p className={pStyle}>
+        <p className="text-[13px] text-neutral-700 dark:text-neutral-300 leading-7">
           - وضعیت روت بودن یا نبودن دستگاه، میزان کل رم و میزان فضای پر آن هنگام
           وقفه، روز و ساعت رخدادها، خاموش یا روشن بودن شبکه بی‌سیم، خاموش یا
           روشن بودن شبکه دیتا، خاموش یا روشن بودن وضعیت رومینگ.
         </p>
-        <p className={pStyle}>
+        <p className="text-[13px] text-neutral-700 dark:text-neutral-300 leading-7">
           دیجی کالا اطلاعات را توسط کوکی (cookie) جمع آوری می کند. کوکی فایلی
           است که به درخواست یک سایت، توسط مرورگر ایجاد می‌شود و به سایت امکان
           ذخیره بازدید‌های شما و مناسب‌سازی آنها را فراهم می‌نماید. بسیاری از
           مرورگرها امکان غیرفعال کردن کوکی را فراهم کرده‌اند، به این منظور
           می‌توانید راهنمای مرورگرها را مطالعه کنید.
         </p>
-        <p className={pStyle}>
+        <p className="text-[13px] text-neutral-700 dark:text-neutral-300 leading-7">
           دیجی کالا برای اطلاع‌رسانی رویدادها و اخبار، خدمات و سرویس‌های ویژه یا
           پروموشن‌ها، برای اعضای وب‌سایت ایمیل یا پیامک ارسال نماید. در صورتی که
           کاربران تمایل به دریافت اینگونه ایمیل‌ها و پیامک‌ها نداشته باشند،
@@ -239,7 +237,7 @@ export default function Privacy() {
           تخلف و سوء استفاده از نام دیجی‌کالا است و در صورت دریافت چنین پیامکی،
           لطفاً جهت پیگیری قانونی آن را بهInfo@digikala.comاطلاع دهید.
         </small>
-        <p className={pStyle}>
+        <p className="text-[13px] text-neutral-700 dark:text-neutral-300 leading-7">
           دیجی‌کالا ممکن است نقد و نظرهای ارسالی کاربران را در راستای رعایت
           قوانین وب سایت ویرایش کند. همچنین اگر نظر یا پیام ارسال شده توسط
           کاربر، مشمول مصادیق محتوای مجرمانه باشد، دیجی‌کالا می‌تواند از اطلاعات
@@ -253,7 +251,7 @@ export default function Privacy() {
           کاربران باید شماره موبایل خود را در پروفایل تغییر داده و شماره جدیدی
           ثبت نمایند.
         </p>
-        <p className={pStyle}>
+        <p className="text-[13px] text-neutral-700 dark:text-neutral-300 leading-7">
           مسئولیت هرگونه خسارت احتمالی که ناشی از عدم رعایت موارد فوق‌الذکر توسط
           کاربر باشد، با خود کاربر بوده وکاربر حق هر گونه ادعا علیه دیجی‌کالا را
           از خود سلب می‌کند. دیجی‌کالا هویت شخصی کاربران را محرمانه می‌داند و
@@ -264,7 +262,7 @@ export default function Privacy() {
           با اعلام رضایت خود در استفاده از خدمات وب سایت ضمنا حق هرگونه اعتراض
           را از خود سلب نموده اند.
         </p>
-        <p className={pStyle}>
+        <p className="text-[13px] text-neutral-700 dark:text-neutral-300 leading-7">
           همچنین بدین وسیله به اطلاع کاربران رسانده می‌شود که دیجی‌کالا همانند
           سایر وب‌سایت‌ها از جمع‌آوری IP و کوکی‌ها استفاده می‌کند، کوکی فایلی
           است که به درخواست یک سایت، توسط مرورگر ایجاد می‌شود و به سایت امکان
@@ -277,25 +275,29 @@ export default function Privacy() {
           و دیجی‌کالا حق اعتراض و پیگیری را از طریق قانونی بنابر صلاحدید خود
           محفوظ می‌دارد.
         </p>
-        <p className={pStyle}>
+        <p className="text-[13px] text-neutral-700 dark:text-neutral-300 leading-7">
           در صورتی که تمایلی به دریافت ایمیل‌ها و خبرنامه‌های دیجی‌کالا ندارید،
           می‌توانید بر روی کلمه لغو عضویت در انتهای صفحه ایمیل کلیک کنید.
         </p>
-        <p className={pStyle}>
+        <p className="text-[13px] text-neutral-700 dark:text-neutral-300 leading-7">
           دیجی‌کالا برای حفاظت و نگهداری اطلاعات و حریم شخصی کاربران همه توان
           خود را به کار می‌گیرد و امیدوار است که تجربه خریدی امن، راحت و خوشایند
           را برای همه کاربران فراهم آورد.
         </p>
         <br />
-        <p className={pStyle}>
+        <p className="text-[13px] text-neutral-700 dark:text-neutral-300 leading-7">
           در صورت وجود هرگونه سوال، لطفا با اطلاعات تماس زیر ارتباط برقرار کنید.
         </p>
-        <p className={`${pStyle} font-irsansb dark:text-white`}>
+        <p className="text-[13px] text-neutral-700 leading-7 font-irsansb dark:text-white">
           تلفن تماس و فکس:
         </p>
-        <p className={pStyle}>۰۲۱ – ۶۱۹۳۰۰۰۰(پاسخگویی ۲۴ ساعته، ٧ روز هفته)</p>
-        <p className={`${pStyle} font-irsansb dark:text-white`}>دفتر مرکزی:</p>
-        <p className={pStyle}>
+        <p className="text-[13px] text-neutral-700 dark:text-neutral-300 leading-7">
+          ۰۲۱ – ۶۱۹۳۰۰۰۰(پاسخگویی ۲۴ ساعته، ٧ روز هفته)
+        </p>
+        <p className="text-[13px] text-neutral-700 leading-7 font-irsansb dark:text-white">
+          دفتر مرکزی:
+        </p>
+        <p className="text-[13px] text-neutral-700 dark:text-neutral-300 leading-7">
           استان تهران - شهر تهران - خیابان گاندی جنوبی - نبش خیابان ۲۱ - پلاک ۲۸
         </p>
       </div>
