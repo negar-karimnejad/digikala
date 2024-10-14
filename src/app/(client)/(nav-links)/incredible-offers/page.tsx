@@ -42,8 +42,8 @@ export default async function IncredibleOffers() {
     .sort((a, b) => a.discount - b.discount);
 
   const serializedAllProducts = serializeDoc(products);
-  const serializedOfferProducts = serializeDoc(SortedOfferProductsByRating);
   const serializedCategories = serializeDoc(categories);
+  const serializedOfferProducts = serializeDoc(SortedOfferProductsByRating);
 
   return (
     <div className="flex flex-col gap-10">
@@ -64,10 +64,11 @@ export default async function IncredibleOffers() {
             width={1500}
             height={1500}
             className="w-full lg:h-80 h-64 object-cover"
-            title="مبدل"
+            title="incredible-offers-banner"
           />
         </Link>
       </div>
+
       {/* products slider */}
       <div className="relative lg:px-5 overflow-hidden bg-rose-600 lg:rounded-2xl py-4 lg:mx-3">
         <div className="absolute brightness-200 right-0 top-0 w-full bg-[url('/nav-links-svg.svg')] h-36 opacity-80"></div>
