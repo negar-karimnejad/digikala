@@ -1,15 +1,13 @@
 import ProfileHeader from "@/components/profile/ProfileHeader";
+import ProfileScreenSize from "@/components/profile/ProfileScreenSize";
 import UserInfo from "@/components/profile/UserInfo";
 import UserList from "@/components/profile/UserList";
 import UserOrders from "@/components/profile/UserOrders";
 import WarnSection from "@/components/profile/WarnSection";
-import { ReactNode } from "react";
 
 export default function ProfilePage({
   params: { id },
-  children,
 }: {
-  children: ReactNode;
   params: { id: string };
 }) {
   return (
@@ -26,22 +24,7 @@ export default function ProfilePage({
       </div>
 
       {/* Desktop Size */}
-      <div className="grid grid-cols-12 gap-5 lg:px-20 pb-20 lg:pt-10">
-        <div className="col-span-4 border rounded-md py-5 max-lg:hidden">
-          <UserInfo />
-          <UserList id={id} />
-        </div>
-        <div className="col-span-8 max-lg:col-span-12 gap-5">
-          {id ? (
-            <>{children}</>
-          ) : (
-            <div className="flex flex-col gap-5 max-lg:hidden">
-              <WarnSection />
-              <UserOrders />
-            </div>
-          )}
-        </div>
-      </div>
+      <ProfileScreenSize id={id} />
     </div>
   );
 }
