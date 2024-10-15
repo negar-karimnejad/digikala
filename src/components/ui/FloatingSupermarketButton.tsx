@@ -69,7 +69,7 @@ export default function FloatingSupermarketButton() {
               </div>
             </Link>
             <Link
-              href="/digi-jet"
+              href="/fresh"
               className="py-4 bg-orange-100 flex-1 rounded-xl"
             >
               <p className="text-neutral-800 px-4 text-[15px] flex items-center font-irsansb gap-2 mb-3">
