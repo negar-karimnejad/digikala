@@ -13,7 +13,6 @@ import { Bell, Box, Check, UserRound } from "lucide-react";
 import ProductModel from "models/Product";
 import UserModel from "models/User";
 import Image from "next/image";
-import { signOut } from "./users/action";
 
 export default async function AdminPage() {
   connectToDB();
@@ -38,13 +37,23 @@ export default async function AdminPage() {
               className="p-2.5 dark:bg-neutral-700 bg-neutral-100 w-10 h-10 rounded-full flex items-center justify-center"
             />
             <div className="border dark:border-neutral-600 rounded-lg px-3 py-1.5 flex items-center gap-2 dark:text-white font-irsansb text-neutral-600 border-neutral-100">
-              <Image
-                width={100}
-                height={100}
-                src={user.avatar ? user.avatar : "/users/avatar1.png"}
-                alt="admin"
-                className="grayscale rounded-full w-8 h-8 border"
-              />
+              {user.avatar ? (
+                <Image
+                  width={100}
+                  height={100}
+                  src={user.avatar}
+                  alt="admin"
+                  className="rounded-full w-8 h-8 border"
+                />
+              ) : (
+                <Image
+                  width={100}
+                  height={100}
+                  src="/users/avatar1.png"
+                  alt="admin"
+                  className="grayscale rounded-full w-8 h-8 border"
+                />
+              )}
               {user.name}
             </div>
           </div>
