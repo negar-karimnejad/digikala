@@ -25,7 +25,7 @@ export default function Articles({
       <div className="grid grid-cols-4 max-lg:grid-cols-1 gap-3">
         {articles.slice(0, 4).map((article) => (
           <Link key={article._id.toString()} href={`/articles/${article._id}`}>
-            <div className="rounded-xl border overflow-hidden">
+            <div className="rounded-xl border overflow-hidden lg:h-64 xl:h-72">
               <Image
                 alt={article.title}
                 width={1000}

@@ -89,7 +89,7 @@ export default function FloatingSupportButton() {
               </Accordion>
               <div className="w-ull my-5 flex items-center justify-center">
                 <Link
-                  href="/contact-us"
+                  href="/faq/contact-us"
                   className="flex gap-2 rounded-full px-4 py-3 bg-rose-500 text-white"
                 >
                   تماس با ما <ChevronLeft />
