@@ -10,6 +10,7 @@ import {
 import bcrypt, { compare } from "bcryptjs";
 import connectToDB from "config/mongodb";
 import fs from "fs/promises";
+import { verify } from "jsonwebtoken";
 import UserModel from "models/User";
 import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
@@ -131,6 +132,13 @@ export async function signin(
       path: "/",
     });
 
+    cookies().set("refreshToken", refreshToken, {
+      httpOnly: true,
+      secure: true,
+      path: "/", // Available throughout your site
+      maxAge: 60 * 60 * 24 * 7, // Example: 7 days for refresh token
+    });
+
     await UserModel.findOneAndUpdate(
       { email },
       {
@@ -248,4 +256,37 @@ export async function deleteUser(id: string) {
 
   revalidatePath("/");
   revalidatePath("/users");
+}
+
+export async function refreshToken(): Promise<string | null> {
+  try {
+    await connectToDB();
+
+    const refreshToken = cookies().get("refreshToken").value;
+
+    if (!refreshToken) {
+      return null;
+    }
+
+    const user = await UserModel.findOne({ refreshToken });
+
+    if (!user) {
+      return null;
+    }
+
+    verify(refreshToken, process.env.RefreshTokenSecretKey);
+    const newAccessToken = generateAccessToken({ email: user.email });
+
+    // Update the access token in the cookie
+    cookies().set("token", newAccessToken, {
+      httpOnly: true,
+      secure: true,
+      path: "/",
+    });
+
+    return newAccessToken;
+  } catch (error) {
+    console.error("Error refreshing token:", error);
+    return null;
+  }
 }

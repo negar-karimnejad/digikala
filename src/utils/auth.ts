@@ -1,5 +1,6 @@
 "use server";
 
+import { refreshToken } from "@/app/admin/users/action";
 import { hash } from "bcryptjs";
 import { sign, verify } from "jsonwebtoken";
 import UserModel from "models/User";
@@ -42,6 +43,18 @@ const authUser = async () => {
     const tokenPayload = verifyAccessToken(token.value);
     if (typeof tokenPayload === "object" && "email" in tokenPayload) {
       user = await UserModel.findOne({ email: tokenPayload.email });
+    }
+  }
+
+  if (!user) {
+    const newAccessToken = await refreshToken();
+
+    if (newAccessToken) {
+      const newTokenPayload = verifyAccessToken(newAccessToken);
+
+      if (typeof newTokenPayload === "object" && "email" in newTokenPayload) {
+        user = await UserModel.findOne({ email: newTokenPayload.email });
+      }
     }
   }
   return user;
