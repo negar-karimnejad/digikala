@@ -37,6 +37,7 @@ import { Edit2, Eye, MoreVertical } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import avatar from "./../../../public/users/avatar1.png";
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 
 export default function AdminTable({
   products,
@@ -212,13 +213,26 @@ export default function AdminTable({
               <TableRow key={user._id.toString()}>
                 <TableCell>
                   <div className="w-20">
-                    <Image
-                      alt={user.name ? user.name : "user image"}
-                      height={100}
-                      width={100}
-                      src={user.avatar ? user.avatar : avatar}
-                      className="rounded-full w-16 h-16 object-cover"
-                    />
+                    {user.avatar ? (
+                      <Avatar className="h-16 w-16">
+                        <AvatarImage
+                          src={user?.avatar}
+                          className="object-cover"
+                        />
+                        <AvatarFallback className="text-red-500 p-0.5">
+                          {user.name.split(" ")[0].slice(0, 1)}{" "}
+                          {user.name.split(" ")[1].slice(0, 1)}
+                        </AvatarFallback>
+                      </Avatar>
+                    ) : (
+                      <Image
+                        width={100}
+                        height={100}
+                        src="/users/avatar1.png"
+                        alt="admin"
+                        className="grayscale rounded-full w-16 h-16 border"
+                      />
+                    )}
                   </div>
                 </TableCell>
                 <TableCell>
