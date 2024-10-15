@@ -1,11 +1,9 @@
-import { addOrder } from "@/app/admin/orders/action";
 import CartContainer from "@/components/cart/CartContainer";
 import FreeShipping from "@/components/cart/FreeShipping";
 import RecentViews from "@/components/cart/RecentViews";
 import ShoppincartItems from "@/components/cart/ShoppincartItems";
 import { authUser } from "@/utils/auth";
 import { serializeDoc } from "@/utils/serializeDoc";
-import { CartItem } from "@/utils/types";
 import connectToDB from "config/mongodb";
 import ProductModel from "models/Product";
 

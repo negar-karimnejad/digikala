@@ -95,7 +95,7 @@ export default function ProductInfo({
           {product.features?.slice(0, 3).map((item: Feature) => (
             <div
               key={item.value}
-              className="w-fit max-w-42 bg-neutral-100 dark:bg-neutral-800 flex flex-col gap-1 p-1 rounded-lg"
+              className="lg:w-fit lg:max-w-42 max-md:flex-1 bg-neutral-100 dark:bg-neutral-800 flex flex-col gap-1 p-1 rounded-lg"
             >
               <span className="overflow-hidden text-ellipsis whitespace-nowrap text-xs text-neutral-500">
                 {item.key}

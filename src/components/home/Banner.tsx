@@ -74,6 +74,7 @@ export function MiddleBanner() {
             className="rounded-xl object-cover w-full"
             src="/banner/hadron.gif"
             alt="hadron"
+            unoptimized
           />
         </Link>
       </div>
