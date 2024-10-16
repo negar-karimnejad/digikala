@@ -23,7 +23,7 @@ export default async function Shipping() {
             className="text-neutral-700 dark:text-neutral-100"
           />
           <span className="text-neutral-900 dark:text-white font-irsansb">
-            آدرس و زمان ارسال
+            آدرس
           </span>
         </Link>
         <div className="col-span-6 max-lg:mx-auto">

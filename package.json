@@ -24,6 +24,7 @@
     "@radix-ui/react-tooltip": "^1.1.2",
     "@tinymce/tinymce-react": "^5.1.1",
     "@vercel/postgres": "^0.9.0",
+    "axios": "^1.7.7",
     "bcryptjs": "^2.4.3",
     "class-variance-authority": "^0.7.0",
     "classnames": "^2.5.1",

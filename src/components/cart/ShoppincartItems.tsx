@@ -250,7 +250,9 @@ export default function ShoppincartItems({ user }: { user: User }) {
                   </svg>
                 </span>
               </p>
-              <Button className="w-full">تایید و تکمیل سفارش</Button>
+              <Button onClick={confirmOrder} className="w-full">
+                تایید و تکمیل سفارش
+              </Button>
             </div>
             <p className="text-[11px] text-neutral-400 mt-3">
               هزینه این سفارش هنوز پرداخت نشده‌ و در صورت اتمام موجودی، کالاها
