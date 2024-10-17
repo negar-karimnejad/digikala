@@ -25,8 +25,8 @@ export default function Terms() {
           fill="none"
         >
           <path
-            fill-rule="evenodd"
-            clip-rule="evenodd"
+            fillRule="evenodd"
+            clipRule="evenodd"
             d="M5.33325 7.99998C5.33325 6.52722 6.52716 5.33331 7.99992 5.33331H29.3333C30.806 5.33331 31.9999 6.52722 31.9999 7.99998V37.3333C31.9999 38.8061 30.806 40 29.3333 40H7.99992C6.52716 40 5.33325 38.8061 5.33325 37.3333V7.99998Z"
             fill="url(#paint0_linear)"
           />
@@ -40,8 +40,8 @@ export default function Terms() {
             height="35"
           >
             <path
-              fill-rule="evenodd"
-              clip-rule="evenodd"
+              fillRule="evenodd"
+              clipRule="evenodd"
               d="M5.33325 5.33331H31.9999V40H5.33325V5.33331Z"
               fill="white"
             />
@@ -49,16 +49,16 @@ export default function Terms() {
           <g mask="url(#mask0)">
             <g filter="url(#filter0_d)">
               <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
+                fillRule="evenodd"
+                clipRule="evenodd"
                 d="M9.33325 12C9.33325 10.5272 10.5272 9.33331 11.9999 9.33331H33.3333C34.806 9.33331 35.9999 10.5272 35.9999 12V41.3333C35.9999 42.8061 34.806 44 33.3333 44H11.9999C10.5272 44 9.33325 42.8061 9.33325 41.3333V12Z"
                 fill="url(#paint1_linear)"
               />
             </g>
           </g>
           <path
-            fill-rule="evenodd"
-            clip-rule="evenodd"
+            fillRule="evenodd"
+            clipRule="evenodd"
             d="M9.33325 12C9.33325 10.5272 10.5272 9.33331 11.9999 9.33331H33.3333C34.806 9.33331 35.9999 10.5272 35.9999 12V41.3333C35.9999 42.8061 34.806 44 33.3333 44H11.9999C10.5272 44 9.33325 42.8061 9.33325 41.3333V12Z"
             fill="#F47383"
           />
@@ -94,15 +94,15 @@ export default function Terms() {
           <g filter="url(#filter1_d)">
             <g filter="url(#filter2_d)">
               <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
+                fillRule="evenodd"
+                clipRule="evenodd"
                 d="M43.8283 28.4484L44.084 25.9991L41.8338 24.9979C41.7603 24.9652 41.7015 24.9064 41.6689 24.8331L40.6679 22.5829L38.2182 22.8389C38.1387 22.8468 38.059 22.8253 37.9943 22.7785L36.0002 21.3333L34.006 22.7785C33.9412 22.8253 33.8615 22.8468 33.7821 22.8389L31.3323 22.5829L30.3313 24.8331C30.2988 24.9064 30.24 24.9652 30.1665 24.9975L27.9163 25.9991L28.172 28.4484C28.1803 28.5279 28.1589 28.6077 28.112 28.6725L26.6667 30.6667L28.112 32.6609C28.1589 32.7257 28.1803 32.8056 28.172 32.8851L27.9163 35.3341L30.1665 36.3354C30.2399 36.3681 30.2987 36.4269 30.3313 36.5004L31.3323 38.7506L33.7821 38.4946C33.793 38.4946 33.8044 38.4928 33.8144 38.4928C33.8829 38.4928 33.9494 38.5145 34.0047 38.5549L36.0002 40L37.9943 38.5549C38.059 38.5079 38.1387 38.4863 38.2182 38.4946L40.6679 38.7506L41.6689 36.5004C41.7015 36.4269 41.7603 36.3682 41.8338 36.3358L44.084 35.3341L43.8283 32.8851C43.8199 32.8056 43.8413 32.7257 43.8883 32.6609L45.3334 30.6667L43.8883 28.6725C43.8413 28.6077 43.8199 28.5279 43.8283 28.4484Z"
                 fill="url(#paint2_linear)"
               />
             </g>
             <path
-              fill-rule="evenodd"
-              clip-rule="evenodd"
+              fillRule="evenodd"
+              clipRule="evenodd"
               d="M41.4043 28.1038L35.1377 34.1038C34.9307 34.302 34.6526 34.4085 34.3662 34.3995C34.0798 34.3904 33.809 34.2664 33.615 34.0555L30.5483 30.7222L32.1183 29.2778L34.4483 31.8104L39.929 26.5629L41.4043 28.1038Z"
               fill="white"
             />
@@ -115,9 +115,9 @@ export default function Terms() {
               width="34.6667"
               height="42.6667"
               filterUnits="userSpaceOnUse"
-              color-interpolation-filters="sRGB"
+              colorInterpolationFilters="sRGB"
             >
-              <feFlood flood-opacity="0" result="BackgroundImageFix" />
+              <feFlood floodOpacity="0" result="BackgroundImageFix" />
               <feColorMatrix
                 in="SourceAlpha"
                 type="matrix"
@@ -149,9 +149,9 @@ export default function Terms() {
               width="26.6667"
               height="26.6667"
               filterUnits="userSpaceOnUse"
-              color-interpolation-filters="sRGB"
+              colorInterpolationFilters="sRGB"
             >
-              <feFlood flood-opacity="0" result="BackgroundImageFix" />
+              <feFlood floodOpacity="0" result="BackgroundImageFix" />
               <feColorMatrix
                 in="SourceAlpha"
                 type="matrix"
@@ -183,9 +183,9 @@ export default function Terms() {
               width="24.6667"
               height="24.6667"
               filterUnits="userSpaceOnUse"
-              color-interpolation-filters="sRGB"
+              colorInterpolationFilters="sRGB"
             >
-              <feFlood flood-opacity="0" result="BackgroundImageFix" />
+              <feFlood floodOpacity="0" result="BackgroundImageFix" />
               <feColorMatrix
                 in="SourceAlpha"
                 type="matrix"
@@ -218,9 +218,9 @@ export default function Terms() {
               y2="13.7745"
               gradientUnits="userSpaceOnUse"
             >
-              <stop stop-color="#D22C4E" />
-              <stop offset="0.41677" stop-color="#EE384E" />
-              <stop offset="1" stop-color="#EF5662" />
+              <stop stopColor="#D22C4E" />
+              <stop offset="0.41677" stopColor="#EE384E" />
+              <stop offset="1" stopColor="#EF5662" />
             </linearGradient>
             <linearGradient
               id="paint1_linear"
@@ -230,9 +230,9 @@ export default function Terms() {
               y2="17.7745"
               gradientUnits="userSpaceOnUse"
             >
-              <stop stop-color="#D22C4E" />
-              <stop offset="0.41677" stop-color="#EE384E" />
-              <stop offset="1" stop-color="#EF5662" />
+              <stop stopColor="#D22C4E" />
+              <stop offset="0.41677" stopColor="#EE384E" />
+              <stop offset="1" stopColor="#EF5662" />
             </linearGradient>
             <linearGradient
               id="paint2_linear"
@@ -242,9 +242,9 @@ export default function Terms() {
               y2="30.6666"
               gradientUnits="userSpaceOnUse"
             >
-              <stop stop-color="#D22C4E" />
-              <stop offset="0.41677" stop-color="#EE384E" />
-              <stop offset="1" stop-color="#EF5662" />
+              <stop stopColor="#D22C4E" />
+              <stop offset="0.41677" stopColor="#EE384E" />
+              <stop offset="1" stopColor="#EF5662" />
             </linearGradient>
           </defs>
         </svg>

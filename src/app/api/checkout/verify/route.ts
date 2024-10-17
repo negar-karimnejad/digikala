@@ -1,18 +1,15 @@
-import Checkout from "@/../../models/Checkout";
-import { NextRequest, NextResponse } from "next/server";
-import { verifyPayment } from "../../../../utils/zarinpal";
-import { useCart } from "@/utils/cartItemsContext";
+import { verifyPayment } from "@/utils/zarinpal";
+import CheckoutModel from "models/Checkout";
+import { NextResponse } from "next/server";
 
-export const GET = async (req: NextRequest) => {
-  const { clearCart } = useCart();
-
+export const GET = async (req) => {
   try {
     const { searchParams } = req.nextUrl;
     const { Authority: authority, Status } = Object.fromEntries(
       searchParams.entries()
     );
 
-    const checkout = await Checkout.findOne({ authority });
+    const checkout = await CheckoutModel.findOne({ authority });
     if (!checkout) {
       return NextResponse.json(
         { message: "Checkout not found !!" },
@@ -26,21 +23,23 @@ export const GET = async (req: NextRequest) => {
     });
 
     if (![100, 101].includes(payment.data.code)) {
-      return NextResponse.json(
-        { message: "Payment not verified !!" },
-        { status: 400 }
-      );
+      const errorUrl = new URL("/checkout/payment", req.nextUrl.origin);
+      errorUrl.searchParams.set("error", "Payment not verified");
+
+      return NextResponse.redirect(errorUrl);
     }
 
-    await Checkout.deleteOne({
+    await CheckoutModel.deleteOne({
       _id: checkout._id,
     });
-    clearCart();
 
-    return NextResponse.json(
-      { message: "Payment verified and order created successfully :))" },
-      { status: 201 }
+    const successUrl = new URL("/checkout/payment", req.nextUrl.origin);
+    successUrl.searchParams.set(
+      "success",
+      "Payment verified and order created successfully!"
     );
+
+    return NextResponse.redirect(successUrl);
   } catch (err) {
     return NextResponse.json(
       {

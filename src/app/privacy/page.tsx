@@ -32,15 +32,15 @@ export default function Privacy() {
           <g filter="url(#filter0_d)">
             <g filter="url(#filter1_d)">
               <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
+                fillRule="evenodd"
+                clipRule="evenodd"
                 d="M32.9465 34.7981L33.2388 31.999L30.6671 30.8547C30.5831 30.8174 30.5159 30.7502 30.4786 30.6664L29.3346 28.0947L26.535 28.3873C26.4441 28.3963 26.353 28.3717 26.2791 28.3183L24.0001 26.6666L21.721 28.3183C21.6469 28.3717 21.5559 28.3963 21.4651 28.3873L18.6653 28.0947L17.5214 30.6664C17.4842 30.7502 17.4171 30.8174 17.3331 30.8543L14.7614 31.999L15.0536 34.7981C15.063 34.889 15.0386 34.9803 14.985 35.0543L13.3333 37.3334L14.985 39.6125C15.0386 39.6865 15.063 39.7778 15.0536 39.8687L14.7614 42.6676L17.3331 43.8119C17.4169 43.8492 17.4841 43.9164 17.5214 44.0004L18.6653 46.5721L21.4651 46.2795C21.4776 46.2795 21.4907 46.2775 21.5021 46.2775C21.5803 46.2775 21.6564 46.3023 21.7195 46.3485L24.0001 48L26.2791 46.3485C26.353 46.2947 26.4441 46.2701 26.535 46.2795L29.3346 46.5721L30.4786 44.0004C30.5159 43.9164 30.5831 43.8494 30.6671 43.8123L33.2388 42.6676L32.9465 39.8687C32.9369 39.7778 32.9614 39.6865 33.0151 39.6125L34.6666 37.3334L33.0151 35.0543C32.9614 34.9803 32.9369 34.889 32.9465 34.7981Z"
                 fill="url(#paint0_linear)"
               />
             </g>
             <path
-              fill-rule="evenodd"
-              clip-rule="evenodd"
+              fillRule="evenodd"
+              clipRule="evenodd"
               d="M18.6666 36.2667L22.4 40L29.3333 33.0667"
               fill="url(#paint1_linear)"
             />
@@ -59,9 +59,9 @@ export default function Privacy() {
               width="29.3333"
               height="29.3333"
               filterUnits="userSpaceOnUse"
-              color-interpolation-filters="sRGB"
+              colorInterpolationFilters="sRGB"
             >
-              <feFlood flood-opacity="0" result="BackgroundImageFix" />
+              <feFlood floodOpacity="0" result="BackgroundImageFix" />
               <feColorMatrix
                 in="SourceAlpha"
                 type="matrix"
@@ -93,9 +93,9 @@ export default function Privacy() {
               width="27.3333"
               height="27.3333"
               filterUnits="userSpaceOnUse"
-              color-interpolation-filters="sRGB"
+              colorInterpolationFilters="sRGB"
             >
-              <feFlood flood-opacity="0" result="BackgroundImageFix" />
+              <feFlood floodOpacity="0" result="BackgroundImageFix" />
               <feColorMatrix
                 in="SourceAlpha"
                 type="matrix"
@@ -128,9 +128,9 @@ export default function Privacy() {
               y2="37.3333"
               gradientUnits="userSpaceOnUse"
             >
-              <stop stop-color="#D22C4E" />
-              <stop offset="0.41677" stop-color="#EE384E" />
-              <stop offset="1" stop-color="#EF5662" />
+              <stop stopColor="#D22C4E" />
+              <stop offset="0.41677" stopColor="#EE384E" />
+              <stop offset="1" stopColor="#EF5662" />
             </linearGradient>
             <linearGradient
               id="paint1_linear"
@@ -140,9 +140,9 @@ export default function Privacy() {
               y2="39.3481"
               gradientUnits="userSpaceOnUse"
             >
-              <stop stop-color="#D22C4E" />
-              <stop offset="0.41677" stop-color="#EE384E" />
-              <stop offset="1" stop-color="#EF5662" />
+              <stop stopColor="#D22C4E" />
+              <stop offset="0.41677" stopColor="#EE384E" />
+              <stop offset="1" stopColor="#EF5662" />
             </linearGradient>
           </defs>
         </svg>

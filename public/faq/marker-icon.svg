@@ -7,7 +7,7 @@
             <feColorMatrix in="shadowBlurOuter1" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.3 0"/>
         </filter>
     </defs>
-    <g fill="none" fill-rule="evenodd">
+    <g fill="none" fillRule="evenodd">
         <use fill="#000" filter="url(#a)" xlink:href="#b"/>
         <path fill="#030A16" d="M12 0c6.627 0 12 4.738 12 11.2 0 8.31-7.58 12.67-11 14.691v10.11a.996.996 0 0 1-.883.992L12 37a1 1 0 0 1-1-.999l.001-10.11C7.581 23.872 0 19.512 0 11.2 0 4.738 5.373 0 12 0z"/>
         <circle cx="12" cy="12" r="5" fill="#19BFD3"/>

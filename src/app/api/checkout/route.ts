@@ -1,51 +1,31 @@
-import connectToDB from "config/mongodb";
+import { NextResponse } from "next/server";
 import CheckoutModel from "models/Checkout";
-import { NextRequest, NextResponse } from "next/server";
-import { createPayment } from "../../../utils/zarinpal";
+import connectToDB from "config/mongodb";
+import { createPayment } from "@/utils/zarinpal";
 
-export async function POST(req: NextRequest) {
-  await connectToDB();
-
+export const POST = async (req) => {
+  connectToDB();
   const body = await req.json();
   const { totalPrice, user } = body;
-  console.log("🏆body ->", body);
 
-  try {
-    const payment = await createPayment({
-      amountInRial: totalPrice,
-      description: "99812 پرداخت با شناسه",
-      mobile: user.phone,
-    });
+  const payment = await createPayment({
+    amountInRial: totalPrice,
+    description: "پرداخت با شناسه 99812",
+    mobile: user.phone,
+  });
 
-    console.log("🎈🎈payment=> ", payment);
+  const checkout = await CheckoutModel.create({
+    totalPrice,
+    authority: payment.authority,
+    user: user._id,
+  });
 
-    // Check if payment is valid and has the required properties
-    if (!payment || !payment.authority) {
-      return NextResponse.json(
-        { message: "Payment creation failed or returned invalid data." },
-        { status: 400 } // Bad Request
-      );
-    }
-
-    const checkout = await CheckoutModel.create({
-      user,
-      totalPrice,
-      authority: payment.authority,
-    });
-
-    return NextResponse.json(
-      {
-        message: "Checkout Created Successfully :))",
-        checkout,
-        payment: payment.paymentUrl,
-      },
-      { status: 201 }
-    );
-  } catch (error) {
-    console.log("❌📌error->", error);
-    return NextResponse.json(
-      { message: "Checkout creation failed.", error: error.message },
-      { status: 500 }
-    );
-  }
-}
+  return NextResponse.json(
+    {
+      message: "Checkout created successfully :))",
+      checkout,
+      paymentUrl: payment.paymentUrl,
+    },
+    { status: 201 }
+  );
+};

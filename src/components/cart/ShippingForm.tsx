@@ -7,6 +7,7 @@ import { cities, province } from "@/data/data";
 import { useCart } from "@/utils/cartItemsContext";
 import { User } from "@/utils/types";
 import useScroll from "@/utils/useScroll";
+import axios from "axios";
 import { CirclePlus, MapPin, X } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -85,24 +86,18 @@ export default function ShippingForm({ user }: { user: User }) {
     try {
       setLoading(true);
 
-      // Create the checkout request
-      const response = await fetch("/api/checkout", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          totalPrice,
-          user,
-        }),
+      // Create the checkout request using axios
+      const response = await axios.post("/api/checkout", {
+        totalPrice,
+        user,
       });
 
-      const data = await response.json();
-      if (response.ok) {
-        // Redirect to payment URL
-        window.location.href = data.payment;
+      const paymentUrl = response.data.paymentUrl;
+
+      if (paymentUrl) {
+        window.location.href = paymentUrl; // Redirect to Zarinpal payment page
       } else {
-        console.error("Error:", data.message);
+        console.error("Payment URL not received");
       }
     } catch (error) {
       console.error("Failed to create checkout:", error);
@@ -147,7 +142,10 @@ export default function ShippingForm({ user }: { user: User }) {
                             height={500}
                             className="flex-1 w-32 h-32 object-contain"
                           />
-                          <p title={product.title} className="overflow-hidden w-full text-ellipsis whitespace-nowrap text-xs font-irsansb text-neutral-600 dark:text-neutral-100 p-4">
+                          <p
+                            title={product.title}
+                            className="overflow-hidden w-full text-ellipsis whitespace-nowrap text-xs font-irsansb text-neutral-600 dark:text-neutral-100 p-4"
+                          >
                             {product.title}
                           </p>
                         </div>
