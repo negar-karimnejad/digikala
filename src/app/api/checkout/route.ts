@@ -2,33 +2,50 @@ import connectToDB from "config/mongodb";
 import CheckoutModel from "models/Checkout";
 import { NextRequest, NextResponse } from "next/server";
 import { createPayment } from "../../../utils/zarinpal";
-import { authUser } from "@/utils/auth";
-import { User } from "@/utils/types";
 
 export async function POST(req: NextRequest) {
-  connectToDB();
-  const user: User = await authUser();
+  await connectToDB();
 
   const body = await req.json();
-  const { totalPrice } = body;
+  const { totalPrice, user } = body;
+  console.log("🏆body ->", body);
 
-  const payment = await createPayment({
-    amountInRial: totalPrice,
-    description: "99812 پرداخت با شناسه",
-    mobile: "09214052876",
-  });
+  try {
+    const payment = await createPayment({
+      amountInRial: totalPrice,
+      description: "99812 پرداخت با شناسه",
+      mobile: user.phone,
+    });
 
-  const checkout = await CheckoutModel.create({
-    user,
-    totalPrice,
-    authority: payment.authority,
-  });
-  return NextResponse.json(
-    {
-      message: "Checkout Created Successfully :))",
-      checkout,
-      payment: payment.paymentUrl,
-    },
-    { status: 201 }
-  );
+    console.log("🎈🎈payment=> ", payment);
+
+    // Check if payment is valid and has the required properties
+    if (!payment || !payment.authority) {
+      return NextResponse.json(
+        { message: "Payment creation failed or returned invalid data." },
+        { status: 400 } // Bad Request
+      );
+    }
+
+    const checkout = await CheckoutModel.create({
+      user,
+      totalPrice,
+      authority: payment.authority,
+    });
+
+    return NextResponse.json(
+      {
+        message: "Checkout Created Successfully :))",
+        checkout,
+        payment: payment.paymentUrl,
+      },
+      { status: 201 }
+    );
+  } catch (error) {
+    console.log("❌📌error->", error);
+    return NextResponse.json(
+      { message: "Checkout creation failed.", error: error.message },
+      { status: 500 }
+    );
+  }
 }
