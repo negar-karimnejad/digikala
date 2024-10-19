@@ -31,56 +31,56 @@ export default function Return() {
           <div>
             <div className="px-5 lg:px-4 lg:mx-auto">
               <Image
-                alt=""
+                alt="return"
                 width={1000}
                 height={1000}
                 src="/faq/return1.webp"
                 className="w-full h-full mx-auto object-cover"
               />
               <Image
-                alt=""
+                alt="return"
                 width={1000}
                 height={1000}
                 src="/faq/return2.webp"
                 className="w-full h-full mx-auto object-cover"
               />
               <Image
-                alt=""
+                alt="return"
                 width={1000}
                 height={1000}
                 src="/faq/return3.webp"
                 className="w-full h-full mx-auto object-cover"
               />
               <Image
-                alt=""
+                alt="return"
                 width={1000}
                 height={1000}
                 src="/faq/return4.webp"
                 className="w-full h-full mx-auto object-cover"
               />
               <Image
-                alt=""
+                alt="return"
                 width={1000}
                 height={1000}
                 src="/faq/return5.webp"
                 className="w-full h-full mx-auto object-cover"
               />
               <Image
-                alt=""
+                alt="return"
                 width={1000}
                 height={1000}
                 src="/faq/return6.webp"
                 className="w-full h-full mx-auto object-cover"
               />
               <Image
-                alt=""
+                alt="return"
                 width={1000}
                 height={1000}
                 src="/faq/return7.webp"
                 className="w-full h-full mx-auto object-cover"
               />
               <Image
-                alt=""
+                alt="return"
                 width={1000}
                 height={1000}
                 src="/faq/return8.webp"

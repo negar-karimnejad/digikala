@@ -21,7 +21,7 @@ export default function BugReport() {
         <Link href="/" className="mr-5 lg:mr-44">
           <Image
             src="/logo/Digikala-Logo-white-fa.svg"
-            alt=""
+            alt="Digikala-Logo-white-fa"
             width={150}
             height={150}
           />
@@ -88,7 +88,7 @@ export default function BugReport() {
           <Link href="/">
             <Image
               src="/logo/Digikala-Logo-white-fa.svg"
-              alt=""
+              alt="Digikala-Logo-white-fa"
               width={100}
               height={100}
             />
