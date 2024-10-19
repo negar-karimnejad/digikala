@@ -1,7 +1,6 @@
 import { ChevronLeft } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import pageNotFound from "../../public/page-not-found.webp";
 
 function NotFound() {
   return (
@@ -19,7 +18,7 @@ function NotFound() {
         </Link>
         <div className="lg:w-[550px] w-[300px] mt-10">
           <Image
-            src={pageNotFound}
+            src="/page-not-found.webp"
             width={400}
             height={400}
             alt="not-found-page"

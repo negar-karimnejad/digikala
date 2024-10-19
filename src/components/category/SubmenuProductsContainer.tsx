@@ -1,5 +1,6 @@
-import { Product, Submenu } from "@/utils/types";
+import NotFound from "@/app/not-found";
 import { serializeDoc } from "@/utils/serializeDoc";
+import { Product, Submenu } from "@/utils/types";
 import CategoryModel from "models/Category";
 import ProductModel from "models/Product";
 import SubmenuModel from "models/Submenu";
@@ -14,6 +15,8 @@ export default async function SubmenuProductsContainer({ id }: { id: string }) {
       path: "items",
     })
     .lean();
+
+  if (!submenu) return NotFound();
 
   const products: Product[] = await ProductModel.find({})
     .populate({
@@ -44,7 +47,6 @@ export default async function SubmenuProductsContainer({ id }: { id: string }) {
   const serializedSubmenu = serializeDoc(submenu);
   const serializedSubmenuProducts = serializeDoc(submenuProducts);
 
-  if (!category) return null;
   return (
     <div className="lg:py-5">
       <div className="px-4 breadcrumb-container flex overflow-x-auto overflow-y-hidden hide-scrollbar">

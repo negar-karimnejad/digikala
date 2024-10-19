@@ -7,8 +7,6 @@ export default function ProductDetails({
 }: {
   product?: Product | null;
 }) {
-  if (!product) return notFound();
-
   return (
     <div className="px-4 overflow-y-auto h-96">
       <div className="flex flex-col items-center">

@@ -1,3 +1,4 @@
+import NotFound from "@/app/not-found";
 import CategoryHero from "@/components/category/CategoryHero";
 import Articles from "@/components/home/Articles";
 import Bestseller from "@/components/home/Bestseller";
@@ -23,6 +24,10 @@ export default async function CategoryProducts({ id }: { id: string }) {
       },
     })
     .lean();
+
+  if (!category) {
+    return NotFound();
+  }
 
   const articles = await ArticleModel.find({
     categoryId: category?._id,
@@ -69,7 +74,6 @@ export default async function CategoryProducts({ id }: { id: string }) {
   const serializedArticles = serializeDoc(articles);
   const serializedOfferProducts = serializeDoc(offerProducts);
 
-  if (!category) return null;
   return (
     <div className="space-y-10">
       <CategoryHero category={serializedCategory} />

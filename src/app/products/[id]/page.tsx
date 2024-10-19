@@ -1,12 +1,14 @@
 import BreadcrumbContainer from "@/components/product/BreadcrumbContainer";
 import ProductMain from "@/components/product/ProductMain";
 import ProductPageMobileStickyHeader from "@/components/ui/ProductPageMobileStickyHeader";
-import { Product, Submenu, SubmenuItem } from "@/utils/types";
 import { serializeDoc } from "@/utils/serializeDoc";
+import { Product, Submenu, SubmenuItem } from "@/utils/types";
 import connectToDB from "config/mongodb";
 import { Megaphone, Store } from "lucide-react";
 import ProductModel from "models/Product";
+import mongoose from "mongoose";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 
 export default async function ProductPage({
   params: { id },
@@ -14,6 +16,12 @@ export default async function ProductPage({
   params: { id: string };
 }) {
   await connectToDB();
+
+  // Validate if the provided id is a valid ObjectId
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return notFound(); // Trigger a 404 if the id is not valid
+  }
+
   const product: Product = await ProductModel.findOne({ _id: id })
     .populate("images")
     .populate("colors")
@@ -29,6 +37,9 @@ export default async function ProductPage({
     })
     .lean();
 
+  if (!product) {
+    return notFound();
+  }
   const serializedProduct = serializeDoc(product);
   const category = serializedProduct.category;
   const submenu = category.submenus?.find(
@@ -38,8 +49,6 @@ export default async function ProductPage({
   const item = submenu?.items.find(
     (item: SubmenuItem) => item._id.toString() === product.submenuItemId
   );
-
-  if (!product) return null;
 
   return (
     <div className="px-4 flex flex-col gap-10 py-4">
