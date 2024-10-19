@@ -8,6 +8,19 @@ import {
 import MobileStickyHeader from "@/components/ui/MobileStickyHeader";
 import { faqCategories } from "@/data/data";
 import { ChevronDown } from "lucide-react";
+import { Metadata } from "next";
+
+export async function generateMetadata({
+  params: { id },
+}: {
+  params: { id: string };
+}): Promise<Metadata> {
+  const category = faqCategories.find((category) => category.id === id);
+
+  return {
+    title: category.title,
+  };
+}
 
 export default function FagCategory({
   params: { id },

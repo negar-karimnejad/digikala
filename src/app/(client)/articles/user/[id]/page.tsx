@@ -26,7 +26,21 @@ import { Article } from "@/utils/types";
 import connectToDB from "config/mongodb";
 import { ArrowUp, ChevronLeft, Library } from "lucide-react";
 import ArticleModel from "models/Article";
+import { Metadata } from "next";
 import Image from "next/image";
+
+export async function generateMetadata({
+  params: { id },
+}: {
+  params: { id: string };
+}): Promise<Metadata> {
+  await connectToDB();
+  const decodedID = decodeURIComponent(id.replaceAll("-", " "));
+
+  return {
+    title: { absolute: `${decodedID}, نویسنده در دیجی‌کالا مگ ` },
+  };
+}
 
 const ARTICLES_PER_PAGE = 8;
 

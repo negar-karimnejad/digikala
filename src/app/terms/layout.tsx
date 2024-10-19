@@ -2,6 +2,13 @@ import Footer from "@/components/footer/Footer";
 import Header from "@/components/header/Header";
 import MobileFooter from "@/components/mobile-footer/MobileFooter";
 import MobileStickyHeader from "@/components/ui/MobileStickyHeader";
+import { Metadata } from "next";
+
+export async function generateMetadata(): Promise<Metadata> {
+  return {
+    title: "شرایط و قوانین",
+  };
+}
 
 export default async function TermsLayout({
   children,

@@ -6,7 +6,14 @@ import { Clock, Headset, Info, Mail } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
+import { Metadata } from "next";
 import dynamic from "next/dynamic";
+
+export async function generateMetadata(): Promise<Metadata> {
+  return {
+    title: "تماس با ما",
+  };
+}
 
 const Map = dynamic(() => import("../../../../components/faq/Map"), {
   ssr: false,

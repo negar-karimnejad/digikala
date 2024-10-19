@@ -1,11 +1,18 @@
+import ShippingForm from "@/components/cart/ShippingForm";
 import { authUser } from "@/utils/auth";
+import { serializeDoc } from "@/utils/serializeDoc";
+import { User } from "@/utils/types";
 import { ArrowRight } from "lucide-react";
+import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import persianLogo from "../../../../public/logo/digi.svg";
-import ShippingForm from "@/components/cart/ShippingForm";
-import { User } from "@/utils/types";
-import { serializeDoc } from "@/utils/serializeDoc";
+
+export async function generateMetadata(): Promise<Metadata> {
+  return {
+    title: "ارسال سفارش",
+  };
+}
 
 export default async function Shipping() {
   const user: User = await authUser();

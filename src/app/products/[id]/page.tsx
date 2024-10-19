@@ -7,8 +7,22 @@ import connectToDB from "config/mongodb";
 import { Megaphone, Store } from "lucide-react";
 import ProductModel from "models/Product";
 import mongoose from "mongoose";
+import { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+
+export async function generateMetadata({
+  params: { id },
+}: {
+  params: { id: string };
+}): Promise<Metadata> {
+  await connectToDB();
+  const product: Product = await ProductModel.findOne({ _id: id });
+
+  return {
+    title: { absolute: `قیمت و خرید ${product.title}` },
+  };
+}
 
 export default async function ProductPage({
   params: { id },

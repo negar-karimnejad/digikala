@@ -6,10 +6,17 @@ import { authUser } from "@/utils/auth";
 import { User } from "@/utils/types";
 import connectToDB from "config/mongodb";
 import { ArrowLeft } from "lucide-react";
+import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { ReactNode } from "react";
+
+export async function generateMetadata(): Promise<Metadata> {
+  return {
+    title: "پنل مدیریت",
+  };
+}
 
 export default async function AdminLayout({
   children,

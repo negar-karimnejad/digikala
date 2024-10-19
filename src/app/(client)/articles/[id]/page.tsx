@@ -26,8 +26,22 @@ import {
   Twitter,
 } from "lucide-react";
 import ArticleModel from "models/Article";
+import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+
+export async function generateMetadata({
+  params: { id },
+}: {
+  params: { id: string };
+}): Promise<Metadata> {
+  await connectToDB();
+  const article = await ArticleModel.findOne({ _id: id });
+
+  return {
+    title: { absolute: `دیجی‌کالا مگ • ${article.title}` },
+  };
+}
 
 export default async function ArticlePage({
   params: { id },

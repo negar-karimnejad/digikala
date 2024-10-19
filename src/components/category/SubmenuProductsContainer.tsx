@@ -1,6 +1,7 @@
 import NotFound from "@/app/not-found";
 import { serializeDoc } from "@/utils/serializeDoc";
 import { Product, Submenu } from "@/utils/types";
+import connectToDB from "config/mongodb";
 import CategoryModel from "models/Category";
 import ProductModel from "models/Product";
 import SubmenuModel from "models/Submenu";
@@ -8,6 +9,7 @@ import BreadcrumbContainer from "../product/BreadcrumbContainer";
 import SubmenuProductsMain from "./SubmenuProductsMain";
 
 export default async function SubmenuProductsContainer({ id }: { id: string }) {
+  await connectToDB();
   const submenu: Submenu = await SubmenuModel.findOne({
     href: `/category/${id[0]}/${id[1]}`,
   })

@@ -1,6 +1,16 @@
 import Footer from "@/components/footer/Footer";
 import Header from "@/components/header/Header";
 import MobileFooter from "@/components/mobile-footer/MobileFooter";
+import { Metadata } from "next";
+
+export async function generateMetadata(): Promise<Metadata> {
+  return {
+    title: {
+      absolute: "دیجی‌کالا - پرسش‌های متداول",
+      template: "%s - دیجی‌کالا",
+    },
+  };
+}
 
 export default async function FaqLayout({
   children,
