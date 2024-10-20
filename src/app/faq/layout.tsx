@@ -7,7 +7,7 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title: {
       absolute: "دیجی‌کالا - پرسش‌های متداول",
-      template: "%s - دیجی‌کالا",
+      template: "دیجی‌کالا - %s",
     },
   };
 }
