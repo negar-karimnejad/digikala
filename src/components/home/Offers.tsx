@@ -237,18 +237,7 @@ export default async function Offers({ products }: { products: Product[] }) {
               <ChevronLeft size={18} />
             </Link>
           </div>
-          {/* {loading && (
-            <>
-              {Array.from({ length: 7 }).map((_, index) => (
-                <CarouselItem
-                  key={index}
-                  className="pl-1 cursor-pointer basis-44 max-lg:basis-36"
-                >
-                  <OfferSkeleton />
-                </CarouselItem>
-              ))}
-            </>
-          )} */}
+
           {products?.map((product: Product) => (
             <CarouselItem
               key={product._id.toString()}
@@ -340,8 +329,6 @@ export default async function Offers({ products }: { products: Product[] }) {
             </Link>
           </CarouselItem>
         </CarouselContent>
-        {/* <CarouselPrevious className="transition-all !z-20 w-10 h-10 !hover:bg-rose-500 left-5 top-40 !opacity-100 !bg-white" /> */}
-        {/* <CarouselNext className="transition-all !z-20 w-10 h-10 !hover:bg-rose-500 right-20 top-40 !opacity-100 !bg-white" /> */}
       </Carousel>
     </div>
   );
