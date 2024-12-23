@@ -34,15 +34,6 @@ I appreciate your support in advance. ❤</p>
 ![jwt](https://img.shields.io/badge/jwt-f43f5e?style=for-the-badge&logo=jwt&logoColor=white)
 ![swiper](https://img.shields.io/badge/swiper-f43f5e?style=for-the-badge&logo=swiper&logoColor=white)
 ![tinymce](https://img.shields.io/badge/tinymce-f43f5e?style=for-the-badge&logo=tinymce&logoColor=white)
-
-![reacthottoast](https://img.shields.io/badge/reacthottoast-f43f5e?style=for-the-badge&logo=reacthottoast&logoColor=white)
-![dompurify](https://img.shields.io/badge/dompurify-f43f5e?style=for-the-badge&logo=dompurify&logoColor=white)
-![bcryptjs](https://img.shields.io/badge/bcryptjs-f43f5e?style=for-the-badge&logo=bcryptjs&logoColor=white)
-
-
-
-
-
 ![axios](https://img.shields.io/badge/axios-f43f5e?style=for-the-badge&logo=axios&logoColor=white)
 ![vite](https://img.shields.io/badge/vite-f43f5e?style=for-the-badge&logo=vite&logoColor=white)
 ![npm](https://img.shields.io/badge/npm-f43f5e?style=for-the-badge&logo=npm&logoColor=white)
