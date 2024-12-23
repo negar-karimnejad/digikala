@@ -30,7 +30,7 @@ I appreciate your support in advance. ❤</p>
 ![zod](https://img.shields.io/badge/zod-f43f5e?style=for-the-badge&logo=zod&logoColor=white)
 ![tailwindcss](https://img.shields.io/badge/tailwindcss-f43f5e?style=for-the-badge&logo=tailwindcss&logoColor=white)
 ![mongoose](https://img.shields.io/badge/mongoose-f43f5e?style=for-the-badge&logo=chart.js&logoColor=white)
-![formik](https://img.shields.io/badge/formik-f43f5e?style=for-the-badge&logo=formik&logoColor=white)
+![sharp](https://img.shields.io/badge/sharp-f43f5e?style=for-the-badge&logo=sharp&logoColor=white)
 ![jsonwebtoken](https://img.shields.io/badge/jsonwebtoken-f43f5e?style=for-the-badge&logo=jsonwebtoken&logoColor=white)
 ![swiper](https://img.shields.io/badge/swiper-f43f5e?style=for-the-badge&logo=swiper&logoColor=white)
 ![tinymce](https://img.shields.io/badge/tinymce-f43f5e?style=for-the-badge&logo=tinymce&logoColor=white)
