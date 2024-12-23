@@ -24,7 +24,7 @@ I appreciate your support in advance. ❤</p>
 <div align="center" >
   
 ![react](https://img.shields.io/badge/react-f43f5e?style=for-the-badge&logo=react&logoColor=white)
-![next](https://img.shields.io/badge/next-f43f5e?style=for-the-badge&logo=next&logoColor=white)
+![next.js](https://img.shields.io/badge/next.js-f43f5e?style=for-the-badge&logo=next.js&logoColor=white)
 ![lucide](https://img.shields.io/badge/lucide-f43f5e?style=for-the-badge&logo=lucide&logoColor=white)
 ![typescript](https://img.shields.io/badge/typescript-f43f5e?style=for-the-badge&logo=typescript&logoColor=white)
 ![zod](https://img.shields.io/badge/zod-f43f5e?style=for-the-badge&logo=zod&logoColor=white)
