@@ -37,8 +37,7 @@ I appreciate your support in advance. ❤</p>
 
 ![react-hot-toast](https://img.shields.io/badge/react-hot-toast-f43f5e?style=for-the-badge&logo=react-hot-toast&logoColor=white)
 ![dompurify](https://img.shields.io/badge/dompurify-f43f5e?style=for-the-badge&logo=dompurify&logoColor=white)
-![bcryptjs](https://img.shields.io/badge/bcrypt.js-f43f5e?style=for-the-badge&logo=bcrypt.js&logoColor=white)
-![radix](https://img.shields.io/badge/radix.ui-f43f5e?style=for-the-badge&logo=radix.ui&logoColor=white)
+![bcryptjs](https://img.shields.io/badge/bcryptjs-f43f5e?style=for-the-badge&logo=bcryptjs&logoColor=white)
 
 
 
